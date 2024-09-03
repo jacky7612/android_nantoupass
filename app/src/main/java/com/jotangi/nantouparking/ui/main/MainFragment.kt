@@ -1,0 +1,250 @@
+package com.jotangi.nantouparking.ui.main
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.jotangi.nantouparking.R
+import com.jotangi.nantouparking.config.ApiConfig
+import com.jotangi.nantouparking.config.AppConfig
+import com.jotangi.nantouparking.databinding.FragmentMainBinding
+import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
+import com.jotangi.nantouparking.model.BannerVO
+import com.jotangi.nantouparking.model.StoreVO
+import com.jotangi.nantouparking.ui.BaseFragment
+import com.jotangi.nantouparking.utility.AppUtility
+import com.youth.banner.adapter.BannerImageAdapter
+import com.youth.banner.holder.BannerImageHolder
+import com.youth.banner.indicator.CircleIndicator
+
+class MainFragment :
+    BaseFragment(),
+    StoreClickListener {
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding
+    private lateinit var storeAdapter: StoreAdapter
+    private var data = mutableListOf<StoreVO>()
+
+    override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        init()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
+
+    private fun init() {
+        if (
+            AppUtility.getLoginType(requireContext()).equals("1") ||
+            AppUtility.getLoginType(requireContext()).equals("")
+        ) {
+            setupMainTitle()
+            initObserver()
+            initView()
+            initData()
+            initAction()
+        } else {
+            findNavController().navigate(R.id.action_to_storeManagerFragment)
+        }
+
+    }
+
+    private fun initObserver() {
+        mainViewModel.bannerData.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                binding?.mainBannerDefaultImageView?.visibility = View.GONE
+                updateBanner(result)
+            } else {
+                binding?.mainBannerDefaultImageView?.visibility = View.VISIBLE
+            }
+        }
+
+        mainViewModel.storeData.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                storeAdapter.updateDataSource(result)
+            }
+        }
+    }
+
+    private fun initView() {
+        initStoreRecyclerView()
+    }
+
+    private fun initData() {
+        mainViewModel.getMainBannerData(requireContext())
+        mainViewModel.getStoreData(
+            requireContext(),
+            ""
+        )
+    }
+
+    private fun initAction() {
+        binding?.apply {
+            // line 1
+            parkingCountConstraintLayout.setOnClickListener {
+                findNavController().navigate(R.id.action_to_parking_count)
+            }
+
+            mainCustomerServicePhoneConstraintLayout.setOnClickListener {
+//                AppUtility.showPopDialog(
+//                    requireContext(),
+//                    null,
+//                    "尚未開放！\n敬請期待！"
+//                )
+
+                makePhoneCall(AppConfig.CUSTOMER_SERVICE_PHONE)
+            }
+
+            mainCityPageConstraintLayout.setOnClickListener {
+                openWeb(AppConfig.AREA_MAIN_WEB)
+            }
+
+            mainMayorPageConstraintLayout.setOnClickListener {
+                openWeb(AppConfig.MAYOR_FB)
+            }
+
+            // line 2
+            parkingFeeConstraintLayout.setOnClickListener {
+                findNavController().navigate(R.id.action_to_parking_license_plate_history)
+            }
+
+            mainHealthCheckConstraintLayout.setOnClickListener {
+                openWeb("https://parking.nantou.gov.tw/")
+            }
+
+            mainMayorPageConstraintLayout.setOnClickListener {
+                openWeb(AppConfig.MAYOR_FB)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        updateView()
+    }
+
+    private fun initStoreRecyclerView() {
+        binding?.mainStoreRecyclerView?.apply {
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            storeAdapter = StoreAdapter(
+                data,
+                requireContext(),
+                this@MainFragment
+            )
+            this.adapter = storeAdapter
+        }
+    }
+
+    private fun updateView() {
+        binding?.mainBannerDefaultImageView?.visibility = View.GONE
+    }
+
+    private fun updateBanner(result: List<BannerVO>) {
+        binding?.apply {
+            mainBannerLoginBanner.setAdapter(object : BannerImageAdapter<BannerVO?>(result) {
+                override fun onBindView(
+                    holder: BannerImageHolder?,
+                    data: BannerVO?,
+                    position: Int,
+                    size: Int
+                ) {
+                    if (holder != null) {
+                        Glide.with(holder.itemView)
+                            .load(ApiConfig.URL_HOST + data?.bannerPic)
+//                            .load(ApiConfig.TEST_URL_HOST + data?.bannerPic)
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(30)))
+                            .into(holder.imageView)
+
+                        holder.imageView.setOnClickListener {
+                            if (!data?.bannerLink.isNullOrEmpty()) {
+                                openBannerLink(data!!.bannerLink)
+                            }
+                        }
+                    }
+                }
+            })
+                .addBannerLifecycleObserver(this@MainFragment) //添加生命周期观察者
+                .setIndicator(CircleIndicator(requireContext()))
+        }
+    }
+
+    private fun openBannerLink(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
+
+    private fun makePhoneCall(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phoneNumber")
+        }
+
+        startActivity(intent)
+    }
+
+    private fun openWeb(webUri: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+
+        intent.data = Uri.parse(webUri)
+        startActivity(intent)
+    }
+
+    private fun openApp(appUri: String) {
+        val launchIntent: Intent? =
+            requireContext().packageManager.getLaunchIntentForPackage(appUri)
+
+        if (launchIntent != null) {
+            startActivity(launchIntent)
+        } else {
+            val mIntent = Intent(Intent.ACTION_VIEW)
+            mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            mIntent.data = Uri.parse("market://details?id=$appUri")
+            requireContext().startActivity(mIntent)
+        }
+    }
+
+    override fun onStoreItemClick(storeData: StoreVO) {
+        println("點了店家 $storeData")
+        println("點了店家 $storeData")
+        println("點了店家 $storeData")
+
+        val bundle = Bundle().apply {
+            putParcelable("storeVO", storeData)
+        }
+
+        findNavController().navigate(
+            R.id.action_to_store_detail,
+            bundle
+        )
+    }
+
+
+}

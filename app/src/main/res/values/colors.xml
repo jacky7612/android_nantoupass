@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="c_1f98b0">#1f98b0</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="c_20538e">#20538e</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="light_gray">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="c_86888e_100">#86888e</color>
+    <color name="c_7597BB">#7597BB</color>
+
+
+    <color name="c_2087BB">#2087BB</color>
+    <color name="c_F4F4F4">#F4F4F4</color>
+    <color name="c_7fd1f6">#7fd1f6</color>
+    <color name="c_D16C81">#D16C81</color>
+    <color name="c_EEB235">#EEB235</color>
+    <color name="c_CFA2FB">#CFA2FB</color>
+
+    <color name="c_1f538c">#1f538c</color>
+    <color name="c_d0a3fc">#d0a3fc</color>
+    <color name="c_efb335">#efb335</color>
+    <color name="c_7ff4d0">#7ff4d0</color>
+    <color name="c_7fd3f6">#7fd3f6</color>
+    <color name="c_de868a">#C0de868a</color>
+
+    <color name="c_3478F7">#3478F7</color>
+    <color name="c_b21b25_100">#b21b25</color>
+    <color name="c_4b525b_100">#4b525b</color>
+    <color name="c_9FA0A0_100">#9FA0A0</color>
+    <color name="c_6D6D6D_100">#6D6D6D</color>
+    <color name="c_faf5f5_100">#faf5f5</color>
+    <color name="c_171717_100">#171717</color>
+    <color name="c_c62933_100">#c62933</color>
+    <color name="c_21b7ff_100">#21b7ff</color>
+    <color name="c_2ac3ff_100">#2ac3ff</color>
+    <color name="c_86d238_100">#86d238</color>
+    <color name="c_96da45_100">#96da45</color>
+    <color name="c_668800_100">#668800</color>
+    <color name="c_cc6600_100">#CC6600</color>
+    <color name="c_ffee99_100">#FFEE99</color>
+    <color name="c_ffba00_100">#FFBA00</color>
+    <color name="c_ffff77_100">#FFFF77</color>
+    <color name="c_ffb800_100">#ffb800</color>
+    <color name="c_ff9100_100">#ff9100</color>
+    <color name="c_aaaaaa_100">#aaaaaa</color>
+    <color name="c_eeeeee_100">#eeeeee</color>
+    <color name="c_ff3324_100"> #FF3324</color>
+
+    <color name="colorClearBlue">#CCEEFF</color>
+    <color name="colorDeepBlue">#0088A8</color>
+    <color name="colorDarkBlue">#007799</color>
+    <color name="colorBlue">#5599FF</color>
+    <color name="colorAo">#07B6CC</color>
+    <color name="colorBlueDefault">#1F3386</color>
+    <color name="colorGrayDefault">#EAEAEA</color>
+    <color name="colorGrayDeep">#6C6C6C</color>
+    <color name="colorBlueTurkey">#07B6CC</color>
+    <color name="colorBlueClear">#E5FCFF</color>
+    <color name="colorYellow">#FFBA00</color>
+    <color name="colorClearYellow">#FFEE99</color>
+    <color name="colorDeepOrange">#CC6600</color>
+    <color name="colorDarkOrange">#BB5500</color>
+    <color name="colorLightWhite">#C9C9C9</color>
+
+    <color name="background_deletion">#FFE5E5E5</color>
+    <color name="background_deletion_swipe">#F44336</color>
+    <color name="grey">#FF828282</color>
+    <color name="lightGray">#BEBEBE</color>
+
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorOrange">#FF4500</color>
+    <color name="colorPurple">#7B68EE</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSmokeGray">#F5F5F5</color>
+    <color name="colorLightGray">#AAAAAA</color>
+    <color name="colorDarkGray">#888888</color>
+    <color name="colorRed">#FF0000</color>
+
+    <color name="colorRedYellow">#FFBA00</color>
+    <color name="colorSkyBlue">#E5FCFF</color>
+
+    <color name="c_81D3F8">#81D3F8</color>
+    <color name="c_FF7878">#FF7878</color>
+    <color name="c_D3A4FF">#D3A4FF</color>
+    <color name="c_FFB326">#FFB326</color>
+
+    <color name="colorSeparator">#DCDCDC</color>
+    <color name="darkAF">#66000000</color>
+    <color name="colorClear">#0000</color>
+    <color name="lightBlue">#4ba4ea</color>
+
+
+    <color name="TexBlue">#D7F1F9</color>
+</resources>

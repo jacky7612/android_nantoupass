@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/parking_road_textView"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="?android:selectableItemBackground"
+        android:foreground="@android:color/transparent"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="5dp"
+        android:text="路邊停車"
+        android:textColor="@color/light_blue_600"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/parking_garage_textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_include" />
+
+    <TextView
+        android:id="@+id/parking_garage_textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?android:selectableItemBackground"
+        android:foreground="@android:color/transparent"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="5dp"
+        android:text="停車場"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/parking_road_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/parking_road_textView"
+        app:layout_constraintTop_toTopOf="@+id/parking_road_textView" />
+
+    <View
+        android:id="@+id/parking_road_tab_view"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/light_blue_600"
+        app:layout_constraintBottom_toBottomOf="@+id/parking_road_textView"
+        app:layout_constraintEnd_toEndOf="@+id/parking_road_textView"
+        app:layout_constraintStart_toStartOf="@+id/parking_road_textView" />
+
+    <View
+        android:id="@+id/parking_garage_tab_view"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/light_blue_600"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/parking_garage_textView"
+        app:layout_constraintEnd_toEndOf="@+id/parking_garage_textView"
+        app:layout_constraintStart_toStartOf="@+id/parking_garage_textView" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parking_road_constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parking_road_tab_view">
+
+        <TextView
+            android:id="@+id/plate_history_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="查詢記錄"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/plate_number_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/plate_history_edit_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="編輯"
+            android:textColor="@color/c_3478F7"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/plate_history_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/plate_history_textView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/plate_number_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/c_eeeeee_100"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/plate_number_dialog_content_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plate_history_textView"
+            tools:listitem="@layout/item_license_plate" />
+
+        <TextView
+            android:id="@+id/plate_number_dialog_content_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="輸入欲繳費的車牌號碼"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plate_number_recyclerView" />
+
+        <TextView
+            android:id="@+id/plate_number_plate_no_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="車號"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plate_number_dialog_content_textView" />
+
+
+        <EditText
+            android:id="@+id/plate_text_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="________________________"
+            android:inputType="textCapCharacters"
+            android:maxLength="4"
+            android:padding="5dp"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/edit_text_cursor_color"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/connector_textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plate_number_plate_no_title_textView" />
+
+        <TextView
+            android:id="@+id/connector_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="一"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/plate_text_editText"
+            app:layout_constraintEnd_toStartOf="@+id/plate_number_editText"
+            app:layout_constraintStart_toEndOf="@+id/plate_text_editText"
+            app:layout_constraintTop_toTopOf="@+id/plate_text_editText" />
+
+        <EditText
+            android:id="@+id/plate_number_editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="________________________"
+            android:inputType="textCapCharacters"
+            android:maxLength="4"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/edit_text_cursor_color"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/plate_text_editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/connector_textView"
+            app:layout_constraintTop_toTopOf="@+id/plate_text_editText" />
+
+        <Button
+            android:id="@+id/search_plate_number_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/round_primary"
+            android:text="查詢待繳清單"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/plate_text_editText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parking_garage_constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_include">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/parking_garage_recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/c_eeeeee_100"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_parking_garage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

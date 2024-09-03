@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main_activity"
+    app:startDestination="@id/main_fragment">
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.LoginFragment"
+        android:label="navigation login fragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_to_signup"
+            app:destination="@id/signup_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_main"
+            app:destination="@id/main_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/login_fragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_to_member_main"
+            app:destination="@id/member_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/login_fragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_to_forget_password"
+            app:destination="@id/forget_password_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_storeManagerFragment"
+            app:destination="@id/storeManagerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/login_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signup_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.SignupFragment"
+        android:label="navigation signup fragment"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_to_main"
+            app:destination="@id/main_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_coupon"
+            app:destination="@id/coupon_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/signup_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forget_password_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.ForgetPasswordFragment"
+        android:label="navigation forget password fragment"
+        tools:layout="@layout/fragment_forget_password">
+        <action
+            android:id="@+id/action_to_login"
+            app:destination="@id/login_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/forget_password_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/member_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.MemberFragment"
+        android:label="member fragment"
+        tools:layout="@layout/fragment_member">
+        <action
+            android:id="@+id/action_to_member_data"
+            app:destination="@id/member_data_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_password_update"
+            app:destination="@id/password_update_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_coupon"
+            app:destination="@id/coupon_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_parking_history_paid"
+            app:destination="@id/parking_history_paid_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_parking_notice"
+            app:destination="@id/parking_notice_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_q_n_a"
+            app:destination="@id/q_n_a_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_main"
+            app:destination="@id/main_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/login_fragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/member_action_to_login"
+            app:destination="@id/login_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/member_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/member_data_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.MemberDataFragment"
+        android:label="navigation member data fragment"
+        tools:layout="@layout/fragment_member_data" />
+
+    <fragment
+        android:id="@+id/password_update_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.PasswordUpdateFragment"
+        android:label="password update fragment"
+        tools:layout="@layout/fragment_password_update">
+        <action
+            android:id="@+id/action_to_member_main"
+            app:destination="@id/member_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/coupon_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.coupon.CouponFragment"
+        android:label="navigation coupon fragment"
+        tools:layout="@layout/fragment_coupon">
+        <action
+            android:id="@+id/action_to_member_main"
+            app:destination="@id/member_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/parking_history_paid_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.parkingHistory.ParkingHistoryPaidFragment"
+        android:label="navigation parking history fragment"
+        tools:layout="@layout/fragment_parking_history_paid">
+        <action
+            android:id="@+id/action_to_parking_history_paid_detail"
+            app:destination="@id/parking_history_paid_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/parking_history_plate_paid_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.record.ParkingHistoryPlatePaidFragment"
+        android:label="navigation parking history plate paid fragment"
+        tools:layout="@layout/fragment_parking_history_plate_paid">
+        <action
+            android:id="@+id/action_to_parking_plate_paid_detail"
+            app:destination="@id/parking_history_plate_paid_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/parking_history_plate_paid_detail_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.record.ParkingHistoryPlatePaidDetailFragment"
+        android:label="navigation parking history plate paid detail fragment"
+        tools:layout="@layout/fragment_parking_history_plate_paid_detail">
+    </fragment>
+
+    <fragment
+        android:id="@+id/parking_history_paid_detail_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.parkingHistory.ParkingHistoryPaidDetailFragment"
+        android:label="navigation parking notice fragment"
+        tools:layout="@layout/fragment_parking_history_paid_detail" />
+
+    <fragment
+        android:id="@+id/parking_notice_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.ParkingNoticeFragment"
+        android:label="navigation parking notice fragment"
+        tools:layout="@layout/fragment_parking_notice" />
+
+    <fragment
+        android:id="@+id/q_n_a_fragment"
+        android:name="com.jotangi.nantouparking.ui.member.QNAFragment"
+        android:label="navigation Q n A fragment"
+        tools:layout="@layout/fragment_q_n_a" />
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.MainFragment"
+        android:label="main fragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_to_login"
+            app:destination="@id/login_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_member_main"
+            app:destination="@id/member_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_parking_license_plate_history"
+            app:destination="@id/parking_license_plate_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_parking_info"
+            app:destination="@id/parking_notice_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_parking_count"
+            app:destination="@id/parking_info_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_map_tour"
+            app:destination="@id/map_tour_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_parking_history_paid"
+            app:destination="@id/parking_history_paid_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_store_detail"
+            app:destination="@id/store_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_storeManagerFragment"
+            app:destination="@id/storeManagerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/login_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/parking_license_plate_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment"
+        android:label="navigation parking license plate fragment"
+        tools:layout="@layout/fragment_parking_license_plate_history">
+        <action
+            android:id="@+id/action_to_parking_history_unpaid"
+            app:destination="@id/parking_history_unpaid_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_parking_history_plate_paid"
+            app:destination="@id/parking_history_plate_paid_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/parking_history_unpaid_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment"
+        android:label="navigation parking history unpaid fragment"
+        tools:layout="@layout/fragment_parking_fee_un_paid_history" />
+
+    <fragment
+        android:id="@+id/store_detail_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.StoreDetailFragment"
+        android:label="navigation store detail fragment"
+        tools:layout="@layout/fragment_store_detail" />
+
+    <fragment
+        android:id="@+id/parking_info_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.parkingInfo.ParkingInfoFragment"
+        android:label="navigation parking info fragment"
+        tools:layout="@layout/fragment_parking_info" />
+
+    <fragment
+        android:id="@+id/storeManagerFragment"
+        android:name="com.jotangi.nantouparking.ui.manager.StoreManagerFragment"
+        android:label="fragment_store_manager"
+        tools:layout="@layout/fragment_store_manager">
+
+        <action
+            android:id="@+id/action_to_login"
+            app:destination="@id/login_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/storeManagerFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_to_scan"
+            app:destination="@id/scan_coupon_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_main"
+            app:destination="@id/main_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/storeManagerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scan_coupon_fragment"
+        android:name="com.jotangi.nantouparking.ui.manager.ScanCouponFragment"
+        android:label="fragment_scan_coupon"
+        tools:layout="@layout/fragment_scan_coupon" />
+
+    <fragment
+        android:id="@+id/map_tour_fragment"
+        android:name="com.jotangi.nantouparking.ui.mapTour.MapTourFragment"
+        android:label="fragment_map_tour_coupon"
+        tools:layout="@layout/fragment_map_tour" >
+        <action
+            android:id="@+id/action_map_tour_fragment_to_storeIntroduceFragment"
+            app:destination="@id/storeIntroduceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/storeIntroduceFragment"
+        android:name="com.jotangi.nantouparking.ui.mapTour.StoreIntroduceFragment"
+        android:label="fragment_store_introduce"
+        tools:layout="@layout/fragment_store_introduce" />
+</navigation>

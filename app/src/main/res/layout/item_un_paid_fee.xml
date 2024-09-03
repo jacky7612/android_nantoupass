@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_parking_fee_un_paid_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <CheckBox
+        android:id="@+id/un_paid_item_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:buttonTint="@drawable/check_box_tint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/un_paid_item_content_constraintLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/un_paid_item_content_constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/round_black_empty"
+        android:elevation="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/un_paid_item_checkBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/un_paid_item_checkBox"
+        app:layout_constraintTop_toTopOf="@+id/un_paid_item_checkBox">
+
+        <TextView
+            android:id="@+id/un_paid_no_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/paid_no_title"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/un_paid_date_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/parking_date_title"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/un_paid_no_title_textView"
+            app:layout_constraintTop_toBottomOf="@+id/un_paid_no_title_textView" />
+
+        <TextView
+            android:id="@+id/un_paid_fee_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/paid_fee_title"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/un_paid_date_title_textView"
+            app:layout_constraintTop_toBottomOf="@+id/un_paid_date_title_textView" />
+
+        <TextView
+            android:id="@+id/un_paid_status_title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/paid_status_title"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/un_paid_fee_title_textView"
+            app:layout_constraintTop_toBottomOf="@+id/un_paid_fee_title_textView" />
+
+        <TextView
+            android:id="@+id/un_paid_no_content_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/un_paid_no_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/un_paid_no_title_textView" />
+
+        <TextView
+            android:id="@+id/un_paid_date_content_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/un_paid_date_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/un_paid_date_title_textView" />
+
+        <TextView
+            android:id="@+id/un_paid_fee_content_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/un_paid_fee_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/un_paid_fee_title_textView" />
+
+        <TextView
+            android:id="@+id/un_paid_status_content_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/pay_status_default"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/un_paid_status_title_textView"
+            app:layout_constraintTop_toTopOf="@+id/un_paid_status_title_textView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

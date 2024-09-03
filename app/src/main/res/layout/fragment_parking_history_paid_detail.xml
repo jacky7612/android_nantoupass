@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.member.parkingHistory.ParkingHistoryPaidDetailFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_plate_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/paid_plate_title"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_include" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_no_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/paid_no_title"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@+id/parking_history_paid_plate_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_plate_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_date_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/paid_date_title"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/parking_history_paid_no_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_no_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_fee_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/paid_fee_title"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/parking_history_paid_date_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_date_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_type_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/paid_type_title"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/parking_history_paid_fee_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_fee_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_status_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/paid_status_title"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/parking_history_paid_type_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_type_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_plate_content_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/parking_history_paid_plate_title_textView"
+        app:layout_constraintTop_toTopOf="@+id/parking_history_paid_plate_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_no_content_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/parking_history_paid_no_title_textView"
+        app:layout_constraintTop_toTopOf="@+id/parking_history_paid_no_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_date_content_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/parking_history_paid_date_title_textView"
+        app:layout_constraintTop_toTopOf="@+id/parking_history_paid_date_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_fee_content_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/parking_history_paid_fee_title_textView"
+        app:layout_constraintTop_toTopOf="@+id/parking_history_paid_fee_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_type_content_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/parking_history_paid_type_title_textView"
+        app:layout_constraintTop_toTopOf="@+id/parking_history_paid_type_title_textView" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_status_content_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/parking_history_paid_status_title_textView"
+        app:layout_constraintTop_toTopOf="@+id/parking_history_paid_status_title_textView" />
+
+    <View
+        android:id="@+id/parking_history_divide_view"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_margin="16dp"
+        android:alpha="0.3"
+        android:background="#000000"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_status_content_textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/parking_history_paid_detail_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/paid_detail_title"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/parking_history_divide_view"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_divide_view" />
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/round_gray_empty"
+        app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_detail_title_textView"
+        app:layout_constraintStart_toStartOf="@+id/parking_history_divide_view"
+        app:layout_constraintEnd_toEndOf="@+id/parking_history_divide_view">
+
+        <TextView
+            android:id="@+id/parking_history_address_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/parking_address_default"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/parking_history_paid_date_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/paid_date_default"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parking_history_address_textView" />
+
+        <TextView
+            android:id="@+id/parking_history_paid_amount_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/paid_amount_default"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parking_history_paid_date_textView" />
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

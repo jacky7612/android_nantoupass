@@ -1,0 +1,186 @@
+<resources>
+    <string name="app_name">南投停車幫幫忙</string>
+
+    <string name="main_fragment_title">南投停車幫幫忙</string>
+    <string name="main_parking_history_title">查詢繳費紀錄</string>
+
+    <!--    登入-->
+    <string name="login_main_title">註冊/登入</string>
+    <string name="forget_password_title"><u>忘記密碼</u></string>
+    <string name="id_input_hint_title">請輸入帳號</string>
+    <string name="password_input_hint_title">請輸入密碼</string>
+    <string name="login_title">登入</string>
+
+    <!--    註冊-->
+    <string name="signup_title">註冊</string>
+    <string name="signup_name_input_hint_title">請輸入您的姓名</string>
+    <string name="signup_phone"><font fgcolor='#FFFF3B30'>*</font>手機號碼(帳號)</string>
+    <string name="signup_email_input_hint_title">請輸入您的Email信箱</string>
+    <string name="signup_address_input_hint_title">請輸入您的地址</string>
+    <string name="signup_agree_title">我同意以此資料註冊會員，並同意會員使用條款</string>
+    <string name="signup_response_200"></string>
+    <string name="signup_response_201">此號碼已被註冊過</string>
+    <string name="signup_response_202">Exception error!</string>
+    <string name="signup_response_203">API parameter is required!</string>
+    <string name="signup_response_204">SQL fail!</string>
+    <string name="signup_response_206">此號碼尚未通過驗證</string>
+
+    <!--    通用-->
+    <string name="name_title">姓名</string>
+    <string name="email_title">Email/信箱</string>
+    <string name="address_title">地址</string>
+    <string name="plate_no_title">車牌</string>
+    <string name="confirm_title">確認</string>
+    <string name="cancel_title">取消</string>
+    <string name="delete_title">刪除</string>
+    <string name="paid_type_title">付款方式：</string>
+    <string name="parking_notice_title">停車須知</string>
+    <string name="q_n_a_title">常見問題</string>
+    <string name="public_response_404">找不到該服務</string>
+    <string name="pay_title">立即付款</string>
+
+    <!--    優惠券-->
+    <string name="coupon_title">優惠券</string>
+    <string name="coupon_tab1_title">可兌換</string>
+    <string name="coupon_tab2_title">已兌換</string>
+    <string name="coupon_tab3_title">已過期</string>
+    <string name="coupon_item_default_title">消費滿1000元可打9折</string>
+    <string name="coupon_item_default_exchange_status">兌換期限：無期限</string>
+
+    <!--    會員-->
+    <string name="member_title">會員中心</string>
+    <string name="member_default_name">王小明</string>
+    <string name="member_default_id">0918***123</string>
+    <string name="member_data_title">會員資料</string>
+    <string name="member_password_title">修改密碼</string>
+    <string name="member_coupon_title">優惠券</string>
+    <string name="member_fee_record_title">繳費紀錄</string>
+    <string name="member_parking_intro_title">停車須知</string>
+    <string name="member_qna_title">常見問題</string>
+    <string name="member_delete_title">帳號刪除</string>
+    <string name="member_logout_title">登出</string>
+    <string name="member_app_version_title">版本資訊 </string>
+    <string name="member_q_n_a">
+        Q1:如何加入會員\n
+        請點選主頁右上角人頭icon，點選註冊，輸入姓名電話等資訊即刻進行註冊\n\n\n
+
+        Q2:忘記密碼怎麼辦\n
+        於註冊/登入頁面點選忘記密碼，輸入手機號碼與新密碼即可完成新密碼設定\n\n\n
+
+        Q3:忘記會員帳號怎麼辦\n
+        會員帳號即為手機號碼\n\n\n
+
+        Q4:該如何修改個人資料與密碼\n
+        會員資料頁面下方即有修改個人資料選項，點選即可進行會員資料與密碼修改\n\n\n
+    </string>
+
+    <string name="member_parking_notice_title">收費方式: </string>
+    <string name="member_parking_notice_content">(一) 路邊收費停車格共計500格\n
+ 1. 南陽路：154格\n
+ 2. 三和一路：28格\n
+ 3. 復興路：60格\n
+ 4. 建國路：70格\n
+ 5. 集賢路：41格\n
+ 6. 芳美路：57格\n
+ 7. 大同南街：8格\n
+ 8. 育樂路：16格\n
+ 9. 民族路：54格\n
+10. 玉井街：12格\n
+\n
+路邊停車格收費標準如下：\n
+ 1. 停車未滿5分鐘不收費。\n
+ <font color="#c62933">2. 每小時新台幣20元，停車逾5分鐘，第一個小時以20元計；超過第一個小時後每半小時10元（如不超過30分鐘者以半小時計算，超過30分鐘者以一小時計算以此類推）。</font>\n
+ 3. 民眾已繳費後10分鐘內需離場，若10分鐘內未離場，自繳費後重新開單計費。\n
+ 4. 車輛停放於路邊停車場，應於結束停車後三十日內完成繳費，未依規定於期限內繳費者，南投縣政府將以掛號郵件通知駕駛人於收到郵件後七日內補繳，並加收工本費新臺幣五十元。屆期不繳納，依道路交通管理處罰條例第五十六條第三項規定處罰並追繳欠款。\n
+ 5. 收費時段：週一至週日08時到20時。\n
+ 6. 身心障礙者專用停車位識別證明或專用牌照之車輛，每日前4小時(累計)免費停車優惠，同一停車場每日僅優惠一次，逾優惠時間之車輛仍依收費標準計費。\n
+\n
+(二) 路外收費停車場\n
+ 1. 停五：小型車49格\n
+ 2. 停七：小型車60格\n
+ 3. 停八：小型車34格\n
+ 4. 牛運堀大排加蓋：28格\n
+\n
+路外停車場收費標準如下：\n
+ 1. 提供24小時全天候停車，小型車每小時收費新台幣20元，機車免費。\n
+ 2. 因應民眾洽公車輛入場後30分鐘內離場者，除免收停車費服務，且可直接出場。\n
+ 3. 民眾已繳費後10分鐘內需離場，若10分鐘內未離場，自繳費後重新開單計費。\n
+ 4. 身心障礙者專用停車位識別證明或專用牌照之車輛，每日前4小時(不累計)免費停車優惠，同一停車場每日僅優惠一次，逾優惠時間之車輛仍依收費標準計費。\n
+\n
+繳費方式：\n
+可採下列管道繳交路外收費停車場停車費\n
+ 1. 手機APP即時繳費\n
+ 2. 現金繳費機\n
+\n
+如有任何問題，歡迎洽詢「雙翼生活好好停」官方帳號 @223jvflc \n
+        24小時客服專線：<font color="#c62933">04-37025499\n </font>
+    </string>
+
+    <!--    會員資料-->
+    <string name="member_phone_title">手機號碼</string>
+    <string name="member_data_edit_title">修改資料</string>
+
+    <!--    忘記密碼-->
+    <string name="forget_password_inner_title">請重新設定您的新密碼</string>
+    <string name="update_password_old_input_title"><font fgcolor='#FFFF3B30'>*</font>原密碼</string>
+    <string name="forget_password_phone_title"><font fgcolor='#FFFF3B30'>*</font>手機號碼</string>
+    <string name="forget_password_new_input_title"><font fgcolor='#FFFF3B30'>*</font>新密碼</string>
+    <string name="forget_password_new_confirm_title"><font fgcolor='#FFFF3B30'>*</font>再次輸入新密碼</string>
+
+    <!--    車牌號碼-->
+    <string name="license_plate_title">車牌號碼(非必填)</string>
+    <string name="plate_number_tip_title">試營運期間，僅開放查詢當日繳費單</string>
+
+
+    <!--    hint-->
+<!--    <string name="phone_input_hint_title">請輸入您的手機號碼做為往後的登入帳號</string>-->
+    <string name="phone_input_hint_title">09xxxxxxxx</string>
+    <string name="password_new_input_hint_title">請輸入6~12位英數密碼</string>
+    <string name="password_current_hint_title">請輸入目前密碼</string>
+    <string name="password_new_confirm_hint_title">請輸入新密碼</string>
+    <string name="password_new_more_confirm_hint_title">請再次輸入新密碼</string>
+    <string name="name_input_hint_title">請輸入您的姓名</string>
+    <string name="email_input_hint_title">請輸入您的Email信箱</string>
+    <string name="address_input_hint_title">請輸入您的地址</string>
+    <string name="license_plate_hint_title">請輸入您的車牌</string>
+
+    <!--    繳費紀錄-->
+    <string name="parking_history_title">繳費紀錄</string>
+    <string name="paid_plate_title">繳費車牌：</string>
+    <string name="paid_no_title">繳費編號：</string>
+    <string name="parking_date_title">日期：</string>
+    <string name="parking_start_time_title">開始時間：</string>
+    <string name="parking_leave_time_title">離開時間：</string>
+    <string name="paid_date_title">繳費日期：</string>
+    <string name="un_paid_due_date_title">繳費期限：</string>
+    <string name="paid_fee_title">繳費金額：</string>
+    <string name="paid_status_title">繳費狀態：</string>
+    <string name="check_detail_title">查看詳情</string>
+    <string name="paid_detail_title">繳費明細</string>
+    <string name="parking_address_default">縣政三路 試辦停車格</string>
+    <string name="paid_date_default">2022-05-26 09:10-11:20</string>
+    <string name="paid_amount_default">NT$130</string>
+    <string name="plate_number_default">1234-AA</string>
+    <string name="pay_status_default">未付款</string>
+    <string name="parking_history_unpaid_title">當日待繳費</string>
+    <string name="parking_history_unpaid_search_plate_no_title">目前查詢車牌號碼：</string>
+    <string name="parking_history_paid_default_title">目前無繳費紀錄</string>
+    <string name="map_tour_default_title">在地好康</string>
+    <string name="store_introduce_title">店家介紹</string>
+    <string name="select_all_title">全選</string>
+
+    <!--    停車資訊-->
+    <string name="parking_info_title">停車資訊</string>
+    <string name="parking_info_refresh_tips_title">下拉可自動刷新目前剩餘車位</string>
+    <string name="parking_info_area_title">南投鎮公所停車場</string>
+    <string name="parking_info_refresh_title">下拉可自動刷新目前剩餘車位</string>
+
+    <!--    店長-->
+    <string name="store_manager_title">店長核銷</string>
+    <string name="store_manger_scan_title">掃描核銷</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

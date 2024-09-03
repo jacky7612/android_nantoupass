@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><network-security-config>    <base-config cleartextTrafficPermitted="true" />    <domain-config cleartextTrafficPermitted="true">        <domain includeSubdomains="true">103.124.73.151</domain>        <!-- 如果有多個目標域名，可以添加多個 <domain> 元素 -->    </domain-config></network-security-config>

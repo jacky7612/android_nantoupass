@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.member.parkingHistory.ParkingHistoryPaidFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parking_fee_type_constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="47dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_include">
+
+        <TextView
+            android:id="@+id/parking_road_textView"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:background="?android:selectableItemBackground"
+            android:foreground="@android:color/transparent"
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="5dp"
+            android:text="路邊停車"
+            android:textColor="@color/light_blue_600"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/parking_garage_textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/parking_garage_textView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?android:selectableItemBackground"
+            android:foreground="@android:color/transparent"
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="5dp"
+            android:text="停車場"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/parking_road_textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/parking_road_textView"
+            app:layout_constraintTop_toTopOf="@+id/parking_road_textView" />
+
+        <View
+            android:id="@+id/parking_road_tab_view"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/light_blue_600"
+            app:layout_constraintBottom_toBottomOf="@+id/parking_road_textView"
+            app:layout_constraintEnd_toEndOf="@+id/parking_road_textView"
+            app:layout_constraintStart_toStartOf="@+id/parking_road_textView" />
+
+        <View
+            android:id="@+id/parking_garage_tab_view"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/light_blue_600"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/parking_garage_textView"
+            app:layout_constraintEnd_toEndOf="@+id/parking_garage_textView"
+            app:layout_constraintStart_toStartOf="@+id/parking_garage_textView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/parking_fee_default_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/parking_history_paid_default_title"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parking_fee_type_constraintLayout"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/parking_fee_recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parking_fee_type_constraintLayout"
+        tools:listitem="@layout/item_paid_fee" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/parking_fee_garage_recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/c_eeeeee_100"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/parking_fee_type_constraintLayout"
+        tools:listitem="@layout/item_parking_garage" />
+</androidx.constraintlayout.widget.ConstraintLayout>
