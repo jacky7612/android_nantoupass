@@ -40,6 +40,7 @@ class ForgetPasswordFragment : BaseFragment() {
     }
 
     private fun init() {
+        mainViewModel.clearForgetPwdData()
         setupForgetPasswordTitle()
         initObserver()
         initAction()
@@ -49,15 +50,17 @@ class ForgetPasswordFragment : BaseFragment() {
         mainViewModel.forgetPasswordData.observe(viewLifecycleOwner) { result ->
             if (result.code == ApiConfig.API_CODE_SUCCESS.toString()) {
                 showPrivateDialog(
-                    result.responseMessage,
+                    "更新成功",
                     null
                 )
             } else {
-                AppUtility.showPopDialog(
-                    requireContext(),
-                    result.code,
-                    result.responseMessage
-                )
+                if (!result.responseMessage.isNullOrEmpty()) {
+                    AppUtility.showPopDialog(
+                        requireContext(),
+                        result.code,
+                        result.responseMessage
+                    )
+                }
             }
         }
     }
@@ -116,6 +119,14 @@ class ForgetPasswordFragment : BaseFragment() {
         val alert = AlertDialog.Builder(requireContext())
         val title = "提醒！"
 
+        // 需加此段才會正確
+        if (message == "更新成功") {
+            AppUtility.updateLoginPassword(
+                requireContext(),
+                binding?.forgetPasswordNewInputContentTextInputEditText?.text.toString()
+            )
+        }
+
         alert.setTitle(title)
         alert.setMessage(message)
         alert.setPositiveButton("確定") { _, _ ->
@@ -126,7 +137,8 @@ class ForgetPasswordFragment : BaseFragment() {
                 }
 
                 null -> {
-                    findNavController().navigate(R.id.action_to_login)
+//                    findNavController().navigate(R.id.action_to_login)
+                    onBackPressed()
                 }
             }
         }

@@ -3,8 +3,10 @@ package com.jotangi.payStation.Model.ApiModel
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
+import com.jotangi.nantouparking.model.MemberInfoVO
 import okhttp3.MultipartBody
 
 // 兆豐 SKCB Kiosk protocol
@@ -65,4 +67,27 @@ class ApiEntry {
         Glob.apiGovPayList!!.responseMessage =apiRespData.responseMessage
         return apiRespData
     }
+    fun getMemberInfo(memberId: String, memberPwd: String, callback: (String?, Exception?) -> Unit) {
+        val apiRequest: ApiRequest = ApiRequest()
+        val url="${ApiConfig.URL_HOST}api/member_info.php"
+        val requestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("member_id", memberId)
+            .addFormDataPart("member_pwd", memberPwd)
+            .build()
+        apiRequest.apiPostByFormData(url, requestBody, callback)
+    }
+    fun parseMemberInfo(responseBody: String): List<MemberInfoVO> {
+        val gson = Gson()
+        Log.d(TAG, responseBody)
+
+        var memberList :List<MemberInfoVO> = listOf()
+        if (responseBody.contains("\"member_id\":")) {
+            val memberInfoType = object : TypeToken<List<MemberInfoVO>>() {}.type
+            memberList = gson.fromJson(responseBody, memberInfoType)
+            return memberList
+        }
+        return memberList
+    }
+
 }

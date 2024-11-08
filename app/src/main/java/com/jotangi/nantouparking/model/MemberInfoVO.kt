@@ -31,7 +31,7 @@ data class MemberInfoVO(
 //    val memberAddress: String,
 
     @SerializedName("member_plateNo")
-    val memberPlate: String,
+    val memberPlate: String?,
 
 //    @SerializedName("member_phone")
 //    val code: String,

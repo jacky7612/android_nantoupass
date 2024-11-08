@@ -159,6 +159,18 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/member_fragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_member_fragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_member_fragment_to_member_data_fragment"
+            app:destination="@id/member_data_fragment" />
+        <action
+            android:id="@+id/action_member_fragment_to_forget_password_fragment"
+            app:destination="@id/forget_password_fragment" />
+        <action
+            android:id="@+id/action_member_fragment_to_parking_notice_fragment"
+            app:destination="@id/parking_notice_fragment" />
     </fragment>
 
     <fragment

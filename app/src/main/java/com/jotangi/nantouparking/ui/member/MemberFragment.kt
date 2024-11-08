@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
-import com.jotangi.nantouparking.BuildConfig
+import com.google.zxing.client.android.BuildConfig
+import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.databinding.FragmentMemberBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.model.LogoutResponse
+import com.jotangi.nantouparking.model.MemberInfoVO
 import com.jotangi.nantouparking.ui.BaseFragment
 import com.jotangi.nantouparking.utility.AppUtility
 
@@ -20,6 +22,8 @@ class MemberFragment : BaseFragment() {
     private val binding get() = _binding
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
+    var id:String =""
+    var pwd:String =""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,17 +53,32 @@ class MemberFragment : BaseFragment() {
     }
 
     private fun initObserver() {
+        mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
+            if (result != null && result.isNotEmpty()) {
+                updateMemberInfo4Login(result)
+            }
+        }
+
         mainViewModel.logoutData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 updateMemberInfo(result)
                 mainViewModel.clearData()
+                Glob.clearMemberInfo(requireContext())
             }
         }
 
         mainViewModel.isDelete.observe(viewLifecycleOwner) { result ->
-            if (result != null && result) {
-                mainViewModel.clearDeleteAccount()
-                findNavController().navigate(R.id.member_action_to_login)
+//            if (result != null) {
+            if (result != null) {
+                if (result) {
+                    mainViewModel.clearDeleteAccount()
+                    mainViewModel.clearData()
+                    Glob.clearMemberInfo(requireContext())
+                    findNavController().navigate(R.id.action_member_fragment_to_main_fragment)
+                } else {
+
+                    showPrivateDialog("刪除資料異常，請重試", null, true)
+                }
             }
         }
 
@@ -68,6 +87,16 @@ class MemberFragment : BaseFragment() {
 
     private fun initView() {
         binding?.apply {
+            id =AppUtility.getLoginId(requireContext())!!
+            pwd =AppUtility.getLoginPassword(requireContext())!!
+
+            mainViewModel.getMemberInfo(
+                requireContext(),
+                id,
+                pwd,
+                null
+            )
+
             memberIdTextView.text = AppUtility.getLoginId(requireContext())
             memberNameTextView.text = AppUtility.getLoginName(requireContext())
             memberAppVersionTextView.text = getString(R.string.member_app_version_title) +
@@ -113,7 +142,24 @@ class MemberFragment : BaseFragment() {
             }
         }
     }
+    private fun updateMemberInfo4Login(result: List<MemberInfoVO>) {
+//        if (result.code == ApiConfig.API_CODE_SUCCESS.toString()) {
+        AppUtility.updateLoginId(
+            requireContext(),
+            id
+        )
 
+        AppUtility.updateLoginName(
+            requireContext(),
+            result[0].memberName!!
+        )
+
+        AppUtility.updateLoginPassword(
+            requireContext(),
+            pwd
+        )
+//        }
+    }
     private fun updateMemberInfo(result: LogoutResponse) {
         if (result.code == ApiConfig.API_CODE_SUCCESS) {
             AppUtility.updateLoginStatus(
@@ -139,7 +185,8 @@ class MemberFragment : BaseFragment() {
             showPrivateDialog(
 //                result.responseMessage,
                 "登出成功！",
-                null
+                null,
+                false
             )
         } else {
             AppUtility.showPopDialog(
@@ -152,7 +199,8 @@ class MemberFragment : BaseFragment() {
 
     private fun showPrivateDialog(
         message: String,
-        curUI: Any?
+        curUI: Any?,
+        skipChangePage: Boolean
     ) {
         val alert = AlertDialog.Builder(requireContext())
         val title = "提醒！"
@@ -160,7 +208,10 @@ class MemberFragment : BaseFragment() {
         alert.setTitle(title)
         alert.setMessage(message)
         alert.setPositiveButton("確定") { _, _ ->
-            findNavController().navigate(R.id.member_action_to_login)
+//            findNavController().navigate(R.id.member_action_to_login)
+            if (!skipChangePage) {
+                findNavController().navigate(R.id.action_member_fragment_to_main_fragment)
+            }
         }
 
         alert.show()

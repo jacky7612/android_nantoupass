@@ -5,6 +5,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.utility.ApiUtility
@@ -155,7 +158,6 @@ class MainViewModel : ViewModel() {
     val isDelete: LiveData<Boolean> get() = _isDelete
 
     fun clearData() {
-        _loginData.value = null
         _memberInfoData.value = listOf()
         _memberInfoEditData.value = null
         _couponData.value = listOf()
@@ -170,8 +172,17 @@ class MainViewModel : ViewModel() {
         _storeData.value = listOf()
         _parkingSpaceData.value = null
         _billIsLock.value = null
+        _loginData.value = null
         _logoutData.value = null
+        _signupData.value = null
         hasData = false
+    }
+    fun clearForgetPwdData() {
+        if (_forgetPasswordData.value != null) {
+            _forgetPasswordData.value?.code = ""
+            _forgetPasswordData.value?.status = ""
+            _forgetPasswordData.value?.responseMessage = ""
+        }
     }
 
     fun signup(
@@ -285,6 +296,53 @@ class MainViewModel : ViewModel() {
         memberPassword: String,
         loginResult: LoginResponse?
     ) {
+
+
+//        val gson = Gson()
+//            val jsonString = "[\n" +
+//                    "    {\n" +
+//                    "        \"0\": \"1\",\n" +
+//                    "        \"mid\": \"1\",\n" +
+//                    "        \"1\": \"0912345678\",\n" +
+//                    "        \"member_id\": \"0912345678\",\n" +
+//                    "        \"2\": \"1234qwer\",\n" +
+//                    "        \"member_pwd\": \"1234qwer\",\n" +
+//                    "        \"3\": \"Mike Chen\",\n" +
+//                    "        \"member_name\": \"Mike Chen\",\n" +
+//                    "        \"4\": \"1\",\n" +
+//                    "        \"member_type\": \"1\",\n" +
+//                    "        \"5\": \"0\",\n" +
+//                    "        \"member_gender\": \"0\",\n" +
+//                    "        \"6\": \"mike.chen@jotangi.com.tw\",\n" +
+//                    "        \"member_email\": \"mike.chen@jotangi.com.tw\",\n" +
+//                    "        \"7\": \"1900-01-01\",\n" +
+//                    "        \"member_birthday\": \"1900-01-01\",\n" +
+//                    "        \"8\": \"台北市內湖區明德路1號很多樓\",\n" +
+//                    "        \"member_address\": \"台北市內湖區明德路1號很多樓\",\n" +
+//                    "        \"9\": \"0912345678\",\n" +
+//                    "        \"member_phone\": \"0912345678\",\n" +
+//                    "        \"10\": \"uploads/mike.jpg\",\n" +
+//                    "        \"member_picture\": \"uploads/mike.jpg\",\n" +
+//                    "        \"11\": \"10058\",\n" +
+//                    "        \"member_totalpoints\": \"10058\",\n" +
+//                    "        \"12\": \"1143\",\n" +
+//                    "        \"member_usingpoints\": \"1143\",\n" +
+//                    "        \"13\": \"1\",\n" +
+//                    "        \"member_status\": \"1\",\n" +
+//                    "        \"14\": \"654321\",\n" +
+//                    "        \"recommend_code\": \"654321\",\n" +
+//                    "        \"15\": \"0\",\n" +
+//                    "        \"member_sid\": \"0\",\n" +
+//                    "        \"16\": null,\n" +
+//                    "        \"member_plateNo\": null\n" +
+//                    "    }\n" +
+//                    "]"
+//
+//        val memberInfoType = object : TypeToken<List<MemberInfoVO>>() {}.type
+//        val memberList: List<MemberInfoVO> = gson.fromJson(jsonString, memberInfoType)
+//        _memberInfoData.value = memberList
+//            return
+
         val call: Call<List<MemberInfoVO>> = ApiUtility.service.apiGetMemberInfo(
             memberId,
             memberPassword
@@ -301,9 +359,9 @@ class MainViewModel : ViewModel() {
                 if (response.body() != null) {
                     _memberInfoData.value = response.body()
 
-//                    if (loginResult != null) {
-//                        _loginData.value = loginResult
-//                    }
+                    if (loginResult != null) {
+                        _loginData.value = loginResult
+                    }
                 } else {
                     AppUtility.showPopDialog(
                         context,
@@ -562,6 +620,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun logout(context: Context) {
+        var id =AppUtility.getLoginId(context)
+        var pwd =AppUtility.getLoginPassword(context)
         val call: Call<LogoutResponse> = ApiUtility.service.apiLogout(
             AppUtility.getLoginId(context)!!,
             AppUtility.getLoginPassword(context)!!
@@ -588,6 +648,8 @@ class MainViewModel : ViewModel() {
                             response.body()!!.code,
                             response.body()!!.responseMessage
                         )
+                        Glob.clearMemberInfo(context)
+                        clearData()
                     } else {
                         _logoutData.value = response.body()
                     }
@@ -1228,6 +1290,7 @@ class MainViewModel : ViewModel() {
         })
     }
 
+
     fun deleteAccount(context: Context) {
         val call: Call<BaseResponse> = ApiUtility.service.apiMemberDelete(
             AppUtility.getLoginId(context)!!,
@@ -1242,6 +1305,7 @@ class MainViewModel : ViewModel() {
                 val url = response.raw().request.url.toString()
                 Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
 
+                var responseMessage =response.body()!!.responseMessage
                 _isDelete.value =
                     response.body() != null && response.body()!!.code == ApiConfig.API_CODE_SUCCESS
             }

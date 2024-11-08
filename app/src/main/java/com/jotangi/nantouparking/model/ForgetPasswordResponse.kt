@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class ForgetPasswordResponse(
     @SerializedName("status")
-    val status: String,
+    var status: String,
 
     @SerializedName("code")
-    val code: String,
+    var code: String,
 
     @SerializedName("responseMessage")
-    val responseMessage: String
+    var responseMessage: String
 )

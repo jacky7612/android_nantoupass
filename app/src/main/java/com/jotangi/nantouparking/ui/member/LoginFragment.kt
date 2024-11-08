@@ -48,18 +48,36 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun initObserver() {
+//        mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
+//            if (result.isNotEmpty()) {
+//                updateMemberInfo(result)
+//            }
+//        }
+
         mainViewModel.loginData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 loginSucceed(result)
             }
         }
+    }
 
-        mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
-            if (result.isNotEmpty()) {
-                updateMemberInfo(result)
-                navigateToNextPage()
-            }
-        }
+    private fun updateMemberInfo(result: List<MemberInfoVO>) {
+//        if (result.code == ApiConfig.API_CODE_SUCCESS.toString()) {
+        AppUtility.updateLoginId(
+            requireContext(),
+            binding?.loginIdEditText?.text.toString()
+        )
+
+        AppUtility.updateLoginName(
+            requireContext(),
+            result[0].memberName!!
+        )
+
+        AppUtility.updateLoginPassword(
+            requireContext(),
+            binding?.loginPasswordEditText?.text.toString()
+        )
+//        }
     }
 
     private fun loginSucceed(result: LoginResponse) {
@@ -79,12 +97,13 @@ class LoginFragment : BaseFragment() {
                 binding?.loginPasswordEditText?.text.toString()
             )
 
-            mainViewModel.getMemberInfo(
-                requireContext(),
-                AppUtility.getLoginId(requireContext())!!,
-                AppUtility.getLoginPassword(requireContext())!!,
+            showPrivateDialog(
+//                result.responseMessage,
+                "登入成功！",
                 null
             )
+
+            findNavController().navigate(R.id.action_to_member_main)
         } else {
             AppUtility.showPopDialog(
                 requireContext(),
@@ -92,37 +111,6 @@ class LoginFragment : BaseFragment() {
                 result.responseMessage
             )
         }
-    }
-
-    private fun updateMemberInfo(result: List<MemberInfoVO>) {
-        AppUtility.updateLoginName(
-            requireContext(),
-            result[0].memberName
-        )
-
-        AppUtility.updateLoginType(
-            requireContext(),
-            result[0].memberType
-        )
-    }
-
-    private fun navigateToNextPage() {
-        showPrivateDialog(
-//                result.responseMessage,
-            "登入成功！",
-            null
-        )
-
-        when (AppUtility.getLoginType(requireContext())) {
-            "1" -> {
-                findNavController().navigate(R.id.action_to_member_main)
-            }
-
-            "2" -> {
-                findNavController().navigate(R.id.action_to_storeManagerFragment)
-            }
-        }
-
     }
 
     private fun initAction() {

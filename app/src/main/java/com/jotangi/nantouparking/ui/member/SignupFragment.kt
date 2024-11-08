@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +27,6 @@ import com.squareup.picasso.Picasso
 class SignupFragment : BaseFragment() {
     private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding
-    private var mPlateNo = ""
-
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
     override fun onCreateView(
@@ -58,7 +58,8 @@ class SignupFragment : BaseFragment() {
 
     private fun initObserver() {
         mainViewModel.signupData.observe(viewLifecycleOwner) { result ->
-            updateMemberInfo(result)
+            if (result != null)
+                updateMemberInfo(result)
         }
 
         mainViewModel.exchangeableCouponData.observe(viewLifecycleOwner) { result ->
@@ -82,6 +83,46 @@ class SignupFragment : BaseFragment() {
 
     private fun initAction() {
         binding?.apply {
+            signupPlateTextEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // Do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        val upperCaseText = it.toString().uppercase()
+                        if (it.toString() != upperCaseText) {
+                            signupPlateTextEditText.setText(upperCaseText)
+                            signupPlateTextEditText.setSelection(upperCaseText.length) // 將光標移到最後
+                        }
+                    }
+                }
+            })
+
+            signupPlateNumberEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // Do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        val upperCaseText = it.toString().uppercase()
+                        if (it.toString() != upperCaseText) {
+                            signupPlateNumberEditText.setText(upperCaseText)
+                            signupPlateNumberEditText.setSelection(upperCaseText.length) // 將光標移到最後
+                        }
+                    }
+                }
+            })
+
             sighupConfirmButton.setOnClickListener {
                 signup()
             }
@@ -112,10 +153,14 @@ class SignupFragment : BaseFragment() {
                 binding?.signupPasswordContentTextInputEditText?.text.toString()
             )
 
-            showPrivateDialog(
-                result.responseMessage,
+
+
+            show4SignupDialog(
+                "註冊",
+                "註冊成功",
                 null
             )
+
         } else {
             AppUtility.showPopDialog(
                 requireContext(),
@@ -133,12 +178,9 @@ class SignupFragment : BaseFragment() {
             customDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             customDialog.setCanceledOnTouchOutside(true)
 
-            val dialogContentTextView: TextView =
-                customDialog.findViewById(R.id.dialog_gift_discount_content_textView)!!
-            val dialogContentImageView: ImageView =
-                customDialog.findViewById(R.id.dialog_gift_discount_content_imageView)!!
-            val dialogDateTextView: TextView =
-                customDialog.findViewById(R.id.dialog_gift_discount_endDate_textView)!!
+            val dialogContentTextView: TextView = customDialog.findViewById(R.id.dialog_gift_discount_content_textView)!!
+            val dialogContentImageView: ImageView = customDialog.findViewById(R.id.dialog_gift_discount_content_imageView)!!
+            val dialogDateTextView: TextView = customDialog.findViewById(R.id.dialog_gift_discount_endDate_textView)!!
             val dialogCloseButton = customDialog.findViewById<Button>(R.id.dialog_gift_close_button)
             val dialogEnterButton = customDialog.findViewById<Button>(R.id.dialog_gift_enter)
 
@@ -174,17 +216,10 @@ class SignupFragment : BaseFragment() {
     private fun signup() {
         if (binding?.signupPhoneContentTextInputEditText?.text.toString().isNullOrEmpty()) {
             showPrivateDialog(
-                "手機號碼為必填！",
+                "電話為必填！",
                 binding?.signupPhoneContentTextInputEditText
             )
 
-            return
-        } else if (!isValidPhoneNumber(binding?.signupPhoneContentTextInputEditText?.text.toString())) {
-            AppUtility.showPopDialog(
-                requireContext(),
-                null,
-                "手機號碼格式錯誤，請重新輸入"
-            )
             return
         }
 
@@ -206,64 +241,54 @@ class SignupFragment : BaseFragment() {
             return
         }
 
+        var PlateNO = ""
         if (!binding?.signupPlateTextEditText?.text.isNullOrEmpty() && !binding?.signupPlateNumberEditText?.text.isNullOrEmpty()) {
-            mPlateNo =
+            PlateNO =
                 "${binding?.signupPlateTextEditText?.text.toString()}-${binding?.signupPlateNumberEditText?.text.toString()}"
-
-            mainViewModel.signup(
-                requireContext(),
-                binding?.signupNameContentTextInputEditText?.text.toString(),
-                binding?.signupEmailContentTextInputEditText?.text.toString(),
-                binding?.signupPhoneContentTextInputEditText?.text.toString(),
-                binding?.signupPasswordContentTextInputEditText?.text.toString(),
-                mPlateNo
-            )
-        } else if (binding?.signupPlateTextEditText?.text.isNullOrEmpty() && binding?.signupPlateNumberEditText?.text.isNullOrEmpty()) {
-            mainViewModel.signup(
-                requireContext(),
-                binding?.signupNameContentTextInputEditText?.text.toString(),
-                binding?.signupEmailContentTextInputEditText?.text.toString(),
-                binding?.signupPhoneContentTextInputEditText?.text.toString(),
-                binding?.signupPasswordContentTextInputEditText?.text.toString(),
-                mPlateNo
-            )
-        } else if (binding?.signupPlateTextEditText?.text.isNullOrEmpty()) {
-            showPrivateDialog(
-                "車牌第一欄為必填！",
-                binding?.signupPlateTextEditText
-            )
-
-            return
         }
-
-        if (binding?.signupPlateNumberEditText?.text.isNullOrEmpty()) {
-            showPrivateDialog(
-                "車牌第二欄此為必填！",
-                binding?.signupPlateNumberEditText
-            )
-
-            return
-        }
+        mainViewModel.signup(
+            requireContext(),
+            binding?.signupNameContentTextInputEditText?.text.toString(),
+            binding?.signupEmailContentTextInputEditText?.text.toString(),
+            binding?.signupPhoneContentTextInputEditText?.text.toString(),
+            binding?.signupPasswordContentTextInputEditText?.text.toString(),
+            PlateNO
+        )
     }
 
-    private fun isValidPhoneNumber(phoneNumber: String): Boolean {
-        var isValid = false
-        val regex = Regex("^09\\d{8}$")
+    private fun show4SignupDialog(
+        title: String,
+        message: String,
+        curUI: Any?
+    ) {
+        val alert = AlertDialog.Builder(requireContext())
 
-        if (phoneNumber.matches(regex)) {
-            isValid = true
+        alert.setTitle(title)
+        alert.setMessage(message)
+        alert.setPositiveButton("確定") { _, _ ->
+            when (curUI) {
+                binding?.signupPhoneContentTextInputEditText,
+                binding?.signupPasswordContentTextInputEditText,
+                binding?.signupCheckbox -> {
+                    return@setPositiveButton
+                }
+
+                null -> {
+                    getMyCoupon()
+                }
+            }
         }
 
-        return isValid
+        alert.show()
+        findNavController().navigate(R.id.action_to_main)
     }
-
     private fun showPrivateDialog(
         message: String,
         curUI: Any?
     ) {
         val alert = AlertDialog.Builder(requireContext())
         val title = if (curUI == null) {
-            "恭喜您"
+            "註冊"
         } else {
             "提醒！"
         }

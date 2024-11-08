@@ -33,7 +33,8 @@
         android:layout_marginTop="9dp"
         android:text="@string/member_default_id"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/member_name_textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/member_name_textView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
