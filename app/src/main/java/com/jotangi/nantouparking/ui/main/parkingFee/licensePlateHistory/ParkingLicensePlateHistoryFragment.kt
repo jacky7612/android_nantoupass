@@ -188,7 +188,7 @@ class ParkingLicensePlateHistoryFragment :
 
     private fun initData() {
         if (AppUtility.getLoginStatus(requireContext())) {
-            parkingCurPage = PARKING_TYPE_ROAD
+//            parkingCurPage = PARKING_TYPE_ROAD
             mainViewModel.getPlateNumber(
                 requireContext(),
                 AppUtility.getLoginId(requireContext())!!,
