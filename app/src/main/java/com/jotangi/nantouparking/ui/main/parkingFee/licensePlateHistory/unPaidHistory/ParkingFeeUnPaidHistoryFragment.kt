@@ -251,11 +251,17 @@ class ParkingFeeUnPaidHistoryFragment :
     }
 
     private fun updateRoadListView(result: ParkingRoadFeeUnPaidResponse) {
+        if (!::parkingFeeUnPaidAdapter.isInitialized) {
+            initRecyclerView()
+        }
         data = result.unPaidItems.toMutableList()
         parkingFeeUnPaidAdapter.updateDataSource(data)
     }
 
     private fun updateGarageListView(result: ParkingGarageFeeUnPaidResponse) {
+        if (!::parkingGarageFeeUnPaidAdapter.isInitialized) {
+            initGarageRecyclerView()
+        }
         garageData = result.unPaidItems.toMutableList()
         parkingGarageFeeUnPaidAdapter.updateDataSource(garageData)
     }

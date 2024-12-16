@@ -2,6 +2,7 @@ package com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory
 
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -392,12 +393,14 @@ class ParkingLicensePlateHistoryFragment :
                 requireContext(),
                 mPlateNo
             )
+            Log.d("micCheckSS", "1")
         } else {
             mainViewModel.getParkingGarageFeeUnPaidList(
                 requireContext(),
                 mPlateNo,
                 mPId
             )
+            Log.d("micCheckSS", "2")
         }
     }
 
@@ -444,6 +447,10 @@ class ParkingLicensePlateHistoryFragment :
                     "請先選擇停車場！"
                 )
         } else {
+            if(parkingCurPage.equals(PARKING_TYPE_ROAD)) {
+                mPId = ""
+            }
+            Log.d("micCheckKK", mPId.toString())
             val bundle = bundleOf(
                 "plateNo" to mPlateNo,
                 "parkingId" to mPId,
