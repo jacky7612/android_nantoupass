@@ -29,7 +29,7 @@ class MainFragment :
     StoreClickListener {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding
-    private lateinit var storeAdapter: StoreAdapter
+//    private lateinit var storeAdapter: StoreAdapter
     private var data = mutableListOf<StoreVO>()
 
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
@@ -83,13 +83,13 @@ class MainFragment :
 
         mainViewModel.storeData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
-                storeAdapter.updateDataSource(result)
+//                storeAdapter.updateDataSource(result)
             }
         }
     }
 
     private fun initView() {
-        initStoreRecyclerView()
+//        initStoreRecyclerView()
     }
 
     private fun initData() {
@@ -103,11 +103,11 @@ class MainFragment :
     private fun initAction() {
         binding?.apply {
             // line 1
-            parkingCountConstraintLayout.setOnClickListener {
+            mainSpaceConstraintLayout.setOnClickListener {
                 findNavController().navigate(R.id.action_to_parking_count)
             }
 
-            mainCustomerServicePhoneConstraintLayout.setOnClickListener {
+            mainServiceConstraintLayout.setOnClickListener {
 //                AppUtility.showPopDialog(
 //                    requireContext(),
 //                    null,
@@ -117,27 +117,24 @@ class MainFragment :
                 makePhoneCall(AppConfig.CUSTOMER_SERVICE_PHONE)
             }
 
-            mainCityPageConstraintLayout.setOnClickListener {
+            mainOfficialConstraintLayout.setOnClickListener {
                 openWeb(AppConfig.AREA_MAIN_WEB)
             }
 
-            mainMayorPageConstraintLayout.setOnClickListener {
+            parkingFbConstraintLayout.setOnClickListener {
                 openWeb(AppConfig.MAYOR_FB)
             }
 
             // line 2
-            parkingFeeConstraintLayout.setOnClickListener {
+            parkingPaymentConstraintLayout.setOnClickListener {
                 findNavController().navigate(R.id.action_to_parking_license_plate_history)
             }
 
-            mainHealthCheckConstraintLayout.setOnClickListener {
+            parkingInfoConstraintLayout.setOnClickListener {
                 openWeb("https://parking.nantou.gov.tw/")
             }
-
-            mainMayorPageConstraintLayout.setOnClickListener {
-                openWeb(AppConfig.MAYOR_FB)
-            }
         }
+
     }
 
     override fun onResume() {
@@ -146,21 +143,21 @@ class MainFragment :
         updateView()
     }
 
-    private fun initStoreRecyclerView() {
-        binding?.mainStoreRecyclerView?.apply {
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            storeAdapter = StoreAdapter(
-                data,
-                requireContext(),
-                this@MainFragment
-            )
-            this.adapter = storeAdapter
-        }
-    }
+//    private fun initStoreRecyclerView() {
+//        binding?.mainStoreRecyclerView?.apply {
+//            layoutManager = LinearLayoutManager(
+//                requireContext(),
+//                LinearLayoutManager.HORIZONTAL,
+//                false
+//            )
+//            storeAdapter = StoreAdapter(
+//                data,
+//                requireContext(),
+//                this@MainFragment
+//            )
+//            this.adapter = storeAdapter
+//        }
+//    }
 
     private fun updateView() {
         binding?.mainBannerDefaultImageView?.visibility = View.GONE
