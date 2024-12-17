@@ -448,6 +448,7 @@ class ParkingLicensePlateHistoryFragment :
                 )
         } else {
             if(parkingCurPage.equals(PARKING_TYPE_ROAD)) {
+                Log.d("micCheckBC", mPId)
                 mPId = ""
             }
             Log.d("micCheckKK", mPId.toString())

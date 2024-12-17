@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,8 @@ class ParkingFeeUnPaidHistoryFragment :
     private var parkingId: String = ""
     private var parkingName: String = ""
     private var parkingAddress: String = ""
-
+var call = false
+    var call2 = false
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
     override fun onCreateView(
@@ -85,43 +87,49 @@ class ParkingFeeUnPaidHistoryFragment :
 
     private fun initObserver() {
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-            if (result?.unPaidItems != null) {
-                if (result.unPaidItems.isNotEmpty()) {
-                    updateRoadListView(result)
-                } else {
-                    Toast.makeText(
-                        requireActivity(),
-                        "目前沒有符合的紀錄唷！",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-                    onBackPressed()
-                }
-            }
+           if(call) {
+               if (result?.unPaidItems != null) {
+                   if (result.unPaidItems.isNotEmpty()) {
+                       updateRoadListView(result)
+                   } else {
+                       Toast.makeText(
+                           requireActivity(),
+                           "目前沒有符合的紀錄唷！",
+                           Toast.LENGTH_SHORT
+                       ).show()
+                       Log.d("micCheckZZ", "ZZ1")
+//                    onBackPressed()
+                   }
+               }
+           }
+            call = false
         }
 
         mainViewModel.parkingGarageFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-            if (result?.unPaidItems != null) {
-                if (result.unPaidItems.isNotEmpty()) {
-                    updateGarageListView(result)
+            if(call2) {
+                if (result?.unPaidItems != null) {
+                    if (result.unPaidItems.isNotEmpty()) {
+                        updateGarageListView(result)
+                    } else {
+                        Toast.makeText(
+                            requireActivity(),
+                            "目前沒有符合的紀錄唷！",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        Log.d("micCheckZZ", "ZZ2")
+                        onBackPressed()
+                    }
                 } else {
                     Toast.makeText(
                         requireActivity(),
-                        "目前沒有符合的紀錄唷！",
+                        result.responseMessage,
                         Toast.LENGTH_SHORT
                     ).show()
-
+                    Log.d("micCheckZZ", "ZZ3")
                     onBackPressed()
                 }
-            } else {
-                Toast.makeText(
-                    requireActivity(),
-                    result.responseMessage,
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                onBackPressed()
             }
+            call2 = false
         }
 
         mainViewModel.billIsLock.observe(viewLifecycleOwner) { lockResponse ->
@@ -144,12 +152,17 @@ class ParkingFeeUnPaidHistoryFragment :
     }
 
     private fun initData() {
+        Log.d("micCheckHG", (parkingId.equals("")).toString())
         if (parkingId == "") {
+            call = true
+            Log.d("micCheckHG", "1")
             mainViewModel.getParkingRoadFeeUnPaidList(
                 requireContext(),
                 plateNo
             )
         } else {
+            call2 = true
+            Log.d("micCheckHG", "2")
             mainViewModel.getParkingGarageFeeUnPaidList(
                 requireContext(),
                 plateNo,
