@@ -41,6 +41,9 @@ class ParkingFeeUnPaidHistoryFragment :
     private var parkingAddress: String = ""
 var call = false
     var call2 = false
+    companion object {
+        var back = false
+    }
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
     override fun onCreateView(
@@ -358,5 +361,10 @@ var call = false
                 startActivity(i)
             }
             .show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        back = true
     }
 }

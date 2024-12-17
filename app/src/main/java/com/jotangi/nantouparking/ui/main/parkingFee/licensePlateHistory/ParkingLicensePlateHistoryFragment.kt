@@ -19,6 +19,7 @@ import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.model.ParkingGarageVO
 import com.jotangi.nantouparking.model.PlateNumberVO
 import com.jotangi.nantouparking.ui.BaseFragment
+import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment
 import com.jotangi.nantouparking.utility.AppUtility
 
 
@@ -241,6 +242,7 @@ class ParkingLicensePlateHistoryFragment :
     private fun initAction() {
         binding?.apply {
             searchPlateNumberButton.setOnClickListener {
+                ParkingFeeUnPaidHistoryFragment.back = false
                 addNewPlateNo()
             }
 
@@ -353,6 +355,7 @@ class ParkingLicensePlateHistoryFragment :
         type: String,
         vo: PlateNumberVO
     ) {
+        ParkingFeeUnPaidHistoryFragment.back = false
         itemClickType = type
         mPlateNo = vo.plateNo
 
@@ -440,33 +443,37 @@ class ParkingLicensePlateHistoryFragment :
     }
 
     private fun navigateToUnPaidHistory() {
-        if (parkingCurPage.equals(PARKING_TYPE_GARAGE) && mPId.isNullOrEmpty()) {
-            AppUtility.showPopDialog(
+        if(!ParkingFeeUnPaidHistoryFragment.back) {
+            if (parkingCurPage.equals(PARKING_TYPE_GARAGE) && mPId.isNullOrEmpty()) {
+                AppUtility.showPopDialog(
                     requireContext(),
                     null,
                     "請先選擇停車場！"
                 )
-        } else {
-            if(parkingCurPage.equals(PARKING_TYPE_ROAD)) {
-                Log.d("micCheckBC", mPId)
-                mPId = ""
-            }
-            Log.d("micCheckKK", mPId.toString())
-            val bundle = bundleOf(
-                "plateNo" to mPlateNo,
-                "parkingId" to mPId,
-                "parkingName" to mPName,
-                "parkingAddress" to mPAddress
-            )
+            } else {
+                if (parkingCurPage.equals(PARKING_TYPE_ROAD)) {
+                    Log.d("micCheckBC", mPId)
+                    mPId = ""
+                }
+                Log.d("micCheckKK", mPId.toString())
+                val bundle = bundleOf(
+                    "plateNo" to mPlateNo,
+                    "parkingId" to mPId,
+                    "parkingName" to mPName,
+                    "parkingAddress" to mPAddress
+                )
 //            mPlateNo = ""
 //            mPId = ""
 //            mPName = ""
 //            mPAddress = ""
 
-            findNavController().navigate(
-                R.id.action_to_parking_history_unpaid,
-                bundle
-            )
+                findNavController().navigate(
+                    R.id.action_to_parking_history_unpaid,
+                    bundle
+                )
+            }
+        } else {
+//            ParkingFeeUnPaidHistoryFragment.back = false
         }
     }
 
