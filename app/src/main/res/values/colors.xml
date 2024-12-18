@@ -103,4 +103,8 @@
 
 
     <color name="TexBlue">#D7F1F9</color>
+    <color name="charge_dark_color">#20002E</color>
+    <color name="charge_blue_color">#40798C</color>
+    <color name="colorPrimary">#FF5100</color>
+    <color name="colorPrimaryDark">#000000</color>
 </resources>

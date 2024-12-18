@@ -6,26 +6,10 @@
     app:startDestination="@id/main_fragment">
 
     <fragment
-        android:id="@+id/guideline_fragment"
-        android:name="com.jotangi.nantouparking.ui.GuideLinesFragment"
-        android:label="navigation guideline fragment"
-        tools:layout="@layout/fragment_guide_lines">
-        <action
-            android:id="@+id/action_to_store_detail2"
-            app:destination="@id/store_detail_fragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-    </fragment>
-
-    <fragment
         android:id="@+id/login_fragment"
         android:name="com.jotangi.nantouparking.ui.member.LoginFragment"
         android:label="navigation login fragment"
         tools:layout="@layout/fragment_login">
-
 
         <action
             android:id="@+id/action_to_store_manager2_fragment"
@@ -285,11 +269,25 @@
         tools:layout="@layout/fragment_q_n_a" />
 
     <fragment
+        android:id="@+id/guideline_fragment"
+        android:name="com.jotangi.nantouparking.ui.GuideLinesFragment"
+        android:label="navigation guideline fragment"
+        tools:layout="@layout/fragment_guide_lines">
+        <action
+            android:id="@+id/action_to_store_detail2"
+            app:destination="@id/store_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/main_fragment"
         android:name="com.jotangi.nantouparking.ui.main.MainFragment"
         android:label="main fragment"
         tools:layout="@layout/fragment_main">
-
         <action
             android:id="@+id/action_to_guideline"
             app:destination="@id/guideline_fragment"
@@ -369,6 +367,9 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/login_fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_main_fragment_to_chargeNoticeFragment2"
+            app:destination="@id/chargeNoticeFragment2" />
     </fragment>
 
     <fragment
@@ -578,4 +579,134 @@
         android:name="com.jotangi.nantouparking.ui.mapTour.StoreIntroduceFragment"
         android:label="fragment_store_introduce"
         tools:layout="@layout/fragment_store_introduce" />
+    <fragment
+        android:id="@+id/mapChargeParkingFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.MapChargeParkingFragment"
+        android:label="MapChargeParkingFragment" >
+        <action
+            android:id="@+id/action_mapChargeParkingFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chargeHistoryDetailFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"
+        android:label="fragment_charge_history_detail"
+        tools:layout="@layout/fragment_charge_history_detail" />
+
+    <fragment
+        android:id="@+id/chargeEntryFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargeEntryFragment"
+        android:label="fragment_charge_entry"
+        tools:layout="@layout/fragment_charge_entry" >
+        <action
+            android:id="@+id/action_chargeEntryFragment_to_chargeScanFragment"
+            app:destination="@id/chargeScanFragment" />
+        <action
+            android:id="@+id/action_chargeEntryFragment_to_mapChargeParkingFragment"
+            app:destination="@id/mapChargeParkingFragment" />
+        <action
+            android:id="@+id/action_chargeEntryFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_chargeEntryFragment_to_chargeHistoryDetailFragment"
+            app:destination="@id/chargeHistoryDetailFragment" />
+        <action
+            android:id="@+id/action_chargeEntryFragment_to_chargingFragment"
+            app:destination="@id/chargingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chargeScanFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargeScanFragment"
+        android:label="fragment_charge_scan"
+        tools:layout="@layout/fragment_charge_scan" >
+        <action
+            android:id="@+id/action_chargeScanFragment_to_chargePayFragment"
+            app:destination="@id/chargePayFragment" />
+        <action
+            android:id="@+id/action_chargeScanFragment_to_chargeEntryFragment"
+            app:destination="@id/chargeEntryFragment" />
+        <action
+            android:id="@+id/action_chargeScanFragment_to_chargeStartFragment"
+            app:destination="@id/chargeStartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chargeStartFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargeStartFragment"
+        android:label="fragment_charge_start"
+        tools:layout="@layout/fragment_charge_start" >
+        <action
+            android:id="@+id/action_chargeStartFragment_to_chargingFragment"
+            app:destination="@id/chargingFragment" />
+        <action
+            android:id="@+id/action_chargeStartFragment_to_chargeScanFragment"
+            app:destination="@id/chargeScanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chargingFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargingFragment"
+        android:label="fragment_charging"
+        tools:layout="@layout/fragment_charging" >
+        <action
+            android:id="@+id/action_chargingFragment_to_main_fragment2"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_chargingFragment_to_mapChargeParkingFragment"
+            app:destination="@id/mapChargeParkingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chargePayFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargePayFragment"
+        android:label="fragment_charge_pay"
+        tools:layout="@layout/fragment_charge_pay" >
+        <action
+            android:id="@+id/action_chargePayFragment_to_chargeStartFragment"
+            app:destination="@id/chargeStartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapChargeParkingFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.MapChargeParkingFragment"
+        android:label="fragment_map_charge_parking"
+        tools:layout="@layout/fragment_map_charge_parking" >
+        <action
+            android:id="@+id/action_mapChargeParkingFragment_to_chargeEntryFragment"
+            app:destination="@id/chargeEntryFragment" />
+        <action
+            android:id="@+id/action_mapChargeParkingFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/parkingAgreementFragment"
+        android:name="com.jotangi.nantouparking.ui.agreement.ParkingAgreementFragment"
+        android:label="fragment_parking_agreement"
+        tools:layout="@layout/fragment_parking_agreement" />
+    <fragment
+        android:id="@+id/chargeNoticeFragment2"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargeNoticeFragment"
+        android:label="fragment_charge_notice"
+        tools:layout="@layout/fragment_charge_notice" >
+        <action
+            android:id="@+id/action_chargeNoticeFragment2_to_mapChargeParkingFragment"
+            app:destination="@id/mapChargeParkingFragment" />
+        <action
+            android:id="@+id/action_chargeNoticeFragment2_to_main_fragment"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_chargeNoticeFragment2_to_chargingFragment"
+            app:destination="@id/chargingFragment" />
+        <action
+            android:id="@+id/action_chargeNoticeFragment2_to_chargeHistoryDetailFragment"
+            app:destination="@id/chargeHistoryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chargeHistoryDetailFragment"
+        android:name="com.jotangi.nantouparking.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"
+        android:label="fragment_charge_history_detail"
+        tools:layout="@layout/fragment_charge_history_detail" >
+        <action
+            android:id="@+id/action_chargeHistoryDetailFragment_to_chargeEntryFragment"
+            app:destination="@id/chargeEntryFragment" />
+        <action
+            android:id="@+id/action_chargeHistoryDetailFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
 </navigation>

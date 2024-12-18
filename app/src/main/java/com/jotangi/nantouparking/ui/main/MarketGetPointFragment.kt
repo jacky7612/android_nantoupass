@@ -25,7 +25,6 @@ import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentMarketGetPointBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.ui.BaseFragment
-import com.jotangi.nantouparking.utility.AppUtility
 import java.util.concurrent.Executors
 
 // TODO: Rename parameter arguments, choose names that match
@@ -194,7 +193,6 @@ class MarketGetPointFragment : BaseFragment() {
         // Show the dialog
         dialog.show()
     }
-
 
     companion object {
         /**

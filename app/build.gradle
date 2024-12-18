@@ -101,5 +101,11 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.2.3'
     // CameraX View
 
-//    implementation 'com.google.android.play:app-update-ktx:2.0.1'
+    // implementation 'com.google.android.play:app-update-ktx:2.0.1'
+    // 顯示網址圖片
+    implementation "io.coil-kt:coil:1.4.0"
+
+    // map
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }

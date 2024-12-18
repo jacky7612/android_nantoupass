@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@color/c_1f538c">
+
+    <View
+        android:id="@+id/popup_show_as_view01"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="52dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_feet"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="8dp"
+        android:padding="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_p50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <LinearLayout
+            android:id="@+id/layout_feet_store_value"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/layout_feet_charge"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/toolbar_btn_store_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:paddingTop="0dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_charge_storevalue48"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/toolbar_tv_store_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="儲值"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_feet_charge"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/guideline_p50"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_p50"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/toolbar_btn_charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:paddingTop="0dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_charge_electric_24"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/toolbar_tv_charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充電"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_feet_map"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/layout_feet_charge"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/toolbar_btn_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:paddingTop="0dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_charge_map_24"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/tv_charge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地圖"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

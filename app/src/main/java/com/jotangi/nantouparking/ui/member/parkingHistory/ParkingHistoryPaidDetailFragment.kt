@@ -57,6 +57,8 @@ class ParkingHistoryPaidDetailFragment : BaseFragment() {
         billNo = arguments?.getString("billNo").toString()
         mainViewModel.getParkingFeePaidDetail(
             requireContext(),
+            billNo,
+            AppUtility.getLoginPassword(requireContext())!!,
             billNo
         )
     }

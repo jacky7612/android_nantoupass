@@ -1,8 +1,12 @@
 package com.jotangi.nantouparking.ui
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -10,12 +14,14 @@ import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.MainActivity
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
+import com.jotangi.nantouparking.ui.charge.ChargeViewModel
 import com.jotangi.nantouparking.utility.AppUtility
 
 abstract class BaseFragment : Fragment() {
     abstract fun getToolBar(): ToolbarIncludeBinding?
     var mActivity: MainActivity? = null
     lateinit var mainViewModel: MainViewModel
+    lateinit var chargeViewModel: ChargeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +68,20 @@ abstract class BaseFragment : Fragment() {
 
             setOnClickListener {
                 onClick()
+            }
+        }
+    }
+
+    fun setupGuildelinesTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "漫步踩點"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
             }
         }
     }
@@ -161,20 +181,6 @@ abstract class BaseFragment : Fragment() {
     fun setupMarketTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "活動專區"
-            toolBackImageButton.visibility = View.VISIBLE
-
-            setupToolBarBtn(
-                toolBackImageButton,
-                R.drawable.icon_back_36
-            ) {
-                onBackPressed()
-            }
-        }
-    }
-
-    fun setupGuildelinesTitle() {
-        getToolBar()?.apply {
-            toolTitleTextView.text = "漫步踩點"
             toolBackImageButton.visibility = View.VISIBLE
 
             setupToolBarBtn(
@@ -460,6 +466,79 @@ abstract class BaseFragment : Fragment() {
     fun setupStoreIntroduceTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = getString(R.string.store_introduce_title)
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
+
+    fun showCustomDialog(context: Context, message: String, targetFragmentID: Int = -1, buttonText: String ="確定") {
+        if (message.isNullOrEmpty()) return
+
+        // Create a new Dialog
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.msgbox_custom)
+
+        // Prevent closing the dialog by clicking outside
+        dialog.setCancelable(false)
+
+        // Set the message in the TextView
+        val messageTextView: TextView = dialog.findViewById(R.id.tv_message)
+        messageTextView.text = message
+
+        // Set up the OK button
+        val okButton: Button = dialog.findViewById(R.id.bt_ok)
+        okButton.text =buttonText
+        okButton.setOnClickListener {
+            // Navigate to the desired fragment
+            if (targetFragmentID > -1) findNavController().navigate(targetFragmentID)
+            dialog.dismiss() // Close the dialog
+        }
+
+        // Show the dialog
+        dialog.show()
+    }
+    fun setToolBarTitle(input: String) {
+        getToolBar()?.apply {
+            toolTitleTextView.text = input
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+    fun setToolbarTitle(input: String, back_visible :Boolean =true) {
+        getToolBar()?.apply {
+            toolTitleTextView.text = input
+            toolBackImageButton.visibility = View.VISIBLE
+
+            if (back_visible) {
+                toolBackImageButton.visibility = View.VISIBLE
+                setupToolBarBtn(
+                    toolBackImageButton,
+                    R.drawable.icon_back_36
+                ) {
+                    onBackPressed()
+                }
+            } else {
+                toolBackImageButton.setImageDrawable(null) // Clear image
+                toolBackImageButton.visibility = View.INVISIBLE
+            }
+        }
+    }
+    fun setupChargeNoticeTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = getString(R.string.charge_notice_title)
             toolBackImageButton.visibility = View.VISIBLE
 
             setupToolBarBtn(

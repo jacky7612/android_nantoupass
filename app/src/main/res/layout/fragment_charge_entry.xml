@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/charge_dark_color"
+    tools:context=".ui.charge.ChargeEntryFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_charge_tab"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="?android:selectableItemBackground"
+        android:foreground="@android:color/transparent"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="5dp"
+        android:text="充電"
+        android:textColor="@color/light_blue_600"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_charge_history_tab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_include" />
+
+    <TextView
+        android:id="@+id/tv_charge_history_tab"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?android:selectableItemBackground"
+        android:foreground="@android:color/transparent"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="5dp"
+        android:text="充電紀錄"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_charge_tab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_charge_tab"
+        app:layout_constraintTop_toTopOf="@+id/tv_charge_tab" />
+
+    <View
+        android:id="@+id/vw_charge_tab"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/light_blue_600"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_charge_tab"
+        app:layout_constraintEnd_toEndOf="@+id/tv_charge_tab"
+        app:layout_constraintStart_toStartOf="@+id/tv_charge_tab" />
+
+    <View
+        android:id="@+id/vw_charge_history_tab"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/light_blue_600"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_charge_history_tab"
+        app:layout_constraintEnd_toEndOf="@+id/tv_charge_history_tab"
+        app:layout_constraintStart_toStartOf="@+id/tv_charge_history_tab" />
+
+    <!-- TODO: 充電頁籤 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_area_charge"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vw_charge_history_tab"
+        app:layout_constraintBottom_toTopOf="@id/toolbar_feet">
+        <ImageView
+            android:id="@+id/iv_charge_entry"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.45"
+            android:scaleType="fitXY"
+            android:src="@drawable/charge_entry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_hint_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_hint_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="開始充電"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_charge_entry"
+            app:layout_constraintBottom_toTopOf="@id/tv_hint_content"
+            tools:ignore="TextSizeCheck" />
+        <TextView
+            android:id="@+id/tv_hint_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="按下 開始使用 鈕\n將進入啟用充電步驟，請依畫面指引進行操作\n請掃描Qrcode或輸入充電設備序號"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hint_title"
+            app:layout_constraintBottom_toTopOf="@id/bt_start"
+            tools:ignore="TextSizeCheck" />
+
+        <Button
+            android:id="@+id/bt_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_round_light_type_blue"
+            android:elevation="10dp"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="開始使用"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TODO: 充電紀錄頁籤 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_area_charge_history"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:background="@color/charge_dark_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vw_charge_history_tab"
+        app:layout_constraintBottom_toTopOf="@id/toolbar_feet">
+
+
+        <TextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/parking_history_paid_default_title"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_charge_history"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/charge_dark_color"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_charge_history" />
+
+        <TextView
+            android:id="@+id/tv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="資料讀取中"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/toolbar_feet"
+        layout="@layout/toolbar_feet"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+<!--    <include-->
+<!--        android:id="@+id/toolbar_feet"-->
+<!--        layout="@layout/toolbar_feet"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="64dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

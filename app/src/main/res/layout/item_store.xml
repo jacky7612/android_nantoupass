@@ -4,7 +4,7 @@
     android:id="@+id/item_store_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-android:layout_marginTop="5dp"
+    android:layout_marginTop="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginBottom="5dp"
     android:layout_marginRight="5dp"
@@ -27,7 +27,7 @@ android:layout_marginTop="5dp"
         app:srcCompat="@drawable/icon_app_icon" />
 
     <TextView
-android:layout_marginLeft="20dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/item_store_name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@ android:layout_marginLeft="20dp"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/item_store_imageView"
-       app:layout_constraintTop_toTopOf="@+id/item_store_imageView" />
+        app:layout_constraintTop_toTopOf="@+id/item_store_imageView" />
 
     <TextView
         android:id="@+id/item_store_open_time_textView"

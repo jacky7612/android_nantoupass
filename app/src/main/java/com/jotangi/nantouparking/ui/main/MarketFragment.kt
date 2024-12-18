@@ -71,10 +71,11 @@ class MarketFragment : BaseFragment() {
 
             lottory.setOnClickListener {
                 if(!AppUtility.getLoginStatus(requireContext())){
-                    showLogoutDialog()
+                    showLogout2Dialog()
                 } else {
                     findNavController().navigate(R.id.action_to_market_lottory)
                 }
+
             }
 
         }
@@ -84,6 +85,27 @@ class MarketFragment : BaseFragment() {
         // Inflate the custom layout
         val inflater: LayoutInflater = LayoutInflater.from(requireContext())
         val dialogView: View = inflater.inflate(R.layout.dialog_not_login, null)
+
+        // Initialize the dialog
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        // Find the confirm button and set a click listener
+        val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
+    }
+
+    private fun showLogout2Dialog() {
+        // Inflate the custom layout
+        val inflater: LayoutInflater = LayoutInflater.from(requireContext())
+        val dialogView: View = inflater.inflate(R.layout.dialog_lottory_not_login, null)
 
         // Initialize the dialog
         val dialog = AlertDialog.Builder(requireContext())

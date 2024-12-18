@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jotangi.nantouparking.databinding.FragmentParkingHistoryPaidDetailBinding
 import com.jotangi.nantouparking.databinding.FragmentParkingHistoryPlatePaidDetailBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.model.ParkingFeePaidDetailVO
@@ -58,6 +57,8 @@ class ParkingHistoryPlatePaidDetailFragment : BaseFragment() {
         billNo = arguments?.getString("billNo").toString()
         mainViewModel.getParkingFeePaidDetail(
             requireContext(),
+            billNo,
+            AppUtility.getLoginPassword(requireContext())!!,
             billNo
         )
     }

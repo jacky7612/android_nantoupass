@@ -5,8 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
@@ -584,7 +582,9 @@ class MainViewModel : ViewModel() {
 
     fun getParkingFeePaidDetail(
         context: Context,
-        billNo: String
+        billNo: String,
+        loginPassword: String,
+        billNo1: String
     ) {
         val call: Call<List<ParkingFeePaidDetailVO>> =
             ApiUtility.service.apiGetParkingFeePaidDetail(billNo)

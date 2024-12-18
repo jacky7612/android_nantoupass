@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/charge_dark_color"
+    tools:context=".ui.charge.ChargeDetail.ChargeHistoryDetailFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:text="資料讀取中"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_include"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_charge_detail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_include"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="2024 年 7 月 21 日 09:33"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bt_navigation"
+            android:layout_margin="10dp"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"
+            android:text="充電繳費"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/shape_round_charge_btn"
+            android:elevation="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/vw_separate01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/shape_round_charge_btn" />
+
+        <!-- TODO:付款金額 -->
+        <LinearLayout
+            android:id="@+id/linearlayout_area_amount"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_time"
+            app:layout_constraintTop_toBottomOf="@+id/tv_time"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_amount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="付款金額"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="$80"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+        <!-- TODO:付款狀態 -->
+        <LinearLayout
+            android:id="@+id/linearlayout_area_status"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/linearlayout_area_amount"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_area_amount"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_status_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="付款狀態"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="尚未付款"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/vw_separate01"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/light_blue_600"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_area_status"
+            tools:ignore="MissingConstraints" />
+
+        <!-- TODO:總計時間 -->
+        <LinearLayout
+            android:id="@+id/linearlayout_area_total_time"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@+id/linearlayout_area_status"
+            app:layout_constraintTop_toBottomOf="@+id/vw_separate01"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/tv_total_time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="總計時間"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+            <TextView
+                android:id="@+id/tv_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1小時65分鐘"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/vw_separate02"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/light_blue_600"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_area_total_time"
+            tools:ignore="MissingConstraints" />
+
+        <!-- TODO:充電站 -->
+        <LinearLayout
+            android:id="@+id/linearlayout_area_charge_station"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@+id/linearlayout_area_status"
+            app:layout_constraintTop_toBottomOf="@+id/vw_separate02"
+            tools:ignore="MissingConstraints">
+
+            <!-- TODO:充電站標題 -->
+            <TextView
+                android:id="@+id/tv_station_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="充電站"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+            <!-- TODO:充電站名稱 -->
+            <TextView
+                android:id="@+id/tv_station_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="松壽停車場"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+
+            <!-- TODO:充電設備序號 -->
+            <LinearLayout
+                android:id="@+id/linearlayout_charge_device"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="@+id/linearlayout_area_amount"
+                app:layout_constraintTop_toBottomOf="@+id/linearlayout_area_amount"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/tv_charge_device_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="充電設備序號 :"
+                    android:textSize="14dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="?attr/textAppearanceBody1" />
+                <TextView
+                    android:id="@+id/tv_charge_device_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="tbasdfa20123r4kjal4"
+                    android:textSize="14dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textAppearance="?attr/textAppearanceBody1" />
+            </LinearLayout>
+
+            <!-- TODO:松壽停車場詳細說明 -->
+            <TextView
+                android:id="@+id/tv_station_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="松壽停車場詳細說明"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/vw_separate03"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/light_blue_600"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_area_charge_station"
+            tools:ignore="MissingConstraints" />
+
+        <!-- TODO:已輸電 -->
+        <LinearLayout
+            android:id="@+id/linearlayout_area_charge_power"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@+id/linearlayout_area_status"
+            app:layout_constraintTop_toBottomOf="@+id/vw_separate03"
+            tools:ignore="MissingConstraints">
+
+            <!-- TODO:已輸電 -->
+            <TextView
+                android:id="@+id/tv_charge_power"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已輸電"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+
+            <!-- TODO:已輸電內容 -->
+            <TextView
+                android:id="@+id/tv_charge_power_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="13.45kWh"
+                android:textSize="14dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody1" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    
+</androidx.constraintlayout.widget.ConstraintLayout>

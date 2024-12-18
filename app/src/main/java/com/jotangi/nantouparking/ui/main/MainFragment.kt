@@ -101,64 +101,72 @@ class MainFragment :
         )
     }
 
-    private fun openUrl(url: String) {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
-            context?.startActivity(intent)
-        } catch (e: Exception) {
-            Toast.makeText(context, "Unable to open the link.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun initAction() {
         binding?.apply {
 
-            mainChargeConstraintLayout.setOnClickListener {
+            binding?.apply {
 
-            }
+                mainChargeConstraintLayout.setOnClickListener {
+                    AppUtility.showPopDialog(
+                        requireContext(),
+                        "",
+                        "\n充電服務即將上線\n\n敬請期待!"
+                    )
+//                if (!AppUtility.getLoginStatus(requireContext())) {
+////                    AppUtility.showPopDialog(
+////                        requireContext(),
+////                        "請先登入會員",
+////                        "\n請先登入會員\n\n未登入會員無法使用此功能"
+////                    )
+//                } else {
+//                    chargeViewModel.clear()
+//                    findNavController().navigate(R.id.action_main_fragment_to_chargeNoticeFragment2)
+//                }
+                }
 
-            mainLineConstraintLayout.setOnClickListener{
-                openUrl("https://line.me/R/ti/p/@588fmkjn")
-            }
-            mainAttractionsConstraintLayout.setOnClickListener {
-                findNavController().navigate(R.id.action_to_guideline)
-            }
 
-            market.setOnClickListener {
-                findNavController().navigate(R.id.action_to_marekt)
-            }
-            // line 1
-            mainSpaceConstraintLayout.setOnClickListener {
-                findNavController().navigate(R.id.action_to_parking_count)
-            }
+                mainLineConstraintLayout.setOnClickListener {
+                    openUrl("https://line.me/R/ti/p/@588fmkjn")
+                }
+                mainAttractionsConstraintLayout.setOnClickListener {
+                    findNavController().navigate(R.id.action_to_guideline)
+                }
+
+                market.setOnClickListener {
+                    findNavController().navigate(R.id.action_to_marekt)
+                }
+                // line 1
+                mainSpaceConstraintLayout.setOnClickListener {
+                    findNavController().navigate(R.id.action_to_parking_count)
+                }
 
 
-            mainServiceConstraintLayout.setOnClickListener {
+                mainServiceConstraintLayout.setOnClickListener {
 //                AppUtility.showPopDialog(
 //                    requireContext(),
 //                    null,
 //                    "尚未開放！\n敬請期待！"
 //                )
 
-                makePhoneCall(AppConfig.CUSTOMER_SERVICE_PHONE)
-            }
+                    makePhoneCall(AppConfig.CUSTOMER_SERVICE_PHONE)
+                }
 
-            mainOfficialConstraintLayout.setOnClickListener {
-                openWeb(AppConfig.AREA_MAIN_WEB)
-            }
+                mainOfficialConstraintLayout.setOnClickListener {
+                    openWeb(AppConfig.AREA_MAIN_WEB)
+                }
 
-            parkingFbConstraintLayout.setOnClickListener {
-                openWeb(AppConfig.MAYOR_FB)
-            }
+                parkingFbConstraintLayout.setOnClickListener {
+                    openWeb(AppConfig.MAYOR_FB)
+                }
 
-            // line 2
-            parkingPaymentConstraintLayout.setOnClickListener {
-                findNavController().navigate(R.id.action_to_parking_license_plate_history)
-            }
+                // line 2
+                parkingPaymentConstraintLayout.setOnClickListener {
+                    findNavController().navigate(R.id.action_to_parking_license_plate_history)
+                }
 
-            parkingInfoConstraintLayout.setOnClickListener {
-                openWeb("https://parking.nantou.gov.tw/")
+                parkingInfoConstraintLayout.setOnClickListener {
+                    openWeb("https://parking.nantou.gov.tw/")
+                }
             }
         }
 
@@ -239,6 +247,16 @@ class MainFragment :
 
         intent.data = Uri.parse(webUri)
         startActivity(intent)
+    }
+
+    private fun openUrl(url: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            context?.startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(context, "Unable to open the link.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun openApp(appUri: String) {
