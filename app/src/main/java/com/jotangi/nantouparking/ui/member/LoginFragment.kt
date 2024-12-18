@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.ui.member
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +82,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun loginSucceed(result: LoginResponse) {
+        Log.d("micCheckMB", result.toString())
         if (result.code == ApiConfig.API_CODE_SUCCESS) {
             AppUtility.updateLoginStatus(
                 requireContext(),
@@ -102,8 +104,18 @@ class LoginFragment : BaseFragment() {
                 "登入成功！",
                 null
             )
+            binding?.apply {
+                Log.d("micCheckLL", loginIdEditText.text.toString())
+                Log.d("micCheckLL", loginPasswordEditText.text.toString())
+                if(loginIdEditText.text.toString().equals("1229G1") && loginPasswordEditText.text.toString().equals("1229G1")) {
+                    Log.d("micCheckLL", "1")
+                    findNavController().navigate(R.id.action_to_store_manager2_fragment)
+                } else {
+                    Log.d("micCheckLL", "2")
+                    findNavController().navigate(R.id.action_to_member_main)
+                }
+            }
 
-            findNavController().navigate(R.id.action_to_member_main)
         } else {
             AppUtility.showPopDialog(
                 requireContext(),

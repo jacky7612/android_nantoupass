@@ -10,6 +10,14 @@
         android:name="com.jotangi.nantouparking.ui.member.LoginFragment"
         android:label="navigation login fragment"
         tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_to_store_manager2_fragment"
+            app:destination="@id/store_manager2_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_to_signup"
             app:destination="@id/signup_fragment"
@@ -412,6 +420,37 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/store_manager3_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.StoreManager3Fragment"
+        android:label="fragment_store_manager3"
+        tools:layout="@layout/fragment_store_manager3" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/store_manager2_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.StoreManagerFragment2"
+        android:label="fragment_store_manager2"
+        tools:layout="@layout/fragment_store_manager2" >
+        <action
+            android:id="@+id/action_to_store_manager3"
+            app:destination="@id/store_manager3_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/storeManagerFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_to_main"
+            app:destination="@id/main_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/storeManagerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/scan_coupon_fragment"
         android:name="com.jotangi.nantouparking.ui.manager.ScanCouponFragment"

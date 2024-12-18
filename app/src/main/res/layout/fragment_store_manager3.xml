@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include" />
+<LinearLayout
+    android:layout_marginTop="10dp"
+    android:layout_width="380dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_weight="3">
+    <TextView
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/btn_one_day"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="1日"
+        android:textColor="@color/black"
+        android:background="@drawable/store_manager_button_selector"/>
+
+    <TextView
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/btn_seven_days"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="7日"
+        android:textColor="#2196F3"
+        android:background="@drawable/store_manager_button_selector"/>
+
+    <TextView
+        android:gravity="center"
+        android:textSize="20sp"
+        android:id="@+id/btn_one_month"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:text="1個月"
+        android:textColor="#2196F3"
+        android:background="@drawable/store_manager_button_selector"/>
+</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_marginTop="30dp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>

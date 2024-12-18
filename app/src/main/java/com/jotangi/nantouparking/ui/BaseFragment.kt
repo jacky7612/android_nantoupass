@@ -102,6 +102,34 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupStoreManagerTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "店長"
+            toolBackImageButton.visibility = View.GONE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
+    fun setupStoreManager2Title() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "店長"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupMemberTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = getString(R.string.member_title)
