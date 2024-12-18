@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@android:color/white">
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Current Points Section -->
+    <TextView
+        android:id="@+id/tvCurrentPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="目前點數：50 點"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/tvPointDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="說明：1點折抵1元"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:gravity="center" />
+
+    <!-- Container for Input -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="24dp"
+        android:background="@drawable/rounded_border_background"
+        android:padding="16dp">
+
+        <!-- Store Title -->
+        <TextView
+            android:id="@+id/tvStoreName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A 商店"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Input Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Left Label -->
+            <TextView
+                android:id="@+id/tvLeftLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="折抵"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="8dp" />
+
+            <!-- EditText Input -->
+            <EditText
+                android:id="@+id/etInputPoints"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+
+                android:hint="輸入折抵點數"
+                android:textColorHint="@android:color/darker_gray"
+                android:gravity="center"
+                android:background="@drawable/round_market_green" />
+
+            <!-- Right Label -->
+            <TextView
+                android:id="@+id/tvRightLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="點"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

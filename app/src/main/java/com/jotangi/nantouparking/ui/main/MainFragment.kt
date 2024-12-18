@@ -102,10 +102,15 @@ class MainFragment :
 
     private fun initAction() {
         binding?.apply {
+
+            market.setOnClickListener {
+                findNavController().navigate(R.id.action_to_marekt)
+            }
             // line 1
             mainSpaceConstraintLayout.setOnClickListener {
                 findNavController().navigate(R.id.action_to_parking_count)
             }
+
 
             mainServiceConstraintLayout.setOnClickListener {
 //                AppUtility.showPopDialog(

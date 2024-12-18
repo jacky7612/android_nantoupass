@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.MarketFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/market"
+        android:background="@drawable/market"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_include"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_container"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/market"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="點數折抵"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="#6d98a7"
+            android:id="@+id/use_point"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_market_green"
+            />
+
+        <TextView
+            android:text="獲取點數"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="#6d98a7"
+            android:id="@+id/get_point"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_market_green"/>
+
+        <TextView
+            android:text="點數紀錄"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="#6d98a7"
+            android:layout_marginTop="20dp"
+            android:id="@+id/record_point"
+            app:layout_constraintTop_toBottomOf="@id/use_point"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_market_green"/>
+
+        <TextView
+            android:text="抽獎專區"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="#6d98a7"
+            android:layout_marginTop="20dp"
+            android:id="@+id/lottory"
+            app:layout_constraintTop_toBottomOf="@id/get_point"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_market_green"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:text="活動辦法"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:background="#F4F4F4"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_container"
+        android:layout_width="300dp"
+        android:layout_height="220dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

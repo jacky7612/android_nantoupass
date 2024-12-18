@@ -88,6 +88,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupLottoryTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "抽獎專區"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupMemberTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = getString(R.string.member_title)
@@ -105,6 +119,62 @@ abstract class BaseFragment : Fragment() {
     fun setupLoginTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = getString(R.string.login_main_title)
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
+    fun setupMarketTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "活動專區"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
+    fun setupMarketGetPointTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "獲取點數"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
+    fun setupMarketChangePointTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "點數折抵"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
+    fun setupMarketCurrentPointTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "點數紀錄"
             toolBackImageButton.visibility = View.VISIBLE
 
             setupToolBarBtn(

@@ -266,6 +266,13 @@
         android:label="main fragment"
         tools:layout="@layout/fragment_main">
         <action
+            android:id="@+id/action_to_marekt"
+            app:destination="@id/market_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_to_login"
             app:destination="@id/login_fragment"
             app:enterAnim="@anim/slide_in_right"
@@ -424,6 +431,84 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/market_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.MarketFragment"
+        android:label="navigation market fragment"
+        tools:layout="@layout/fragment_market" >
+        <action
+            android:id="@+id/action_to_market_lottory"
+            app:destination="@id/market_lottory_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_to_current_point_fragment"
+            app:destination="@id/current_point_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_marekt_change"
+            app:destination="@id/market_change_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_market_get_point"
+            app:destination="@id/market_get_point_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/point_amount_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.PointAmountFragment"
+        android:label="navigation point amount fragment"
+        tools:layout="@layout/fragment_point_amount" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/market_lottory_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.MarketLottoryFragment"
+        android:label="navigation markey lottory fragment"
+        tools:layout="@layout/fragment_market_lottory" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/market_change_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.MarketChangeFragment"
+        android:label="navigation market change point fragment"
+        tools:layout="@layout/fragment_market_change" >
+
+
+        <action
+            android:id="@+id/action_to_point_amount"
+            app:destination="@id/point_amount_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/current_point_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.CurrentPointFragment"
+        android:label="navigation current point fragment"
+        tools:layout="@layout/fragment_current_point" />
+
+    <fragment
+        android:id="@+id/market_get_point_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.MarketGetPointFragment"
+        android:label="navigation market get point fragment"
+        tools:layout="@layout/fragment_market_get_point" />
 
     <fragment
         android:id="@+id/storeIntroduceFragment"
