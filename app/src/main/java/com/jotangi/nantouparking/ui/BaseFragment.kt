@@ -172,6 +172,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupGuildelinesTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "漫步踩點"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupMarketGetPointTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "獲取點數"

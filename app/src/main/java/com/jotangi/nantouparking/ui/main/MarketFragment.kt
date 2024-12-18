@@ -1,16 +1,19 @@
 package com.jotangi.nantouparking.ui.main
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentMainBinding
 import com.jotangi.nantouparking.databinding.FragmentMarketBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.ui.BaseFragment
+import com.jotangi.nantouparking.utility.AppUtility
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,7 +55,11 @@ class MarketFragment : BaseFragment() {
 
         binding?.apply {
             getPoint.setOnClickListener{
-                findNavController().navigate(R.id.action_to_market_get_point)
+                if(!AppUtility.getLoginStatus(requireContext())){
+                    showLogoutDialog()
+                } else {
+                    findNavController().navigate(R.id.action_to_market_get_point)
+                }
             }
             usePoint.setOnClickListener{
                 findNavController().navigate(R.id.action_to_marekt_change)
@@ -63,11 +70,35 @@ class MarketFragment : BaseFragment() {
             }
 
             lottory.setOnClickListener {
-                findNavController().navigate(R.id.action_to_market_lottory)
-
+                if(!AppUtility.getLoginStatus(requireContext())){
+                    showLogoutDialog()
+                } else {
+                    findNavController().navigate(R.id.action_to_market_lottory)
+                }
             }
 
         }
+    }
+
+    private fun showLogoutDialog() {
+        // Inflate the custom layout
+        val inflater: LayoutInflater = LayoutInflater.from(requireContext())
+        val dialogView: View = inflater.inflate(R.layout.dialog_not_login, null)
+
+        // Initialize the dialog
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        // Find the confirm button and set a click listener
+        val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Show the dialog
+        dialog.show()
     }
 
     companion object {

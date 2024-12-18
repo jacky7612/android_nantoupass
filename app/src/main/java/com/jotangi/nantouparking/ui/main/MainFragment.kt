@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -100,8 +101,29 @@ class MainFragment :
         )
     }
 
+    private fun openUrl(url: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            context?.startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(context, "Unable to open the link.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun initAction() {
         binding?.apply {
+
+            mainChargeConstraintLayout.setOnClickListener {
+
+            }
+
+            mainLineConstraintLayout.setOnClickListener{
+                openUrl("https://line.me/R/ti/p/@588fmkjn")
+            }
+            mainAttractionsConstraintLayout.setOnClickListener {
+                findNavController().navigate(R.id.action_to_guideline)
+            }
 
             market.setOnClickListener {
                 findNavController().navigate(R.id.action_to_marekt)

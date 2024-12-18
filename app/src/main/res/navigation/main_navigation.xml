@@ -6,10 +6,26 @@
     app:startDestination="@id/main_fragment">
 
     <fragment
+        android:id="@+id/guideline_fragment"
+        android:name="com.jotangi.nantouparking.ui.GuideLinesFragment"
+        android:label="navigation guideline fragment"
+        tools:layout="@layout/fragment_guide_lines">
+        <action
+            android:id="@+id/action_to_store_detail2"
+            app:destination="@id/store_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/login_fragment"
         android:name="com.jotangi.nantouparking.ui.member.LoginFragment"
         android:label="navigation login fragment"
         tools:layout="@layout/fragment_login">
+
 
         <action
             android:id="@+id/action_to_store_manager2_fragment"
@@ -273,6 +289,14 @@
         android:name="com.jotangi.nantouparking.ui.main.MainFragment"
         android:label="main fragment"
         tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_to_guideline"
+            app:destination="@id/guideline_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_to_marekt"
             app:destination="@id/market_fragment"
