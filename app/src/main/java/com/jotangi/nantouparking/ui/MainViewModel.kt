@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
@@ -161,6 +162,12 @@ class MainViewModel : ViewModel() {
 
     private val _pointRecords = MutableLiveData<List<PointRecord2Response>>()
     val pointRecords: LiveData<List<PointRecord2Response>> get() = _pointRecords
+
+    private val _memberInfo = MutableLiveData<List<MemberInfo>>()
+    val memberInfo: LiveData<List<MemberInfo>> get() = _memberInfo
+
+    private val _errorResponse = MutableLiveData<ErrorResponse>()
+    val errorResponse: LiveData<ErrorResponse> get() = _errorResponse
 
     val isDelete: LiveData<Boolean> get() = _isDelete
 
@@ -1389,6 +1396,47 @@ class MainViewModel : ViewModel() {
                 t: Throwable
             ) {
                 _pointRecords.postValue(emptyList())
+            }
+        })
+    }
+
+    fun fetchMemberInfo(memberId: String, memberPwd: String) {
+        val call = ApiUtility.service.getMemberInfo(memberId, memberPwd)
+        call.enqueue(object : Callback<List<MemberInfo>> {
+            override fun onResponse(
+                call: Call<List<MemberInfo>>,
+                response: Response<List<MemberInfo>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _memberInfo.postValue(it)
+                    } ?: run {
+                        // Handle case where response is successful but body is null
+                        val errorBody = response.errorBody()?.string()
+                        if (errorBody != null) {
+                            val error = Gson().fromJson(errorBody, ErrorResponse::class.java)
+                            _errorResponse.postValue(error)
+                        }
+                    }
+                } else {
+                    // Handle API error
+                    val errorBody = response.errorBody()?.string()
+                    if (errorBody != null) {
+                        val error = Gson().fromJson(errorBody, ErrorResponse::class.java)
+                        _errorResponse.postValue(error)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<MemberInfo>>, t: Throwable) {
+                // Handle network failure
+                _errorResponse.postValue(
+                    ErrorResponse(
+                        status = "false",
+                        code = "NETWORK_ERROR",
+                        responseMessage = t.localizedMessage ?: "Unknown error"
+                    )
+                )
             }
         })
     }

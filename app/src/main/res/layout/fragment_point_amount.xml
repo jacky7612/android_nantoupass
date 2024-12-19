@@ -102,7 +102,16 @@ android:layout_marginLeft="10dp"
         android:background="@drawable/round_market_darker_green"
         android:textColor="@color/white"
         android:gravity="center"
-        android:text="獲取點數"
+        android:text="折抵點數"
         android:layout_width="130dp"
         android:layout_height="40dp"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/no_data"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查無點數資料"/>
 </LinearLayout>

@@ -11,6 +11,7 @@ import com.jotangi.nantouparking.databinding.FragmentMarketChangeBinding
 import com.jotangi.nantouparking.databinding.FragmentPointAmountBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.ui.BaseFragment
+import com.jotangi.nantouparking.utility.AppUtility
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +53,26 @@ class PointAmountFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMarketChangePointTitle()
+binding?.noData?.visibility = View.GONE
+        mainViewModel.memberInfo.observe(viewLifecycleOwner) { members ->
+            if(members.isNullOrEmpty()) {
+                binding?.tvCurrentPoints?.text = "目前點數：" + "未知" + " 點"
+                binding?.noData?.visibility = View.VISIBLE
+            } else {
+                binding?.tvCurrentPoints?.text = "目前點數：" + members[0].member_totalpoints + " 點"
+            }
+        }
+
+        // Observe error response
+        mainViewModel.errorResponse.observe(viewLifecycleOwner) { error ->
+            binding?.tvCurrentPoints?.text = "目前點數：" + "未知" + " 點"
+            binding?.noData?.visibility = View.VISIBLE
+            binding?.noData?.text = "後端錯誤, 無法得知點數"
+            println("Error: ${error.responseMessage}")
+        }
+
+        // Fetch member info
+        mainViewModel.fetchMemberInfo(AppUtility.getLoginId(requireContext())!!, AppUtility.getLoginPassword(requireContext())!!)
     }
 
     companion object {

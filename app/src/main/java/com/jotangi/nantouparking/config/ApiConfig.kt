@@ -232,4 +232,11 @@ interface ApiConfig {
         @Field("member_pwd") memberPwd: String,
         @Field("point_type") pointType: String
     ): Call<ApiResponse<List<PointRecord2Response>>>
+
+    @FormUrlEncoded
+    @POST("api/member_info.php")
+    fun getMemberInfo(
+        @Field("member_id") memberId: String,
+        @Field("member_pwd") memberPwd: String
+    ): Call<List<MemberInfo>>
 }
