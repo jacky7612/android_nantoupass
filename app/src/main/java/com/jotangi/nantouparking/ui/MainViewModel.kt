@@ -153,6 +153,10 @@ class MainViewModel : ViewModel() {
     private val _isDelete: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
+
+    private val _pointRecordsData = MutableLiveData<List<PointRecordResponse>>()
+    val pointRecordsData: LiveData<List<PointRecordResponse>> get() = _pointRecordsData
+
     val isDelete: LiveData<Boolean> get() = _isDelete
 
     fun clearData() {
@@ -1319,4 +1323,46 @@ class MainViewModel : ViewModel() {
     fun clearDeleteAccount() {
         _isDelete.value = null
     }
+
+    fun getStorePointRecords(
+        context: Context,
+        memberId: String,
+        memberPwd: String,
+        startDate: String,
+        endDate: String
+    ) {
+        val call: Call<StorePointRecordResponse> = ApiUtility.service.apiStorePointRecord(
+            memberId,
+            memberPwd,
+            startDate,
+            endDate
+        )
+
+        call.enqueue(object : Callback<StorePointRecordResponse> {
+            override fun onResponse(
+                call: Call<StorePointRecordResponse>,
+                response: Response<StorePointRecordResponse>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    _pointRecordsData.value = response.body()?.data ?: emptyList()
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        response.code().toString(),
+                        response.message()
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<StorePointRecordResponse>, t: Throwable) {
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    ApiUtility.apiFailureMessage(call, t)
+                )
+            }
+        })
+    }
+
+
 }

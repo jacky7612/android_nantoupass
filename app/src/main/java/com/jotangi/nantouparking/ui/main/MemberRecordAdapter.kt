@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantouparking.R
+import com.jotangi.nantouparking.model.PointRecordResponse
+import com.jotangi.nantouparking.model.StorePointRecordResponse
 
-class MemberRecordAdapter(private val records: List<MemberRecord>) :
+class MemberRecordAdapter(private val records: List<PointRecordResponse>) :
     RecyclerView.Adapter<MemberRecordAdapter.MemberRecordViewHolder>() {
 
     class MemberRecordViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,10 +27,10 @@ class MemberRecordAdapter(private val records: List<MemberRecord>) :
 
     override fun onBindViewHolder(holder: MemberRecordViewHolder, position: Int) {
         val record = records[position]
-        holder.tvDateTime.text = "時間：${record.dateTime}"
-        holder.tvAccountNumber.text = "會員帳號：${record.accountNumber}"
-        holder.tvPointCount.text = "核銷點數：${record.pointCount}"
-        holder.tvTotalPrice.text = "商品總價：${record.totalPrice}"
+        holder.tvDateTime.text = "時間：${record.point_created_at}"
+        holder.tvAccountNumber.text = "會員帳號：${record.member_id}"
+        holder.tvPointCount.text = "核銷點數：${record.point_use}"
+        holder.tvTotalPrice.text = "商品總價：${record.product_price}"
     }
 
     override fun getItemCount(): Int = records.size

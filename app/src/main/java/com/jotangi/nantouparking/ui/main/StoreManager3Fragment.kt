@@ -13,7 +13,13 @@ import com.jotangi.nantouparking.databinding.FragmentLoginBinding
 import com.jotangi.nantouparking.databinding.FragmentStoreManager3Binding
 import com.jotangi.nantouparking.databinding.FragmentStoreManagerBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
+import com.jotangi.nantouparking.model.PointRecordResponse
 import com.jotangi.nantouparking.ui.BaseFragment
+import com.jotangi.nantouparking.utility.AppUtility
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -47,18 +53,20 @@ class StoreManager3Fragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentStoreManager3Binding.inflate(inflater, container, false)
-        return binding?.root    }
+        return binding?.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-setupStoreManager2Title()
-        val btnOneDay: TextView = view.findViewById(R.id.btn_one_day)
-        val btnSevenDays: TextView = view.findViewById(R.id.btn_seven_days)
-        val btnOneMonth: TextView = view.findViewById(R.id.btn_one_month)
-binding!!.btnOneDay.isSelected = true
-        val buttons = listOf(btnOneDay, btnSevenDays, btnOneMonth)
 
+        setupStoreManager2Title()
+        setupRecyclerView()
+        observeViewModel()
 
+        val buttons = listOf(binding!!.btnOneDay, binding!!.btnSevenDays, binding!!.btnOneMonth)
+
+        // Set the initial selection
+        binding!!.btnOneDay.isSelected = true
 
         buttons.forEach { button ->
             button.setOnClickListener {
@@ -71,20 +79,66 @@ binding!!.btnOneDay.isSelected = true
                 // Set selected button style
                 button.isSelected = true
                 button.setTextColor(resources.getColor(android.R.color.black))
+
+                when (button.id) {
+                    R.id.btn_one_day -> {
+                        val currentDate = getCurrentDate()
+                        fetchStorePoints(currentDate, currentDate) // Fetch points for the same day
+                    }
+
+                    R.id.btn_seven_days -> {
+                        val currentDate = getCurrentDate()
+                        val sevenDaysAgo = getDateBeforeDays(7)
+                        fetchStorePoints(
+                            sevenDaysAgo,
+                            currentDate
+                        ) // Fetch points for the last 7 days
+                    }
+
+                    R.id.btn_one_month -> {
+                        val currentDate = getCurrentDate()
+                        val oneMonthAgo = getDateBeforeDays(30)
+                        fetchStorePoints(
+                            oneMonthAgo,
+                            currentDate
+                        ) // Fetch points for the last 30 days
+                    }
+                }
             }
         }
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+    }
 
-        // Mock data
-        val mockData = listOf(
-            MemberRecord("2024-12-05 16:48:42", "0982958675", 120, 120),
-            MemberRecord("2024-11-28 15:28:04", "0917890276", 120, 120),
-            MemberRecord("2024-11-21 16:22:12", "0928417131", 120, 120)
+
+    private fun getCurrentDate(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.format(Date())
+    }
+
+    private fun getDateBeforeDays(days: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, -days)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return dateFormat.format(calendar.time)
+    }
+
+    private fun setupRecyclerView() {
+        binding?.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        binding?.recyclerView?.adapter = MemberRecordAdapter(emptyList())
+    }
+
+    private fun observeViewModel() {
+        mainViewModel.pointRecordsData.observe(viewLifecycleOwner) { pointRecords ->
+            binding?.recyclerView?.adapter = MemberRecordAdapter(pointRecords ?: emptyList())
+        }
+    }
+    private fun fetchStorePoints(startDate: String, endDate: String) {
+        mainViewModel.getStorePointRecords(
+            requireContext(),
+            AppUtility.getLoginId(requireContext())!!,
+            AppUtility.getLoginPassword(requireContext())!!,
+            startDate,
+            endDate
         )
-
-        // RecyclerView setup
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = MemberRecordAdapter(mockData)
     }
 
     companion object {

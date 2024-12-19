@@ -215,4 +215,13 @@ interface ApiConfig {
         @Field("member_pwd") memberPwd: String
     ): Call<BaseResponse>
     // endregion
+
+    @POST("api/store_point_record.php")
+    @FormUrlEncoded
+    fun apiStorePointRecord(
+        @Field("member_id") memberId: String,
+        @Field("member_pwd") memberPwd: String,
+        @Field("start_date") startDate: String,
+        @Field("end_date") endDate: String
+    ): Call<StorePointRecordResponse>
 }
