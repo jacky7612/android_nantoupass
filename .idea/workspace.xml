@@ -10,6 +10,11 @@
           <theme>@android:style/Theme.Material.Light</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_coupon.xml">
+        <config>
+          <theme>@android:style/Theme.Material.Light</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_duplicate_change_point.xml">
         <config>
           <theme>@android:style/Theme.Material.Light</theme>
@@ -20,12 +25,22 @@
           <theme>@android:style/Theme.Material.Light</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_gift.xml">
+        <config>
+          <theme>@android:style/Theme.Material.Light</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_lottory_not_login.xml">
         <config>
           <theme>@android:style/Theme.Material.Light</theme>
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_not_login.xml">
+        <config>
+          <theme>@android:style/Theme.Material.Light</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_paymethod_info.xml">
         <config>
           <theme>@android:style/Theme.Material.Light</theme>
         </config>
@@ -56,6 +71,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_market_lottory.xml">
+        <config>
+          <theme>@android:style/Theme.Material.Light</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_member.xml">
         <config>
           <theme>@android:style/Theme.Material.Light</theme>
         </config>
@@ -97,7 +117,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8beb6b61-c2cb-471f-81f7-ac2f56a0e463" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/MarketChangeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/MarketChangeFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/MarketGetPointFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/MarketGetPointFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_change_success.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_change_success.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_duplicate_change_point.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_duplicate_change_point.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_get_point_scan_success.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_get_point_scan_success.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_lottory_not_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_lottory_not_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_not_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_not_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_point_amount.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_point_amount.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/main_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/main_navigation.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

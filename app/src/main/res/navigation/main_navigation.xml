@@ -572,8 +572,15 @@
         android:id="@+id/market_get_point_fragment"
         android:name="com.jotangi.nantouparking.ui.main.MarketGetPointFragment"
         android:label="navigation market get point fragment"
-        tools:layout="@layout/fragment_market_get_point" />
-
+        tools:layout="@layout/fragment_market_get_point" >
+        <action
+            android:id="@+id/action_to_market_fragment"
+            app:destination="@id/market_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/storeIntroduceFragment"
         android:name="com.jotangi.nantouparking.ui.mapTour.StoreIntroduceFragment"

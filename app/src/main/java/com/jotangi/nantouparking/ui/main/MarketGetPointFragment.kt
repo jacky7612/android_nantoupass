@@ -19,6 +19,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
@@ -26,6 +27,7 @@ import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentMarketGetPointBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.ui.BaseFragment
+import com.jotangi.nantouparking.utility.AppUtility
 import java.util.concurrent.Executors
 
 // TODO: Rename parameter arguments, choose names that match
@@ -89,6 +91,8 @@ class MarketGetPointFragment : BaseFragment() {
         }
 
         mainViewModel.getPointResponse.observe(viewLifecycleOwner) { response ->
+            Log.d("micCheckKK", response.toString())
+
             if (call) {
                 if (response.status == "true") {
                     showScanSuccessDialog()
@@ -189,8 +193,8 @@ class MarketGetPointFragment : BaseFragment() {
                 call = true
                 if(it.equals("user_point_get")) {
                     mainViewModel.fetchUserPoints(
-                        memberId = "0912345678",
-                        memberPwd = "rewq4321",
+                        memberId = AppUtility.getLoginId(requireContext())!!,
+                        memberPwd = AppUtility.getLoginPassword(requireContext())!!,
                         pointNum = "50",
                         pointType = "1"
                     )
@@ -242,6 +246,8 @@ Toast.makeText(requireContext(), "QRCode 不正確", Toast.LENGTH_LONG).show()
         val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
         btnConfirm.setOnClickListener {
             dialog.dismiss()
+            findNavController().navigate(R.id.action_to_market_fragment)
+
             hasScanned = false
             // Close the dialog
         }
