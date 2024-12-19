@@ -87,6 +87,14 @@ class MarketChangeFragment : BaseFragment() {
             )
         }
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+            cameraProvider.unbindAll()
+        }, ContextCompat.getMainExecutor(requireContext()))
+    }
 
 
     private fun startCamera() {

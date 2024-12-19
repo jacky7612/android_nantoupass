@@ -64,7 +64,7 @@
 
             <!-- Left Label -->
             <TextView
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/tvLeftLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
