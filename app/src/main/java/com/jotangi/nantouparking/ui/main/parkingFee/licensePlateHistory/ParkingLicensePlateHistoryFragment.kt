@@ -43,7 +43,7 @@ class ParkingLicensePlateHistoryFragment :
     private val PARKING_TYPE_GARAGE = "2"
     private val PARKING_TYPE_GARAGE_LIST = "3"
     private var parkingCurPage = "1"
-
+var call = false
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
     override fun onCreateView(
@@ -118,6 +118,7 @@ class ParkingLicensePlateHistoryFragment :
     private fun initObserver() {
         mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
+                Log.d("micCheckZ", "1")
                 updateListView(result)
 
                 if (mPlateNo.isNotEmpty()) {
@@ -127,6 +128,7 @@ class ParkingLicensePlateHistoryFragment :
         }
 
         mainViewModel.addPlateNoData.observe(viewLifecycleOwner) { result ->
+            Log.d("micCheckZ", "2")
             mainViewModel.clearPlateNoList()
             mainViewModel.getPlateNumber(
                 requireContext(),
@@ -137,33 +139,41 @@ class ParkingLicensePlateHistoryFragment :
         }
 
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-            if (result != null && mainViewModel.hasData) {
-                if (result.unPaidItems.isNullOrEmpty()) {
-                    mPlateNo = ""
-                    Toast.makeText(
-                        requireActivity(),
-                        "目前沒有符合的紀錄唷！",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (result.unPaidItems.isNotEmpty()) {
-                    navigateToUnPaidHistory()
+            Log.d("micCheckZ", "3")
+            if(call) {
+                if (result != null && mainViewModel.hasData) {
+                    if (result.unPaidItems.isNullOrEmpty()) {
+                        mPlateNo = ""
+                        Toast.makeText(
+                            requireActivity(),
+                            "目前沒有符合的紀錄唷！",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (result.unPaidItems.isNotEmpty()) {
+                        navigateToUnPaidHistory()
+                    }
                 }
             }
+            call = false
         }
 
         mainViewModel.parkingGarageFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-            if (result != null && mainViewModel.hasData) {
-                if (result.unPaidItems.isNullOrEmpty()) {
-                    mPlateNo = ""
-                    Toast.makeText(
-                        requireActivity(),
-                        "目前沒有符合的紀錄唷！",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (result.unPaidItems.isNotEmpty()) {
-                    navigateToUnPaidHistory()
+            Log.d("micCheckZ", "4")
+            if(call) {
+                if (result != null && mainViewModel.hasData) {
+                    if (result.unPaidItems.isNullOrEmpty()) {
+                        mPlateNo = ""
+                        Toast.makeText(
+                            requireActivity(),
+                            "目前沒有符合的紀錄唷！",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (result.unPaidItems.isNotEmpty()) {
+                        navigateToUnPaidHistory()
+                    }
                 }
             }
+            call = false
         }
 
         mainViewModel.deletePlateNumberData.observe(viewLifecycleOwner) { result ->
@@ -392,12 +402,14 @@ class ParkingLicensePlateHistoryFragment :
 
     private fun getPlateUnPaidList() {
         if (parkingCurPage.equals(PARKING_TYPE_ROAD)) {
+            call = true
             mainViewModel.getParkingRoadFeeUnPaidList(
                 requireContext(),
                 mPlateNo
             )
             Log.d("micCheckSS", "1")
         } else {
+            call = true
             mainViewModel.getParkingGarageFeeUnPaidList(
                 requireContext(),
                 mPlateNo,
