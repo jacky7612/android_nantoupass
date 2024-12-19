@@ -86,6 +86,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupCurrentPointTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "點數紀錄"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupMainTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = getString(R.string.main_fragment_title)

@@ -54,6 +54,7 @@ class CurrentPointFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupCurrentPointTitle()
         val recyclerView = binding?.recyclerView
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
 binding?.noData?.visibility = View.GONE

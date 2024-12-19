@@ -49,6 +49,7 @@ class MarketGetPointFragment : BaseFragment() {
     private var _binding: FragmentMarketGetPointBinding? = null
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private val binding get() = _binding
+    var call = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -88,17 +89,24 @@ class MarketGetPointFragment : BaseFragment() {
         }
 
         mainViewModel.getPointResponse.observe(viewLifecycleOwner) { response ->
-            if (response.status == "true") {
-                showScanSuccessDialog()
-            } else {
-                if(response.responseMessage.contains("每位會員限兌換1次")) {
-                    showScanFailDialog()
+            if (call) {
+                if (response.status == "true") {
+                    showScanSuccessDialog()
                 } else {
-                    Toast.makeText(requireContext(), response.responseMessage, Toast.LENGTH_LONG)
-                        .show()
+                    if (response.responseMessage.contains("每位會員限兌換1次")) {
+                        showScanFailDialog()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            response.responseMessage,
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                    }
                 }
             }
         }
+        call = false
     }
 
     private fun startCamera() {
@@ -178,6 +186,7 @@ class MarketGetPointFragment : BaseFragment() {
         if (!hasScanned) {
             hasScanned = true
             content?.let {
+                call = true
                 if(it.equals("user_point_get")) {
                     mainViewModel.fetchUserPoints(
                         memberId = "0912345678",
