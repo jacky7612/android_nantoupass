@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
@@ -177,8 +178,13 @@ class MarketChangeFragment : BaseFragment() {
             val parts = storeId.split(",")
 
 // Assign the parts to separate variables
-            storeNumber = parts[0] // "1229102"
-            storeName = parts[1]
+            try {
+                storeNumber = parts[0] // "1229102"
+                storeName = parts[1]
+            }catch(e:Exception) {
+                Toast.makeText(requireContext(), "QRCode 不正確", Toast.LENGTH_LONG).show()
+                return
+            }
             if (findNavController().currentDestination?.id != R.id.point_amount_fragment) {
                 findNavController().navigate(R.id.action_to_point_amount)
             } else {
