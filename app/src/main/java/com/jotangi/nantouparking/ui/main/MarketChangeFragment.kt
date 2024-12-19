@@ -49,6 +49,7 @@ class MarketChangeFragment : BaseFragment() {
     private var _binding: FragmentMarketChangeBinding? = null
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private val binding get() = _binding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -171,6 +172,13 @@ class MarketChangeFragment : BaseFragment() {
     private fun showQRCodeContent(content: String?) {
         // Handle or display QR code content here
         content?.let {
+            Log.d("micCheckBV", it)
+            storeId = it
+            val parts = storeId.split(",")
+
+// Assign the parts to separate variables
+            storeNumber = parts[0] // "1229102"
+            storeName = parts[1]
             if (findNavController().currentDestination?.id != R.id.point_amount_fragment) {
                 findNavController().navigate(R.id.action_to_point_amount)
             } else {
@@ -179,28 +187,11 @@ class MarketChangeFragment : BaseFragment() {
         }
     }
 
-    private fun showScanSuccessDialog() {
-        // Inflate the custom layout
-        val inflater: LayoutInflater = LayoutInflater.from(requireContext())
-        val dialogView: View = inflater.inflate(R.layout.dialog_get_point_scan_success, null)
-
-        // Initialize the dialog
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .setCancelable(true)
-            .create()
-
-        // Find the confirm button and set a click listener
-        val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
-        btnConfirm.setOnClickListener {
-            dialog.dismiss()  // Close the dialog
-        }
-
-        // Show the dialog
-        dialog.show()
-    }
-
     companion object {
+var storeName = ""
+        var storeNumber = ""
+        var storeId = "0"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

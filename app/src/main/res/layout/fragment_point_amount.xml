@@ -98,6 +98,7 @@ android:layout_marginLeft="10dp"
 
     </LinearLayout>
     <TextView
+        android:id="@+id/confirm"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_market_darker_green"
         android:textColor="@color/white"

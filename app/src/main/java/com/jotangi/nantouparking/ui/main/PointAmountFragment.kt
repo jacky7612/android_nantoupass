@@ -1,10 +1,13 @@
 package com.jotangi.nantouparking.ui.main
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentMarketBinding
 import com.jotangi.nantouparking.databinding.FragmentMarketChangeBinding
@@ -27,7 +30,7 @@ class PointAmountFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+var call = false
     private var _binding: FragmentPointAmountBinding? = null
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private val binding get() = _binding
@@ -54,6 +57,16 @@ class PointAmountFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupMarketChangePointTitle()
 binding?.noData?.visibility = View.GONE
+binding?.tvStoreName?.text = MarketChangeFragment.storeName
+        binding?.confirm?.setOnClickListener {
+            call = true
+            mainViewModel.useUserPoints(
+                memberId =  AppUtility.getLoginId(requireContext())!!,
+                storeId = MarketChangeFragment.storeNumber,
+                pointNum = binding?.etInputPoints?.text.toString(),
+                productPrice = "0"
+            )
+        }
         mainViewModel.memberInfo.observe(viewLifecycleOwner) { members ->
             if(members.isNullOrEmpty()) {
                 binding?.tvCurrentPoints?.text = "目前點數：" + "未知" + " 點"
@@ -62,7 +75,22 @@ binding?.noData?.visibility = View.GONE
                 binding?.tvCurrentPoints?.text = "目前點數：" + members[0].member_totalpoints + " 點"
             }
         }
-
+        mainViewModel.usePointResponse.observe(viewLifecycleOwner) { response ->
+            if(call) {
+                if (response.status == "true") {
+                    // Handle success
+                    showChangeSuccessDialog(
+                        MarketChangeFragment.storeName,
+                        binding?.etInputPoints?.text.toString()
+                    )
+                } else {
+                    Toast.makeText(requireContext(), response.responseMessage, Toast.LENGTH_LONG)
+                        .show()
+                    println("Error: ${response.responseMessage}")
+                }
+            }
+            call = false
+        }
         // Observe error response
         mainViewModel.errorResponse.observe(viewLifecycleOwner) { error ->
             binding?.tvCurrentPoints?.text = "目前點數：" + "未知" + " 點"
@@ -73,6 +101,36 @@ binding?.noData?.visibility = View.GONE
 
         // Fetch member info
         mainViewModel.fetchMemberInfo(AppUtility.getLoginId(requireContext())!!, AppUtility.getLoginPassword(requireContext())!!)
+    }
+
+    private fun showChangeSuccessDialog(storeName: String, pointsUsed: String) {
+        // Inflate the custom layout
+        val inflater: LayoutInflater = LayoutInflater.from(requireContext())
+        val dialogView: View = inflater.inflate(R.layout.dialog_change_success, null)
+
+        // Find the TextView elements and set their text
+        val tvMessage1 = dialogView.findViewById<TextView>(R.id.tvDuplicateMessage1)
+        val tvMessage2 = dialogView.findViewById<TextView>(R.id.tvDuplicateMessage2)
+        val tvMessage3 = dialogView.findViewById<TextView>(R.id.tvDuplicateMessage3)
+
+        tvMessage1.text = "折抵成功" // Static text
+        tvMessage2.text = storeName  // Dynamic store name
+        tvMessage3.text = "折抵 $pointsUsed 點" // Dynamic points used
+
+        // Initialize the dialog
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        // Find the confirm button and set a click listener
+        val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()  // Close the dialog
+        }
+
+        // Show the dialog
+        dialog.show()
     }
 
     companion object {

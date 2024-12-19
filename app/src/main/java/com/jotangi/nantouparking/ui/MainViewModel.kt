@@ -172,6 +172,9 @@ class MainViewModel : ViewModel() {
     private val _getPointResponse = MutableLiveData<GetPointResponse>()
     val getPointResponse: LiveData<GetPointResponse> get() = _getPointResponse
 
+    private val _usePointResponse = MutableLiveData<UsePointResponse>()
+    val usePointResponse: LiveData<UsePointResponse> get() = _usePointResponse
+
     val isDelete: LiveData<Boolean> get() = _isDelete
 
     fun clearData() {
@@ -1466,6 +1469,37 @@ class MainViewModel : ViewModel() {
                 // Handle network failure
                 _getPointResponse.postValue(
                     GetPointResponse(
+                        status = "false",
+                        code = "NETWORK_ERROR",
+                        responseMessage = t.localizedMessage ?: "Network error"
+                    )
+                )
+            }
+        })
+    }
+
+    fun useUserPoints(memberId: String, storeId: String, pointNum: String, productPrice: String) {
+        val call = ApiUtility.service.useUserPoints(memberId, storeId, pointNum, productPrice)
+        call.enqueue(object : Callback<UsePointResponse> {
+            override fun onResponse(call: Call<UsePointResponse>, response: Response<UsePointResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    _usePointResponse.postValue(response.body())
+                } else {
+                    // Handle error when response is not successful
+                    _usePointResponse.postValue(
+                        UsePointResponse(
+                            status = "false",
+                            code = "ERROR",
+                            responseMessage = "Unexpected error occurred"
+                        )
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<UsePointResponse>, t: Throwable) {
+                // Handle network failure
+                _usePointResponse.postValue(
+                    UsePointResponse(
                         status = "false",
                         code = "NETWORK_ERROR",
                         responseMessage = t.localizedMessage ?: "Network error"

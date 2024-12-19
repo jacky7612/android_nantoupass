@@ -248,4 +248,13 @@ interface ApiConfig {
         @Field("point_num") pointNum: String,
         @Field("point_type") pointType: String
     ): Call<GetPointResponse>
+
+    @FormUrlEncoded
+    @POST("api/user_point_use.php")
+    fun useUserPoints(
+        @Field("member_id") memberId: String,
+        @Field("store_id") storeId: String,
+        @Field("point_num") pointNum: String,
+        @Field("product_price") productPrice: String
+    ): Call<UsePointResponse>
 }
