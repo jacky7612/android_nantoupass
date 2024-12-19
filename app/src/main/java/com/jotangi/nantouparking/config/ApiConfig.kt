@@ -239,4 +239,13 @@ interface ApiConfig {
         @Field("member_id") memberId: String,
         @Field("member_pwd") memberPwd: String
     ): Call<List<MemberInfo>>
+
+    @FormUrlEncoded
+    @POST("api/user_point_get.php")
+    fun getUserPoints(
+        @Field("member_id") memberId: String,
+        @Field("member_pwd") memberPwd: String,
+        @Field("point_num") pointNum: String,
+        @Field("point_type") pointType: String
+    ): Call<GetPointResponse>
 }

@@ -169,6 +169,9 @@ class MainViewModel : ViewModel() {
     private val _errorResponse = MutableLiveData<ErrorResponse>()
     val errorResponse: LiveData<ErrorResponse> get() = _errorResponse
 
+    private val _getPointResponse = MutableLiveData<GetPointResponse>()
+    val getPointResponse: LiveData<GetPointResponse> get() = _getPointResponse
+
     val isDelete: LiveData<Boolean> get() = _isDelete
 
     fun clearData() {
@@ -1435,6 +1438,37 @@ class MainViewModel : ViewModel() {
                         status = "false",
                         code = "NETWORK_ERROR",
                         responseMessage = t.localizedMessage ?: "Unknown error"
+                    )
+                )
+            }
+        })
+    }
+
+    fun fetchUserPoints(memberId: String, memberPwd: String, pointNum: String, pointType: String) {
+        val call = ApiUtility.service.getUserPoints(memberId, memberPwd, pointNum, pointType)
+        call.enqueue(object : Callback<GetPointResponse> {
+            override fun onResponse(call: Call<GetPointResponse>, response: Response<GetPointResponse>) {
+                if (response.isSuccessful && response.body() != null) {
+                    _getPointResponse.postValue(response.body())
+                } else {
+                    // Handle error when response is not successful
+                    _getPointResponse.postValue(
+                        GetPointResponse(
+                            status = "false",
+                            code = "ERROR",
+                            responseMessage = "Unexpected error occurred"
+                        )
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<GetPointResponse>, t: Throwable) {
+                // Handle network failure
+                _getPointResponse.postValue(
+                    GetPointResponse(
+                        status = "false",
+                        code = "NETWORK_ERROR",
+                        responseMessage = t.localizedMessage ?: "Network error"
                     )
                 )
             }

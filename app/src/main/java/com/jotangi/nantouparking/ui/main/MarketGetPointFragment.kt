@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
@@ -84,6 +85,19 @@ class MarketGetPointFragment : BaseFragment() {
                 arrayOf(Manifest.permission.CAMERA),
                 1
             )
+        }
+
+        mainViewModel.getPointResponse.observe(viewLifecycleOwner) { response ->
+            if (response.status == "true") {
+                showScanSuccessDialog()
+            } else {
+                if(response.responseMessage.contains("每位會員限兌換1次")) {
+                    showScanFailDialog()
+                } else {
+                    Toast.makeText(requireContext(), response.responseMessage, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
         }
     }
 
@@ -164,12 +178,22 @@ class MarketGetPointFragment : BaseFragment() {
         if (!hasScanned) {
             hasScanned = true
             content?.let {
-                showScanSuccessDialog()
+                if(it.equals("user_point_get")) {
+                    mainViewModel.fetchUserPoints(
+                        memberId = "0912345678",
+                        memberPwd = "rewq4321",
+                        pointNum = "50",
+                        pointType = "1"
+                    )
+                } else {
+Toast.makeText(requireContext(), "QRCode 不正確", Toast.LENGTH_LONG).show()
+                }
                 Log.d("micCheckQRCode", "QR Code Content: $it")
                 println("QR Code Content: $it")
             }
         }
     }
+
 
     private fun showScanSuccessDialog() {
         // Inflate the custom layout
@@ -188,6 +212,29 @@ class MarketGetPointFragment : BaseFragment() {
             dialog.dismiss()
             hasScanned = false
              // Close the dialog
+        }
+
+        // Show the dialog
+        dialog.show()
+    }
+
+    private fun showScanFailDialog() {
+        // Inflate the custom layout
+        val inflater: LayoutInflater = LayoutInflater.from(requireContext())
+        val dialogView: View = inflater.inflate(R.layout.dialog_duplicate_change_point, null)
+
+        // Initialize the dialog
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        // Find the confirm button and set a click listener
+        val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
+        btnConfirm.setOnClickListener {
+            dialog.dismiss()
+            hasScanned = false
+            // Close the dialog
         }
 
         // Show the dialog
