@@ -62,7 +62,7 @@ class MarketLottoryFragment : BaseFragment() {
                 showLogout2Dialog()
             } else {
                 Log.d("micCheckMNM", "MNM")
-                val url = "https://www.google.com"
+                val url = "https://coupon.jotangi.net:9443/nantoulottery/lotteryInfo.php?t=0"
                 openUrl(url)            }
 
         }
