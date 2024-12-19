@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.jotangi.nantouparking.databinding.FragmentCurrentPointBinding
 import com.jotangi.nantouparking.databinding.FragmentMarketChangeBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.ui.BaseFragment
+import com.jotangi.nantouparking.utility.AppUtility
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +32,7 @@ class CurrentPointFragment : BaseFragment() {
     private var _binding: FragmentCurrentPointBinding? = null
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private val binding get() = _binding
+    private lateinit var adapter: PointRecordAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,17 +54,23 @@ class CurrentPointFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-setupMarketCurrentPointTitle()
-        // Mock data
-        val mockData = listOf(
-            PointRecord("2024/12/28", "11:24", "A 店家", "n 點"),
-            PointRecord("2024/12/28", "10:00", "B 店家", "n 點")
-        )
-
-        // Set Adapter
-        recyclerView.adapter = PointRecordAdapter(mockData)
+        val recyclerView = binding?.recyclerView
+        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+binding?.noData?.visibility = View.GONE
+        // Observe LiveData from MainViewModel
+        mainViewModel.pointRecords.observe(viewLifecycleOwner) { records ->
+            if(records.isNullOrEmpty()) {
+                binding?.noData?.visibility = View.GONE
+            } else {
+            adapter = PointRecordAdapter(records)
+            recyclerView?.adapter = adapter
+                }
+        }
+        // Fetch data
+        val memberId =  AppUtility.getLoginId(requireContext())!!// Replace with actual value
+        val memberPwd = AppUtility.getLoginPassword(requireContext())!! // Replace with actual value
+        val pointType = "0" // Replace with desired point type
+        mainViewModel.fetchPointRecords(memberId, memberPwd, pointType)
     }
 
     companion object {

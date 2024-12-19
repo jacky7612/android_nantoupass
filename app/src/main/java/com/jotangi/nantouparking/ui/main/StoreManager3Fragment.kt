@@ -67,7 +67,7 @@ class StoreManager3Fragment : BaseFragment() {
 
         // Set the initial selection
         binding!!.btnOneDay.isSelected = true
-
+binding!!.noData.visibility = View.GONE
         buttons.forEach { button ->
             button.setOnClickListener {
                 // Reset all buttons
@@ -128,7 +128,11 @@ class StoreManager3Fragment : BaseFragment() {
 
     private fun observeViewModel() {
         mainViewModel.pointRecordsData.observe(viewLifecycleOwner) { pointRecords ->
-            binding?.recyclerView?.adapter = MemberRecordAdapter(pointRecords ?: emptyList())
+            if (pointRecords.isNullOrEmpty()) {
+                binding!!.noData.visibility = View.VISIBLE
+            } else {
+                binding?.recyclerView?.adapter = MemberRecordAdapter(pointRecords ?: emptyList())
+            }
         }
     }
     private fun fetchStorePoints(startDate: String, endDate: String) {

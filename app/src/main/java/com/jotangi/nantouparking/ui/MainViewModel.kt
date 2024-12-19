@@ -5,11 +5,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.utility.ApiUtility
 import com.jotangi.nantouparking.utility.AppUtility
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -156,6 +158,9 @@ class MainViewModel : ViewModel() {
 
     private val _pointRecordsData = MutableLiveData<List<PointRecordResponse>>()
     val pointRecordsData: LiveData<List<PointRecordResponse>> get() = _pointRecordsData
+
+    private val _pointRecords = MutableLiveData<List<PointRecord2Response>>()
+    val pointRecords: LiveData<List<PointRecord2Response>> get() = _pointRecords
 
     val isDelete: LiveData<Boolean> get() = _isDelete
 
@@ -1364,5 +1369,27 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    fun fetchPointRecords(memberId: String, memberPwd: String, pointType: String) {
+        val call = ApiUtility.service.getPointRecords(memberId, memberPwd, pointType)
+        call.enqueue(object : Callback<ApiResponse<List<PointRecord2Response>>> {
+            override fun onResponse(
+                call: Call<ApiResponse<List<PointRecord2Response>>>,
+                response: Response<ApiResponse<List<PointRecord2Response>>>
+            ) {
+                if (response.isSuccessful && response.body()?.status == "true") {
+                    val data = response.body()?.data ?: emptyList()
+                    _pointRecords.postValue(data)
+                } else {
+                    _pointRecords.postValue(emptyList())
+                }
+            }
 
+            override fun onFailure(
+                call: Call<ApiResponse<List<PointRecord2Response>>>,
+                t: Throwable
+            ) {
+                _pointRecords.postValue(emptyList())
+            }
+        })
+    }
 }

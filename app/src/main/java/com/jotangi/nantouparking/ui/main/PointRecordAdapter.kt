@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantouparking.R
+import com.jotangi.nantouparking.model.PointRecord2Response
 
-class PointRecordAdapter(private val dataList: List<PointRecord>) :
+class PointRecordAdapter(private val dataList: List<PointRecord2Response>) :
     RecyclerView.Adapter<PointRecordAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,9 +25,9 @@ class PointRecordAdapter(private val dataList: List<PointRecord>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val record = dataList[position]
-        holder.tvDateTime.text = "${record.date} ${record.time}"
-        holder.tvStoreName.text = record.storeName
-        holder.tvPoints.text = record.points
+        holder.tvDateTime.text = record.point_created_at
+        holder.tvStoreName.text = record.store_name
+        holder.tvPoints.text = record.point
     }
 
     override fun getItemCount(): Int = dataList.size

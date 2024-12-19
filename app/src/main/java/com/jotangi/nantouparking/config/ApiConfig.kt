@@ -224,4 +224,12 @@ interface ApiConfig {
         @Field("start_date") startDate: String,
         @Field("end_date") endDate: String
     ): Call<StorePointRecordResponse>
+
+    @FormUrlEncoded
+    @POST("api/member_point_list.php")
+    fun getPointRecords(
+        @Field("member_id") memberId: String,
+        @Field("member_pwd") memberPwd: String,
+        @Field("point_type") pointType: String
+    ): Call<ApiResponse<List<PointRecord2Response>>>
 }
