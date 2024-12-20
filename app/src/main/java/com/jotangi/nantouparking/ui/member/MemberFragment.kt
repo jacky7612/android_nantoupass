@@ -56,12 +56,14 @@ var call = false
     private fun initObserver() {
         mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
             Log.d("micCheckJ", result.toString())
-            if(call) {
-                if (result != null && result.isNotEmpty()) {
+
+                if (!result.isNullOrEmpty()) {
+                    Log.d("micCheckZX1", result[0].memberName)
                     updateMemberInfo4Login(result)
+                } else {
+                    Log.d("micCheckZX2", "zx")
+
                 }
-            }
-            call = false
         }
 
         mainViewModel.logoutData.observe(viewLifecycleOwner) { result ->
@@ -153,11 +155,12 @@ call = true
             requireContext(),
             id
         )
-
-        AppUtility.updateLoginName(
-            requireContext(),
-            result[0].memberName!!
-        )
+Log.d("micCheckAQ",result[0].memberName )
+//        AppUtility.updateLoginName(
+//            requireContext(),
+//            result[0].memberName!!
+//        )
+        binding?.memberNameTextView?.text = result[0].memberName
 
         AppUtility.updateLoginPassword(
             requireContext(),
