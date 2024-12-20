@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_parking_garage_constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_margin="2dp"
+    android:layout_height="50dp"
     android:background="@color/white"
     android:elevation="20dp">
 
@@ -12,32 +11,22 @@
         android:id="@+id/item_parking_garage_title_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="依德科技"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/charge_blue_color"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/item_parking_garage_address_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="台北市內湖區新湖三路168號3樓"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/item_parking_garage_title_textView"
-        app:layout_constraintTop_toBottomOf="@+id/item_parking_garage_title_textView" />
-
-    <ImageView
-        android:id="@+id/item_parking_garage_arrow_imageView"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_arrow_right" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/lightGray" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

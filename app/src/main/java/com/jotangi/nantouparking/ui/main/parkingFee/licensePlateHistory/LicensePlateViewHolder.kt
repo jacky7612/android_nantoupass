@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory
 
 import android.content.Context
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantouparking.JackyVariant.Glob
@@ -36,6 +37,7 @@ class LicensePlateViewHolder(val binding: ItemLicensePlateBinding) :
 
             when (isEditing) {
                 true -> {
+                    itemPlateNumberPayRecordTextView.visibility = View.GONE
                     itemPlateNumberEditTextView.text = "刪除"
                     itemPlateNumberEditTextView.setTextColor(
                         ContextCompat.getColor(
@@ -46,13 +48,14 @@ class LicensePlateViewHolder(val binding: ItemLicensePlateBinding) :
                 }
 
                 false -> {
-                    itemPlateNumberEditTextView.text = "查詢帳單"
                     itemPlateNumberEditTextView.setTextColor(
                         ContextCompat.getColor(
                             context,
-                            R.color.c_3478F7
+                            R.color.charge_blue_color
                         )
                     )
+                    itemPlateNumberEditTextView.text = "查詢帳單"
+                    itemPlateNumberPayRecordTextView.visibility = View.VISIBLE
                 }
             }
         }

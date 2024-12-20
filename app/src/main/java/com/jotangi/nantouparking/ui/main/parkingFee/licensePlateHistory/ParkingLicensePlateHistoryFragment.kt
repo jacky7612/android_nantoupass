@@ -1,9 +1,13 @@
 package com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -13,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentParkingLicensePlateHistoryBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
@@ -21,6 +26,9 @@ import com.jotangi.nantouparking.model.PlateNumberVO
 import com.jotangi.nantouparking.ui.BaseFragment
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment
 import com.jotangi.nantouparking.utility.AppUtility
+import com.jotangi.payStation.Model.ApiModel.ApiEntry
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class ParkingLicensePlateHistoryFragment :
@@ -118,7 +126,7 @@ var call = false
     private fun initObserver() {
         mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
-                Log.d("micCheckZ", "1")
+                Log.d("micCheckZ", result.toString())
                 updateListView(result)
 
                 if (mPlateNo.isNotEmpty()) {
@@ -202,6 +210,17 @@ var call = false
                 updateParkingGarageListView(result)
             }
         }
+
+
+        mainViewModel.parkingFeePaidData.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                if (result.isNotEmpty()) {
+
+                } else {
+
+                }
+            }
+        }
     }
 
     private fun initData() {
@@ -243,6 +262,7 @@ var call = false
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initParkingGarageRecyclerView() {
         binding?.parkingGarageRecyclerView?.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -252,6 +272,21 @@ var call = false
                 this@ParkingLicensePlateHistoryFragment
             )
             this.adapter = parkingGarageAdapter
+        }
+        binding?.root?.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                val rect = Rect()
+                binding?.parkingGarageRecyclerView?.getGlobalVisibleRect(rect)
+                if (!rect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    // Click is outside the RecyclerView bounds
+                    binding?.parkingGarageConstraintLayout?.visibility = View.GONE
+                    true // Return true to indicate the touch event is handled
+                } else {
+                    false
+                }
+            } else {
+                false
+            }
         }
     }
 
@@ -384,8 +419,10 @@ var call = false
                 if (parkingCurPage.equals(PARKING_TYPE_ROAD)) {
                     when (itemClickType) {
                         "record" -> {
-                            Log.d("micCheckC", "1")
-                            navigateToPaidHistory()
+                            Log.d("micCheckC1", mPId)
+
+//                            navigateToPaidHistory()
+                            paid()
                         }
 
                         else -> {
@@ -395,8 +432,9 @@ var call = false
                 } else {
                     when (itemClickType) {
                         "record" -> {
-                            Log.d("micCheckC", "2")
-                            navigateToPaidHistory()
+                            Log.d("micCheckC2", mPId)
+//                            navigateToPaidHistory()
+                            paid()
                         }
 
                         else -> {
@@ -513,7 +551,7 @@ call = false
                 parkingRoadTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.light_blue_600
+                        R.color.charge_blue_color
                     )
                 )
 
@@ -537,7 +575,7 @@ call = false
                 parkingGarageTextView.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.light_blue_600
+                        R.color.charge_blue_color
                     )
                 )
 
@@ -609,4 +647,41 @@ call = false
 
         alert.show()
     }
+
+    private fun paid() {
+        val apiEntry = ApiEntry()
+        apiEntry.getGovPlateList(mPlateNo) { responseBody, exception ->
+            Log.d(TAG, "呼叫API尋找車號 :$mPlateNo, response :$responseBody")
+            if (responseBody != null) {
+                try {
+                    // Parse the response JSON
+                    val jsonObject = JSONObject(responseBody)
+                    val dataArray = jsonObject.getJSONArray("data")
+
+                    // Check the size of the 'data' array
+                    val dataSize = dataArray.length()
+                    Log.d("micCheckBC", "Data size: $dataSize")
+
+                    requireActivity().runOnUiThread {
+                        if (dataSize == 1) {
+                            // Show toast on the main thread
+                            Toast.makeText(
+                                requireActivity(),
+                                "目前沒有符合的紀錄唷！",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else if (dataSize > 1) {
+                            // Navigate on the main thread
+                            navigateToPaidHistory()
+                        }
+                    }
+                } catch (e: JSONException) {
+                    Log.e("micCheckBC", "Error parsing JSON: ${e.message}")
+                }
+            } else {
+                Log.d("micCheckBC", "Response is null")
+            }
+        }
+    }
+
 }

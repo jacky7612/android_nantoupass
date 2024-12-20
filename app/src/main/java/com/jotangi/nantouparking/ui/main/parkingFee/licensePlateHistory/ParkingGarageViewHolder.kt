@@ -12,7 +12,7 @@ class ParkingGarageViewHolder(val binding: ItemParkingGarageBinding) :
     ) {
         binding.apply {
             itemParkingGarageTitleTextView.text = data.parkingGarageName ?: ""
-            itemParkingGarageAddressTextView.text = data.parkingGarageAddress ?: ""
+//            itemParkingGarageAddressTextView.text = data.parkingGarageAddress ?: ""
 
             itemParkingGarageConstraintLayout.setOnClickListener {
                 listener?.onParkingGarageItemClick(data)

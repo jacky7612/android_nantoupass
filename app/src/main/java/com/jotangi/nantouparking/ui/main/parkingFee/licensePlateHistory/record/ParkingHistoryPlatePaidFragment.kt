@@ -48,7 +48,7 @@ class ParkingHistoryPlatePaidFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+Log.d("micCheckCC", "CC")
         init()
     }
 
@@ -103,8 +103,10 @@ class ParkingHistoryPlatePaidFragment :
 //                        ${Glob.apiRespOrder.data!![0].plate_no}
             Log.d(TAG, "呼叫API尋找車號 :${plateNo}, response :$responseBody")
             if (responseBody != null) {
+                Log.d("micCheckZA", "1")
                 apiEntry.parseGovPlateList(responseBody) // if (apiResponse is ApiRespCarNoOK) {}
                 if (Glob.apiGovPayList!!.status.lowercase() == "true") {
+                    Log.d("micCheckZA", "3")
                     activity?.runOnUiThread {
                         binding.parkingPlatePaidRecyclerView.visibility =View.VISIBLE
                         binding.parkingPlatePaidDefaultTitleTextView.visibility =View.GONE
@@ -115,6 +117,7 @@ class ParkingHistoryPlatePaidFragment :
 //                        findNavController().navigate(R.id.selectPictureFragment)
                     }
                 } else {
+                    Log.d("micCheckZA", "4")
                     binding.parkingPlatePaidRecyclerView.visibility =View.GONE
                     binding.parkingPlatePaidDefaultTitleTextView.visibility =View.VISIBLE
 //                    activity?.runOnUiThread {
@@ -123,6 +126,7 @@ class ParkingHistoryPlatePaidFragment :
 //                    showMessage("車號:${tvEntryNumber.text}\n\n${Glob.apiRespEN?.responseMessage}")
                 }
             } else {
+                Log.d("micCheckZA", "2")
 //                activity?.runOnUiThread {
 //                    btnEnter.isEnabled = true
 //                }
@@ -172,6 +176,7 @@ class ParkingHistoryPlatePaidFragment :
 
     private fun initGovListRecyclerView() {
         list = ArrayList()
+        Log.d("micCheckJ", data.size.toString())
         if (data.size > 0) {
             for (i in 1 until data.size) {
                 var curData =data!![i]
