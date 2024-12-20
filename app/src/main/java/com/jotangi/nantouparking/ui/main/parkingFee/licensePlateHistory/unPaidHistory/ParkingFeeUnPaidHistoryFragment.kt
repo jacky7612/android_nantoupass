@@ -22,13 +22,18 @@ import com.jotangi.nantouparking.model.ParkingRoadFeeUnPaidVO
 import com.jotangi.nantouparking.ui.BaseFragment
 import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.nantouparking.utility.DateUtility
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ParkingFeeUnPaidHistoryFragment :
     BaseFragment(),
     ParkingFeeUnPaidClickListener,
     ParkingGarageFeeUnPaidClickListener {
+    private var isAllSelected = false
     private var _binding: FragmentParkingFeeUnPaidHistoryBinding? = null
     private val binding get() = _binding
+    private var selectPayData = mutableListOf<ParkingRoadFeeUnPaidVO>()
+    private var selectGaragePayData = mutableListOf<ParkingGarageFeeUnPaidVO>()
     private var data = mutableListOf<ParkingRoadFeeUnPaidVO>()
     private var garageData = mutableListOf<ParkingGarageFeeUnPaidVO>()
     private var payData: ParkingRoadFeeUnPaidVO? = null
@@ -56,6 +61,8 @@ var call = false
         return binding?.root
     }
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
 
@@ -64,13 +71,17 @@ var call = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+initListener()
         init()
     }
 
     override fun onResume() {
         super.onResume()
 
+        Log.d("micCheckLL", "LL")
+        selectPayData.clear()
+        binding?.selectAll?.isChecked = false
+        selectGaragePayData.clear()
         initData()
     }
 
@@ -217,27 +228,42 @@ var call = false
 
     override fun onParkingFeeUnPaidItemClick(
         position: Int,
-        vo: ParkingRoadFeeUnPaidVO
+        vo: ParkingRoadFeeUnPaidVO,
+        isChecked: Boolean
     ) {
-        data.forEach {
-            it.isSelected = false
+//        data.forEach {
+//            it.isSelected = false
+//        }
+        if (isChecked) {
+            data[position].isSelected = true
+            selectPayData.add(data[position])
+        } else {
+            data[position].isSelected = false
+            if (selectPayData.contains(data[position])) {
+                selectPayData.remove(data[position])
+            }
         }
-
-        data[position].isSelected = true
-
         payData = vo
         parkingFeeUnPaidAdapter.updateDataSource(data)
     }
 
     override fun onParkingGarageFeeUnPaidItemClick(
         position: Int,
-        vo: ParkingGarageFeeUnPaidVO
+        vo: ParkingGarageFeeUnPaidVO,
+        isChecked: Boolean
     ) {
-        garageData.forEach {
-            it.isSelected = false
+//        garageData.forEach {
+//            it.isSelected = false
+//        }
+        if (isChecked) {
+            garageData[position].isSelected = true
+            selectGaragePayData.add(garageData[position])
+        } else {
+            garageData[position].isSelected = false
+            if (selectGaragePayData.contains(garageData[position])) {
+                selectGaragePayData.remove(garageData[position])
+            }
         }
-
-        garageData[position].isSelected = true
 
         payGarageData = vo
         parkingGarageFeeUnPaidAdapter.updateDataSource(garageData)
@@ -292,48 +318,93 @@ var call = false
     }
 
     private fun getAppUrl(): String {
-        val appUrl = if (parkingId.isNotEmpty()) {
+
+        val currentDateTime = LocalDateTime.now()
+        println("Current Date and Time: $currentDateTime")
+
+        // If you want to format the date and time
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val formattedDateTime = currentDateTime.format(formatter)
+        println("Formatted Date and Time: $formattedDateTime")
+        return if (parkingId.isNotEmpty()) {
+            // Concatenate the values from selectGaragePayData for garage parking
+            val amounts = selectGaragePayData.joinToString(",") { it?.billAmount.toString() }
+            val billNos = selectGaragePayData.joinToString(",") { it?.billNo.toString() }
+            val parkTimes = selectGaragePayData.joinToString(",") { it?.billStartTime.toString() }
+
             ApiConfig.URL_HOST +
                     ApiConfig.PAYMENT_URL +
                     "?" +
                     "member_id=${AppUtility.getLoginId(requireContext())}" +
                     "&" +
-                    "amount=${payGarageData!!.billAmount}" +
+                    "amount=$amounts" +
                     "&" +
-                    "bill_no=${payGarageData!!.billNo}" +
+                    "bill_no=$billNos" +
                     "&" +
                     "plate_number=$plateNo" +
                     "&" +
                     "plateId=$parkingId" +
                     "&" +
-                    "description=$parkingName" +
-                    " " +
-                    parkingAddress +
+                    "description=$parkingName $parkingAddress" +
                     "&" +
-                    "parkTime=${payGarageData!!.billStartTime}" +
+                    "parkTime=$parkTimes" +
                     "&" +
-                    "searchTime=${payGarageData!!.billSearchTime}"
+                    "searchTime=${formattedDateTime}"
         } else {
+            selectPayData.forEach { item ->
+                Log.d("micCheckKK1", "Order No: ${item.billNo}")
+            }
+            // Concatenate the values from selectPayData for road parking
+            val amounts = selectPayData.joinToString(",") { it?.billAmount.toString() }
+            val billNos = selectPayData.joinToString(",") { it?.billNo.toString() }
+            val parkTimes = selectPayData.joinToString(",") { it?.billStartTime.toString() }
+            val descriptions = selectPayData.joinToString(",") { "${it.billRoad} ${it.billCell}" }
+            Log.d("micCheckKK2", billNos)
             ApiConfig.URL_HOST +
                     ApiConfig.PAYMENT_URL +
                     "?" +
                     "member_id=${AppUtility.getLoginId(requireContext())}" +
                     "&" +
-                    "amount=${payData!!.billAmount}" +
+                    "amount=$amounts" +
                     "&" +
-                    "bill_no=${payData!!.billNo}" +
+                    "bill_no=$billNos" +
                     "&" +
                     "plate_number=$plateNo" +
                     "&" +
-                    "description=${payData!!.billRoad}" +
-                    " " +
-                    "${payData!!.billCell}" +
+                    "description=$descriptions" +
                     "&" +
-                    "parkTime=${payData!!.billStartTime}" +
+                    "parkTime=$parkTimes" +
                     "&" +
-                    "searchTime=${payData!!.billSearchTime}"
+                    "searchTime=${formattedDateTime}"
         }
-        return appUrl
+    }
+
+    fun initListener() {
+
+        binding?.selectAll?.setOnCheckedChangeListener { _, isChecked ->
+            // Update the selection state
+            Log.d("micCheckUU", isChecked.toString())
+            isAllSelected = isChecked
+
+            // Add or clear data based on the selection state
+            if (isAllSelected) {
+                selectPayData.clear()
+                selectPayData.addAll(data)
+                selectGaragePayData.clear()
+                selectGaragePayData.addAll(garageData)
+            } else {
+                selectPayData.clear()
+                selectGaragePayData.clear()
+            }
+
+            // Select or deselect all items based on the current state
+            if (parkingId == "") {
+                parkingFeeUnPaidAdapter?.selectAllItems(isAllSelected)
+            } else {
+                parkingGarageFeeUnPaidAdapter?.selectAllItems(isAllSelected)
+            }
+        }
+
     }
 
     private fun launchUri(uriString: String) {

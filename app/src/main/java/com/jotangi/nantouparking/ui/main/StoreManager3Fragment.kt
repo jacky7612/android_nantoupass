@@ -131,6 +131,7 @@ binding!!.noData.visibility = View.GONE
             if (pointRecords.isNullOrEmpty()) {
                 binding!!.noData.visibility = View.VISIBLE
             } else {
+                binding!!.noData.visibility = View.GONE
                 binding?.recyclerView?.adapter = MemberRecordAdapter(pointRecords ?: emptyList())
             }
         }

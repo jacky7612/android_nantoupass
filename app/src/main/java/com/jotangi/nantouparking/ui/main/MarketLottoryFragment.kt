@@ -61,9 +61,12 @@ class MarketLottoryFragment : BaseFragment() {
             if(!AppUtility.getLoginStatus(requireContext())){
                 showLogout2Dialog()
             } else {
-                Log.d("micCheckMNM", "MNM")
-                val url = "https://coupon.jotangi.net:9443/nantoulottery/lotteryInfo.php?t=0"
-                openUrl(url)            }
+                findNavController().navigate(R.id.action_to_lottory_webview_fragment)
+
+//                Log.d("micCheckMNM", "MNM")
+//                val url = "https://coupon.jotangi.net:9443/nantoulottery/lotteryInfo.php?t=0"
+//                openUrl(url)
+            }
 
         }
     }

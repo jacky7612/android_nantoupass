@@ -10,7 +10,8 @@ import com.jotangi.nantouparking.model.ParkingGarageFeeUnPaidVO
 interface ParkingGarageFeeUnPaidClickListener {
     fun onParkingGarageFeeUnPaidItemClick(
         position: Int,
-        vo: ParkingGarageFeeUnPaidVO
+        vo: ParkingGarageFeeUnPaidVO,
+        isChecked:Boolean
     )
 }
 
@@ -51,5 +52,11 @@ class ParkingGarageFeeUnPaidAdapter(
         this.data = dataSource
 
         this.notifyDataSetChanged()
+    }
+    fun selectAllItems(selectAll: Boolean) {
+        data.forEachIndexed { index, item ->
+            item.isSelected = selectAll
+        }
+        notifyDataSetChanged()
     }
 }

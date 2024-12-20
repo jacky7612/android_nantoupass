@@ -86,6 +86,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupLottoryWebViewTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "抽獎活動"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupCurrentPointTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "點數紀錄"

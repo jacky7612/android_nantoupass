@@ -150,10 +150,13 @@ var call = false
                             Toast.LENGTH_SHORT
                         ).show()
                     } else if (result.unPaidItems.isNotEmpty()) {
+                        binding?.plateTextEditText?.setText("")
+                        binding?.plateNumberEditText?.setText("")
                         navigateToUnPaidHistory()
                     }
                 }
             }
+            isEditing = false
             call = false
         }
 
@@ -169,10 +172,13 @@ var call = false
                             Toast.LENGTH_SHORT
                         ).show()
                     } else if (result.unPaidItems.isNotEmpty()) {
+                        binding?.plateTextEditText?.setText("")
+                        binding?.plateNumberEditText?.setText("")
                         navigateToUnPaidHistory()
                     }
                 }
             }
+            isEditing = false
             call = false
         }
 
@@ -378,6 +384,7 @@ var call = false
                 if (parkingCurPage.equals(PARKING_TYPE_ROAD)) {
                     when (itemClickType) {
                         "record" -> {
+                            Log.d("micCheckC", "1")
                             navigateToPaidHistory()
                         }
 
@@ -388,6 +395,7 @@ var call = false
                 } else {
                     when (itemClickType) {
                         "record" -> {
+                            Log.d("micCheckC", "2")
                             navigateToPaidHistory()
                         }
 
@@ -443,7 +451,7 @@ var call = false
             "plateNo" to mPlateNo,
             "parkingId" to mPId,
         )
-
+call = false
         mPlateNo = ""
         mPId = ""
         itemClickType = ""

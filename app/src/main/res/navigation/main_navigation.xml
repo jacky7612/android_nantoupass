@@ -394,6 +394,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/lottory_webview_fragment"
+        android:name="com.jotangi.nantouparking.ui.main.LottoryWebViewFragment"
+        android:label="navigation lottory webview fragment"
+        tools:layout="@layout/fragment_lottory_web_view" />
+
+    <fragment
         android:id="@+id/parking_history_unpaid_fragment"
         android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment"
         android:label="navigation parking history unpaid fragment"
@@ -543,7 +549,13 @@
         android:name="com.jotangi.nantouparking.ui.main.MarketLottoryFragment"
         android:label="navigation markey lottory fragment"
         tools:layout="@layout/fragment_market_lottory" >
-
+        <action
+            android:id="@+id/action_to_lottory_webview_fragment"
+            app:destination="@id/lottory_webview_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment

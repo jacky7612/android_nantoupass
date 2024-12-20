@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment">
+    tools:context=".ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment"
+    android:background="#F4F4F4">
 
     <include
         android:id="@+id/toolbar_include"
@@ -37,17 +38,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/parking_history_unpaid_title_textView" />
 
+    <CheckBox
+        android:buttonTint="@drawable/check_box_tint"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parking_history_search_plate_no_title_textView"
+        android:id="@+id/select_all"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="全選"
+        android:textColor="@color/charge_blue_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/parking_history_un_paid_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@color/c_eeeeee_100"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/un_paid_pay_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/parking_history_search_plate_no_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/select_all"
         tools:listitem="@layout/item_un_paid_fee" />
 
     <androidx.appcompat.widget.AppCompatButton
