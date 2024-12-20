@@ -59,19 +59,24 @@ class CurrentPointFragment : BaseFragment() {
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
 binding?.noData?.visibility = View.GONE
         // Observe LiveData from MainViewModel
-        mainViewModel.pointRecords.observe(viewLifecycleOwner) { records ->
-            if(records.isNullOrEmpty()) {
-                binding?.noData?.visibility = View.GONE
+        mainViewModel.combinedPointRecords.observe(viewLifecycleOwner) { combinedRecords ->
+            if (combinedRecords.isNullOrEmpty()) {
+                binding?.noData?.visibility = View.VISIBLE
             } else {
-            adapter = PointRecordAdapter(records)
-            recyclerView?.adapter = adapter
-                }
+                binding?.noData?.visibility = View.GONE
+                adapter = PointRecordAdapter(combinedRecords)
+                recyclerView?.adapter = adapter
+            }
         }
         // Fetch data
         val memberId =  AppUtility.getLoginId(requireContext())!!// Replace with actual value
         val memberPwd = AppUtility.getLoginPassword(requireContext())!! // Replace with actual value
         val pointType = "0" // Replace with desired point type
         mainViewModel.fetchPointRecords(memberId, memberPwd, pointType)
+        val memberId2 =  AppUtility.getLoginId(requireContext())!!// Replace with actual value
+        val memberPwd2 = AppUtility.getLoginPassword(requireContext())!! // Replace with actual value
+        val pointType2 = "1" // Replace with desired point type
+        mainViewModel.fetchPointRecords(memberId2, memberPwd2, pointType2)
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.ui.member
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ class MemberFragment : BaseFragment() {
     private var _binding: FragmentMemberBinding? = null
     private val binding get() = _binding
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
-
+var call = false
     var id:String =""
     var pwd:String =""
     override fun onCreateView(
@@ -54,9 +55,13 @@ class MemberFragment : BaseFragment() {
 
     private fun initObserver() {
         mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
-            if (result != null && result.isNotEmpty()) {
-                updateMemberInfo4Login(result)
+            Log.d("micCheckJ", result.toString())
+            if(call) {
+                if (result != null && result.isNotEmpty()) {
+                    updateMemberInfo4Login(result)
+                }
             }
+            call = false
         }
 
         mainViewModel.logoutData.observe(viewLifecycleOwner) { result ->
@@ -89,7 +94,7 @@ class MemberFragment : BaseFragment() {
         binding?.apply {
             id =AppUtility.getLoginId(requireContext())!!
             pwd =AppUtility.getLoginPassword(requireContext())!!
-
+call = true
             mainViewModel.getMemberInfo(
                 requireContext(),
                 id,

@@ -3,6 +3,7 @@ package com.jotangi.nantouparking.ui
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import com.google.gson.Gson
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
+import com.jotangi.nantouparking.ui.main.PointRecord
 import com.jotangi.nantouparking.utility.ApiUtility
 import com.jotangi.nantouparking.utility.AppUtility
 import kotlinx.coroutines.launch
@@ -156,6 +158,12 @@ class MainViewModel : ViewModel() {
     private val _isDelete: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
+    private val pointRecordsType0 = MutableLiveData<List<PointRecord2Response>>()
+    private val pointRecordsType1 = MutableLiveData<List<PointRecord2Response>>()
+    val combinedPointRecords = MediatorLiveData<List<PointRecord2Response>>().apply {
+        addSource(pointRecordsType0) { combineRecords() }
+        addSource(pointRecordsType1) { combineRecords() }
+    }
 
     private val _pointRecordsData = MutableLiveData<List<PointRecordResponse>>()
     val pointRecordsData: LiveData<List<PointRecordResponse>> get() = _pointRecordsData
@@ -177,6 +185,11 @@ class MainViewModel : ViewModel() {
 
     val isDelete: LiveData<Boolean> get() = _isDelete
 
+    private fun combineRecords() {
+        val type0Records = pointRecordsType0.value ?: emptyList()
+        val type1Records = pointRecordsType1.value ?: emptyList()
+        combinedPointRecords.value = type0Records + type1Records
+    }
     fun clearData() {
         _memberInfoData.value = listOf()
         _memberInfoEditData.value = null
@@ -1391,9 +1404,15 @@ class MainViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful && response.body()?.status == "true") {
                     val data = response.body()?.data ?: emptyList()
-                    _pointRecords.postValue(data)
+                    when (pointType) {
+                        "0" -> pointRecordsType0.postValue(data)
+                        "1" -> pointRecordsType1.postValue(data)
+                    }
                 } else {
-                    _pointRecords.postValue(emptyList())
+                    when (pointType) {
+                        "0" -> pointRecordsType0.postValue(emptyList())
+                        "1" -> pointRecordsType1.postValue(emptyList())
+                    }
                 }
             }
 
@@ -1401,11 +1420,13 @@ class MainViewModel : ViewModel() {
                 call: Call<ApiResponse<List<PointRecord2Response>>>,
                 t: Throwable
             ) {
-                _pointRecords.postValue(emptyList())
+                when (pointType) {
+                    "0" -> pointRecordsType0.postValue(emptyList())
+                    "1" -> pointRecordsType1.postValue(emptyList())
+                }
             }
         })
     }
-
     fun fetchMemberInfo(memberId: String, memberPwd: String) {
         val call = ApiUtility.service.getMemberInfo(memberId, memberPwd)
         call.enqueue(object : Callback<List<MemberInfo>> {

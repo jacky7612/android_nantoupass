@@ -27,7 +27,7 @@ class PointRecordAdapter(private val dataList: List<PointRecord2Response>) :
         val record = dataList[position]
         holder.tvDateTime.text = record.point_created_at
         holder.tvStoreName.text = record.store_name
-        holder.tvPoints.text = record.point
+        holder.tvPoints.text = record.point + "點"
     }
 
     override fun getItemCount(): Int = dataList.size

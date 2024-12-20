@@ -117,4 +117,14 @@ class MarketFragment : BaseFragment() {
                 }
             }
     }
+
+    override fun onBackPressed() {
+        val navController = findNavController()
+        if (navController.currentDestination?.id == R.id.market_fragment) {
+            // Navigate back to MainFragment
+            navController.popBackStack(R.id.main_fragment, false)
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
