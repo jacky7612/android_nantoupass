@@ -422,14 +422,16 @@ class MainViewModel : ViewModel() {
         memberEmail: String,
         memberId: String,
         memberPlateNo: String,
-        memberPassword: String
+        memberPassword: String,
+        memberCarrier: String
     ) {
         val call: Call<MemberInfoEditResponse> = ApiUtility.service.apiEditMemberInfo(
             memberName,
             memberEmail,
             memberId,
             memberPlateNo,
-            memberPassword
+            memberPassword,
+            memberCarrier
         )
         call.enqueue(object : Callback<MemberInfoEditResponse> {
             override fun onResponse(

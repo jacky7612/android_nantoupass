@@ -55,7 +55,6 @@ var call = false
 
     private fun initObserver() {
         mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckJ", result.toString())
 
                 if (!result.isNullOrEmpty()) {
                     Log.d("micCheckZX1", result[0].memberName)

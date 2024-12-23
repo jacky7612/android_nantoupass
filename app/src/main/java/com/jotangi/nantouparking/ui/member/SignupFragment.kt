@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -129,6 +130,10 @@ class SignupFragment : BaseFragment() {
                     }
                 }
             })
+
+            memberUpdatePasswordCancelButton.setOnClickListener{
+                onBackPressed()
+            }
 
             signupConfirmButton.setOnClickListener {
                 signup()
@@ -452,6 +457,13 @@ class SignupFragment : BaseFragment() {
             )
             return
         }
+        if(binding?.signupPasswordContentEditText?.text.toString().length < 6 || binding?.signupPasswordContentEditText?.text.toString().length < 6) {
+            showPrivateDialog(
+                "密碼需 6~12 位數！",
+                binding?.signupPasswordContentEditText2
+            )
+            return
+        }
 
         if(!binding?.signupPasswordContentEditText?.text.toString().equals(binding?.signupPasswordContentEditText2?.text.toString())) {
             showPrivateDialog(
@@ -466,6 +478,7 @@ class SignupFragment : BaseFragment() {
             PlateNO =
                 "${binding?.signupPlateTextEditText?.text.toString()}-${binding?.signupPlateNumberEditText?.text.toString()}"
         }
+        Log.d("micCheckGGG", binding?.signupEmailContentEditText?.text.toString())
         mainViewModel.signup(
             requireContext(),
             binding?.signupNameContentEditText?.text.toString(),

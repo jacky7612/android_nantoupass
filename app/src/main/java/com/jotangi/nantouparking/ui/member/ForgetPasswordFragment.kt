@@ -1,7 +1,10 @@
 package com.jotangi.nantouparking.ui.member
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -31,12 +34,51 @@ class ForgetPasswordFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
+        initEditText()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
 
         _binding = null
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun initEditText() {
+        binding?.apply {
+            seePWD1.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        forgetPasswordNewInputContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        forgetPasswordNewInputContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
+            }
+            seePWD2.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        forgetPasswordNewConfirmContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        forgetPasswordNewConfirmContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
+            }
+        }
     }
 
     private fun init() {
@@ -70,36 +112,39 @@ class ForgetPasswordFragment : BaseFragment() {
             resetPassWordButton.setOnClickListener {
                 forgetPassword()
             }
+            memberUpdatePasswordCancelButton.setOnClickListener{
+                onBackPressed()
+            }
         }
     }
 
 
 
     private fun forgetPassword() {
-        if (binding?.forgetPasswordPhoneContentTextInputEditText?.text.isNullOrEmpty()) {
+        if (binding?.forgetPasswordPhoneContentEditText?.text.isNullOrEmpty()) {
             showPrivateDialog(
                 "帳號為必填！",
-                binding?.forgetPasswordPhoneContentTextInputEditText
+                binding?.forgetPasswordPhoneContentEditText
             )
 
             return
         }
 
-        if (binding?.forgetPasswordNewInputContentTextInputEditText?.text.isNullOrEmpty()) {
+        if (binding?.forgetPasswordNewInputContentEditText?.text.isNullOrEmpty()) {
             showPrivateDialog(
                 "密碼為必填！",
-                binding?.forgetPasswordNewInputContentTextInputEditText
+                binding?.forgetPasswordNewInputContentEditText
             )
 
             return
         }
 
-        if (binding?.forgetPasswordNewInputContentTextInputEditText?.text.toString() !=
-            binding?.forgetPasswordNewConfirmContentTextInputEditText?.text.toString()
+        if (binding?.forgetPasswordNewInputContentEditText?.text.toString() !=
+            binding?.forgetPasswordNewConfirmContentEditText?.text.toString()
         ) {
             showPrivateDialog(
                 "密碼不一致！",
-                binding?.forgetPasswordNewInputContentTextInputEditText
+                binding?.forgetPasswordNewInputContentEditText
             )
 
             return
@@ -107,8 +152,8 @@ class ForgetPasswordFragment : BaseFragment() {
 
         mainViewModel.forgetPassword(
             requireContext(),
-            binding?.forgetPasswordPhoneContentTextInputEditText?.text.toString(),
-            binding?.forgetPasswordNewInputContentTextInputEditText?.text.toString()
+            binding?.forgetPasswordPhoneContentEditText?.text.toString(),
+            binding?.forgetPasswordNewInputContentEditText?.text.toString()
         )
     }
 
@@ -123,7 +168,7 @@ class ForgetPasswordFragment : BaseFragment() {
         if (message == "更新成功") {
             AppUtility.updateLoginPassword(
                 requireContext(),
-                binding?.forgetPasswordNewInputContentTextInputEditText?.text.toString()
+                binding?.forgetPasswordNewInputContentEditText?.text.toString()
             )
         }
 
@@ -131,8 +176,8 @@ class ForgetPasswordFragment : BaseFragment() {
         alert.setMessage(message)
         alert.setPositiveButton("確定") { _, _ ->
             when (curUI) {
-                binding?.forgetPasswordPhoneContentTextInputEditText,
-                binding?.forgetPasswordNewInputContentTextInputEditText -> {
+                binding?.forgetPasswordPhoneContentEditText,
+                binding?.forgetPasswordNewInputContentEditText -> {
                     return@setPositiveButton
                 }
 

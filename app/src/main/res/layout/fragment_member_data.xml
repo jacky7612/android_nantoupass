@@ -18,7 +18,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/round_light_gray_empty"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_include">
@@ -35,30 +35,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/member_data_name_content_textInputLayout"
+        <EditText
+            android:id="@+id/member_data_name_content_editText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:hintEnabled="false"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round_gray_empty"
+            android:gravity="center_vertical"
+            android:hint="@string/name_input_hint_title"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHint="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/member_data_name_title_textView">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/member_data_name_content_textInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:hint="@string/name_input_hint_title"
-                android:inputType="textPersonName"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textColorHint="#757575"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/member_data_name_title_textView" />
 
         <TextView
             android:id="@+id/member_data_email_title_textView"
@@ -70,32 +63,25 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/member_data_name_content_textInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/member_data_name_content_editText" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/member_data_email_content_textInputLayout"
+        <EditText
+            android:id="@+id/member_data_email_content_editText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:hintEnabled="false"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round_gray_empty"
+            android:gravity="center_vertical"
+            android:hint="@string/email_input_hint_title"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHint="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/member_data_email_title_textView">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/member_data_email_content_textInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:hint="@string/email_input_hint_title"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textColorHint="#757575"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/member_data_email_title_textView" />
 
         <TextView
             android:id="@+id/member_data_phone_title_textView"
@@ -107,33 +93,26 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/member_data_email_content_textInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/member_data_email_content_editText" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/member_data_phone_content_textInputLayout"
+        <EditText
+            android:id="@+id/member_data_phone_content_editText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:hintEnabled="false"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round_gray_empty"
+            android:gravity="center_vertical"
+            android:hint="@string/phone_input_hint_title"
+            android:inputType="numberSigned"
+            android:maxLines="1"
+            android:enabled="false"
+            android:textColor="@color/c_6D6D6D_100"
+            android:textColorHint="#757575"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/member_data_phone_title_textView">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/member_data_phone_content_textInputEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:enabled="false"
-                android:hint="@string/phone_input_hint_title"
-                android:inputType="numberSigned"
-                android:maxLines="1"
-                android:textColor="@color/c_6D6D6D_100"
-                android:textColorHint="#757575"
-                tools:ignore="TouchTargetSizeCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@+id/member_data_phone_title_textView" />
 
         <TextView
             android:id="@+id/member_data_plate_no_title_textView"
@@ -145,28 +124,28 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/member_data_phone_content_textInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/member_data_phone_content_editText" />
 
         <EditText
             android:id="@+id/plate_text_editText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:cursorVisible="true"
             android:focusable="true"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round_gray_empty"
             android:focusableInTouchMode="true"
-            android:hint="________________________"
+            android:hint="ex:ABC"
             android:inputType="textCapCharacters"
             android:maxLength="4"
-            android:padding="5dp"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textColorHint="@color/grey"
             android:textCursorDrawable="@drawable/edit_text_cursor_color"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/connector_textView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/member_data_email_content_editText"
             app:layout_constraintTop_toBottomOf="@+id/member_data_plate_no_title_textView" />
 
         <TextView
@@ -184,12 +163,14 @@
         <EditText
             android:id="@+id/plate_number_editText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="5dp"
             android:cursorVisible="true"
             android:focusable="true"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round_gray_empty"
             android:focusableInTouchMode="true"
-            android:hint="________________________"
+            android:hint="ex:1234"
             android:inputType="textCapCharacters"
             android:maxLength="4"
             android:padding="5dp"
@@ -200,62 +181,74 @@
             android:textCursorDrawable="@drawable/edit_text_cursor_color"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/plate_text_editText"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/member_data_email_content_editText"
             app:layout_constraintStart_toEndOf="@+id/connector_textView"
             app:layout_constraintTop_toTopOf="@+id/plate_text_editText" />
 
-        <!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/member_data_plate_no_content_textInputLayout"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:layout_marginBottom="60dp"-->
-<!--            app:hintEnabled="false"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/member_data_plate_no_title_textView"-->
-<!--            app:passwordToggleTint="@color/light_blue_A400">-->
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/txt_vehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="載具號碼"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/plate_text_editText"
+            app:layout_constraintTop_toBottomOf="@id/plate_text_editText" />
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/member_data_plate_no_content_textInputEditText"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:background="@color/white"-->
-<!--                android:hint="@string/license_plate_hint_title"-->
-<!--                android:inputType="text"-->
-<!--                android:maxLines="1"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textColorHint="#757575"-->
-<!--                tools:ignore="TouchTargetSizeCheck" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <EditText
+            android:layout_marginTop="10dp"
+            android:id="@+id/vehicle_editText"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:paddingLeft="10dp"
+            android:background="@drawable/round_gray_empty"
+            android:focusableInTouchMode="true"
+            android:hint="ex:1234"
+            android:inputType="textCapCharacters"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/edit_text_cursor_color"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/member_data_email_content_editText"
+            app:layout_constraintStart_toStartOf="@+id/member_data_phone_content_editText"
+            app:layout_constraintTop_toBottomOf="@+id/txt_vehicle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
+        android:layout_marginTop="40dp"
         android:id="@+id/member_data_cancel_button"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/round_primary_empty"
         android:text="@string/cancel_title"
-        android:textColor="#039BE5"
+        android:gravity="center"
+        android:textColor="@color/c_1f98b0"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/member_data_confirm_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/member_data_content_constraintLayout" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
+        android:layout_marginTop="40dp"
         android:id="@+id/member_data_confirm_button"
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginEnd="20dp"
-        android:background="@drawable/round_primary_empty"
+        android:background="@drawable/green_button"
         android:text="@string/confirm_title"
-        android:textColor="@color/light_blue_A400"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/member_data_cancel_button"
         app:layout_constraintTop_toBottomOf="@+id/member_data_content_constraintLayout" />

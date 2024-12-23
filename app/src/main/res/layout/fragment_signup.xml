@@ -328,10 +328,12 @@
                 app:layout_constraintTop_toBottomOf="@id/signup_vehicle_content_editText" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:gravity="center"
+                android:layout_marginRight="30dp"
                 android:id="@+id/signup_confirm_button"
                 android:layout_marginBottom="20dp"
                 android:layout_width="120dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/green_button"
                 android:text="@string/signup_title"
@@ -339,8 +341,21 @@
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/signup_checkbox" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/member_update_password_cancel_button"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/round_primary_empty"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:text="@string/cancel_title"
+                android:gravity="center"
+                android:textColor="@color/c_1f98b0"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/signup_confirm_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

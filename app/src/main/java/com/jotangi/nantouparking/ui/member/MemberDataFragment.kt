@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,7 @@ class MemberDataFragment : BaseFragment() {
     private fun initObserver() {
         mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
+                Log.d("micCheckAQ", result.toString())
                 updateViewData(result)
             }
         }
@@ -138,16 +140,18 @@ class MemberDataFragment : BaseFragment() {
 
     private fun editMemberData() {
         binding!!.apply {
+
             mPlateNo =
                 "${plateTextEditText.text}-${plateNumberEditText.text}"
-
+            Log.d("micCheckAQ3", mPlateNo)
             mainViewModel.editMemberInfo(
                 requireContext(),
-                memberDataNameContentTextInputEditText?.text.toString(),
-                memberDataEmailContentTextInputEditText?.text.toString(),
-                memberDataPhoneContentTextInputEditText?.text.toString(),
+                memberDataNameContentEditText?.text.toString(),
+                memberDataEmailContentEditText?.text.toString(),
+                memberDataPhoneContentEditText?.text.toString(),
                 mPlateNo,
-                AppUtility.getLoginPassword(requireContext())!!
+                AppUtility.getLoginPassword(requireContext())!!,
+                vehicleEditText.text.toString()
             )
         }
     }
@@ -158,15 +162,18 @@ class MemberDataFragment : BaseFragment() {
             return
         }
         binding?.apply {
-            memberDataNameContentTextInputEditText.setText(result[0].memberName)
+            memberDataNameContentEditText.setText(result[0].memberName)
 //            memberDataEmailContentTextInputEditText.setText(result[0].memberEmail)
-            memberDataPhoneContentTextInputEditText.setText(result[0].memberId)
-//            val parts = result[0].memberPlate!!.split("-")
+            memberDataPhoneContentEditText.setText(result[0].memberId)
+            val parts = result[0].memberPlate!!.split("-")
 
-//            if (parts.size > 1) {
-//                plateTextEditText.setText(parts[0])
-//                plateNumberEditText.setText(parts[1])
-//            }
+            if (parts.size > 1) {
+                plateTextEditText.setText(parts[0])
+                plateNumberEditText.setText(parts[1])
+            }
+memberDataEmailContentEditText.setText(result[0].memberEmail)
+            Log.d("micCheckZ",result[0].memberCarrier )
+            vehicleEditText.setText(result[0].memberCarrier)
         }
     }
 
@@ -174,7 +181,7 @@ class MemberDataFragment : BaseFragment() {
         if (result.code == ApiConfig.API_CODE_SUCCESS) {
             AppUtility.updateLoginName(
                 requireContext(),
-                binding?.memberDataNameContentTextInputEditText?.text.toString()
+                binding?.memberDataNameContentEditText?.text.toString()
             )
 
             showPrivateDialog(
@@ -194,16 +201,16 @@ class MemberDataFragment : BaseFragment() {
         binding?.apply {
             when (isEdit) {
                 true -> {
-                    memberDataNameContentTextInputEditText.isEnabled = true
-                    memberDataEmailContentTextInputEditText.isEnabled = true
+                    memberDataNameContentEditText.isEnabled = true
+                    memberDataEmailContentEditText.isEnabled = true
 //                    memberDataPhoneContentTextInputEditText.isEnabled = true
                     plateTextEditText.isEnabled = true
                     plateNumberEditText.isEnabled = true
                 }
 
                 false -> {
-                    memberDataNameContentTextInputEditText.isEnabled =false
-                    memberDataEmailContentTextInputEditText.isEnabled =false
+                    memberDataNameContentEditText.isEnabled =false
+                    memberDataEmailContentEditText.isEnabled =false
 //                    memberDataPhoneContentTextInputEditText.isEnabled = false
                     plateTextEditText.isEnabled =false
                     plateNumberEditText.isEnabled =false

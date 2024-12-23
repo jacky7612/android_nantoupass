@@ -9,6 +9,9 @@ data class MemberInfoVO(
     @SerializedName("member_id")
     val memberId: String,
 
+    @SerializedName("member_carrier")
+    val memberCarrier: String,
+
     @SerializedName("member_pwd")
     val memberPassword: String,
 

@@ -50,8 +50,10 @@ interface ApiConfig {
         @Field("member_name") memberName: String,
         @Field("member_email") memberEmail: String,
         @Field("member_id") memberId: String,
-        @Field("member_plate") memberPlateNo: String,
-        @Field("member_pwd") memberPwd: String
+        @Field("member_plateNo") memberPlateNo: String,
+        @Field("member_pwd") memberPwd: String,
+        @Field(" member_carrier")  memberCarrier: String
+
     ): Call<MemberInfoEditResponse>
 
     // 修改密碼

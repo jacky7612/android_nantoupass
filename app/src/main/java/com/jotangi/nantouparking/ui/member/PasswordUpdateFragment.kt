@@ -1,7 +1,10 @@
 package com.jotangi.nantouparking.ui.member
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -29,12 +32,68 @@ class PasswordUpdateFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
+        initEditText()
     }
 
     override fun onPause() {
         super.onPause()
 
         mainViewModel.clearUpdatePasswordData()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun initEditText() {
+        binding?.apply {
+            seePWD1.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        passwordUpdateCurrentPasswordContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        passwordUpdateCurrentPasswordContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
+            }
+            seePWD2.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        passwordUpdateNewInputContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        passwordUpdateNewInputContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
+            }
+
+            seePWD3.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        passwordUpdateNewConfirmContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        passwordUpdateNewConfirmContentEditText.inputType =
+                            InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -88,9 +147,9 @@ class PasswordUpdateFragment : BaseFragment() {
         alert.setMessage(message)
         alert.setPositiveButton("確定") { _, _ ->
             when (curUI) {
-                binding?.passwordUpdateCurrentPasswordContentTextInputEditText,
-                binding?.passwordUpdateNewInputContentTextInputEditText,
-                binding?.passwordUpdateNewConfirmContentTextInputEditText -> {
+                binding?.passwordUpdateCurrentPasswordContentEditText,
+                binding?.passwordUpdateNewInputContentEditText,
+                binding?.passwordUpdateNewConfirmContentEditText -> {
                     return@setPositiveButton
                 }
 
@@ -107,21 +166,21 @@ class PasswordUpdateFragment : BaseFragment() {
         binding?.apply {
             if (
                 checkPasswordValid(
-                    passwordUpdateCurrentPasswordContentTextInputEditText.text.toString(),
-                    passwordUpdateNewInputContentTextInputEditText.text.toString(),
-                    passwordUpdateNewConfirmContentTextInputEditText.text.toString()
+                    passwordUpdateCurrentPasswordContentEditText.text.toString(),
+                    passwordUpdateNewInputContentEditText.text.toString(),
+                    passwordUpdateNewConfirmContentEditText.text.toString()
                 )
             ) {
                 AppUtility.updateLoginPassword(
                     requireContext(),
-                    passwordUpdateNewInputContentTextInputEditText.text.toString()
+                    passwordUpdateNewInputContentEditText.text.toString()
                 )
 
                 mainViewModel.updatePassword(
                     requireContext(),
                     AppUtility.getLoginId(requireContext())!!,
-                    passwordUpdateCurrentPasswordContentTextInputEditText.text.toString(),
-                    passwordUpdateNewInputContentTextInputEditText.text.toString()
+                    passwordUpdateCurrentPasswordContentEditText.text.toString(),
+                    passwordUpdateNewInputContentEditText.text.toString()
                 )
             } else {
                 AppUtility.showPopDialog(
