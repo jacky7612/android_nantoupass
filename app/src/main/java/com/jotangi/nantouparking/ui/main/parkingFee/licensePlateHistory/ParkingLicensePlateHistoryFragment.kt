@@ -207,6 +207,7 @@ var call = false
 
         mainViewModel.parkingGarageData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
+                Log.d("micCheckJH", result.toString())
                 updateParkingGarageListView(result)
             }
         }

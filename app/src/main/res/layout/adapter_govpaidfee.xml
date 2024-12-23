@@ -5,21 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@drawable/round_black_empty"
+    android:background="@drawable/rounded_border_spinner"
     android:elevation="50dp">
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/tv_ticket_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="單號："
-        android:textColor="@color/black"
+        android:text="訂單編號"
+        android:textColor="#40798C"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textStyle="bold"
+        android:visibility="gone"
         android:id="@+id/tv_area_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,62 +34,68 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_ticket_title" />
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/tv_park_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="停車日期："
-        android:textColor="@color/black"
+        android:text="停車日期"
+        android:textColor="#40798C"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_area_title"
+        app:layout_constraintStart_toStartOf="@+id/tv_ticket_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_area_title" />
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/tv_pay_amount_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="@string/paid_fee_title"
+        android:text="付款金額"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/tv_park_date_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_park_date_title" />
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/tv_pay_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="繳費日期："
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_pay_amount_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pay_amount_title" />
-    <TextView
-        android:id="@+id/tv_pay_source_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="繳費管道："
+        android:text="付款時間"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_pay_date_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pay_date_title" />
+        app:layout_constraintStart_toStartOf="@+id/tv_pay_source_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pay_source_title" />
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tv_pay_source_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="繳費管道"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_pay_amount_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pay_amount_title"/>
 
     <TextView
+        android:textStyle="bold"
+       android:layout_marginLeft="10dp"
         android:id="@+id/tv_ticket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="#40798C"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/tv_ticket_title"
         app:layout_constraintTop_toTopOf="@+id/tv_ticket_title" />
 
-
     <TextView
+        android:textStyle="bold"
+        android:visibility="gone"
         android:id="@+id/tv_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,15 +105,19 @@
         app:layout_constraintTop_toTopOf="@+id/tv_area_title" />
 
     <TextView
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
         android:id="@+id/tv_park_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:textColor="#40798C"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/tv_park_date_title"
         app:layout_constraintTop_toTopOf="@+id/tv_park_date_title" />
 
     <TextView
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
         android:id="@+id/tv_pay_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,6 +127,8 @@
         app:layout_constraintTop_toTopOf="@+id/tv_pay_amount_title" />
 
     <TextView
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
         android:id="@+id/tv_pay_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -123,6 +138,8 @@
         app:layout_constraintStart_toEndOf="@+id/tv_pay_date_title"
         app:layout_constraintTop_toTopOf="@+id/tv_pay_date_title" />
     <TextView
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
         android:id="@+id/tv_pay_source"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

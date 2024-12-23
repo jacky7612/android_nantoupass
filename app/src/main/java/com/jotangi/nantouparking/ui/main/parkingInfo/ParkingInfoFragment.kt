@@ -75,7 +75,7 @@ class ParkingInfoFragment :
     private fun initObserver() {
         mainViewModel.buildingParkingSpaceData.observe(viewLifecycleOwner) { result ->
 //            binding?.parkingInfoSwipe?.isRefreshing = false
-
+Log.d("micCheckMNM", result.toString())
             if (result != null) {
                 parkingInfoAdapter.updateDataSource(result.parkingData)
 //                updateLeftListView(result.parkingData)

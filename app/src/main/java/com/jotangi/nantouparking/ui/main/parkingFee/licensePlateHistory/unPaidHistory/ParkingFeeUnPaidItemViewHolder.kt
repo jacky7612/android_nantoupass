@@ -21,7 +21,7 @@ class ParkingFeeUnPaidItemViewHolder(val binding: ItemUnPaidFeeRoadBinding) : Re
                 if (data.isSelected)
                     R.drawable.rounded_blue_background
                 else
-                    R.drawable.round_black_empty
+                    R.drawable.rounded_border_spinner
             )
             unPaidItemCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 data.isSelected = isChecked

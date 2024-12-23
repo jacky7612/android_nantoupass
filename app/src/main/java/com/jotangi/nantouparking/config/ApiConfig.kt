@@ -113,7 +113,8 @@ interface ApiConfig {
         @Field("member_email") memberEmail: String,
         @Field("member_id") memberId: String,
         @Field("member_pwd") memberPwd: String,
-        @Field("plate_number") memberPlateNumber: String
+        @Field("plate_number") memberPlateNumber: String,
+        @Field("carrier") carrier: String
     ): Call<SignupResponse>
 
     // 忘記密碼

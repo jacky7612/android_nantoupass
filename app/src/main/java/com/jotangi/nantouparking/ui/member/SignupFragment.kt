@@ -1,15 +1,20 @@
 package com.jotangi.nantouparking.ui.member
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -42,6 +47,8 @@ class SignupFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
+        initEditText1()
+        initEditText2()
     }
 
     override fun onDestroyView() {
@@ -123,7 +130,7 @@ class SignupFragment : BaseFragment() {
                 }
             })
 
-            sighupConfirmButton.setOnClickListener {
+            signupConfirmButton.setOnClickListener {
                 signup()
             }
 
@@ -140,17 +147,17 @@ class SignupFragment : BaseFragment() {
 
             AppUtility.updateLoginId(
                 requireContext(),
-                binding?.signupPhoneContentTextInputEditText?.text.toString()
+                binding?.signupPhoneContentEditText?.text.toString()
             )
 
             AppUtility.updateLoginName(
                 requireContext(),
-                binding?.signupNameContentTextInputEditText?.text.toString()
+                binding?.signupNameContentEditText?.text.toString()
             )
 
             AppUtility.updateLoginPassword(
                 requireContext(),
-                binding?.signupPasswordContentTextInputEditText?.text.toString()
+                binding?.signupPasswordContentEditText?.text.toString()
             )
 
 
@@ -213,20 +220,211 @@ class SignupFragment : BaseFragment() {
         }
     }
 
+    fun initEditText1() {
+        binding?.apply {
+            signupPlateTextEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        val upperCaseText = it.toString().uppercase()
+                        if (it.toString() != upperCaseText) {
+                            signupPlateTextEditText.setText(upperCaseText)
+                            signupPlateTextEditText.setSelection(upperCaseText.length) // 將光標移到最後
+                        }
+                    }
+                }
+            })
+            signupPlateNumberEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        val upperCaseText = it.toString().uppercase()
+                        if (it.toString() != upperCaseText) {
+                            signupPlateNumberEditText.setText(upperCaseText)
+                            signupPlateNumberEditText.setSelection(upperCaseText.length) // 將光標移到最後
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun initEditText2(){
+        binding?.apply {
+            val inputFilter = InputFilter { source, _, _, _, _, _ ->
+                if (source.matches(Regex("[\\u4E00-\\u9FA5a-zA-Z0-9]+"))) {
+                    source // Allow Chinese, both cases, and digits
+                } else {
+                    "" // Block other characters
+                }
+            }
+
+// Remove maxLength restriction and set the input filter
+            signupPlateNumberEditText.filters = arrayOf(inputFilter)
+            signupPlateNumberEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        if (s.isEmpty()) {
+                            signupPlateNumberEditText.error =
+                                "此欄位不可為空" // This field cannot be empty
+                        }
+                    }
+                }
+            })
+
+
+// Input filter to allow Chinese characters, uppercase letters, and digits only
+            val inputFilter2 = InputFilter { source, _, _, _, _, _ ->
+                if (source.matches(Regex("[\\u4E00-\\u9FA5a-zA-Z0-9]+"))) {
+                    source // Allow Chinese, both cases, and digits
+                } else {
+                    "" // Block other characters
+                }
+            }
+
+// Set the input filter
+            if (signupPlateTextEditText != null) {
+                signupPlateTextEditText.filters = arrayOf(inputFilter2)
+            }
+
+// Add a text watcher to ensure the field is not empty
+            if (signupPlateTextEditText != null) {
+                signupPlateTextEditText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        s?.let {
+                            if (s.isNullOrEmpty()) {
+                                signupPlateTextEditText.error = "此欄位不可為空"
+                            }
+                        }
+                    }
+                })
+            }
+
+            val filter = InputFilter { source, _, _, _, _, _ ->
+                source?.filter { it.isLetterOrDigit() || it == '/' } ?: ""
+            }
+
+// Apply the filter
+            signupVehicleContentEditText.filters = arrayOf(filter)
+
+// Automatically convert to uppercase
+            signupVehicleContentEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (s != null) {
+                        val upperCaseText = s.toString().uppercase()
+                        if (s.toString() != upperCaseText) {
+                            signupVehicleContentEditText.setText(upperCaseText)
+                            signupVehicleContentEditText.setSelection(upperCaseText.length) // Move cursor to the end
+                        }
+                    }
+                }
+            })
+
+            seePWD1.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        signupPasswordContentEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        signupPasswordContentEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
+            }
+            seePWD2.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        signupPasswordContentEditText2.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        signupPasswordContentEditText2.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
+            }
+        }
+
+        }
+
     private fun signup() {
-        if (binding?.signupPhoneContentTextInputEditText?.text.toString().isNullOrEmpty()) {
+        if (binding?.signupPhoneContentEditText?.text.toString().isNullOrEmpty()) {
             showPrivateDialog(
                 "電話為必填！",
-                binding?.signupPhoneContentTextInputEditText
+                binding?.signupPhoneContentEditText
             )
 
             return
         }
 
-        if (binding?.signupPasswordContentTextInputEditText?.text.toString().isNullOrEmpty()) {
+        if (binding?.signupPasswordContentEditText?.text.toString().isNullOrEmpty()) {
             showPrivateDialog(
                 "密碼為必填！",
-                binding?.signupPasswordContentTextInputEditText
+                binding?.signupPasswordContentEditText
             )
 
             return
@@ -235,9 +433,31 @@ class SignupFragment : BaseFragment() {
         if (!binding?.signupCheckbox?.isChecked!!) {
             showPrivateDialog(
                 "請同意條款！",
-                binding?.signupPasswordContentTextInputEditText
+                binding?.signupPasswordContentEditText
             )
 
+            return
+        }
+        if(binding?.signupPasswordContentEditText?.text.toString().isNullOrEmpty()) {
+            showPrivateDialog(
+                "密碼為必填！",
+                binding?.signupPasswordContentEditText
+            )
+            return
+        }
+        if(binding?.signupPasswordContentEditText2?.text.toString().isNullOrEmpty()) {
+            showPrivateDialog(
+                "密碼為必填！",
+                binding?.signupPasswordContentEditText2
+            )
+            return
+        }
+
+        if(!binding?.signupPasswordContentEditText?.text.toString().equals(binding?.signupPasswordContentEditText2?.text.toString())) {
+            showPrivateDialog(
+                "密碼不一樣！",
+                binding?.signupPasswordContentEditText2
+            )
             return
         }
 
@@ -248,11 +468,12 @@ class SignupFragment : BaseFragment() {
         }
         mainViewModel.signup(
             requireContext(),
-            binding?.signupNameContentTextInputEditText?.text.toString(),
-            binding?.signupEmailContentTextInputEditText?.text.toString(),
-            binding?.signupPhoneContentTextInputEditText?.text.toString(),
-            binding?.signupPasswordContentTextInputEditText?.text.toString(),
-            PlateNO
+            binding?.signupNameContentEditText?.text.toString(),
+            binding?.signupEmailContentEditText?.text.toString(),
+            binding?.signupPhoneContentEditText?.text.toString(),
+            binding?.signupPasswordContentEditText?.text.toString(),
+            PlateNO,
+            binding?.signupVehicleContentEditText?.text.toString()
         )
     }
 
@@ -267,8 +488,8 @@ class SignupFragment : BaseFragment() {
         alert.setMessage(message)
         alert.setPositiveButton("確定") { _, _ ->
             when (curUI) {
-                binding?.signupPhoneContentTextInputEditText,
-                binding?.signupPasswordContentTextInputEditText,
+                binding?.signupPhoneContentEditText,
+                binding?.signupPasswordContentEditText,
                 binding?.signupCheckbox -> {
                     return@setPositiveButton
                 }
@@ -297,8 +518,8 @@ class SignupFragment : BaseFragment() {
         alert.setMessage(message)
         alert.setPositiveButton("確定") { _, _ ->
             when (curUI) {
-                binding?.signupPhoneContentTextInputEditText,
-                binding?.signupPasswordContentTextInputEditText,
+                binding?.signupPhoneContentEditText,
+                binding?.signupPasswordContentEditText,
                 binding?.signupCheckbox -> {
                     return@setPositiveButton
                 }

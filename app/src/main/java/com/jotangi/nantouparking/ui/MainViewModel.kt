@@ -224,14 +224,16 @@ class MainViewModel : ViewModel() {
         memberEmail: String,
         memberId: String,
         memberPassword: String,
-        memberLicensePlate: String
+        memberLicensePlate: String,
+        carrier:String
     ) {
         val call: Call<SignupResponse> = ApiUtility.service.apiSignup(
             memberName,
             memberEmail,
             memberId,
             memberPassword,
-            memberLicensePlate
+            memberLicensePlate,
+                    carrier
         )
         call.enqueue(object : Callback<SignupResponse> {
             override fun onResponse(

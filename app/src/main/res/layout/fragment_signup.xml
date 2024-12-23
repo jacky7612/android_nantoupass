@@ -33,288 +33,315 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/signup_content_constraintLayout"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/signup_name_title_textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/round_light_gray_empty"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/signup_name_content_editText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_gray_empty"
+                android:gravity="center_vertical"
+                android:hint="@string/signup_name_input_hint_title"
+                android:paddingLeft="10dp"
+                android:inputType="textPersonName"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/c_aaaaaa_100"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/signup_name_title_textView" />
 
-                <TextView
-                    android:id="@+id/signup_name_title_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/name_title"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/signup_email_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/email_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_name_content_editText" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/signup_name_content_textInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:hintEnabled="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_name_title_textView">
+            <EditText
+                android:id="@+id/signup_email_content_editText"
+                android:layout_width="0dp"
+                android:paddingLeft="10dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_gray_empty"
+                android:gravity="center_vertical"
+                android:hint="@string/signup_email_input_hint_title"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/c_aaaaaa_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_email_title_textView" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/signup_name_content_textInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:hint="@string/signup_name_input_hint_title"
-                        android:inputType="textPersonName"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/c_aaaaaa_100" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/signup_phone_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/signup_phone"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_email_content_editText" />
 
-                <TextView
-                    android:id="@+id/signup_email_title_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/email_title"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_name_content_textInputLayout" />
+            <EditText
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/signup_email_content_textInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:hintEnabled="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_email_title_textView">
+                android:id="@+id/signup_phone_content_editText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_gray_empty"
+                android:gravity="center_vertical"
+                android:hint="@string/phone_input_hint_title"
+                android:inputType="numberSigned"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:textColor="@color/black"
+                android:textColorHint="@color/c_aaaaaa_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_phone_title_textView" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/signup_email_content_textInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:hint="@string/signup_email_input_hint_title"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/c_aaaaaa_100" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/signup_password_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/forget_password_new_input_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_phone_content_editText" />
 
-                <TextView
-                    android:id="@+id/signup_phone_title_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/signup_phone"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_email_content_textInputLayout" />
+            <EditText
+                android:paddingLeft="10dp"
+                android:id="@+id/signup_password_content_editText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_gray_empty"
+                android:gravity="center_vertical"
+                android:hint="@string/password_new_input_hint_title"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/c_aaaaaa_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_password_title_textView" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/signup_phone_content_textInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:hintEnabled="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_phone_title_textView">
+            <ImageView
+                android:id="@+id/seePWD1"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/eye"
+                app:layout_constraintEnd_toEndOf="@+id/signup_password_content_editText"
+                app:layout_constraintBottom_toBottomOf="@+id/signup_password_content_editText"
+                app:layout_constraintTop_toTopOf="@+id/signup_password_content_editText"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/signup_phone_content_textInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:hint="@string/phone_input_hint_title"
-                        android:inputType="numberSigned"
-                        android:maxLines="1"
-                        android:maxLength="10"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/c_aaaaaa_100" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/signup_password_title_textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/forget_password_new_confirm_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_password_content_editText" />
 
-                <TextView
-                    android:id="@+id/signup_password_input_title_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/forget_password_new_input_title"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_phone_content_textInputLayout" />
+            <EditText
+                android:paddingLeft="10dp"
+                android:id="@+id/signup_password_content_editText2"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_gray_empty"
+                android:gravity="center_vertical"
+                android:hint="@string/password_new_input_hint_title"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/c_aaaaaa_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_password_title_textView2" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/signup_password_input_content_textInputLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="40dp"
-                    app:hintEnabled="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_password_input_title_textView"
-                    app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/light_blue_A400">
+            <ImageView
+                android:id="@+id/seePWD2"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/eye"
+                app:layout_constraintEnd_toEndOf="@+id/signup_password_content_editText2"
+                app:layout_constraintBottom_toBottomOf="@+id/signup_password_content_editText2"
+                app:layout_constraintTop_toTopOf="@+id/signup_password_content_editText2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/signup_password_content_textInputEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:gravity="center_vertical"
-                        android:hint="@string/password_new_input_hint_title"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/c_aaaaaa_100"
-                        tools:ignore="TouchTargetSizeCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/signup_license_plate_title_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="@string/license_plate_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_password_content_editText2" />
 
-                <TextView
-                    android:id="@+id/signup_license_plate_title_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:paddingStart="20dp"
-                    android:text="@string/license_plate_title"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_password_input_content_textInputLayout" />
+            <EditText
+                android:hint="ex:ABC"
+                android:paddingLeft="10dp"
+                android:id="@+id/signup_plate_text_editText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/round_gray_empty"
+                android:layout_marginTop="10dp"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:layout_marginLeft="20dp"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical"
+                android:inputType="textCapCharacters"
+                android:maxLength="4"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/connector_textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signup_license_plate_title_textView" />
 
-                <EditText
-                    android:id="@+id/signup_plate_text_editText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:cursorVisible="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:hint="________________________"
-                    android:inputType="textCapCharacters"
-                    android:maxLength="4"
-                    android:padding="5dp"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
-                    android:textCursorDrawable="@drawable/edit_text_cursor_color"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toStartOf="@+id/connector_textView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/signup_license_plate_title_textView" />
+            <TextView
+                android:id="@+id/connector_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@+id/signup_plate_text_editText"
+                app:layout_constraintEnd_toStartOf="@+id/signup_plate_number_editText"
+                app:layout_constraintStart_toEndOf="@+id/signup_plate_text_editText"
+                app:layout_constraintTop_toTopOf="@+id/signup_plate_text_editText" />
 
-                <TextView
-                    android:id="@+id/connector_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="一"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@+id/signup_plate_text_editText"
-                    app:layout_constraintEnd_toStartOf="@+id/signup_plate_number_editText"
-                    app:layout_constraintStart_toEndOf="@+id/signup_plate_text_editText"
-                    app:layout_constraintTop_toTopOf="@+id/signup_plate_text_editText" />
+            <EditText
+                android:layout_marginRight="20dp"
+                android:id="@+id/signup_plate_number_editText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:hint="ex:1234"
+                android:paddingLeft="10dp"
+                android:background="@drawable/round_gray_empty"
+                android:focusableInTouchMode="true"
+                android:inputType="textCapCharacters"
+                android:maxLength="4"
+                android:singleLine="true"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/signup_plate_text_editText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/connector_textView"
+                app:layout_constraintTop_toTopOf="@+id/signup_plate_text_editText" />
 
-                <EditText
-                    android:id="@+id/signup_plate_number_editText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:cursorVisible="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:hint="________________________"
-                    android:inputType="textCapCharacters"
-                    android:maxLength="4"
-                    android:padding="5dp"
-                    android:singleLine="true"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
-                    android:textCursorDrawable="@drawable/edit_text_cursor_color"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/signup_plate_text_editText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/connector_textView"
-                    app:layout_constraintTop_toTopOf="@+id/signup_plate_text_editText" />
+            <TextView
+                android:id="@+id/txt_vehicle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:text="載具號碼"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_plate_text_editText" />
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:id="@+id/signup_license_plate_textInputLayout"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="20dp"-->
-<!--                    android:layout_marginEnd="20dp"-->
-<!--                    android:layout_marginBottom="40dp"-->
-<!--                    app:hintEnabled="false"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/signup_license_plate_title_textView">-->
-
-<!--                    <com.google.android.material.textfield.TextInputEditText-->
-<!--                        android:id="@+id/signup_license_plate_textInputEditText"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:hint="@string/license_plate_hint_title"-->
-<!--                        android:inputType="text"-->
-<!--                        android:maxLines="1"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textColorHint="@color/c_aaaaaa_100" />-->
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:paddingLeft="10dp"
+                android:id="@+id/signup_vehicle_content_editText"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_gray_empty"
+                android:gravity="center_vertical"
+                android:hint="請輸入載具號碼 ex:/ST12345"
+                android:inputType="text"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789/"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/c_aaaaaa_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_vehicle" />
 
             <CheckBox
                 android:id="@+id/signup_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:buttonTint="@color/light_blue_A200"
                 android:text="@string/signup_agree_title"
                 android:textColor="@color/grey"
-                app:layout_constraintEnd_toEndOf="@+id/signup_content_constraintLayout"
-                app:layout_constraintStart_toStartOf="@+id/signup_content_constraintLayout"
-                app:layout_constraintTop_toBottomOf="@+id/signup_content_constraintLayout" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/signup_vehicle_content_editText" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/sighup_confirm_button"
+                android:id="@+id/signup_confirm_button"
+                android:layout_marginBottom="20dp"
                 android:layout_width="120dp"
                 android:layout_height="50dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/round_primary_empty"
-                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/green_button"
                 android:text="@string/signup_title"
-                android:textColor="@color/light_blue_A400"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signup_checkbox" />
+                app:layout_constraintTop_toBottomOf="@id/signup_checkbox" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

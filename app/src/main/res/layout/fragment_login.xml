@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/c_eeeeee_100"
     tools:context=".ui.member.LoginFragment">
 
     <include
@@ -13,10 +12,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+<TextView
+    android:id="@+id/txt_phone"
+    android:layout_marginTop="30dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="手機號碼"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="@id/login_id_editText"
+    app:layout_constraintTop_toBottomOf="@+id/toolbar_include"
+    app:layout_constraintVertical_bias="0.7"/>
     <EditText
+        android:layout_marginTop="10dp"
         android:id="@+id/login_id_editText"
-        android:layout_width="0dp"
+        android:layout_width="320dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -26,20 +35,28 @@
         android:focusableInTouchMode="true"
         android:textCursorDrawable="@drawable/edit_text_cursor_color"
         android:cursorVisible="true"
-        android:hint="@string/id_input_hint_title"
+        android:hint="請輸入手機號碼"
         android:paddingStart="20dp"
         android:textColor="@color/black"
         android:textColorHint="@color/c_aaaaaa_100"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_password_editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_include"
+        app:layout_constraintTop_toBottomOf="@+id/txt_phone"
         app:layout_constraintVertical_bias="0.7" />
-
+    <TextView
+        android:id="@+id/txt_pwd"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="密碼"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/login_id_editText"
+        app:layout_constraintTop_toBottomOf="@+id/login_id_editText"
+        app:layout_constraintVertical_bias="0.7"/>
     <EditText
         android:id="@+id/login_password_editText"
-        android:layout_width="0dp"
+        android:layout_width="320dp"
         android:layout_height="50dp"
         android:background="@drawable/round_gray_empty"
         android:focusable="true"
@@ -53,10 +70,10 @@
         android:textColor="@color/black"
         android:textColorHint="@color/c_aaaaaa_100"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+       android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/login_id_editText"
         app:layout_constraintStart_toStartOf="@+id/login_id_editText"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_include"
+        app:layout_constraintTop_toBottomOf="@+id/txt_pwd"
         app:layout_constraintVertical_bias="0.3" />
 
     <TextView
@@ -66,22 +83,41 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:text="@string/forget_password_title"
-        android:textColor="@color/light_blue_A400"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/login_id_editText"
         app:layout_constraintTop_toBottomOf="@+id/login_password_editText" />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@id/login_id_editText"
+app:layout_constraintTop_toBottomOf="@id/login_password_editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:background="@drawable/baseline_check_circle_24"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保持登入"/>
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup_button"
+        android:gravity="center"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="40dp"
+android:layout_marginTop="40dp"
         android:background="@drawable/round_primary_empty"
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/signup_title"
-        android:textColor="@color/light_blue_A400"
+        android:textColor="#447c8c"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/login_password_editText"
         app:layout_constraintTop_toBottomOf="@+id/forget_password_textView"
         app:layout_constraintVertical_bias="0.5" />
@@ -89,14 +125,14 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login_button"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/round_primary"
+        android:layout_height="40dp"
+android:layout_marginTop="40dp"
+        android:background="@drawable/green_button"
         android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/login_title"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/login_password_editText"
         app:layout_constraintTop_toBottomOf="@+id/forget_password_textView"
         app:layout_constraintVertical_bias="0.5" />
