@@ -50,7 +50,9 @@ class ParkingLicensePlateHistoryFragment :
     private val PARKING_TYPE_ROAD = "1"
     private val PARKING_TYPE_GARAGE = "2"
     private val PARKING_TYPE_GARAGE_LIST = "3"
-    private var parkingCurPage = "1"
+    companion object {
+        var parkingCurPage = "1"
+    }
 var call = false
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
