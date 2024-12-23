@@ -1,5 +1,6 @@
 package com.jotangi.nantouparking.ui.main.parkingInfo
 
+import ParkingInfoClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantouparking.databinding.ItemParkingInfoBinding
 import com.jotangi.nantouparking.model.ParkingInfoBuildingVO

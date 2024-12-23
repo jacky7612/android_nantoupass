@@ -1,5 +1,7 @@
 package com.jotangi.nantouparking.ui.main.parkingInfo
 
+import ParkingInfoAdapter
+import ParkingInfoClickListener
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -73,19 +75,18 @@ class ParkingInfoFragment :
     }
 
     private fun initObserver() {
-        mainViewModel.buildingParkingSpaceData.observe(viewLifecycleOwner) { result ->
-//            binding?.parkingInfoSwipe?.isRefreshing = false
-Log.d("micCheckMNM", result.toString())
-            if (result != null) {
-                parkingInfoAdapter.updateDataSource(result.parkingData)
-//                updateLeftListView(result.parkingData)
-//                updateScrollViewPosition()
+        mainViewModel.allParkStatusData.observe(viewLifecycleOwner) { parkStatusList ->
+            Log.d("micCheckMNM", parkStatusList.toString())
+            if (parkStatusList != null) {
+                parkingInfoAdapter.updateDataSource(parkStatusList)
             }
         }
     }
 
     private fun initData() {
-        mainViewModel.getParkingInfoLeftList(requireContext())
+//        mainViewModel.getParkingInfoLeftList(requireContext())
+        mainViewModel.fetchAllParkStatus(requireContext())
+
     }
 
     private fun initView() {
@@ -97,7 +98,7 @@ Log.d("micCheckMNM", result.toString())
         binding?.parkingInfoRecyclerView?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             parkingInfoAdapter = ParkingInfoAdapter(
-                data,
+                emptyList(),
                 requireContext(),
                 this@ParkingInfoFragment
             )

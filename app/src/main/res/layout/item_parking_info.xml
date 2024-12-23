@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_coupon_constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:layout_margin="2dp"
-    android:background="@color/white"
-    android:elevation="20dp">
+    android:layout_height="120dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/rounded_border_spinner"
+    android:elevation="3dp">
 
     <TextView
         android:id="@+id/item_parking_info_title_textView"
@@ -17,19 +17,47 @@
         android:textSize="16sp"
         android:layout_margin="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/item_parking_info_count_textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:layout_marginTop="5dp"
         android:id="@+id/item_parking_info_count_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="99 格"
+        android:text="剩餘 99 停車格"
+        android:textColor="#447c8c"
+        app:layout_constraintStart_toStartOf="@+id/item_parking_info_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/item_parking_info_title_textView" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="南陽路地址"
         android:textColor="@color/black"
-        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="@+id/item_parking_info_title_textView"
+        app:layout_constraintTop_toBottomOf="@+id/item_parking_info_count_textView" />
+
+    <LinearLayout
+        android:id="@+id/btn_map"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/item_parking_info_title_textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="#447c8c"
+            android:text="立即前往"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/green_arrow"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

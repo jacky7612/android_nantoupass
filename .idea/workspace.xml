@@ -160,6 +160,11 @@
           <theme>@android:style/Theme.Material.Light</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_parking_info.xml">
+        <config>
+          <theme>@android:style/Theme.Material.Light</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/item_point_record.xml">
         <config>
           <theme>@android:style/Theme.Material.Light</theme>
@@ -187,10 +192,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8beb6b61-c2cb-471f-81f7-ac2f56a0e463" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/model/AllParkStatusResponse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/JackyVariant/GovpaidfeeAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/JackyVariant/GovpaidfeeAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/ParkingLicensePlateHistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/ParkingLicensePlateHistoryFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/adapter_govpaidfee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/adapter_govpaidfee.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/config/ApiConfig.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/config/ApiConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingInfo/ParkingInfoAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingInfo/ParkingInfoAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingInfo/ParkingInfoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingInfo/ParkingInfoFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingInfo/ParkingInfoViewHolder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingInfo/ParkingInfoViewHolder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking_info.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_parking_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_parking_info.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,8 +259,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile" />
-        <option value="Kotlin Class" />
         <option value="resourceFile" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -288,41 +299,41 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Android App.app.executor": "Run",
-    "ApkExportedModule": "NanTou_Parking.app",
-    "BundleExportedModule": "NanTou_Parking.app",
-    "ExportBundle.BundlePathForNanTou_Parking.app": "/Users/linmingjie/Documents/MyProject/android/02.停車App/南投/nantou_parking_android-master/NanTouParking/app",
-    "Gradle.android_parking_nantou:app [testDebugUnitTest].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "android-custom-view/Users/linmingjie/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED": "RecyclerView",
-    "android-custom-view/Users/linmingjie/Library/Android/sdk/sources/android-33/android/view/View.java_SELECTED": "View",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/jtgmac/AndroidStudioProjects/android_parking_nantou/app/src/main/res/drawable",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;ApkExportedModule&quot;: &quot;NanTou_Parking.app&quot;,
+    &quot;BundleExportedModule&quot;: &quot;NanTou_Parking.app&quot;,
+    &quot;ExportBundle.BundlePathForNanTou_Parking.app&quot;: &quot;/Users/linmingjie/Documents/MyProject/android/02.停車App/南投/nantou_parking_android-master/NanTouParking/app&quot;,
+    &quot;Gradle.android_parking_nantou:app [testDebugUnitTest].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;android-custom-view/Users/linmingjie/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED&quot;: &quot;RecyclerView&quot;,
+    &quot;android-custom-view/Users/linmingjie/Library/Android/sdk/sources/android-33/android/view/View.java_SELECTED&quot;: &quot;View&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jtgmac/AndroidStudioProjects/android_parking_nantou/app/src/main/res/drawable&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   },
-  "keyToStringList": {
-    "ExportApk.BuildVariants": [
-      "release"
+  &quot;keyToStringList&quot;: {
+    &quot;ExportApk.BuildVariants&quot;: [
+      &quot;release&quot;
     ],
-    "kotlin-gradle-user-dirs": [
-      "/Users/jtgmac/.gradle"
+    &quot;kotlin-gradle-user-dirs&quot;: [
+      &quot;/Users/jtgmac/.gradle&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
@@ -490,17 +501,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>786</line>
+          <line>790</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>1136</line>
+          <line>1140</line>
           <option name="timeStamp" value="97" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>1145</line>
+          <line>1149</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
@@ -515,17 +526,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>816</line>
+          <line>820</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>926</line>
+          <line>930</line>
           <option name="timeStamp" value="132" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>936</line>
+          <line>940</line>
           <option name="timeStamp" value="133" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
@@ -535,32 +546,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>871</line>
+          <line>875</line>
           <option name="timeStamp" value="137" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>882</line>
+          <line>886</line>
           <option name="timeStamp" value="138" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>884</line>
+          <line>888</line>
           <option name="timeStamp" value="140" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>894</line>
+          <line>898</line>
           <option name="timeStamp" value="141" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>591</line>
+          <line>595</line>
           <option name="timeStamp" value="146" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>600</line>
+          <line>604</line>
           <option name="timeStamp" value="147" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
@@ -650,22 +661,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>232</line>
+          <line>236</line>
           <option name="timeStamp" value="219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>247</line>
+          <line>251</line>
           <option name="timeStamp" value="220" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>307</line>
+          <line>311</line>
           <option name="timeStamp" value="233" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>283</line>
+          <line>287</line>
           <option name="timeStamp" value="234" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
@@ -680,7 +691,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/MainViewModel.kt</url>
-          <line>261</line>
+          <line>265</line>
           <option name="timeStamp" value="250" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">

@@ -183,6 +183,10 @@ class MainViewModel : ViewModel() {
     private val _usePointResponse = MutableLiveData<UsePointResponse>()
     val usePointResponse: LiveData<UsePointResponse> get() = _usePointResponse
 
+    private val _allParkStatusData = MutableLiveData<List<ParkStatus>>()
+    val allParkStatusData: LiveData<List<ParkStatus>> get() = _allParkStatusData
+
+
     val isDelete: LiveData<Boolean> get() = _isDelete
 
     private fun combineRecords() {
@@ -1533,4 +1537,34 @@ class MainViewModel : ViewModel() {
             }
         })
     }
+
+    fun fetchAllParkStatus(context: Context) {
+        val call = ApiUtility.service.getAllParkStatus()
+        call.enqueue(object : Callback<AllParkStatusResponse> {
+            override fun onResponse(
+                call: Call<AllParkStatusResponse>,
+                response: Response<AllParkStatusResponse>
+            ) {
+                if (response.isSuccessful && response.body() != null) {
+                    _allParkStatusData.postValue(response.body()?.data)
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        response.code().toString(),
+                        response.message()
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<AllParkStatusResponse>, t: Throwable) {
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    t.localizedMessage ?: "Unknown error occurred"
+                )
+            }
+        })
+    }
+
+
 }

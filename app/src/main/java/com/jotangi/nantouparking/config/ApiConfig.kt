@@ -260,4 +260,7 @@ interface ApiConfig {
         @Field("point_num") pointNum: String,
         @Field("product_price") productPrice: String
     ): Call<UsePointResponse>
+
+    @GET("api/all_park_status.php")
+    fun getAllParkStatus(): Call<AllParkStatusResponse>
 }
