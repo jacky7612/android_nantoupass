@@ -1,8 +1,11 @@
 package com.jotangi.nantouparking.ui.member
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -125,6 +128,7 @@ class LoginFragment : BaseFragment() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initAction() {
         binding?.apply {
             loginButton.setOnClickListener {
@@ -137,6 +141,20 @@ class LoginFragment : BaseFragment() {
 
             forgetPasswordTextView.setOnClickListener {
                 findNavController().navigate(R.id.action_to_forget_password)
+            }
+
+            seePWD1.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Show the password when the finger touches the eye icon
+                        loginPasswordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Hide the password when the finger is lifted
+                        loginPasswordEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    }
+                }
+                true
             }
         }
     }

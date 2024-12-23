@@ -76,6 +76,17 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_pwd"
         app:layout_constraintVertical_bias="0.3" />
 
+
+    <ImageView
+        android:id="@+id/seePWD1"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/eye"
+        app:layout_constraintEnd_toEndOf="@+id/login_password_editText"
+        app:layout_constraintBottom_toBottomOf="@+id/login_password_editText"
+        app:layout_constraintTop_toTopOf="@+id/login_password_editText"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
     <TextView
         android:id="@+id/forget_password_textView"
         android:layout_width="wrap_content"
