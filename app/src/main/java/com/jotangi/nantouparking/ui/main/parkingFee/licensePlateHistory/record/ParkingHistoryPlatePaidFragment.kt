@@ -103,7 +103,7 @@ Log.d("micCheckCC", "CC")
 //                        ${Glob.apiRespOrder.data!![0].plate_no}
             Log.d(TAG, "呼叫API尋找車號 :${plateNo}, response :$responseBody")
             if (responseBody != null) {
-                Log.d("micCheckZA", "1")
+                Log.d("micCheckZA", responseBody.toString())
                 apiEntry.parseGovPlateList(responseBody) // if (apiResponse is ApiRespCarNoOK) {}
                 if (Glob.apiGovPayList!!.status.lowercase() == "true") {
                     Log.d("micCheckZA", "3")

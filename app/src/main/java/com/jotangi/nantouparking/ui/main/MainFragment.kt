@@ -1,5 +1,6 @@
 package com.jotangi.nantouparking.ui.main
 
+import CustomerServiceBottomSheet
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -126,7 +127,7 @@ class MainFragment :
 
 
                 mainLineConstraintLayout.setOnClickListener {
-                    openUrl("https://line.me/R/ti/p/@588fmkjn")
+                    openUrl("https://line.me/R/ti/p/@sbo5307t")
                 }
                 mainAttractionsConstraintLayout.setOnClickListener {
                     findNavController().navigate(R.id.action_to_guideline)
@@ -147,8 +148,10 @@ class MainFragment :
 //                    null,
 //                    "尚未開放！\n敬請期待！"
 //                )
+                    val bottomSheet = CustomerServiceBottomSheet()
+                    bottomSheet.show(parentFragmentManager, bottomSheet.tag)
 
-                    makePhoneCall(AppConfig.CUSTOMER_SERVICE_PHONE)
+//                    makePhoneCall(AppConfig.CUSTOMER_SERVICE_PHONE)
                 }
 
                 mainOfficialConstraintLayout.setOnClickListener {

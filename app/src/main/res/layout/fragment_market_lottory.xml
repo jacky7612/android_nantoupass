@@ -23,15 +23,15 @@
         android:layout_height="wrap_content"
         android:text="這村, 這市, 抽獎辦法" />
 
-    <TextView
+    <ImageView
         android:text="抽獎辦法"
         android:textSize="20sp"
         android:gravity="center"
         android:layout_marginTop="23dp"
         android:layout_gravity="center"
         android:layout_width="300dp"
-        android:layout_height="500dp"
-        android:background="#F4F4F4"/>
+        android:layout_height="450dp"
+        android:background="@drawable/lottory"/>
 
     <TextView
         android:id="@+id/confirm"

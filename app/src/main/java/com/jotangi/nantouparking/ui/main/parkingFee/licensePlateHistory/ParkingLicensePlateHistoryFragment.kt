@@ -319,6 +319,12 @@ var call = false
                             Log.d("NavigationDebug", "2")
                         }
                     }
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "目前沒有符合的紀錄唷！",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                     call2 = false
 
