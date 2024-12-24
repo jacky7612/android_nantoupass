@@ -55,6 +55,7 @@ class ParkingLicensePlateHistoryFragment :
     }
 var call = false
     var call2 = false
+    var call3 = false
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
     override fun onCreateView(
@@ -99,6 +100,7 @@ var call = false
                 PARKING_TYPE_GARAGE_LIST -> {
                     parkingCurPage = PARKING_TYPE_GARAGE
                     updateContentView()
+                    call3 = true
                     mainViewModel.getPlateNumber(
                         requireContext(),
                         AppUtility.getLoginId(requireContext())!!,
@@ -111,6 +113,7 @@ var call = false
                     parkingCurPage = PARKING_TYPE_ROAD
                     updateTabView()
                     updateContentView()
+                    call3 = true
                     mainViewModel.getPlateNumber(
                         requireContext(),
                         AppUtility.getLoginId(requireContext())!!,
@@ -128,19 +131,25 @@ var call = false
 
     private fun initObserver() {
         mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                Log.d("micCheckZ", result.toString())
-                updateListView(result)
+            if(call3) {
+                if (result != null) {
+                    Log.d("micCheckZ", result.toString())
+                    updateListView(result)
 
-                if (mPlateNo.isNotEmpty()) {
-                    getPlateUnPaidList()
+                    if (mPlateNo.isNotEmpty()) {
+                        if (call) {
+                            getPlateUnPaidList()
+                        }
+                    }
                 }
             }
+            call3 = false
         }
 
         mainViewModel.addPlateNoData.observe(viewLifecycleOwner) { result ->
             Log.d("micCheckZ", "2")
             mainViewModel.clearPlateNoList()
+            call3 = true
             mainViewModel.getPlateNumber(
                 requireContext(),
                 AppUtility.getLoginId(requireContext())!!,
@@ -163,6 +172,7 @@ var call = false
                     } else if (result.unPaidItems.isNotEmpty()) {
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
+                        Log.d("micCheckAAZ7", "7")
                         navigateToUnPaidHistory()
                     }
                 }
@@ -185,6 +195,7 @@ var call = false
                     } else if (result.unPaidItems.isNotEmpty()) {
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
+                        Log.d("micCheckAAZ5", "5")
                         navigateToUnPaidHistory()
                     }
                 }
@@ -228,10 +239,16 @@ var call = false
 
 
         mainViewModel.navigateToPaidHistory.observe(viewLifecycleOwner) { shouldNavigate ->
-            Log.d("NavigationDebug", shouldNavigate.toString())
+            Log.d("micCheckAAZ3", shouldNavigate.toString())
+            if (shouldNavigate == null) {
+                // Handle the case where the value is null
+                Log.d("NavigationDebug", "Value is null, resetting or ignoring navigation")
+                return@observe
+            }
             if (call2) {
-                if (shouldNavigate == true) {
-
+                Log.d("micCheckAAZ4", "AD1")
+                if (shouldNavigate == true ) {
+                    Log.d("micCheckAAZ4", "AD2")
                     requireActivity().runOnUiThread {
                         if (findNavController().currentDestination?.id == R.id.parking_license_plate_fragment) {
                             Log.d("NavigationDebug", "1")
@@ -241,14 +258,17 @@ var call = false
                         }
                     }
                 }
+                    call2 = false
+
             }
         }
-        call2 = false
+
     }
 
     private fun initData() {
         if (AppUtility.getLoginStatus(requireContext())) {
 //            parkingCurPage = PARKING_TYPE_ROAD
+            call3 = true
             mainViewModel.getPlateNumber(
                 requireContext(),
                 AppUtility.getLoginId(requireContext())!!,
@@ -343,6 +363,7 @@ var call = false
                 updateContentView()
 
                 if (AppUtility.getLoginStatus(requireContext())) {
+                    call3 = true
                     mainViewModel.getPlateNumber(
                         requireContext(),
                         AppUtility.getLoginId(requireContext())!!,
@@ -359,6 +380,7 @@ var call = false
                 parkingCurPage = PARKING_TYPE_GARAGE
 
                 if (AppUtility.getLoginStatus(requireContext())) {
+                    call3 = true
                     mainViewModel.getPlateNumber(
                         requireContext(),
                         AppUtility.getLoginId(requireContext())!!,
@@ -475,12 +497,14 @@ var call = false
     private fun getPlateUnPaidList() {
         if (parkingCurPage.equals(PARKING_TYPE_ROAD)) {
             call = true
+            Log.d("micCheckAAZ9", "9")
             mainViewModel.getParkingRoadFeeUnPaidList(
                 requireContext(),
                 mPlateNo
             )
             Log.d("micCheckSS", "1")
         } else {
+            Log.d("micCheckAAZ10", "10")
             call = true
             mainViewModel.getParkingGarageFeeUnPaidList(
                 requireContext(),
@@ -527,6 +551,7 @@ call = false
     }
 
     private fun navigateToUnPaidHistory() {
+        Log.d("micCheckAAZ6", "6")
         if(!ParkingFeeUnPaidHistoryFragment.back) {
             if (parkingCurPage.equals(PARKING_TYPE_GARAGE) && mPId.isNullOrEmpty()) {
                 AppUtility.showPopDialog(
@@ -672,6 +697,12 @@ call = false
             }
 
         alert.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        call = false
+call3 = true
     }
 
 }

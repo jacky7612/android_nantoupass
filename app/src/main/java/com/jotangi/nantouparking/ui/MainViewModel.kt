@@ -189,7 +189,7 @@ class MainViewModel : ViewModel() {
     private val _allParkStatusData = MutableLiveData<List<ParkStatus>>()
     val allParkStatusData: LiveData<List<ParkStatus>> get() = _allParkStatusData
 
-    private val _navigateToPaidHistory = MutableLiveData<Boolean?>()
+    val _navigateToPaidHistory = MutableLiveData<Boolean?>()
     val navigateToPaidHistory: MutableLiveData<Boolean?> get() = _navigateToPaidHistory
     val isDelete: LiveData<Boolean> get() = _isDelete
 
@@ -1572,7 +1572,7 @@ class MainViewModel : ViewModel() {
 
     fun paid(mPlateNo:String) {
         val apiEntry = ApiEntry()
-        _navigateToPaidHistory.value = null
+        _navigateToPaidHistory.postValue(null)
         apiEntry.getGovPlateList(mPlateNo) { responseBody, exception ->
             if (responseBody != null) {
                 try {
