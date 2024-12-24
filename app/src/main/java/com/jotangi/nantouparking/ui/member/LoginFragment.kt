@@ -110,7 +110,8 @@ class LoginFragment : BaseFragment() {
             binding?.apply {
                 Log.d("micCheckLL", loginIdEditText.text.toString())
                 Log.d("micCheckLL", loginPasswordEditText.text.toString())
-                if(loginIdEditText.text.toString().equals("1229G1") && loginPasswordEditText.text.toString().equals("1229G1")) {
+                Log.d("micCheckMNB", result.responseMessage)
+                if(result.responseMessage.contains("Store")) {
                     Log.d("micCheckLL", "1")
                     findNavController().navigate(R.id.action_to_store_manager2_fragment)
                 } else {

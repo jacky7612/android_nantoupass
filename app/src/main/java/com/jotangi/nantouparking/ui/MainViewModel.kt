@@ -14,7 +14,10 @@ import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.ui.main.PointRecord
 import com.jotangi.nantouparking.utility.ApiUtility
 import com.jotangi.nantouparking.utility.AppUtility
+import com.jotangi.payStation.Model.ApiModel.ApiEntry
 import kotlinx.coroutines.launch
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -186,7 +189,8 @@ class MainViewModel : ViewModel() {
     private val _allParkStatusData = MutableLiveData<List<ParkStatus>>()
     val allParkStatusData: LiveData<List<ParkStatus>> get() = _allParkStatusData
 
-
+    private val _navigateToPaidHistory = MutableLiveData<Boolean?>()
+    val navigateToPaidHistory: MutableLiveData<Boolean?> get() = _navigateToPaidHistory
     val isDelete: LiveData<Boolean> get() = _isDelete
 
     private fun combineRecords() {
@@ -1564,6 +1568,30 @@ class MainViewModel : ViewModel() {
                 )
             }
         })
+    }
+
+    fun paid(mPlateNo:String) {
+        val apiEntry = ApiEntry()
+        _navigateToPaidHistory.value = null
+        apiEntry.getGovPlateList(mPlateNo) { responseBody, exception ->
+            if (responseBody != null) {
+                try {
+                    val jsonObject = JSONObject(responseBody)
+                    val dataArray = jsonObject.getJSONArray("data")
+                    val dataSize = dataArray.length()
+
+                    if (dataSize > 1) {
+                        Log.d("micCheckAAZ1", dataArray.toString())
+                        _navigateToPaidHistory.postValue(true)
+                    } else {
+                        Log.d("micCheckAAZ2", dataArray.toString())
+                        _navigateToPaidHistory.postValue(false)
+                    }
+                } catch (e: JSONException) {
+                }
+            } else {
+            }
+        }
     }
 
 

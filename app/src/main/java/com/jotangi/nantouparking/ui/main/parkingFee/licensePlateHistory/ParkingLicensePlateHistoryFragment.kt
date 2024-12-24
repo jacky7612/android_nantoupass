@@ -54,6 +54,7 @@ class ParkingLicensePlateHistoryFragment :
         var parkingCurPage = "1"
     }
 var call = false
+    var call2 = false
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
     override fun onCreateView(
@@ -224,6 +225,25 @@ var call = false
                 }
             }
         }
+
+
+        mainViewModel.navigateToPaidHistory.observe(viewLifecycleOwner) { shouldNavigate ->
+            Log.d("NavigationDebug", shouldNavigate.toString())
+            if (call2) {
+                if (shouldNavigate == true) {
+
+                    requireActivity().runOnUiThread {
+                        if (findNavController().currentDestination?.id == R.id.parking_license_plate_fragment) {
+                            Log.d("NavigationDebug", "1")
+                            navigateToPaidHistory()
+                        } else {
+                            Log.d("NavigationDebug", "2")
+                        }
+                    }
+                }
+            }
+        }
+        call2 = false
     }
 
     private fun initData() {
@@ -425,7 +445,9 @@ var call = false
                             Log.d("micCheckC1", mPId)
 
 //                            navigateToPaidHistory()
-                            paid()
+                            Log.d("micCheckJH", mPlateNo)
+                            call2 = true
+                        mainViewModel.paid(mPlateNo)
                         }
 
                         else -> {
@@ -437,7 +459,8 @@ var call = false
                         "record" -> {
                             Log.d("micCheckC2", mPId)
 //                            navigateToPaidHistory()
-                            paid()
+                            call2 = true
+                            mainViewModel.paid(mPlateNo)
                         }
 
                         else -> {
@@ -649,49 +672,6 @@ call = false
             }
 
         alert.show()
-    }
-
-    private fun paid() {
-        val apiEntry = ApiEntry()
-        apiEntry.getGovPlateList(mPlateNo) { responseBody, exception ->
-            Log.d(TAG, "呼叫API尋找車號 :$mPlateNo, response :$responseBody")
-            if (responseBody != null) {
-                try {
-                    // Parse the response JSON
-                    val jsonObject = JSONObject(responseBody)
-                    val dataArray = jsonObject.getJSONArray("data")
-
-                    // Check the size of the 'data' array
-                    val dataSize = dataArray.length()
-                    Log.d("micCheckBC", "Data size: $dataSize")
-
-                    requireActivity().runOnUiThread {
-                        if (dataSize == 1) {
-                            // Show toast on the main thread
-                            Toast.makeText(
-                                requireActivity(),
-                                "目前沒有符合的紀錄唷！",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } else if (dataSize > 1) {
-                            // Navigate on the main thread
-                            navigateToPaidHistory()
-                        }
-                    }
-                } catch (e: JSONException) {
-                    Log.e("micCheckBC", "Error parsing JSON: ${e.message}")
-                }
-            } else {
-                Log.d("micCheckBC", "Response is null")
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val className = this::class.java.simpleName
-        Log.d("CurrentClass", "Current class name: $className")
-
     }
 
 }
