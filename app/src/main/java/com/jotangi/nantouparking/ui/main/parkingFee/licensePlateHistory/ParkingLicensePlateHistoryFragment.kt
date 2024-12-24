@@ -150,6 +150,7 @@ var call = false
             Log.d("micCheckZ", "2")
             mainViewModel.clearPlateNoList()
             call3 = true
+            call = true
             mainViewModel.getPlateNumber(
                 requireContext(),
                 AppUtility.getLoginId(requireContext())!!,

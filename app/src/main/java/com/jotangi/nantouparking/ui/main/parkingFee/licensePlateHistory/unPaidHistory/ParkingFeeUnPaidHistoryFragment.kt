@@ -279,9 +279,10 @@ initListener()
     }
 
     private fun isShowDialog() {
+        Log.d("micCheckUU5", (selectPayData == null).toString())
         if (
-            (payData != null && payData!!.isSelected) ||
-            (payGarageData != null && payGarageData!!.isSelected)
+            (!selectPayData.isNullOrEmpty() ) ||
+            (!selectGaragePayData.isNullOrEmpty() )
         ) {
             showPayMethodDialogView()
         } else {
@@ -389,11 +390,14 @@ initListener()
 
             // Add or clear data based on the selection state
             if (isAllSelected) {
+                Log.d("micCheckUU", "1")
                 selectPayData.clear()
                 selectPayData.addAll(data)
+                Log.d("micCheckUU4",  (selectPayData == null).toString())
                 selectGaragePayData.clear()
                 selectGaragePayData.addAll(garageData)
             } else {
+                Log.d("micCheckUU", "2")
                 selectPayData.clear()
                 selectGaragePayData.clear()
             }
