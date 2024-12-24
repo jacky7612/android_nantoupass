@@ -687,4 +687,11 @@ call = false
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val className = this::class.java.simpleName
+        Log.d("CurrentClass", "Current class name: $className")
+
+    }
+
 }

@@ -412,6 +412,7 @@ abstract class BaseFragment : Fragment() {
                 R.drawable.icon_back_36
             ) {
                 onBackPressed()
+
             }
         }
     }

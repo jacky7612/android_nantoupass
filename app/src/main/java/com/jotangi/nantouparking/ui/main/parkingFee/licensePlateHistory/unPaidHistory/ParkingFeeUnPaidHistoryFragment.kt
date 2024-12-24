@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.config.AppConfig
@@ -438,4 +439,6 @@ initListener()
         super.onDestroy()
         back = true
     }
+
+
 }
