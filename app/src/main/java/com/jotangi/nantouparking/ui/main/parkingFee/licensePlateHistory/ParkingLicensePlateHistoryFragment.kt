@@ -4,7 +4,10 @@ import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.graphics.Rect
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputFilter
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -52,6 +55,7 @@ class ParkingLicensePlateHistoryFragment :
     private val PARKING_TYPE_GARAGE_LIST = "3"
     companion object {
         var parkingCurPage = "1"
+        var parkingName = ""
     }
 var call = false
     var call2 = false
@@ -80,6 +84,61 @@ var call = false
         super.onViewCreated(view, savedInstanceState)
 
         init()
+        initEditText2()
+        initEditText1()
+    }
+
+    fun initEditText1() {
+        binding?.apply {
+            plateTextEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        val upperCaseText = it.toString().uppercase()
+                        if (it.toString() != upperCaseText) {
+                            plateTextEditText.setText(upperCaseText)
+                            plateTextEditText.setSelection(upperCaseText.length) // 將光標移到最後
+                        }
+                    }
+                }
+            })
+            plateNumberEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    // Do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        val upperCaseText = it.toString().uppercase()
+                        if (it.toString() != upperCaseText) {
+                            plateNumberEditText.setText(upperCaseText)
+                            plateNumberEditText.setSelection(upperCaseText.length) // 將光標移到最後
+                        }
+                    }
+                }
+            })
+        }
     }
 
     private fun init() {
@@ -170,6 +229,8 @@ var call = false
                             "目前沒有符合的紀錄唷！",
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding?.plateTextEditText?.setText("")
+                        binding?.plateNumberEditText?.setText("")
                     } else if (result.unPaidItems.isNotEmpty()) {
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
@@ -517,6 +578,7 @@ var call = false
     }
 
     override fun onParkingGarageItemClick(garageData: ParkingGarageVO) {
+        parkingName = garageData.parkingGarageName
         mPId = garageData.parkingGarageId
         mPName = garageData.parkingGarageName
         mPAddress = garageData.parkingGarageAddress
@@ -636,6 +698,85 @@ call = false
             }
         }
     }
+    @SuppressLint("ClickableViewAccessibility")
+    fun initEditText2(){
+        binding?.apply {
+            val inputFilter = InputFilter { source, _, _, _, _, _ ->
+                if (source.matches(Regex("[\\u4E00-\\u9FA5a-zA-Z0-9]+"))) {
+                    source // Allow Chinese, both cases, and digits
+                } else {
+                    "" // Block other characters
+                }
+            }
+
+// Remove maxLength restriction and set the input filter
+            plateNumberEditText.filters = arrayOf(inputFilter)
+            plateNumberEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+                override fun afterTextChanged(s: Editable?) {
+                    s?.let {
+                        if (s.isEmpty()) {
+                            plateNumberEditText.error =
+                                "此欄位不可為空" // This field cannot be empty
+                        }
+                    }
+                }
+            })
+
+
+// Input filter to allow Chinese characters, uppercase letters, and digits only
+            val inputFilter2 = InputFilter { source, _, _, _, _, _ ->
+                if (source.matches(Regex("[\\u4E00-\\u9FA5a-zA-Z0-9]+"))) {
+                    source // Allow Chinese, both cases, and digits
+                } else {
+                    "" // Block other characters
+                }
+            }
+
+// Set the input filter
+            if (plateTextEditText != null) {
+                plateTextEditText .filters = arrayOf(inputFilter2)
+            }
+
+// Add a text watcher to ensure the field is not empty
+            if (plateTextEditText  != null) {
+                plateTextEditText .addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        count: Int,
+                        after: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        s: CharSequence?,
+                        start: Int,
+                        before: Int,
+                        count: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(s: Editable?) {
+                        s?.let {
+                            if (s.isNullOrEmpty()) {
+                                plateTextEditText .error = "此欄位不可為空"
+                            }
+                        }
+                    }
+                })
+            }
+        }
+        }
 
     private fun updateContentView() {
         binding?.apply {

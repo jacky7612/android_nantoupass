@@ -23,7 +23,7 @@ class GovpaidfeeAdapter(private val list: MutableList<DataGovParkingFeePaidVO>) 
                 if(ParkingLicensePlateHistoryFragment.parkingCurPage.toInt() == 1 ) {
                     parkType.text = "路邊停車"
                 } else {
-                    parkType.text = "停車場"
+                    parkType.text = ParkingLicensePlateHistoryFragment.parkingName
                 }
                 tvTicket .text   = data.ticket ?: ""
                 tvArea.text      = data.area ?: ""

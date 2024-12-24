@@ -46,6 +46,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:cursorVisible="true"
                 android:id="@+id/signup_name_content_editText"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -77,6 +81,10 @@
                 app:layout_constraintTop_toBottomOf="@id/signup_name_content_editText" />
 
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:cursorVisible="true"
                 android:id="@+id/signup_email_content_editText"
                 android:layout_width="0dp"
                 android:paddingLeft="10dp"
@@ -108,7 +116,10 @@
                 app:layout_constraintTop_toBottomOf="@id/signup_email_content_editText" />
 
             <EditText
-
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:cursorVisible="true"
                 android:id="@+id/signup_phone_content_editText"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -141,6 +152,10 @@
                 app:layout_constraintTop_toBottomOf="@id/signup_phone_content_editText" />
 
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:cursorVisible="true"
                 android:paddingLeft="10dp"
                 android:id="@+id/signup_password_content_editText"
                 android:layout_width="0dp"
@@ -182,6 +197,10 @@
                 app:layout_constraintTop_toBottomOf="@id/signup_password_content_editText" />
 
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:cursorVisible="true"
                 android:paddingLeft="10dp"
                 android:id="@+id/signup_password_content_editText2"
                 android:layout_width="0dp"
@@ -223,6 +242,7 @@
                 app:layout_constraintTop_toBottomOf="@id/signup_password_content_editText2" />
 
             <EditText
+
                 android:hint="ex:ABC"
                 android:paddingLeft="10dp"
                 android:id="@+id/signup_plate_text_editText"
@@ -260,6 +280,7 @@
                 app:layout_constraintTop_toTopOf="@+id/signup_plate_text_editText" />
 
             <EditText
+
                 android:layout_marginRight="20dp"
                 android:id="@+id/signup_plate_number_editText"
                 android:layout_width="0dp"
@@ -296,6 +317,10 @@
                 app:layout_constraintTop_toBottomOf="@id/signup_plate_text_editText" />
 
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:cursorVisible="true"
                 android:paddingLeft="10dp"
                 android:id="@+id/signup_vehicle_content_editText"
                 android:layout_width="0dp"
