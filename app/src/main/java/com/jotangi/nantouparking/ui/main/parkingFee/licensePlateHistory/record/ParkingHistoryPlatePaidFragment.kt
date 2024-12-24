@@ -103,15 +103,14 @@ Log.d("micCheckCC", "CC")
 //                        ${Glob.apiRespOrder.data!![0].plate_no}
             Log.d(TAG, "呼叫API尋找車號 :${plateNo}, response :$responseBody")
             if (responseBody != null) {
-                Log.d("micCheckZA", responseBody.toString())
+                Log.d("micCheckZA1", responseBody.toString())
                 apiEntry.parseGovPlateList(responseBody) // if (apiResponse is ApiRespCarNoOK) {}
                 if (Glob.apiGovPayList!!.status.lowercase() == "true") {
-                    Log.d("micCheckZA", "3")
                     activity?.runOnUiThread {
                         binding.parkingPlatePaidRecyclerView.visibility =View.VISIBLE
                         binding.parkingPlatePaidDefaultTitleTextView.visibility =View.GONE
                         data =Glob.apiGovPayList.data!!
-
+                        Log.d("micCheckZA2", data.toString())
                         initGovListRecyclerView()
 //                        Glob.platNo = tvEntryNumber.text.toString()
 //                        findNavController().navigate(R.id.selectPictureFragment)

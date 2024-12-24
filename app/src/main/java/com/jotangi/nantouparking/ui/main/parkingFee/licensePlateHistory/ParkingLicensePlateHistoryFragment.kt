@@ -738,8 +738,8 @@ call = false
                 override fun afterTextChanged(s: Editable?) {
                     s?.let {
                         if (s.isEmpty()) {
-                            plateNumberEditText.error =
-                                "此欄位不可為空" // This field cannot be empty
+//                            plateNumberEditText.error =
+//                                "此欄位不可為空" // This field cannot be empty
                         }
                     }
                 }
@@ -782,7 +782,7 @@ call = false
                     override fun afterTextChanged(s: Editable?) {
                         s?.let {
                             if (s.isNullOrEmpty()) {
-                                plateTextEditText .error = "此欄位不可為空"
+//                                plateTextEditText .error = "此欄位不可為空"
                             }
                         }
                     }
