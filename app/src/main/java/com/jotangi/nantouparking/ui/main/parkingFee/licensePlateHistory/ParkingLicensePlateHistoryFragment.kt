@@ -254,11 +254,16 @@ var call = false
                             "目前沒有符合的紀錄唷！",
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding?.plateTextEditText?.setText("")
+                        binding?.plateNumberEditText?.setText("")
                     } else if (result.unPaidItems.isNotEmpty()) {
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                         Log.d("micCheckAAZ5", "5")
+                        binding?.plateTextEditText?.setText("")
+                        binding?.plateNumberEditText?.setText("")
                         navigateToUnPaidHistory()
+
                     }
                 }
             }
@@ -589,6 +594,8 @@ var call = false
         mPName = garageData.parkingGarageName
         mPAddress = garageData.parkingGarageAddress
         parkingCurPage = PARKING_TYPE_GARAGE
+
+        binding?.parkingGarageTextView?.text = mPName
 
 //        if (AppUtility.getLoginStatus(requireContext())) {
 //            mainViewModel.addPlateNo(

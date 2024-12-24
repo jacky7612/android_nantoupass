@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
@@ -31,6 +33,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class MarketLottoryFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
+    private lateinit var scaleGestureDetector: ScaleGestureDetector
+    private var scaleFactor = 1.0f
     private var param1: String? = null
     private var param2: String? = null
     private var _binding: FragmentMarketLottoryBinding? = null
@@ -57,6 +61,22 @@ class MarketLottoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupLottoryTitle()
+        val imageView = view.findViewById<ImageView>(R.id.lottory)
+        scaleGestureDetector = ScaleGestureDetector(requireContext(), object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                scaleFactor *= detector.scaleFactor
+                scaleFactor = scaleFactor.coerceIn(0.5f, 5.0f) // Limit zoom levels
+                imageView.scaleX = scaleFactor
+                imageView.scaleY = scaleFactor
+                return true
+            }
+        })
+
+        imageView.setOnTouchListener { _, event ->
+            scaleGestureDetector.onTouchEvent(event)
+            true
+
+        }
         binding?.confirm?.setOnClickListener {
             if(!AppUtility.getLoginStatus(requireContext())){
                 showLogout2Dialog()

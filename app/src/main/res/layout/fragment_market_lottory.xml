@@ -24,13 +24,14 @@
         android:text="這村, 這市, 抽獎辦法" />
 
     <ImageView
+        android:id="@+id/lottory"
         android:text="抽獎辦法"
         android:textSize="20sp"
         android:gravity="center"
         android:layout_marginTop="23dp"
         android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="450dp"
+        android:layout_width="340dp"
+        android:layout_height="490dp"
         android:background="@drawable/lottory"/>
 
     <TextView

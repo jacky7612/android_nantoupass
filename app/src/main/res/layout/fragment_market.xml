@@ -83,6 +83,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
+        android:id="@+id/event"
         android:text="活動辦法"
         android:gravity="center"
         android:textSize="22sp"
@@ -92,7 +93,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_container"
-        android:layout_width="300dp"
-        android:layout_height="180dp"/>
+        android:layout_width="340dp"
+        android:layout_height="240dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
