@@ -462,7 +462,7 @@ class MainViewModel : ViewModel() {
                         AppUtility.showPopDialog(
                             context,
                             response.body()!!.code,
-                            response.body()!!.responseMessage
+                            "姓名為必填"
                         )
                     } else {
                         _memberInfoEditData.value = response.body()

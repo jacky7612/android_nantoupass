@@ -36,6 +36,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textCursorDrawable="@drawable/edit_text_cursor_color"
+            android:cursorVisible="true"
             android:id="@+id/member_data_name_content_editText"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -66,6 +70,10 @@
             app:layout_constraintTop_toBottomOf="@+id/member_data_name_content_editText" />
 
         <EditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textCursorDrawable="@drawable/edit_text_cursor_color"
+            android:cursorVisible="true"
             android:id="@+id/member_data_email_content_editText"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -96,6 +104,10 @@
             app:layout_constraintTop_toBottomOf="@+id/member_data_email_content_editText" />
 
         <EditText
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textCursorDrawable="@drawable/edit_text_cursor_color"
+            android:cursorVisible="true"
             android:id="@+id/member_data_phone_content_editText"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -127,6 +139,7 @@
             app:layout_constraintTop_toBottomOf="@+id/member_data_phone_content_editText" />
 
         <EditText
+
             android:id="@+id/plate_text_editText"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -196,6 +209,7 @@
             app:layout_constraintTop_toBottomOf="@id/plate_text_editText" />
 
         <EditText
+
             android:layout_marginTop="10dp"
             android:id="@+id/vehicle_editText"
             android:layout_width="0dp"

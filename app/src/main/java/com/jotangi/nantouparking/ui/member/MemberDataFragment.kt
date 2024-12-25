@@ -62,7 +62,6 @@ class MemberDataFragment : BaseFragment() {
         }
 
         mainViewModel.memberInfoEditData.observe(viewLifecycleOwner) { result ->
-//            updateEditStatus()
             if (result != null) {
                 updateView()
                 updateViewEditData(result)
@@ -183,12 +182,18 @@ memberDataEmailContentEditText.setText(result[0].memberEmail)
                 requireContext(),
                 binding?.memberDataNameContentEditText?.text.toString()
             )
-
+Log.d("micCheckZX", "1")
             showPrivateDialog(
 //                result.responseMessage,
                 "修改成功",
                 null
             )
+        } else {
+            Log.d("micCheckZX", "2")
+            showPrivateDialog(
+//                result.responseMessage,
+                "姓名為必填",
+                "")
         }
     }
 
@@ -248,13 +253,14 @@ memberDataEmailContentEditText.setText(result[0].memberEmail)
             "提醒！"
         }
 
-        alert.setTitle(title)
-        alert.setMessage(message)
-        alert.setPositiveButton("確定") { _, _ ->
-            onBackPressed()
-        }
+            alert.setTitle(title)
+            alert.setMessage(message)
+            alert.setPositiveButton("確定") { _, _ ->
+                onBackPressed()
+            }
 
-        alert.show()
+            alert.show()
+
     }
 
 }

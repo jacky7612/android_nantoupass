@@ -83,7 +83,11 @@ class MarketFragment : BaseFragment() {
                 }
             }
             usePoint.setOnClickListener{
+                if(!AppUtility.getLoginStatus(requireContext())){
+                    showLogoutDialog()
+                } else {
                 findNavController().navigate(R.id.action_to_marekt_change)
+                }
 
             }
             recordPoint.setOnClickListener{
