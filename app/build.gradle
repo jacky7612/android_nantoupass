@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -110,5 +112,17 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    // Use the latest version of the Firebase BoM
 
+    // Firebase Remote Config
+    implementation 'com.google.firebase:firebase-config-ktx:21.2.0'
+    // Firebase Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.4.1'
+
+    // Optional: Firebase Analytics (required for some services like Crashlytics)
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.3.0'
+
+    implementation 'com.google.firebase:firebase-messaging-ktx'
 }
+apply plugin: 'com.google.gms.google-services'

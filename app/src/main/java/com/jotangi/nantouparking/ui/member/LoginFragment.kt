@@ -9,7 +9,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.messaging.FirebaseMessaging
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.databinding.FragmentLoginBinding
@@ -18,6 +20,9 @@ import com.jotangi.nantouparking.model.LoginResponse
 import com.jotangi.nantouparking.model.MemberInfoVO
 import com.jotangi.nantouparking.ui.BaseFragment
 import com.jotangi.nantouparking.utility.AppUtility
+import kotlinx.coroutines.launch
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class LoginFragment : BaseFragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -179,11 +184,33 @@ class LoginFragment : BaseFragment() {
             return
         }
 
-        mainViewModel.login(
-            requireContext(),
-            binding?.loginIdEditText?.text.toString(),
-            binding?.loginPasswordEditText?.text.toString()
-        )
+        lifecycleScope.launch {
+            val fcmToken = fetchFcmToken() // Call the suspend function
+            if (fcmToken != null) {
+                mainViewModel.login(
+                    requireContext(),
+                    binding?.loginIdEditText?.text.toString(),
+                    binding?.loginPasswordEditText?.text.toString(),
+                    fcmToken
+                )
+            } else {
+                Log.w("FCM", "FCM token is null")
+                showPrivateDialog("無法取得 FCM token！請稍後再試", null)
+            }
+        }
+    }
+
+    suspend fun fetchFcmToken(): String? = suspendCoroutine { continuation ->
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FCM", "Fetching FCM token failed", task.exception)
+                continuation.resume(null) // Resume with null in case of failure
+            } else {
+                val token = task.result
+                Log.d("FCM", "FCM Token: $token")
+                continuation.resume(token) // Resume with the token
+            }
+        }
     }
 
     private fun showPrivateDialog(

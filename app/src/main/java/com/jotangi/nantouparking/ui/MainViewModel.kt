@@ -277,12 +277,13 @@ class MainViewModel : ViewModel() {
     fun login(
         context: Context,
         memberId: String,
-        memberPassword: String
+        memberPassword: String,
+        fcmToken:String
     ) {
         val call: Call<LoginResponse> = ApiUtility.service.apiLogin(
             memberId,
             memberPassword,
-            ""
+            fcmToken
         )
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "589588635625",
+    "project_id": "nantou-cbb92",
+    "storage_bucket": "nantou-cbb92.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589588635625:android:4058d62323a3b9b6a93578",
+        "android_client_info": {
+          "package_name": "com.jotangi.nantouparking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1KCHaql1xHkxceV1ds4PHV5lB91JDTz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
