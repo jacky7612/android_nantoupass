@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.config
 
 import com.jotangi.nantouparking.model.*
+import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -263,4 +264,11 @@ interface ApiConfig {
 
     @GET("api/all_park_status.php")
     fun getAllParkStatus(): Call<AllParkStatusResponse>
+
+    @POST("api/bill_list_E.php")
+    @FormUrlEncoded
+    fun apiGetParkingGarageFeePaidList(
+        @Field("plateNo") plateNo: String,
+        @Field("plateId") plateId: String
+    ): Call<List<ParkingFeePaidVO>>
 }

@@ -6,16 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
-import com.jotangi.nantouparking.ui.main.PointRecord
+import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
 import com.jotangi.nantouparking.utility.ApiUtility
 import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.payStation.Model.ApiModel.ApiEntry
-import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -192,6 +190,9 @@ class MainViewModel : ViewModel() {
     val _navigateToPaidHistory = MutableLiveData<Boolean?>()
     val navigateToPaidHistory: MutableLiveData<Boolean?> get() = _navigateToPaidHistory
     val isDelete: LiveData<Boolean> get() = _isDelete
+
+    private val _parkingFeePaidResponse = MutableLiveData<List<ParkingFeePaidVO>?>()
+    val parkingFeePaidResponse: MutableLiveData<List<ParkingFeePaidVO>?> get() = _parkingFeePaidResponse
 
     private fun combineRecords() {
         val type0Records = pointRecordsType0.value ?: emptyList()
@@ -1592,6 +1593,54 @@ class MainViewModel : ViewModel() {
             } else {
             }
         }
+    }
+    fun fetchParkingGarageFeePaidList(plateNo: String, plateId: String) {
+        if (plateNo.isEmpty() || plateId.isEmpty()) {
+            Log.w("API_REQUEST", "PlateNo or PlateId is empty. Skipping API call.")
+            return
+        }
+
+        val call: Call<List<ParkingFeePaidVO>> = ApiUtility.service.apiGetParkingGarageFeePaidList(
+            plateNo,
+            plateId
+        )
+        call.enqueue(object : Callback<List<ParkingFeePaidVO>> {
+            override fun onResponse(
+                call: Call<List<ParkingFeePaidVO>>,
+                response: Response<List<ParkingFeePaidVO>>
+            ) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    val responseBodyString = response.body()?.toString() ?: response.errorBody()?.string()
+                    Log.d("RAW_RESPONSE", "Response Body: $responseBodyString")
+
+                    if (!responseBody.isNullOrEmpty()) {
+                        // Successful response with data
+                        _parkingFeePaidResponse.postValue(responseBody)
+                    } else {
+                        // Successful response but empty list
+                        Log.w(
+                            "API_RESPONSE",
+                            "Successful response but no data: ${response.code()} - ${response.message()}"
+                        )
+                        _parkingFeePaidResponse.postValue(emptyList())
+                    }
+                } else {
+                    // Unsuccessful response from the server
+                    Log.e(
+                        "API_ERROR",
+                        "Error response: ${response.code()} - ${response.message()}"
+                    )
+                    _parkingFeePaidResponse.postValue(emptyList())
+                }
+            }
+
+            override fun onFailure(call: Call<List<ParkingFeePaidVO>>, t: Throwable) {
+                // Network or other client-side failure
+                Log.e("API_FAILURE", "Network failure: ${t.localizedMessage}", t)
+                _parkingFeePaidResponse.postValue(emptyList())
+            }
+        })
     }
 
 

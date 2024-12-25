@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantouparking.databinding.AdapterGovpaidfeeBinding
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment
+import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.record.ParkingHistoryPlatePaidFragment
 import com.jotangi.payStation.Model.ApiModel.DataGovParkingFeePaidVO
 
 class GovpaidfeeAdapter(private val list: MutableList<DataGovParkingFeePaidVO>) :
@@ -20,10 +21,10 @@ class GovpaidfeeAdapter(private val list: MutableList<DataGovParkingFeePaidVO>) 
 
         fun bind(data: DataGovParkingFeePaidVO) {
             binding.apply {
-                if(ParkingLicensePlateHistoryFragment.parkingCurPage.toInt() == 1 ) {
+                if(ParkingHistoryPlatePaidFragment.parkingCurPage2.toInt() == 1 ) {
                     parkType.text = "路邊停車"
                 } else {
-                    parkType.text = ParkingLicensePlateHistoryFragment.parkingName
+                    parkType.text = ParkingHistoryPlatePaidFragment.parkingName2
                 }
                 tvTicket .text   = data.ticket ?: ""
                 tvArea.text      = data.area ?: ""
