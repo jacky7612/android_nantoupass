@@ -62,6 +62,8 @@ class StoreManager3Fragment : BaseFragment() {
         setupStoreManager2Title()
         setupRecyclerView()
         observeViewModel()
+        val currentDate = getCurrentDate()
+        fetchStorePoints(currentDate, currentDate)
 
         val buttons = listOf(binding!!.btnOneDay, binding!!.btnSevenDays, binding!!.btnOneMonth)
 
