@@ -47,7 +47,7 @@ class ParkingFeeUnPaidItemViewHolder(val binding: ItemUnPaidFeeRoadBinding) : Re
             unPaidNoContentTextView.text = data.billNo
             val filterDate = getDateFromDateTime(data.billStartTime)
             unPaidDateContentTextView.text = filterDate
-
+sectionTextView.text = data.billRoad
             val filterLeaveTime = getDateFromDateTime(data.billLeaveTime)
             unPaidLeaveTimeContentTextView.text = filterLeaveTime
             unPaidFeeContentTextView.text = data.billAmount

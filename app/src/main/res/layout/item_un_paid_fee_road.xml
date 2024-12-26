@@ -65,7 +65,10 @@
             app:layout_constraintTop_toBottomOf="@+id/un_paid_date_title_textView" />
 
         <TextView
+            app:layout_constraintBottom_toBottomOf="parent"
             android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+
             android:id="@+id/un_paid_fee_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,21 +77,19 @@
             android:textSize="14sp"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/un_paid_leave_time_title_textView"
-            app:layout_constraintTop_toBottomOf="@+id/un_paid_leave_time_title_textView" />
+            app:layout_constraintTop_toBottomOf="@+id/section" />
 
         <TextView
             android:textStyle="bold"
-            android:id="@+id/un_paid_status_title_textView"
+            android:id="@+id/section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/paid_status_title"
+            android:text="路段/車格 : "
             android:textSize="14sp"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/un_paid_fee_title_textView"
-            app:layout_constraintTop_toBottomOf="@+id/un_paid_fee_title_textView" />
+            app:layout_constraintTop_toBottomOf="@+id/un_paid_leave_time_title_textView" />
 
         <TextView
             android:textStyle="bold"
@@ -132,16 +133,15 @@
 
         <TextView
             android:textStyle="bold"
-            android:id="@+id/un_paid_status_content_textView"
+            android:id="@+id/section_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="@string/pay_status_default"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/un_paid_status_title_textView"
-            app:layout_constraintTop_toTopOf="@+id/un_paid_status_title_textView" />
+            app:layout_constraintStart_toEndOf="@+id/section"
+            app:layout_constraintTop_toTopOf="@+id/section" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
