@@ -1,11 +1,13 @@
 package com.jotangi.nantouparking.ui.main
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import com.jotangi.nantouparking.R
@@ -126,12 +128,18 @@ binding?.tvStoreName?.text = MarketChangeFragment.storeName
         // Find the confirm button and set a click listener
         val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
         btnConfirm.setOnClickListener {
+            view?.let { it1 -> hideKeyboard(requireContext(), it1) }
             onBackPressed()
             dialog.dismiss()  // Close the dialog
         }
 
         // Show the dialog
         dialog.show()
+    }
+
+    fun hideKeyboard(context: Context, view: View) {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     companion object {

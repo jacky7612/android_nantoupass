@@ -82,8 +82,7 @@ class MarketChangeFragment : BaseFragment() {
         ) {
             startCamera() // Permission is already granted
         } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
+            requestPermissions(
                 arrayOf(Manifest.permission.CAMERA),
                 1
             )
@@ -96,6 +95,22 @@ class MarketChangeFragment : BaseFragment() {
             val cameraProvider = cameraProviderFuture.get()
             cameraProvider.unbindAll()
         }, ContextCompat.getMainExecutor(requireContext()))
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1) { // Match the requestCode used in requestPermissions
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("MarketGetPointFragment", "Camera permission granted")
+                startCamera() // Start the camera immediately
+            } else {
+                Toast.makeText(requireContext(), "Camera permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 
