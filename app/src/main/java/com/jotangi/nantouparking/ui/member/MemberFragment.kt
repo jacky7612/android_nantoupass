@@ -106,7 +106,7 @@ call = true
             memberIdTextView.text = AppUtility.getLoginId(requireContext())
             memberNameTextView.text = AppUtility.getLoginName(requireContext())
             memberAppVersionTextView.text = getString(R.string.member_app_version_title) +
-                    " ${BuildConfig.VERSION_NAME}"
+                    "1.0.27"
         }
     }
 
@@ -141,6 +141,10 @@ call = true
                     "將刪除帳號！是否確定？",
                     null
                 )
+            }
+            memberCouponConstraintLayout.setOnClickListener {
+                findNavController().navigate(R.id.action_to_coupon_list_fragment)
+
             }
 
             memberLogoutButton.setOnClickListener {

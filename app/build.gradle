@@ -4,6 +4,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.firebase.crashlytics'
     id 'com.google.gms.google-services'
+
 }
 
 android {
@@ -124,5 +125,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx:20.3.0'
 
     implementation 'com.google.firebase:firebase-messaging-ktx'
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
+
 }
 apply plugin: 'com.google.gms.google-services'

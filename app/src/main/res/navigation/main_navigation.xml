@@ -6,6 +6,12 @@
     app:startDestination="@id/main_fragment">
 
     <fragment
+        android:id="@+id/couponDetailFragment"
+        android:name="com.jotangi.nantouparking.ui.CouponDetailFragment"
+        android:label="Coupon Detail">
+    </fragment>
+
+    <fragment
         android:id="@+id/login_fragment"
         android:name="com.jotangi.nantouparking.ui.member.LoginFragment"
         android:label="navigation login fragment"
@@ -103,10 +109,32 @@
     </fragment>
 
     <fragment
+        android:id="@+id/coupon_list_fragment"
+        android:name="com.jotangi.nantouparking.ui.CouponListFragment"
+        android:label="navigation coupon list fragment"
+        tools:layout="@layout/fragment_coupon_list">
+        <action
+            android:id="@+id/action_couponListFragment_to_couponDetailFragment"
+            app:destination="@id/couponDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
         android:id="@+id/member_fragment"
         android:name="com.jotangi.nantouparking.ui.member.MemberFragment"
         android:label="member fragment"
         tools:layout="@layout/fragment_member">
+
+        <action
+            android:id="@+id/action_to_coupon_list_fragment"
+            app:destination="@id/coupon_list_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_to_member_data"
             app:destination="@id/member_data_fragment"

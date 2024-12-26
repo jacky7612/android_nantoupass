@@ -1,5 +1,6 @@
 package com.jotangi.nantouparking.config
 
+import CouponListResponse
 import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
 import retrofit2.Call
@@ -271,4 +272,13 @@ interface ApiConfig {
         @Field("plateNo") plateNo: String,
         @Field("plateId") plateId: String
     ): Call<List<ParkingFeePaidVO>>
+
+    @POST("api/coupon_list.php")
+    @FormUrlEncoded
+    fun apiGetCouponList(
+        @Field("member_id") memberId: String,
+        @Field("member_pwd") memberPwd: String,
+        @Field("cid") cid: String,
+        @Field("using_flag") usingFlag: String
+    ): Call<List<CouponListResponse>>
 }

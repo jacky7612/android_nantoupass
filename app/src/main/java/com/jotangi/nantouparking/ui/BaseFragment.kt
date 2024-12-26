@@ -100,6 +100,21 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupCouponListTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "優惠卷"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
+
     fun setupCurrentPointTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "點數紀錄"

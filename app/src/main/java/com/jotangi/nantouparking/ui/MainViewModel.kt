@@ -1,5 +1,6 @@
 package com.jotangi.nantouparking.ui
 
+import CouponListResponse
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -193,6 +194,9 @@ class MainViewModel : ViewModel() {
 
     private val _parkingFeePaidResponse = MutableLiveData<List<ParkingFeePaidVO>?>()
     val parkingFeePaidResponse: MutableLiveData<List<ParkingFeePaidVO>?> get() = _parkingFeePaidResponse
+
+    private val _couponListData = MutableLiveData<List<CouponListResponse>>()
+    val couponListData: LiveData<List<CouponListResponse>> get() = _couponListData
 
     private fun combineRecords() {
         val type0Records = pointRecordsType0.value ?: emptyList()
@@ -1643,6 +1647,31 @@ class MainViewModel : ViewModel() {
             }
         })
     }
+    fun fetchCouponList(
+        memberId: String,
+        memberPwd: String,
+        cid: String,
+        usingFlag: String
+    ) {
+        val call = ApiUtility.service.apiGetCouponList(memberId, memberPwd, cid, usingFlag)
+        call.enqueue(object : Callback<List<CouponListResponse>> {
+            override fun onResponse(
+                call: Call<List<CouponListResponse>>,
+                response: Response<List<CouponListResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    _couponListData.postValue(response.body())
+                } else {
+                    Log.e("API_ERROR", "Error: ${response.code()} - ${response.message()}")
+                    _couponListData.postValue(emptyList())
+                }
+            }
 
+            override fun onFailure(call: Call<List<CouponListResponse>>, t: Throwable) {
+                Log.e("API_FAILURE", "Failure: ${t.localizedMessage}")
+                _couponListData.postValue(emptyList())
+            }
+        })
+    }
 
 }
