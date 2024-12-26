@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +54,13 @@ class StoreManagerFragment2 : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initObserver()
+        mainViewModel.getMemberInfo(
+            requireContext(),
+            AppUtility.getLoginId(requireContext())!!,
+            AppUtility.getLoginPassword(requireContext())!!,
+            null
+        )
 setupStoreManagerTitle()
         mainViewModel.logoutData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
@@ -150,4 +158,16 @@ setupStoreManagerTitle()
 
         alert.show()
     }
+
+    private fun initObserver() {
+        mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
+
+            if (!result.isNullOrEmpty()) {
+                binding?.SOSACowBoy?.text = result[0].memberName
+            } else {
+                Log.d("micCheckZX2", "zx")
+
+            }
+        }
+        }
 }

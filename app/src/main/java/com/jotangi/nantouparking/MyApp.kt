@@ -12,11 +12,9 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
         // Initialize Firebase
-        FirebaseApp.initializeApp(this)?.let {
-            Log.d("MyApp", "Firebase initialized successfully")
-        } ?: run {
-            Log.e("MyApp", "Failed to initialize Firebase")
-        }
+        FirebaseApp.initializeApp(this)
+        Log.d("FCM", "Firebase initialized: ${FirebaseApp.getInstance() != null}")
+
 
         // Initialize Firebase Crashlytics
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)

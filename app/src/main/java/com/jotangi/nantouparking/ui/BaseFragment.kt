@@ -167,7 +167,7 @@ abstract class BaseFragment : Fragment() {
 
     fun setupStoreManagerTitle() {
         getToolBar()?.apply {
-            toolTitleTextView.text = "店長"
+            toolTitleTextView.text = "店長專區"
             toolBackImageButton.visibility = View.GONE
 
             setupToolBarBtn(
@@ -181,7 +181,7 @@ abstract class BaseFragment : Fragment() {
 
     fun setupStoreManager2Title() {
         getToolBar()?.apply {
-            toolTitleTextView.text = "店長"
+            toolTitleTextView.text = "點數核銷紀錄"
             toolBackImageButton.visibility = View.VISIBLE
 
             setupToolBarBtn(

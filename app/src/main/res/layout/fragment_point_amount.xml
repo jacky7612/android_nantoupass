@@ -75,6 +75,10 @@
 
             <!-- EditText Input -->
             <EditText
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:cursorVisible="true"
                 android:id="@+id/etInputPoints"
                 android:layout_width="200dp"
                 android:layout_height="40dp"

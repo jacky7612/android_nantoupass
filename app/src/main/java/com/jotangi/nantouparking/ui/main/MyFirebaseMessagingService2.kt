@@ -1,4 +1,4 @@
-package com.jotangi.zhudongparking.service
+package com.jotangi.nantouparking.ui.main
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -10,11 +10,11 @@ import com.google.firebase.messaging.RemoteMessage
 import android.util.Log
 import com.jotangi.nantouparking.R
 
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+class MyFirebaseMessagingService2 : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.d("FCM", "New FCM token: $token")
+        Log.d("FCMReceive", "New FCM token: $token")
         // Send the token to your server or store it locally
     }
 

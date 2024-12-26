@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@id/SOSACowBoy"
         android:gravity="center"
         android:textColor="@color/white"
-        android:text="店數核銷紀錄"
+        android:text="點數核銷紀錄"
         android:layout_marginTop="20dp"
         android:layout_width="300dp"
         android:layout_height="50dp"

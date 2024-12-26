@@ -126,6 +126,7 @@ binding?.tvStoreName?.text = MarketChangeFragment.storeName
         // Find the confirm button and set a click listener
         val btnConfirm = dialogView.findViewById<TextView>(R.id.btnConfirm)
         btnConfirm.setOnClickListener {
+            onBackPressed()
             dialog.dismiss()  // Close the dialog
         }
 

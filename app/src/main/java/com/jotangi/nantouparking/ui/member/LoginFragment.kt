@@ -193,6 +193,7 @@ class LoginFragment : BaseFragment() {
                     binding?.loginPasswordEditText?.text.toString(),
                     fcmToken
                 )
+                Log.d("micCheckFCM", fcmToken)
             } else {
                 Log.w("FCM", "FCM token is null")
                 showPrivateDialog("無法取得 FCM token！請稍後再試", null)
