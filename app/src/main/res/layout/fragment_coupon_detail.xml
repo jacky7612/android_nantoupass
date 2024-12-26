@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.CouponDetailFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <TextView
+        android:textStyle="bold"
+        android:textColor="@color/charge_blue_color"
+        android:id="@+id/tvCouponName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停車優惠券"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_include"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:id="@+id/tvCouponDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="這村，這市 市集抽獎活動"
+        app:layout_constraintTop_toBottomOf="@+id/tvCouponName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:textColor="@color/black"
+
+        android:textStyle="bold"
+        android:id="@+id/tvCouponDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用期限：2025/1/1~2025/1/31"
+        app:layout_constraintTop_toBottomOf="@+id/tvCouponDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <ImageView
+        android:id="@+id/ivQRCode"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvCouponDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDiscountAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="折抵 50 元"
+        android:textSize="30sp"
+        android:textColor="@color/charge_blue_color"
+        app:layout_constraintTop_toBottomOf="@+id/ivQRCode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tvUsageInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用說明："
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:layout_constraintTop_toBottomOf="@+id/tvDiscountAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:gravity="center_horizontal"
+        android:id="@+id/tvCouponTerms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. 一張優惠券折抵一筆南投市停車場停車費。\n2. 使用期限為 2025/1/1 ~ 2025/1/31。\n3. 相關疑問請撥打客服電話 (04)-37025499 或聯絡Line客服：@588fmkjn"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsageInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:padding="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
