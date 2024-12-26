@@ -53,6 +53,8 @@ class CouponAdapter(
     }
 
     inner class CouponViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val couponTitle: TextView = itemView.findViewById(R.id.tv_title)
+
         private val couponName: TextView = itemView.findViewById(R.id.tv_coupon_name)
         private val discountAmount: TextView = itemView.findViewById(R.id.tv_discount_amount)
         val couponDate: TextView = itemView.findViewById(R.id.tv_coupon_date)
@@ -60,6 +62,7 @@ class CouponAdapter(
         fun bind(coupon: CouponListResponse) {
             couponName.text = coupon.coupon_name
             discountAmount.text = "$${coupon.discount_amount} 元"
+            couponTitle.text = coupon.coupon_body
         }
     }
 }
