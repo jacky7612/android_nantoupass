@@ -215,6 +215,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="couponDetailFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="coupon_fragment">
                     <value>
                       <LayoutPositions>
@@ -244,6 +256,15 @@
                             <option name="x" value="12" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_couponListFragment_to_couponDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -630,6 +651,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_to_coupon_list_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_to_main">
                               <value>
                                 <LayoutPositions />
@@ -783,7 +809,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_to_parking_history_plate_paid">
+                            <entry key="action_parking_license_plate_fragment_to_login_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_parking_license_plate_fragment_to_main_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>

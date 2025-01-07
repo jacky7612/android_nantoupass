@@ -37,22 +37,77 @@ abstract class BaseFragment : Fragment() {
 
     private fun initViewModel() {
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        chargeViewModel = ViewModelProvider(requireActivity())[ChargeViewModel::class.java]
     }
 
     open fun onBackPressed() {
-        val navigationController = findNavController()
-        if (
-            AppUtility.getLoginType(requireContext()).equals("1") ||
-            AppUtility.getLoginType(requireContext()).equals("")
-        ) {
-            if (navigationController.currentDestination?.id == R.id.action_to_main) {
-                requireActivity().finish()
-            } else {
-                mActivity?.onBackPressed()
+        val currentFragmentId = findNavController().currentDestination?.id
+
+        var action_id: Int = -1
+        when (currentFragmentId) {
+//            R.id.parking_license_plate_fragment -> action_id =
+//                R.id.action_parking_license_plate_fragment_to_main_fragment
+
+            R.id.chargeEntryFragment -> action_id = R.id.action_chargeEntryFragment_to_main_fragment
+            R.id.mapChargeParkingFragment -> action_id =
+                R.id.action_mapChargeParkingFragment_to_main_fragment
+
+            R.id.chargingFragment -> {
+                chargeViewModel.clearPowerON()
+                chargeViewModel.clearCheckData()
+                chargeViewModel.clearQRcode()
+                action_id = R.id.action_chargingFragment_to_main_fragment2
             }
-        } else {
-            requireActivity().finish()
+
+            R.id.member_fragment -> {
+                action_id = R.id.action_member_fragment_to_main_fragment
+                mainViewModel.clearDeleteAccount()
+            }
+
+//            R.id.member_data_fragment -> action_id =
+//                R.id.action_member_data_fragment_to_member_fragment
+
+//            R.id.monthly_payment_plate_fragment -> action_id =
+//                R.id.action_monthly_payment_plate_fragment_to_main_fragment
+
+//            R.id.parking_history_unpaid_fragment -> action_id =
+//                R.id.action_parking_history_unpaid_fragment_to_parking_license_plate_fragment
+
+//            R.id.parking_license_plate_fragment -> {
+//                if (Glob.Back2Home) action_id =
+//                    R.id.action_parking_license_plate_fragment_to_main_fragment
+//            }
+
+            R.id.chargeHistoryDetailFragment -> {
+                action_id = R.id.action_chargeHistoryDetailFragment_to_chargeEntryFragment
+            }
+
+            R.id.chargeStartFragment -> {
+                chargeViewModel.clearPowerON()
+                chargeViewModel.clearCheckData()
+                chargeViewModel.clearQRcode()
+                action_id = R.id.action_chargeStartFragment_to_chargeScanFragment
+            }
+
+            R.id.chargeScanFragment -> {
+                chargeViewModel.clearPowerON()
+                chargeViewModel.clearCheckData()
+                chargeViewModel.clearQRcode()
+                Glob.isScanPage =false
+                action_id = R.id.action_chargeScanFragment_to_chargeEntryFragment
+            }
+//            R.id.member_data_fragment -> action_id =R.id.action_chargingFragment_to_main_fragment2
         }
+        if (action_id != -1) {
+            findNavController().navigate(action_id)
+            return
+        }
+        if (currentFragmentId == R.id.action_to_main) {
+            requireActivity().finish()
+        } else {
+            mActivity?.onBackPressed()
+        }
+        Glob.Back2Home = true
     }
 
     private fun setupToolBarBtn(

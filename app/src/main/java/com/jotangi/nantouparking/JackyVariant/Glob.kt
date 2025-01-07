@@ -35,6 +35,7 @@ object Glob {
     var curChargeStatusSampleResponse   : Boolean            =false  // 未用到
 
     var QRcodeAutoNext                  : Boolean            =true
+    var isScanPage                      : Boolean            =false
 
     var title                 : String             =""
     var queryHistoryPlateNo   : String             =""
