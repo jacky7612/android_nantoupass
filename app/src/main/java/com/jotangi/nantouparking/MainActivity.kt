@@ -20,6 +20,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.jotangi.nantouparking.JackyVariant.ChargeInfo
+import com.jotangi.nantouparking.JackyVariant.Glob
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mAppUpdateManager: AppUpdateManager
@@ -32,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.d("RemoteConfig","Remote1" )
-
+        Glob.curChargeInfo = ChargeInfo()
+        remoteConfig()
     }
 
     override fun onStart() {

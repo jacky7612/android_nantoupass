@@ -116,34 +116,35 @@ object Glob {
     }
 }
 
-class ChargeInfo {
-    var MaskQRCode  : String =""
-    var QRCode      : String =""
-    var staionId    : String =""
-    var gunDeviceId : String =""
-    var gunNumber   : String =""
-    var controlId   : String =""
 
-    var amount      : String =""
-    var bill_no     : String =""
-    var description : String =""
-    var start_time  : String =""
-    var stop_time   : String =""
-    var charge_time : String =""
+class ChargeInfo {
+    var MaskQRCode: String = ""
+    var QRCode: String = ""
+    var staionId: String = ""
+    var gunDeviceId: String = ""
+    var gunNumber: String = ""
+    var controlId: String = ""
+
+    var amount: String = ""
+    var bill_no: String = ""
+    var description: String = ""
+    var start_time: String = ""
+    var stop_time: String = ""
+    var charge_time: String = ""
 
     fun clear() {
-        MaskQRCode  =""
-        QRCode      =""
-        staionId    =""
-        gunDeviceId =""
-        gunNumber   =""
-        controlId   =""
+        MaskQRCode = ""
+        QRCode = ""
+        staionId = ""
+        gunDeviceId = ""
+        gunNumber = ""
+        controlId = ""
 
-        amount      =""
-        bill_no     =""
-        description =""
-        start_time  =""
-        stop_time   =""
-        charge_time =""
+        amount = ""
+        bill_no = ""
+        description = ""
+        start_time = ""
+        stop_time = ""
+        charge_time = ""
     }
 }
