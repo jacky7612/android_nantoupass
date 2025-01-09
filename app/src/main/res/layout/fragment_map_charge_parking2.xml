@@ -217,17 +217,21 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
-            android:background="#D9E9ED"
             android:id="@+id/tabLayout"
-            android:layout_marginTop="40dp"
-            android:layout_width="match_parent"
+            android:layout_width="360dp"
             android:layout_height="50dp"
+            android:layout_marginTop="60dp"
+            app:tabTextColor="#FFFFFF"
+            app:tabSelectedTextColor="#FFFFFF"
+            android:background="@drawable/tab_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
             app:tabGravity="fill"
-            app:tabTextAppearance="?android:attr/textAppearanceSmall" />
+            app:tabBackground="@drawable/tab_background"
+            app:tabTextAppearance="@style/TabTextAppearance" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar

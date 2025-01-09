@@ -12,8 +12,8 @@
     <!-- Outer brown stroke -->
     <path
         android:fillColor="@android:color/transparent"
-        android:strokeColor="#C7781D"
-        android:strokeWidth="0.5"
+        android:strokeColor="#D35400"
+        android:strokeWidth="3"
         android:pathData="M12,2C6.47,2 2,6.47 2,12s4.47,10 10,10 10,-4.47 10,-10S17.53,2 12,2z"/>
 </vector>
 

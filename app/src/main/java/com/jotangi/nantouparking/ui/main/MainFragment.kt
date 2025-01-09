@@ -108,21 +108,21 @@ class MainFragment :
             binding?.apply {
 
                 mainChargeConstraintLayout.setOnClickListener {
-//                    AppUtility.showPopDialog(
-//                        requireContext(),
-//                        "",
-//                        "\n充電服務即將上線\n\n敬請期待!"
-//                    )
-                    if (!AppUtility.getLoginStatus(requireContext())) {
-                        AppUtility.showPopDialog(
-                            requireContext(),
-                            "請先登入會員",
-                            "\n請先登入會員\n\n未登入會員無法使用此功能"
-                        )
-                    } else {
-                        chargeViewModel.clear()
-                        findNavController().navigate(R.id.action_main_fragment_to_chargeNoticeFragment2)
-                    }
+                    AppUtility.showPopDialog(
+                        requireContext(),
+                        "",
+                        "\n充電服務即將上線\n\n敬請期待!"
+                    )
+//                    if (!AppUtility.getLoginStatus(requireContext())) {
+//                        AppUtility.showPopDialog(
+//                            requireContext(),
+//                            "請先登入會員",
+//                            "\n請先登入會員\n\n未登入會員無法使用此功能"
+//                        )
+//                    } else {
+//                        chargeViewModel.clear()
+//                        findNavController().navigate(R.id.action_main_fragment_to_chargeNoticeFragment2)
+//                    }
                 }
 
 

@@ -35,16 +35,17 @@ import kotlinx.coroutines.launch
  * Use the [MapChargeParkingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.MarkerDialogCallback, JMapCharge3.MarkerDialogCallback2  {
+open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.MarkerDialogCallback, JMapCharge3.MarkerDialogCallback2 {
     private var _binding: FragmentMapChargeParking2Binding? = null
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private val binding get() = _binding!!
-    private var jmap: JMapCharge2? =null
-    private var jmap3: JMapCharge3? =null
+    private var jmap: JMapCharge2? = null
+    private var jmap3: JMapCharge3? = null
     private var myview: View? = null
     private var mysavedInstanceState: Bundle? = null
     var roadCall = false
     var parkCall = false
+
     companion object {
         var type = "Road"
     }
@@ -63,8 +64,8 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
         _binding = FragmentMapChargeParking2Binding.inflate(inflater, container, false)
 
         val view: View = inflater.inflate(R.layout.fragment_map_charge_parking2, container, false)
-        myview =view
-        mysavedInstanceState =savedInstanceState
+        myview = view
+        mysavedInstanceState = savedInstanceState
 
         initObserver()
         triggerGetData()
@@ -76,14 +77,14 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-Log.d("micCheckAQ", "onViewCreated")
+        Log.d("micCheckAQ", "onViewCreated")
         initTab()
         // feet button
         initEvent()
 //setupMap2Title()
 //        mapChargeParkingTitle()
 
-        var btBack: ImageButton =view.findViewById<ImageButton>(R.id.bt_back)
+        var btBack: ImageButton = view.findViewById<ImageButton>(R.id.bt_back)
         btBack.setOnClickListener {
             findNavController().navigate(R.id.action_to_main)
         }
@@ -102,6 +103,7 @@ Log.d("micCheckAQ", "onViewCreated")
         }.start()
 
     }
+
     private fun showBottomSheetSafely(title: String, description: String) {
         val handler = Handler(Looper.getMainLooper())
         handler.post {
@@ -109,7 +111,11 @@ Log.d("micCheckAQ", "onViewCreated")
             if (isAdded && !isStateSaved) { // 生命週期保護
                 Glob.CurChargeMarkerInfo?.let {
                     val bottomSheet = MarkerInfoBottomSheet()
-                    bottomSheet.init(it.title ?: "", it.descript ?: "", it.position ?: LatLng(-999.0, -999.0))
+                    bottomSheet.init(
+                        it.title ?: "",
+                        it.descript ?: "",
+                        it.position ?: LatLng(-999.0, -999.0)
+                    )
                     bottomSheet.show(
                         childFragmentManager,
                         MarkerInfoBottomSheet::class.java.simpleName
@@ -119,6 +125,7 @@ Log.d("micCheckAQ", "onViewCreated")
             }
         }
     }
+
     private fun initObserver() {
 //        chargeViewModel.chargeStation.observe(viewLifecycleOwner) { result ->
 //            Log.d("micCheckPOP", result.toString())
@@ -139,7 +146,7 @@ Log.d("micCheckAQ", "onViewCreated")
         }
 
         chargeViewModel.parkStatus.observe(viewLifecycleOwner) { response ->
-            if(parkCall) {
+            if (parkCall) {
                 initMapPark(myview!!, mysavedInstanceState)
                 parkCall = false
             }
@@ -147,20 +154,12 @@ Log.d("micCheckAQ", "onViewCreated")
             Log.d("micCheckUK", response.toString())
         }
     }
+
     private fun triggerGetData() {
-        Log.d("micCheckPOP1", AppUtility.getLoginId(requireContext())!!)
-        Log.d("micCheckPOP1", AppUtility.getLoginPassword(requireContext())!!)
-//        chargeViewModel.getNearStation(
-//            requireContext(),
-//            AppUtility.getLoginId(requireContext())!!,
-//            AppUtility.getLoginPassword(requireContext())!!,
-//            "10", "0")
         roadCall = true
-            chargeViewModel.fetchRoadParkStatus()
-
-
-
+        chargeViewModel.fetchRoadParkStatus()
     }
+
     private fun initMapRoad(view: View, savedInstanceState: Bundle?) {
         // Get parking spot data from roadParkStatus
         val stationData = chargeViewModel.roadParkStatus.value?.data
@@ -260,19 +259,14 @@ Log.d("micCheckAQ", "onViewCreated")
         dialog.show(childFragmentManager, ParkingInfoBottomSheet::class.java.simpleName)
     }
 
-    fun initTab(){
+    fun initTab() {
         val tabLayout = view?.findViewById<TabLayout>(R.id.tabLayout)
 
-        // Add tabs dynamically
-        if (tabLayout != null) {
-            tabLayout?.newTab()?.let { tabLayout.addTab(it.setText("路邊")) }
-        } // Tab for "Road"
-        if (tabLayout != null) {
-            tabLayout?.newTab()?.let { tabLayout.addTab(it.setText("停車場")) }
-        } // Tab for "Parking"
+        tabLayout?.apply {
+            addTab(newTab().setText("路邊")) // Road
+            addTab(newTab().setText("停車場")) // Parking
 
-        if (tabLayout != null) {
-            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     when (tab?.position) {
                         0 -> {
@@ -280,25 +274,21 @@ Log.d("micCheckAQ", "onViewCreated")
                             type = "Road"
                             chargeViewModel.fetchRoadParkStatus()
                         }
+
                         1 -> {
-                            type = "Parking"
                             parkCall = true
+                            type = "Parking"
                             chargeViewModel.fetchAllParkStatus()
                         }
                     }
                 }
 
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    // Handle tab unselected if necessary
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                    // Handle tab reselected if necessary
-                }
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
             })
-        }
 
-        // Default selection
-        tabLayout?.getTabAt(0)?.select()
+            // Set default selected tab
+            getTabAt(0)?.select()
+        }
     }
-    }
+}
