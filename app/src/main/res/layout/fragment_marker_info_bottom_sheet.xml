@@ -169,15 +169,16 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_info_flag"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/tv_open_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="24 小時"
-                android:textSize="20dp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toTopOf="@+id/sub_info_content03"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/sub_info_content03" />
 
             <TextView
                 android:id="@+id/tv_open_time_title"

@@ -138,7 +138,7 @@ class MainFragment :
                 }
                 // line 1
                 mainSpaceConstraintLayout.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_parking_count)
+                    findNavController().navigate(R.id.action_to_mapChargeFragment2)
                 }
 
 

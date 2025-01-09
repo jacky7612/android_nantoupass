@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.JackyVariant.json_sample
+import com.jotangi.nantouparking.map.ParkStatusResponse
+import com.jotangi.nantouparking.map.RoadParkStatusResponse
 import com.jotangi.nantouparking.model.charge.ChargeHistoryResponse
 import com.jotangi.nantouparking.model.charge.ChargingDataResponse
 import com.jotangi.nantouparking.model.charge.Gun4QRcodeResponse
@@ -82,6 +84,11 @@ class ChargeViewModel: ViewModel() {
     }
     val checkChargeStatus: LiveData<StandardResponse> get() = _check_charge_status
     // 判斷充電狀態 - end
+    private val _roadParkStatus = MutableLiveData<RoadParkStatusResponse>()
+    val roadParkStatus: LiveData<RoadParkStatusResponse> get() = _roadParkStatus
+
+    private val _parkStatus = MutableLiveData<ParkStatusResponse>()
+    val parkStatus: LiveData<ParkStatusResponse> get() = _parkStatus
 
     init {
         _std_check =StandardResponse("","","")
@@ -227,7 +234,9 @@ class ChargeViewModel: ViewModel() {
                 Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
 
                 if (response.body() != null) {
+                    Log.d("micCheclPOP2", "2")
                     var resp = response.body()
+                    Log.d("micCheckPOP4", resp.toString())
                     if (resp != null) {
                         if (resp.status == "true" && resp.code == "0x0200") {
                             _charge_station.value = resp
@@ -235,6 +244,7 @@ class ChargeViewModel: ViewModel() {
                         }
                     }
                 } else {
+                    Log.d("micCheclPOP2", "3")
                     val msg ="搜尋附近充電站發生異常，請回首頁再次進行操作"
                     assignStationRespMessage("0x020F", "false", msg)
                     AppUtility.showPopDialog(
@@ -682,5 +692,42 @@ class ChargeViewModel: ViewModel() {
         _std_check.status =status
         _std_check.responseMessage =msg
         return _std_check
+    }
+
+    fun fetchRoadParkStatus() {
+        val call: Call<RoadParkStatusResponse> = ApiChargeUtility.service.apiGetRoadParkStatus()
+        call.enqueue(object : Callback<RoadParkStatusResponse> {
+            override fun onResponse(
+                call: Call<RoadParkStatusResponse>,
+                response: Response<RoadParkStatusResponse>
+            ) {
+                if (response.isSuccessful) {
+                    _roadParkStatus.value = response.body()
+                } else {
+                    Log.e("API_ERROR", "Failed to fetch road park status")
+                }
+            }
+
+            override fun onFailure(call: Call<RoadParkStatusResponse>, t: Throwable) {
+                Log.e("API_ERROR", "API call failed: ${t.message}")
+            }
+        })
+    }
+
+    fun fetchAllParkStatus() {
+        val call = ApiChargeUtility.service.getAllParkStatus()
+        call.enqueue(object : Callback<ParkStatusResponse> {
+            override fun onResponse(call: Call<ParkStatusResponse>, response: Response<ParkStatusResponse>) {
+                if (response.isSuccessful) {
+                    _parkStatus.value = response.body()
+                } else {
+                    Log.e("API_ERROR", "Error fetching park status: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ParkStatusResponse>, t: Throwable) {
+                Log.e("API_ERROR", "API call failed: ${t.message}")
+            }
+        })
     }
 }

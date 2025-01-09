@@ -1,0 +1,110 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/container1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/road_parking"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="空位"
+        android:textSize="12sp"
+        android:textColor="@color/black" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/container1"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="大同街"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:paddingTop="8dp"/>
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/black"
+        android:id="@+id/tv_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00200"
+        android:textSize="16sp"
+        android:paddingTop="4dp"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/black"
+        android:id="@+id/tv_update_time"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="更新時間：2025.01.02 17:00"
+        android:textSize="10sp"
+        android:paddingTop="6dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="240dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+android:id="@+id/goMap"
+            android:orientation="vertical"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textColor="@color/charge_blue_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即前往"/>
+
+            <View
+                android:textColor="@color/charge_blue_color"
+                android:layout_width="55dp"
+                android:layout_height="2dp"
+                android:background="@color/charge_blue_color"/>
+
+        </LinearLayout>
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/baseline_keyboard_double_arrow_right_24"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

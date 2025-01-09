@@ -317,6 +317,13 @@
         android:label="main fragment"
         tools:layout="@layout/fragment_main">
         <action
+            android:id="@+id/action_to_mapChargeFragment2"
+            app:destination="@id/mapChargeFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_to_guideline"
             app:destination="@id/guideline_fragment"
             app:enterAnim="@anim/slide_in_right"
@@ -623,6 +630,11 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/mapChargeFragment2"
+        android:name="com.jotangi.nantouparking.map.MapChargeParkingFragment2"
+        android:label="map charge"
+        tools:layout="@layout/fragment_map_charge_parking2" />
     <fragment
         android:id="@+id/storeIntroduceFragment"
         android:name="com.jotangi.nantouparking.ui.mapTour.StoreIntroduceFragment"

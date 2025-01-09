@@ -16,7 +16,9 @@ data class JChargeMapData(
     var StationUID: String="",
     var title: String="",
     var descript: String="",
-    var position: LatLng
+    var position: LatLng,
+    var status:String,
+    var updateTime:String
 ) {
     fun clear() {
         StationUID = ""
@@ -24,4 +26,12 @@ data class JChargeMapData(
         descript = ""
         position = LatLng(-999.0, -999.0)
     }
+
+    data class JChargeMapData2(
+        var road: String="",
+        var address: String="",
+        var position: LatLng,
+        var emptyCount:String,
+        var updateTime:String
+    )
 }

@@ -1,5 +1,7 @@
 package com.jotangi.nantouparking.config
 
+import com.jotangi.nantouparking.map.ParkStatusResponse
+import com.jotangi.nantouparking.map.RoadParkStatusResponse
 import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.model.charge.ChargeHistoryResponse
 import com.jotangi.nantouparking.model.charge.ChargingDataResponse
@@ -15,7 +17,7 @@ import retrofit2.http.*
 interface ApiChargeConfig {
     companion object {
         // 正式
-        var URL_HOST = "https://hcparking.jotangi.net/parking/"
+        var URL_HOST = "https://hcparking.jotangi.net/parking_nantou/"
 
         const val TEST_URL_HOST = "https://hcparking.jotangi.net/parking_test/"
         const val REN_AI_URL_HOST = "http://103.124.73.151/parkingman/"
@@ -123,4 +125,10 @@ interface ApiChargeConfig {
         @Field("member_pwd" ) memberPwd: String,
         @Field("id"         ) station_id: String
     ): Call<StandardResponse>
+
+    @GET("api/road_detail_park_status.php")
+    fun apiGetRoadParkStatus(): Call<RoadParkStatusResponse>
+
+    @GET("api/all_park_status.php")
+    fun getAllParkStatus(): Call<ParkStatusResponse>
 }

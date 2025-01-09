@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Outer Brown Circle -->
+    <path
+        android:fillColor="#8B4513"
+        android:pathData="M50,0a50,50 0 1,1 0,100a50,50 0 1,1 0,-100" />
+
+    <!-- White "P" -->
+    <group
+        android:translateX="25"
+        android:translateY="20">
+        <!-- Vertical stem of P -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M10,10v50h15v-50h-15z" />
+
+        <!-- Upper rounded part of P -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M25,10h15a15,15 0 1,1 0,30h-15v-30z" />
+
+        <!-- Brown hollow inside P with left extension -->
+        <path
+            android:fillColor="#8B4513"
+            android:pathData="M28,20h9a7,7 0 1,1 0,14h-9v-14z" />
+    </group>
+</vector>

@@ -4,6 +4,7 @@ package com.jotangi.nantouparking.ui.charge
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,6 +110,7 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
     }
     private fun initObserver() {
         chargeViewModel.chargeStation.observe(viewLifecycleOwner) { result ->
+            Log.d("micCheckPOP", result.toString())
             if (result != null) {
                 initMap(myview!!, mysavedInstanceState)
             } else {
@@ -116,6 +118,8 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
         }
     }
     private fun triggerGetData() {
+        Log.d("micCheckPOP1", AppUtility.getLoginId(requireContext())!!)
+        Log.d("micCheckPOP1", AppUtility.getLoginPassword(requireContext())!!)
         chargeViewModel.getNearStation(
             requireContext(),
             AppUtility.getLoginId(requireContext())!!,
@@ -130,7 +134,7 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
         var parkingSpots = mutableListOf<JChargeMapData>()
         parkingSpots.clear()
         stationsInfo!!.forEach { station ->
-            val jMapData = JChargeMapData(station.station_id, station.station_name, station.address, LatLng(station.latLng[1], station.latLng[0]))
+            val jMapData = JChargeMapData(station.station_id, station.station_name, station.address, LatLng(station.latLng[1], station.latLng[0]), "0", "2024-1-12")
             parkingSpots.add(jMapData)
         }
         val chargeSpots = listOf(
@@ -138,19 +142,25 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
                 "1",
                 "第一充電站",
                 "空位:80",
-                LatLng(23.4771319, 120.4120205)
+                LatLng(23.4771319, 120.4120205),
+                "0",
+                "2024-1-12"
             ),
             JChargeMapData(
                 "2",
                 "第二充電站",
                 "空位:40",
-                LatLng(23.4791319, 120.4140205)
+                LatLng(23.4791319, 120.4140205),
+                "0",
+                "2024-1-12"
             ),
             JChargeMapData(
                 "3",
                 "第三充電站",
                 "空位:10",
-                LatLng(23.4811319, 120.4160205)
+                LatLng(23.4811319, 120.4160205),
+                "0",
+                "2024-1-12"
             )
         )
 

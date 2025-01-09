@@ -58,6 +58,9 @@
                 <data android:scheme="nantouparking" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCs7NB09neTg0Y06ZCDx2_9JDihSbSSUVE" />
     </application>
 
 </manifest>
