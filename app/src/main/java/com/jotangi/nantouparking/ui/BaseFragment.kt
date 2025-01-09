@@ -141,6 +141,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupMap2Title() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "停車資訊"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupLottoryWebViewTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "抽獎活動"

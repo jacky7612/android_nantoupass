@@ -13,9 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.tabs.TabLayout
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.ParkingInfoBottomSheet
 import com.jotangi.nantouparking.R
+import com.jotangi.nantouparking.databinding.FragmentMapChargeParking2Binding
 import com.jotangi.nantouparking.databinding.FragmentMapChargeParkingBinding
 import com.jotangi.nantouparking.databinding.ToolbarFeetBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
@@ -33,16 +35,20 @@ import kotlinx.coroutines.launch
  * Use the [MapChargeParkingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.MarkerDialogCallback  {
-    private var _binding: FragmentMapChargeParkingBinding? = null
+open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.MarkerDialogCallback, JMapCharge3.MarkerDialogCallback2  {
+    private var _binding: FragmentMapChargeParking2Binding? = null
+    override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private val binding get() = _binding!!
     private var jmap: JMapCharge2? =null
     private var jmap3: JMapCharge3? =null
     private var myview: View? = null
     private var mysavedInstanceState: Bundle? = null
-    override fun getToolBar(): ToolbarIncludeBinding? {
-        TODO("Not yet implemented")
+    var roadCall = false
+    var parkCall = false
+    companion object {
+        var type = "Road"
     }
+
     override fun getToolBarFeet(): ToolbarFeetBinding = binding!!.toolbarFeet
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,9 +60,9 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentMapChargeParkingBinding.inflate(inflater, container, false)
+        _binding = FragmentMapChargeParking2Binding.inflate(inflater, container, false)
 
-        val view: View = inflater.inflate(R.layout.fragment_map_charge_parking, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_map_charge_parking2, container, false)
         myview =view
         mysavedInstanceState =savedInstanceState
 
@@ -71,15 +77,15 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 Log.d("micCheckAQ", "onViewCreated")
-
+        initTab()
         // feet button
         initEvent()
-
+//setupMap2Title()
 //        mapChargeParkingTitle()
 
         var btBack: ImageButton =view.findViewById<ImageButton>(R.id.bt_back)
         btBack.setOnClickListener {
-            findNavController().navigate(R.id.action_mapChargeParkingFragment_to_main_fragment)
+            findNavController().navigate(R.id.action_to_main)
         }
 
         // 顯示充電或停車位置資訊
@@ -124,13 +130,19 @@ Log.d("micCheckAQ", "onViewCreated")
 
         chargeViewModel.roadParkStatus.observe(viewLifecycleOwner) { response ->
             viewLifecycleOwner.lifecycleScope.launch {
-                initMapRoad(myview!!, mysavedInstanceState)
-                Log.d("micCheckPU", response.toString())
+                if (roadCall) {
+                    initMapRoad(myview!!, mysavedInstanceState)
+                    Log.d("micCheckPU", response.toString())
+                }
+                roadCall = false
             }
         }
 
         chargeViewModel.parkStatus.observe(viewLifecycleOwner) { response ->
-//                            initMapPark(myview!!, mysavedInstanceState)
+            if(parkCall) {
+                initMapPark(myview!!, mysavedInstanceState)
+                parkCall = false
+            }
 
             Log.d("micCheckUK", response.toString())
         }
@@ -143,8 +155,10 @@ Log.d("micCheckAQ", "onViewCreated")
 //            AppUtility.getLoginId(requireContext())!!,
 //            AppUtility.getLoginPassword(requireContext())!!,
 //            "10", "0")
-        chargeViewModel.fetchAllParkStatus()
-        chargeViewModel.fetchRoadParkStatus()
+        roadCall = true
+            chargeViewModel.fetchRoadParkStatus()
+
+
 
     }
     private fun initMapRoad(view: View, savedInstanceState: Bundle?) {
@@ -230,24 +244,61 @@ Log.d("micCheckAQ", "onViewCreated")
             view, resources, savedInstanceState,
             parkingSpots, 0, Glob.MapMode, true
         )
-        jmap?.setMarkerDialogCallback(this)
+        jmap3?.setMarkerDialogCallback2(this)
 
     }
 
     override fun showMarkerDialog(data: JChargeMapData) {
-        Log.d("micCheckAAS", "AAS")
-        binding.apply {
-            mapNotification.visibility = View.VISIBLE
-            var space = ""
-            if(data.status.equals("0")) {
-                space = "空位"
-            } else {
-                space = "沒空位"
-            }
-            statusTxt.text = space
-            location.text = data.title
-            code.text = data.StationUID
-            updateTime.text = "更新時間：$data.updateTime"
-        }
+        val dialog = ParkingInfoBottomSheet()
+        dialog.init(data.status, data.descript, data.StationUID, data.updateTime, data.position)
+        dialog.show(childFragmentManager, ParkingInfoBottomSheet::class.java.simpleName)
     }
-}
+
+    override fun showMarkerDialog2(data: JChargeMapData.JChargeMapData2) {
+        val dialog = ParkingInfoBottomSheet()
+        dialog.init(data.emptyCount, data.road, "0", data.updateTime, data.position)
+        dialog.show(childFragmentManager, ParkingInfoBottomSheet::class.java.simpleName)
+    }
+
+    fun initTab(){
+        val tabLayout = view?.findViewById<TabLayout>(R.id.tabLayout)
+
+        // Add tabs dynamically
+        if (tabLayout != null) {
+            tabLayout?.newTab()?.let { tabLayout.addTab(it.setText("路邊")) }
+        } // Tab for "Road"
+        if (tabLayout != null) {
+            tabLayout?.newTab()?.let { tabLayout.addTab(it.setText("停車場")) }
+        } // Tab for "Parking"
+
+        if (tabLayout != null) {
+            tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    when (tab?.position) {
+                        0 -> {
+                            roadCall = true
+                            type = "Road"
+                            chargeViewModel.fetchRoadParkStatus()
+                        }
+                        1 -> {
+                            type = "Parking"
+                            parkCall = true
+                            chargeViewModel.fetchAllParkStatus()
+                        }
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    // Handle tab unselected if necessary
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    // Handle tab reselected if necessary
+                }
+            })
+        }
+
+        // Default selection
+        tabLayout?.getTabAt(0)?.select()
+    }
+    }

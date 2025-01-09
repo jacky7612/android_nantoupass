@@ -679,14 +679,14 @@ class JMapCharge3(
     private var btLocation: ImageView = view.findViewById(R.id.bt_Local)
     var fShowCharge: Boolean = false
     var fShowParking: Boolean = true
-    var callback: MarkerDialogCallback? = null
+    var callback: MarkerDialogCallback2? = null
     var jmap_cur: List<JChargeMapData.JChargeMapData2>
     private var overlayMarker: Marker? = null
     private var overlayOffset: LatLng? = null
     private var fusedLocationClient: FusedLocationProviderClient
 
-    interface MarkerDialogCallback {
-        fun showMarkerDialog(data: JChargeMapData)
+    interface MarkerDialogCallback2 {
+        fun showMarkerDialog2(data: JChargeMapData.JChargeMapData2)
     }
 
     init {
@@ -709,7 +709,7 @@ class JMapCharge3(
         }
     }
 
-    fun setMarkerDialogCallback(callback: MarkerDialogCallback) {
+    fun setMarkerDialogCallback2(callback: MarkerDialogCallback2) {
         this.callback = callback
     }
 
@@ -771,10 +771,10 @@ class JMapCharge3(
         selectedMarker = marker
 
         // Retrieve and handle marker data
-        val stationData = marker.tag as? JChargeMapData
+        val stationData = marker.tag as? JChargeMapData.JChargeMapData2
         stationData?.let {
-            Log.d("JMapCharge2", "Marker clicked: ${it.title}")
-            callback?.showMarkerDialog(it)
+            Log.d("JMapCharge2", "Marker clicked: ${it.road}")
+            callback?.showMarkerDialog2(it)
         }
 
         return true
