@@ -110,7 +110,6 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
     }
     private fun initObserver() {
         chargeViewModel.chargeStation.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckPOP", result.toString())
             if (result != null) {
                 initMap(myview!!, mysavedInstanceState)
             } else {
@@ -163,7 +162,7 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
                 "2024-1-12"
             )
         )
-
+if(parkingSpots.count() == 0) return
         jmap = JMapCharge(view, resources, savedInstanceState,
             parkingSpots, 0, Glob.MapMode, true )
     }

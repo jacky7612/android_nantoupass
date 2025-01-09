@@ -134,7 +134,12 @@ class MainFragment :
                 }
 
                 market.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_marekt)
+                    AppUtility.showPopDialog(
+                        requireContext(),
+                        "",
+                        "市集籌備中，敬請期待"
+                    )
+//                    findNavController().navigate(R.id.action_to_marekt)
                 }
                 // line 1
                 mainSpaceConstraintLayout.setOnClickListener {
