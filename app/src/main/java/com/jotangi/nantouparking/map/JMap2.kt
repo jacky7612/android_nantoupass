@@ -751,7 +751,7 @@ class JMapCharge3(
     override fun onMarkerClick(marker: Marker): Boolean {
         // Reset the previous marker's icon to its original state
         selectedMarker?.let { previousMarker ->
-            val originalIconRes = R.drawable.road_parking // Use the same icon for all previous markers
+            val originalIconRes = R.drawable.parking // Use the same icon for all previous markers
 
             previousMarker.setIcon(
                 BitmapDescriptorFactory.fromBitmap(

@@ -124,13 +124,13 @@ Log.d("micCheckAQ", "onViewCreated")
 
         chargeViewModel.roadParkStatus.observe(viewLifecycleOwner) { response ->
             viewLifecycleOwner.lifecycleScope.launch {
-//                initMapRoad(myview!!, mysavedInstanceState)
+                initMapRoad(myview!!, mysavedInstanceState)
                 Log.d("micCheckPU", response.toString())
             }
         }
 
         chargeViewModel.parkStatus.observe(viewLifecycleOwner) { response ->
-                            initMapPark(myview!!, mysavedInstanceState)
+//                            initMapPark(myview!!, mysavedInstanceState)
 
             Log.d("micCheckUK", response.toString())
         }
@@ -235,8 +235,19 @@ Log.d("micCheckAQ", "onViewCreated")
     }
 
     override fun showMarkerDialog(data: JChargeMapData) {
-        val dialog = ParkingInfoBottomSheet()
-        dialog.init(data.status, data.descript, data.StationUID, data.updateTime ?: "Unknown")
-        dialog.show(childFragmentManager, ParkingInfoBottomSheet::class.java.simpleName)
+        Log.d("micCheckAAS", "AAS")
+        binding.apply {
+            mapNotification.visibility = View.VISIBLE
+            var space = ""
+            if(data.status.equals("0")) {
+                space = "空位"
+            } else {
+                space = "沒空位"
+            }
+            statusTxt.text = space
+            location.text = data.title
+            code.text = data.StationUID
+            updateTime.text = "更新時間：$data.updateTime"
+        }
     }
 }
