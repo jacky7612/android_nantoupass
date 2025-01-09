@@ -519,9 +519,9 @@ class JMapCharge2(
 
         jmap_cur.forEach { spot ->
             val iconRes = if (spot.status == "1") {
-                R.drawable.road_parking2  // Unavailable
+                R.drawable.road_parking  // Unavailable
             } else {
-                R.drawable.road_parking  // Available
+                R.drawable.road_parking2  // Available
             }
 
             val marker = mMap.addMarker(

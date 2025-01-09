@@ -43,7 +43,7 @@ class ParkingInfoBottomSheet : BottomSheetDialogFragment() {
         if(status.equals("0")) {
             space = "空位"
         } else {
-            space = "沒空位"
+            space = "停放中"
         }
         if (MapChargeParkingFragment2.type.equals("Road")) {
             view.findViewById<TextView>(R.id.tv_status).text = space
@@ -73,9 +73,9 @@ class ParkingInfoBottomSheet : BottomSheetDialogFragment() {
             }
 
             val drawable = if (status.equals("0")) { // Replace `someCondition` with your logic
-                context?.let { ContextCompat.getDrawable(it, R.drawable.road_parking) }
-            } else {
                 context?.let { ContextCompat.getDrawable(it, R.drawable.road_parking2) }
+            } else {
+                context?.let { ContextCompat.getDrawable(it, R.drawable.road_parking) }
             }
             view.findViewById<ImageView>(R.id.status_dot).setImageDrawable(
                 drawable
