@@ -74,7 +74,6 @@ setupStoreManagerTitle()
         binding?.apply {
             recordConfirm.setOnClickListener{
                 findNavController().navigate(R.id.action_to_store_manager3)
-
             }
 
             logout.setOnClickListener{

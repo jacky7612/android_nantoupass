@@ -13,6 +13,28 @@ import java.util.concurrent.TimeUnit
 object ApiUtility {
     private var retrofit: Retrofit? = null
     private var retrofitTest: Retrofit? = null
+    private var retrofitChanghua: Retrofit? = null
+
+    private val clientChanghua: Retrofit
+        get() {
+            val okHttpClient = OkHttpClient.Builder()
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build()
+
+            retrofit = Retrofit.Builder()
+                .baseUrl(ApiConfig.URL_HOST_Changhua)
+//                .baseUrl(ApiConfig.TEST_URL_HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build()
+
+            return retrofit!!
+        }
+
+    val serviceChanghua = clientChanghua.create(ApiConfig::class.java)!!
 
     private val client: Retrofit
         get() {

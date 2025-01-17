@@ -9,6 +9,8 @@ import retrofit2.http.*
 interface ApiConfig {
     companion object {
         // 正式
+        val URL_HOST_Changhua = "https://shop.jotangi.net/beimen/"
+
         var URL_HOST = "https://hcparking.jotangi.net/parking_nantou/"
 //            if (BuildConfig.DEBUG) {
 //            "https://hcparking.jotangi.net/parking_test/"
@@ -228,7 +230,7 @@ interface ApiConfig {
         @Field("member_pwd") memberPwd: String,
         @Field("start_date") startDate: String,
         @Field("end_date") endDate: String
-    ): Call<StorePointRecordResponse>
+    ): Call<List<MgrPointRecordsResponse>>
 
     @FormUrlEncoded
     @POST("api/member_point_list.php")

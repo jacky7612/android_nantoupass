@@ -312,10 +312,23 @@
     </fragment>
 
     <fragment
+        android:id="@+id/market_fragment2"
+        android:name="com.jotangi.nantouparking.ui.main.MarketFragment2"
+        android:label="market fragment2"
+        tools:layout="@layout/fragment_market2"/>
+
+    <fragment
         android:id="@+id/main_fragment"
         android:name="com.jotangi.nantouparking.ui.main.MainFragment"
         android:label="main fragment"
         tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_to_market_fragment2"
+            app:destination="@id/market_fragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_to_mapChargeFragment2"
             app:destination="@id/mapChargeFragment2"

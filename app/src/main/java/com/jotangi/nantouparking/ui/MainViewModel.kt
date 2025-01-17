@@ -167,8 +167,8 @@ class MainViewModel : ViewModel() {
         addSource(pointRecordsType1) { combineRecords() }
     }
 
-    private val _pointRecordsData = MutableLiveData<List<PointRecordResponse>>()
-    val pointRecordsData: LiveData<List<PointRecordResponse>> get() = _pointRecordsData
+    private val _pointRecordsData = MutableLiveData<List<MgrPointRecordsResponse>>()
+    val pointRecordsData: LiveData<List<MgrPointRecordsResponse>> get() = _pointRecordsData
 
     private val _pointRecords = MutableLiveData<List<PointRecord2Response>>()
     val pointRecords: LiveData<List<PointRecord2Response>> get() = _pointRecords
@@ -1380,20 +1380,20 @@ class MainViewModel : ViewModel() {
         startDate: String,
         endDate: String
     ) {
-        val call: Call<StorePointRecordResponse> = ApiUtility.service.apiStorePointRecord(
+        val call: Call<List<MgrPointRecordsResponse>> = ApiUtility.serviceChanghua.apiStorePointRecord(
             memberId,
             memberPwd,
             startDate,
             endDate
         )
 
-        call.enqueue(object : Callback<StorePointRecordResponse> {
+        call.enqueue(object : Callback<List<MgrPointRecordsResponse>> {
             override fun onResponse(
-                call: Call<StorePointRecordResponse>,
-                response: Response<StorePointRecordResponse>
+                call: Call<List<MgrPointRecordsResponse>>,
+                response: Response<List<MgrPointRecordsResponse>>
             ) {
                 if (response.isSuccessful && response.body() != null) {
-                    _pointRecordsData.value = response.body()?.data ?: emptyList()
+                    _pointRecordsData.value = response.body()
                 } else {
                     AppUtility.showPopDialog(
                         context,
@@ -1403,7 +1403,7 @@ class MainViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<StorePointRecordResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<MgrPointRecordsResponse>>, t: Throwable) {
                 AppUtility.showPopDialog(
                     context,
                     null,

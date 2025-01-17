@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantouparking.R
+import com.jotangi.nantouparking.model.MgrPointRecordsResponse
 import com.jotangi.nantouparking.model.PointRecordResponse
 import com.jotangi.nantouparking.model.StorePointRecordResponse
 
-class MemberRecordAdapter(private val records: List<PointRecordResponse>) :
+class MemberRecordAdapter(private val records: List<MgrPointRecordsResponse>) :
     RecyclerView.Adapter<MemberRecordAdapter.MemberRecordViewHolder>() {
 
     class MemberRecordViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,7 +28,7 @@ class MemberRecordAdapter(private val records: List<PointRecordResponse>) :
 
     override fun onBindViewHolder(holder: MemberRecordViewHolder, position: Int) {
         val record = records[position]
-        holder.tvDateTime.text = "時間：${record.point_created_at}"
+        holder.tvDateTime.text = "時間：${record.pointCreatedAt}"
         holder.tvAccountNumber.text = "會員帳號：${record.member_id}"
         holder.tvPointCount.text = "核銷點數：${record.point_use}"
         holder.tvTotalPrice.text = "商品總價：${record.product_price}"

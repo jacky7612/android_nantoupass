@@ -127,6 +127,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupMarket2Title() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "活動專區"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupGuildelinesTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "漫步踩點"
