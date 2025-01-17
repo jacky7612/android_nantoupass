@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.ui.main
 
 import CustomerServiceBottomSheet
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -47,8 +48,16 @@ class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+      if(getStorePreference().equals("Store")) {
+          findNavController().navigate(R.id.action_to_store_manager2_fragment)
+      }
 
         init()
+    }
+
+    private fun getStorePreference(): String? {
+        val sharedPreferences = requireContext().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("key_store", null) // Default to null if not found
     }
 
     override fun onDestroyView() {

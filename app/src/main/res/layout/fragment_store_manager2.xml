@@ -24,7 +24,7 @@
         android:textColor="#91ACB7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SOSA牛仔" />
+        android:text="" />
 
     <TextView
         android:id="@+id/record_confirm"

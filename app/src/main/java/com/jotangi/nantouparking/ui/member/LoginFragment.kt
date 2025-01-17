@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.ui.member
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -118,9 +119,11 @@ class LoginFragment : BaseFragment() {
                 Log.d("micCheckMNB", result.responseMessage)
                 if(result.responseMessage.contains("Store")) {
                     Log.d("micCheckLL", "1")
+                    saveStorePreference("Store")
                     findNavController().navigate(R.id.action_to_store_manager2_fragment)
                 } else {
                     Log.d("micCheckLL", "2")
+                    saveStorePreference("Main")
                     findNavController().navigate(R.id.action_to_member_main)
                 }
             }
@@ -132,6 +135,13 @@ class LoginFragment : BaseFragment() {
                 result.responseMessage
             )
         }
+    }
+
+    private fun saveStorePreference(storeType:String) {
+        val sharedPreferences = requireContext().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("key_store", storeType)
+        editor.apply() // Apply changes asynchronously
     }
 
     @SuppressLint("ClickableViewAccessibility")

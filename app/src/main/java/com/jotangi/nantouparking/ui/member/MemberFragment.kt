@@ -1,5 +1,6 @@
 package com.jotangi.nantouparking.ui.member
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -148,9 +149,16 @@ call = true
             }
 
             memberLogoutButton.setOnClickListener {
+                saveStorePreference("Main")
                 mainViewModel.logout(requireContext())
             }
         }
+    }
+    private fun saveStorePreference(storeType:String) {
+        val sharedPreferences = requireContext().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("key_store", storeType)
+        editor.apply() // Apply changes asynchronously
     }
     private fun updateMemberInfo4Login(result: List<MemberInfoVO>) {
 //        if (result.code == ApiConfig.API_CODE_SUCCESS.toString()) {

@@ -1,5 +1,6 @@
 package com.jotangi.nantouparking.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -78,8 +79,16 @@ setupStoreManagerTitle()
 
             logout.setOnClickListener{
                 mainViewModel.logout(requireContext())
+                saveStorePreference("Main")
             }
         }
+    }
+
+    private fun saveStorePreference(storeType:String) {
+        val sharedPreferences = requireContext().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("key_store", storeType)
+        editor.apply() // Apply changes asynchronously
     }
 
     companion object {
