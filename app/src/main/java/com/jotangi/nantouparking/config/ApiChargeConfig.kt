@@ -126,7 +126,7 @@ interface ApiChargeConfig {
         @Field("id"         ) station_id: String
     ): Call<StandardResponse>
 
-    @GET("api/road_detail_park_status.php")
+    @GET("api/road_detail_park_status_nantou_caotun.php")
     fun apiGetRoadParkStatus(): Call<RoadParkStatusResponse>
 
     @GET("api/all_park_status.php")
