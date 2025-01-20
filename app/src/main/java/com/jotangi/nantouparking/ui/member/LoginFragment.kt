@@ -29,7 +29,7 @@ class LoginFragment : BaseFragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
-
+var call = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,8 +65,11 @@ class LoginFragment : BaseFragment() {
 //        }
 
         mainViewModel.loginData.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                loginSucceed(result)
+            if(call) {
+                if (result != null) {
+                    loginSucceed(result)
+                }
+                call = false
             }
         }
     }
@@ -197,6 +200,7 @@ class LoginFragment : BaseFragment() {
         lifecycleScope.launch {
             val fcmToken = fetchFcmToken() // Call the suspend function
             if (fcmToken != null) {
+                call = true
                 mainViewModel.login(
                     requireContext(),
                     binding?.loginIdEditText?.text.toString(),
