@@ -56,7 +56,7 @@ class StoreManagerFragment2 : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
-        mainViewModel.getMemberInfo(
+        mainViewModel.getMemberInfo2(
             requireContext(),
             AppUtility.getLoginId(requireContext())!!,
             AppUtility.getLoginPassword(requireContext())!!,
@@ -72,14 +72,25 @@ setupStoreManagerTitle()
         }
 
         binding?.apply {
-            recordConfirm.setOnClickListener{
+            recordConfirm.setOnClickListener {
                 findNavController().navigate(R.id.action_to_store_manager3)
             }
 
-            logout.setOnClickListener{
-                mainViewModel.logout(requireContext())
+            logout.setOnClickListener {
+                // Update login status
+                AppUtility.updateLoginStatus(requireContext(), false)
+
+                // Show the private dialog
+                showPrivateDialog(
+                    message = "登出成功！",
+                    curUI = null,
+                    skipChangePage = false
+                )
+
+                // Save preference
                 saveStorePreference("Main")
             }
+
         }
     }
 

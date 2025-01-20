@@ -48,7 +48,7 @@ class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      if(getStorePreference().equals("Store")) {
+      if(getStorePreference().equals("Store") && AppUtility.getLoginStatus(requireContext())) {
           findNavController().navigate(R.id.action_to_store_manager2_fragment)
       }
 

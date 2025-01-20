@@ -430,6 +430,97 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    fun getMemberInfo2(
+        context: Context,
+        memberId: String,
+        memberPassword: String,
+        loginResult: LoginResponse?
+    ) {
+
+
+//        val gson = Gson()
+//            val jsonString = "[\n" +
+//                    "    {\n" +
+//                    "        \"0\": \"1\",\n" +
+//                    "        \"mid\": \"1\",\n" +
+//                    "        \"1\": \"0912345678\",\n" +
+//                    "        \"member_id\": \"0912345678\",\n" +
+//                    "        \"2\": \"1234qwer\",\n" +
+//                    "        \"member_pwd\": \"1234qwer\",\n" +
+//                    "        \"3\": \"Mike Chen\",\n" +
+//                    "        \"member_name\": \"Mike Chen\",\n" +
+//                    "        \"4\": \"1\",\n" +
+//                    "        \"member_type\": \"1\",\n" +
+//                    "        \"5\": \"0\",\n" +
+//                    "        \"member_gender\": \"0\",\n" +
+//                    "        \"6\": \"mike.chen@jotangi.com.tw\",\n" +
+//                    "        \"member_email\": \"mike.chen@jotangi.com.tw\",\n" +
+//                    "        \"7\": \"1900-01-01\",\n" +
+//                    "        \"member_birthday\": \"1900-01-01\",\n" +
+//                    "        \"8\": \"台北市內湖區明德路1號很多樓\",\n" +
+//                    "        \"member_address\": \"台北市內湖區明德路1號很多樓\",\n" +
+//                    "        \"9\": \"0912345678\",\n" +
+//                    "        \"member_phone\": \"0912345678\",\n" +
+//                    "        \"10\": \"uploads/mike.jpg\",\n" +
+//                    "        \"member_picture\": \"uploads/mike.jpg\",\n" +
+//                    "        \"11\": \"10058\",\n" +
+//                    "        \"member_totalpoints\": \"10058\",\n" +
+//                    "        \"12\": \"1143\",\n" +
+//                    "        \"member_usingpoints\": \"1143\",\n" +
+//                    "        \"13\": \"1\",\n" +
+//                    "        \"member_status\": \"1\",\n" +
+//                    "        \"14\": \"654321\",\n" +
+//                    "        \"recommend_code\": \"654321\",\n" +
+//                    "        \"15\": \"0\",\n" +
+//                    "        \"member_sid\": \"0\",\n" +
+//                    "        \"16\": null,\n" +
+//                    "        \"member_plateNo\": null\n" +
+//                    "    }\n" +
+//                    "]"
+//
+//        val memberInfoType = object : TypeToken<List<MemberInfoVO>>() {}.type
+//        val memberList: List<MemberInfoVO> = gson.fromJson(jsonString, memberInfoType)
+//        _memberInfoData.value = memberList
+//            return
+
+        val call: Call<List<MemberInfoVO>> = ApiUtility.serviceChanghua.apiGetMemberInfo(
+            memberId,
+            memberPassword
+        )
+        call.enqueue(object : Callback<List<MemberInfoVO>> {
+            override fun onResponse(
+                call: Call<List<MemberInfoVO>>,
+                response: Response<List<MemberInfoVO>>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    _memberInfoData.value = response.body()
+
+                    if (loginResult != null) {
+                        _loginData.value = loginResult
+                    }
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        null
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<List<MemberInfoVO>>, t: Throwable) {
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    ApiUtility.apiFailureMessage(call, t)
+                )
+            }
+        })
+    }
+
     fun editMemberInfo(
         context: Context,
         memberName: String,
@@ -675,6 +766,7 @@ class MainViewModel : ViewModel() {
     fun logout(context: Context) {
         var id =AppUtility.getLoginId(context)
         var pwd =AppUtility.getLoginPassword(context)
+        Log.d("micCheckMBC", id + pwd)
         val call: Call<LogoutResponse> = ApiUtility.service.apiLogout(
             AppUtility.getLoginId(context)!!,
             AppUtility.getLoginPassword(context)!!
@@ -689,6 +781,7 @@ class MainViewModel : ViewModel() {
                 Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
 
                 if (response.body() != null) {
+                    Log.d("micCheckMBL1",  response.body()!!.responseMessage)
                     if (
                         response.body()!!.code == ApiConfig.API_CODE_0x0201 ||
                         response.body()!!.code == ApiConfig.API_CODE_0x0202 ||
@@ -707,6 +800,8 @@ class MainViewModel : ViewModel() {
                         _logoutData.value = response.body()
                     }
                 } else {
+                    Log.d("micCheckMBL2",  response.body()!!.responseMessage)
+
                     AppUtility.showPopDialog(
                         context,
                         statusCode.toString(),
