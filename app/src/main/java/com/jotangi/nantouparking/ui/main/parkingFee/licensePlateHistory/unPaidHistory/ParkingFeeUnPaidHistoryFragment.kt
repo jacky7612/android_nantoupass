@@ -109,7 +109,7 @@ initListener()
                    } else {
                        Toast.makeText(
                            requireActivity(),
-                           "目前沒有符合的紀錄唷！",
+                           result.responseMessage,
                            Toast.LENGTH_SHORT
                        ).show()
                        Log.d("micCheckZZ", "ZZ1")

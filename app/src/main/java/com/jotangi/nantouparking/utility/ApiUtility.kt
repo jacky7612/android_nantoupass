@@ -39,9 +39,9 @@ object ApiUtility {
     private val client: Retrofit
         get() {
             val okHttpClient = OkHttpClient.Builder()
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build()
 
@@ -60,9 +60,9 @@ object ApiUtility {
     private val clientTest: Retrofit
         get() {
             val okHttpClient = OkHttpClient.Builder()
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build()
 
