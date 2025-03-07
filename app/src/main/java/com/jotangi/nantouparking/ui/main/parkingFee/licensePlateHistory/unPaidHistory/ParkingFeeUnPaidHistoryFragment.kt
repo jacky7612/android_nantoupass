@@ -10,8 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.config.AppConfig
 import com.jotangi.nantouparking.databinding.FragmentParkingFeeUnPaidHistoryBinding
@@ -23,6 +25,8 @@ import com.jotangi.nantouparking.model.ParkingRoadFeeUnPaidVO
 import com.jotangi.nantouparking.ui.BaseFragment
 import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.nantouparking.utility.DateUtility
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -31,6 +35,7 @@ class ParkingFeeUnPaidHistoryFragment :
     ParkingFeeUnPaidClickListener,
     ParkingGarageFeeUnPaidClickListener {
     private var isAllSelected = false
+    private val REQUEST_CODE_BROWSER = 1001
     private var _binding: FragmentParkingFeeUnPaidHistoryBinding? = null
     private val binding get() = _binding
     private var selectPayData = mutableListOf<ParkingRoadFeeUnPaidVO>()
@@ -104,15 +109,17 @@ initListener()
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
            if(call) {
                if (result?.unPaidItems != null) {
+                   Log.d("micCheckZ3", result.toString())
                    if (result.unPaidItems.isNotEmpty()) {
                        updateRoadListView(result)
                    } else {
+                       Log.d("micCheckZ4", result.toString())
+
                        Toast.makeText(
                            requireActivity(),
                            result.responseMessage,
                            Toast.LENGTH_SHORT
                        ).show()
-                       Log.d("micCheckZZ", "ZZ1")
 //                    onBackPressed()
                    }
                }
@@ -171,10 +178,14 @@ initListener()
         if (parkingId == "") {
             call = true
             Log.d("micCheckHG", "1")
-            mainViewModel.getParkingRoadFeeUnPaidList(
-                requireContext(),
-                plateNo
-            )
+            Log.d("micCheckZ5", plateNo)
+            lifecycleScope.launch {
+                delay(2000) // Delay for 2 seconds
+                mainViewModel.getParkingRoadFeeUnPaidList(
+                    requireContext(),
+                    plateNo
+                )
+            }
         } else {
             call2 = true
             Log.d("micCheckHG", "2")
@@ -324,15 +335,27 @@ initListener()
         val currentDateTime = LocalDateTime.now()
         println("Current Date and Time: $currentDateTime")
 
-        // If you want to format the date and time
+        // Format the date and time
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val formattedDateTime = currentDateTime.format(formatter)
-        println("Formatted Date and Time: $formattedDateTime")
+
+        // Function to remove duplicates based on billNo
+        fun <T> removeDuplicates(list: List<T>, selector: (T) -> String?): List<T> {
+            val seen = mutableSetOf<String?>()
+            return list.filter { item ->
+                val key = selector(item)
+                seen.add(key) // Add returns true if the element was not present, false if it was already there
+            }
+        }
+
         return if (parkingId.isNotEmpty()) {
-            // Concatenate the values from selectGaragePayData for garage parking
-            val amounts = selectGaragePayData.joinToString(",") { it?.billAmount.toString() }
-            val billNos = selectGaragePayData.joinToString(",") { it?.billNo.toString() }
-            val parkTimes = selectGaragePayData.joinToString(",") { it?.billStartTime.toString() }
+            // Remove duplicates from selectGaragePayData based on billNo
+            val uniqueGaragePayData = removeDuplicates(selectGaragePayData) { it?.billNo }
+
+            // Concatenate values after removing duplicates
+            val amounts = uniqueGaragePayData.joinToString(",") { it?.billAmount.toString() }
+            val billNos = uniqueGaragePayData.joinToString(",") { it?.billNo.toString() }
+            val parkTimes = uniqueGaragePayData.joinToString(",") { it?.billStartTime.toString() }
 
             ApiConfig.URL_HOST +
                     ApiConfig.PAYMENT_URL +
@@ -356,12 +379,18 @@ initListener()
             selectPayData.forEach { item ->
                 Log.d("micCheckKK1", "Order No: ${item.billNo}")
             }
-            // Concatenate the values from selectPayData for road parking
-            val amounts = selectPayData.joinToString(",") { it?.billAmount.toString() }
-            val billNos = selectPayData.joinToString(",") { it?.billNo.toString() }
-            val parkTimes = selectPayData.joinToString(",") { it?.billStartTime.toString() }
-            val descriptions = selectPayData.joinToString(",") { "${it.billRoad} ${it.billCell}" }
+
+            // Remove duplicates from selectPayData based on billNo
+            val uniquePayData = removeDuplicates(selectPayData) { it?.billNo }
+
+            // Concatenate values after removing duplicates
+            val amounts = uniquePayData.joinToString(",") { it?.billAmount.toString() }
+            val billNos = uniquePayData.joinToString(",") { it?.billNo.toString() }
+            val parkTimes = uniquePayData.joinToString(",") { it?.billStartTime.toString() }
+            val descriptions = uniquePayData.joinToString(",") { "${it.billRoad} ${it.billCell}" }
+
             Log.d("micCheckKK2", billNos)
+
             ApiConfig.URL_HOST +
                     ApiConfig.PAYMENT_URL +
                     "?" +
@@ -380,6 +409,7 @@ initListener()
                     "searchTime=${formattedDateTime}"
         }
     }
+
 
     fun initListener() {
 
@@ -419,7 +449,15 @@ initListener()
             uri
         )
 
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE_BROWSER)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_BROWSER) {
+            findNavController().navigate(R.id.action_to_main_fragment)
+        }
     }
 
     private fun confirmLineInstall(webUrl: String) {

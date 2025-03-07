@@ -459,7 +459,19 @@
         android:id="@+id/parking_history_unpaid_fragment"
         android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment"
         android:label="navigation parking history unpaid fragment"
-        tools:layout="@layout/fragment_parking_fee_un_paid_history" />
+        tools:layout="@layout/fragment_parking_fee_un_paid_history" >
+
+        <action
+            android:id="@+id/action_to_main_fragment"
+            app:destination="@id/main_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/storeManagerFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/store_detail_fragment"

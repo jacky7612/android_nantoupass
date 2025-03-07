@@ -82,6 +82,7 @@ var call = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding?.progressBar?.bringToFront()
 
         init()
         initEditText2()
@@ -219,36 +220,27 @@ var call = false
         }
 
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckZ", "3")
+
             if(call) {
                 if (result != null && mainViewModel.hasData) {
                     if (result.unPaidItems.isNullOrEmpty()) {
+                        Log.d("micCheckZ1", "1")
                         mPlateNo = ""
                         Toast.makeText(
                             requireActivity(),
-                            result.responseMessage,
+                            "目前沒有符合的紀錄唷！",
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding?.progressBar?.visibility = View.GONE
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                     } else if (result.unPaidItems.isNotEmpty()) {
-                        Log.d("以下你提出的錯誤都修正好了 :\n" +
-                                "\n" +
-                                "1. 註冊前要先打 /user/register 確認是否已註冊\n" +
-                                "2. 註冊的「下一步」按鈕，改為「取得驗證碼」，點擊按鈕就傳送驗證碼。原傳送驗證碼字樣拿掉，\n" +
-                                "3. 按下一步前要先確認欄位是否為空值，若為空要擋\n" +
-                                "4. 下一步中的信箱的值 要從上一步直接帶入\n" +
-                                "5. 註冊後回到首頁是會到登入頁面，而非直接登入\n" +
-                                "6.輪播圖下的頁數點點，要灰色，並且是小小的\n" +
-                                "7.繳費按鈕不能點擊\n" +
-                                "8.密碼欄位要隱藏，再加個眼睛，可以點開來看\n" +
-                                "9.註冊＆忘記密碼: 填完資料後的 系統提示中 信箱是錯的（似乎是寫死的 webureetaipei），應該要顯示 申請人的信箱\n" +
-                                "請確認修改密碼是否也是這樣\n" +
-                                "10.查詢繳費, 待繳費帳單 下拉選單 拿掉，不需要那個下拉選單\n" +
-                                "11. 綁定車輛修改", result.unPaidItems.toString())
+                        binding?.progressBar?.visibility = View.GONE
+                        Log.d("micCheckZ2", result.toString())
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                         Log.d("micCheckAAZ7", "7")
+                        Log.d("micCheckHG", "1")
                         navigateToUnPaidHistory()
                     }
                 }
@@ -268,15 +260,18 @@ var call = false
                             "目前沒有符合的紀錄唷！",
                             Toast.LENGTH_SHORT
                         ).show()
+                        binding?.progressBar?.visibility = View.GONE
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                     } else if (result.unPaidItems.isNotEmpty()) {
+                        binding?.progressBar?.visibility = View.GONE
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                         Log.d("micCheckAAZ5", "5")
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                         navigateToUnPaidHistory()
+                        Log.d("micCheckHG", "2")
 
                     }
                 }
@@ -584,13 +579,22 @@ var call = false
     private fun getPlateUnPaidList() {
         if (parkingCurPage.equals(PARKING_TYPE_ROAD)) {
             call = true
-            Log.d("micCheckAAZ9", "9")
+            requireActivity().runOnUiThread {
+                binding?.progressBar?.visibility = View.VISIBLE
+                Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+            }
+
+            Log.d("micCheckZ6", mPlateNo)
             mainViewModel.getParkingRoadFeeUnPaidList(
                 requireContext(),
                 mPlateNo
             )
             Log.d("micCheckSS", "1")
         } else {
+            requireActivity().runOnUiThread {
+                binding?.progressBar?.visibility = View.VISIBLE
+                Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+            }
             Log.d("micCheckAAZ10", "10")
             call = true
             mainViewModel.getParkingGarageFeeUnPaidList(

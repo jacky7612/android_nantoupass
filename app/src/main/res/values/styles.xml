@@ -10,8 +10,10 @@
     </style>
 
     <style name="progressBar" parent="Widget.AppCompat.ProgressBar">
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:indeterminateTint">@color/charge_blue_color</item>
+        <item name="android:progressTint">@color/charge_blue_color</item>
     </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
