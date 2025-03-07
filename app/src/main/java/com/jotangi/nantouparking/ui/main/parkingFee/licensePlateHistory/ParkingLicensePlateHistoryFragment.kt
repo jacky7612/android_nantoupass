@@ -231,11 +231,17 @@ var call = false
                             "目前沒有符合的紀錄唷！",
                             Toast.LENGTH_SHORT
                         ).show()
-                        binding?.progressBar?.visibility = View.GONE
+                        requireActivity().runOnUiThread {
+                            binding?.progressBar?.visibility = View.GONE
+                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                        }
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                     } else if (result.unPaidItems.isNotEmpty()) {
-                        binding?.progressBar?.visibility = View.GONE
+                        requireActivity().runOnUiThread {
+                            binding?.progressBar?.visibility = View.GONE
+                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                        }
                         Log.d("micCheckZ2", result.toString())
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
@@ -260,11 +266,17 @@ var call = false
                             "目前沒有符合的紀錄唷！",
                             Toast.LENGTH_SHORT
                         ).show()
-                        binding?.progressBar?.visibility = View.GONE
+                        requireActivity().runOnUiThread {
+                            binding?.progressBar?.visibility = View.GONE
+                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                        }
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                     } else if (result.unPaidItems.isNotEmpty()) {
-                        binding?.progressBar?.visibility = View.GONE
+                        requireActivity().runOnUiThread {
+                            binding?.progressBar?.visibility = View.GONE
+                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                        }
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
                         Log.d("micCheckAAZ5", "5")

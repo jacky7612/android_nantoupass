@@ -422,6 +422,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_to_market_fragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_to_member_main">
                               <value>
                                 <LayoutPositions />
@@ -453,6 +458,11 @@
                               </value>
                             </entry>
                             <entry key="action_to_store_detail">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_to_store_manager2_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -583,6 +593,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="market_fragment2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

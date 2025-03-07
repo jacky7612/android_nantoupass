@@ -273,8 +273,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8beb6b61-c2cb-471f-81f7-ac2f56a0e463" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/utility/ApiUtility.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/utility/ApiUtility.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/ParkingLicensePlateHistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/ParkingLicensePlateHistoryFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking_fee_un_paid_history.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_parking_fee_un_paid_history.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +288,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/jtgmac/.android/avd/Pixel_8_API_31.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=R5CY21RDZ1E)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -581,12 +585,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt</url>
-          <line>272</line>
+          <line>310</line>
           <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt</url>
-          <line>92</line>
+          <line>97</line>
           <option name="timeStamp" value="162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
@@ -596,27 +600,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt</url>
-          <line>167</line>
+          <line>193</line>
           <option name="timeStamp" value="164" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt</url>
-          <line>169</line>
+          <line>195</line>
           <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt</url>
-          <line>106</line>
+          <line>112</line>
           <option name="timeStamp" value="169" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt</url>
-          <line>125</line>
+          <line>139</line>
           <option name="timeStamp" value="172" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/jotangi/nantouparking/ui/main/parkingFee/licensePlateHistory/unPaidHistory/ParkingFeeUnPaidHistoryFragment.kt</url>
-          <line>116</line>
+          <line>130</line>
           <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">

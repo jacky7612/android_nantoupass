@@ -112,9 +112,16 @@ initListener()
                    Log.d("micCheckZ3", result.toString())
                    if (result.unPaidItems.isNotEmpty()) {
                        updateRoadListView(result)
+                       requireActivity().runOnUiThread {
+                           binding?.progressBar?.visibility = View.GONE
+                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                       }
                    } else {
                        Log.d("micCheckZ4", result.toString())
-
+                       requireActivity().runOnUiThread {
+                           binding?.progressBar?.visibility = View.GONE
+                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                       }
                        Toast.makeText(
                            requireActivity(),
                            result.responseMessage,
@@ -132,7 +139,15 @@ initListener()
                 if (result?.unPaidItems != null) {
                     if (result.unPaidItems.isNotEmpty()) {
                         updateGarageListView(result)
+                        requireActivity().runOnUiThread {
+                            binding?.progressBar?.visibility = View.GONE
+                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                        }
                     } else {
+                        requireActivity().runOnUiThread {
+                            binding?.progressBar?.visibility = View.GONE
+                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                        }
                         Toast.makeText(
                             requireActivity(),
                             "目前沒有符合的紀錄唷！",
@@ -142,6 +157,10 @@ initListener()
                         onBackPressed()
                     }
                 } else {
+                    requireActivity().runOnUiThread {
+                        binding?.progressBar?.visibility = View.GONE
+                        Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                    }
                     Toast.makeText(
                         requireActivity(),
                         result.responseMessage,
@@ -179,6 +198,10 @@ initListener()
             call = true
             Log.d("micCheckHG", "1")
             Log.d("micCheckZ5", plateNo)
+            requireActivity().runOnUiThread {
+                binding?.progressBar?.visibility = View.VISIBLE
+                Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+            }
             lifecycleScope.launch {
                 delay(2000) // Delay for 2 seconds
                 mainViewModel.getParkingRoadFeeUnPaidList(
@@ -188,6 +211,10 @@ initListener()
             }
         } else {
             call2 = true
+            requireActivity().runOnUiThread {
+                binding?.progressBar?.visibility = View.VISIBLE
+                Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+            }
             Log.d("micCheckHG", "2")
             mainViewModel.getParkingGarageFeeUnPaidList(
                 requireContext(),
