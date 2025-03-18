@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayout
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.config.AppConfig
@@ -50,8 +51,11 @@ class ParkingFeeUnPaidHistoryFragment :
     private var parkingId: String = ""
     private var parkingName: String = ""
     private var parkingAddress: String = ""
-var call = false
+    lateinit var nantou: ParkingRoadFeeUnPaidResponse
+    lateinit var canton: ParkingRoadFeeUnPaidResponse
+    var call = false
     var call2 = false
+    var call3 = false
     companion object {
         var back = false
     }
@@ -77,8 +81,14 @@ var call = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-initListener()
+        initTab()
         init()
+        binding?.toolbarInclude?.toolBackImageButton?.setOnClickListener {
+            Log.d("micCheckHG", "HG1")
+            findNavController().navigate(R.id.action_to_parking_license_plate_fragment)
+        }
+initListener()
+
     }
 
     override fun onResume() {
@@ -106,30 +116,139 @@ initListener()
     }
 
     private fun initObserver() {
+        mainViewModel.parkingRoadFeeUnPaidDataCanton.observe(viewLifecycleOwner) { result ->
+            if (call3) {
+                var convert = ParkingRoadFeeUnPaidResponse(
+                    unPaidItems = result.unPaidItems.map { vo2 ->
+                        ParkingRoadFeeUnPaidVO(
+                            billNo = vo2.order_no,  // Mapping order_no to billNo
+                            billPlateNo = "",  // No equivalent in VO2, setting as empty string
+                            billStartTime = vo2.enterTime,  // Mapping parkTime
+                            billLeaveTime = vo2.exitTime,  // Mapping exitTime
+                            billAmount = vo2.amount,  // Mapping amount
+                            billRoad = vo2.road,  // Mapping road
+                            billCell = vo2.cell,  // Mapping cell
+                            billImagePath = vo2.enteredImage,  // Mapping enteredImage
+                            billSearchTime = vo2.searchTime,  // Mapping searchTime
+                            isSelected = vo2.isSelected,  // Copy selection state
+                            isLocked = vo2.isLocked,  // Copy lock state
+                            lockDueTime = vo2.lockDueTime // Copy lock due time
+                        )
+                    },
+                    responseMessage = result.responseMessage // Mapping responseMessage
+                )
+                Log.d("micCheckLJL", result.toString())
+                if (::canton.isInitialized) {  // Check if nantou is initialized
+                    canton= convert // Assign the result
+                } else {
+                    canton = convert // Initialize nantou for the first time
+                }
+                Log.d("micCheckYOU", canton.toString())
+
+                if(nantou.unPaidItems.isNullOrEmpty() && canton.unPaidItems.isNullOrEmpty()) {
+                    requireActivity().runOnUiThread {
+                        binding?.progressBar?.visibility = View.GONE
+                        Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                    }
+                    Toast.makeText(
+                        requireActivity(),
+                        "目前沒有符合的紀錄唷！",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding?.tabLayout?.apply {
+                        selectTab(getTabAt(0))
+                    }
+                    Log.d("micCheckMB", "1")
+                } else if (nantou.unPaidItems.isNullOrEmpty() && !canton.unPaidItems.isNullOrEmpty()) {
+                    updateRoadListView(canton)
+                    binding?.tabLayout?.apply {
+                        selectTab(getTabAt(1))
+                    }
+                    requireActivity().runOnUiThread {
+                        binding?.progressBar?.visibility = View.GONE
+                        Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                    }
+                    Log.d("micCheckMB", "2")
+                } else if (!nantou.unPaidItems.isNullOrEmpty() && canton.unPaidItems.isNullOrEmpty()) {
+                    updateRoadListView(nantou)
+                    binding?.tabLayout?.apply {
+                        selectTab(getTabAt(0))
+                    }
+                    requireActivity().runOnUiThread {
+                        binding?.progressBar?.visibility = View.GONE
+                        Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                    }
+                    Log.d("micCheckMB", "3")
+                } else if (!nantou.unPaidItems.isNullOrEmpty() && !canton.unPaidItems.isNullOrEmpty()) {
+                    updateRoadListView(nantou)
+                    binding?.tabLayout?.apply {
+                        selectTab(getTabAt(0))
+                    }
+                    requireActivity().runOnUiThread {
+                        binding?.progressBar?.visibility = View.GONE
+                        Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                    }
+                    Log.d("micCheckMB", "4")
+                }
+//               if (result?.unPaidItems != null) {
+//                   Log.d("micCheckZ3", result.toString())
+//                   if (result.unPaidItems.isNotEmpty()) {
+//                       updateRoadListView(result)
+//                       requireActivity().runOnUiThread {
+//                           binding?.progressBar?.visibility = View.GONE
+//                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+//                       }
+//                   } else {
+//                       Log.d("micCheckZ4", result.toString())
+//                       requireActivity().runOnUiThread {
+//                           binding?.progressBar?.visibility = View.GONE
+//                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+//                       }
+//                       Toast.makeText(
+//                           requireActivity(),
+//                           "目前沒有符合的紀錄唷！",
+//                           Toast.LENGTH_SHORT
+//                       ).show()
+////                    onBackPressed()
+//                   }
+//               }
+            }
+                call3 = false
+        }
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
            if(call) {
-               if (result?.unPaidItems != null) {
-                   Log.d("micCheckZ3", result.toString())
-                   if (result.unPaidItems.isNotEmpty()) {
-                       updateRoadListView(result)
-                       requireActivity().runOnUiThread {
-                           binding?.progressBar?.visibility = View.GONE
-                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
-                       }
-                   } else {
-                       Log.d("micCheckZ4", result.toString())
-                       requireActivity().runOnUiThread {
-                           binding?.progressBar?.visibility = View.GONE
-                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
-                       }
-                       Toast.makeText(
-                           requireActivity(),
-                           result.responseMessage,
-                           Toast.LENGTH_SHORT
-                       ).show()
-//                    onBackPressed()
-                   }
+               call3 = true
+               if (::nantou.isInitialized) {  // Check if nantou is initialized
+                   nantou = result // Assign the result
+               } else {
+                   nantou = result // Initialize nantou for the first time
                }
+               mainViewModel.getParkingRoadFeeUnPaidListCanton(
+                   requireContext(),
+                   plateNo
+               )
+//               if (result?.unPaidItems != null) {
+//                   Log.d("micCheckZ3", result.toString())
+//                   if (result.unPaidItems.isNotEmpty()) {
+//                       updateRoadListView(result)
+//                       requireActivity().runOnUiThread {
+//                           binding?.progressBar?.visibility = View.GONE
+//                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+//                       }
+//                   } else {
+//                       Log.d("micCheckZ4", result.toString())
+//                       requireActivity().runOnUiThread {
+//                           binding?.progressBar?.visibility = View.GONE
+//                           Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+//                       }
+//                       Toast.makeText(
+//                           requireActivity(),
+//                           "目前沒有符合的紀錄唷！",
+//                           Toast.LENGTH_SHORT
+//                       ).show()
+////                    onBackPressed()
+//                   }
+//               }
            }
             call = false
         }
@@ -163,7 +282,7 @@ initListener()
                     }
                     Toast.makeText(
                         requireActivity(),
-                        result.responseMessage,
+                        "目前沒有符合的紀錄唷！",
                         Toast.LENGTH_SHORT
                     ).show()
                     Log.d("micCheckZZ", "ZZ3")
@@ -192,9 +311,42 @@ initListener()
         }
     }
 
+    fun initTab() {
+        val tabLayout = view?.findViewById<TabLayout>(R.id.tabLayout)
+
+        tabLayout?.apply {
+            addTab(newTab().setText("南投市")) // Road
+            addTab(newTab().setText("草屯鎮")) // Parking
+
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    when (tab?.position) {
+                        0 -> {
+                            updateRoadListView(nantou)
+
+                            Log.d("TabSelection", "Selected: 南投市")
+                        }
+                        1 -> {
+                            updateRoadListView(canton)
+
+                            Log.d("TabSelection", "Selected: 草屯鎮")
+                        }
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            })
+
+            // Set default selected tab
+            getTabAt(0)?.select()
+        }
+    }
+
     private fun initData() {
         Log.d("micCheckHG", (parkingId.equals("")).toString())
         if (parkingId == "") {
+            binding?.tabLayout?.visibility = View.VISIBLE
             call = true
             Log.d("micCheckHG", "1")
             Log.d("micCheckZ5", plateNo)
@@ -211,6 +363,7 @@ initListener()
             }
         } else {
             call2 = true
+            binding?.tabLayout?.visibility = View.GONE
             requireActivity().runOnUiThread {
                 binding?.progressBar?.visibility = View.VISIBLE
                 Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
@@ -336,8 +489,18 @@ initListener()
         if (!::parkingFeeUnPaidAdapter.isInitialized) {
             initRecyclerView()
         }
-        data = result.unPaidItems.toMutableList()
-        parkingFeeUnPaidAdapter.updateDataSource(data)
+        if(result.unPaidItems.isNullOrEmpty()) {
+            Toast.makeText(
+                requireActivity(),
+                "目前沒有符合的紀錄唷！",
+                Toast.LENGTH_SHORT
+            ).show()
+            parkingFeeUnPaidAdapter.updateDataSource(emptyList())
+            return
+        } else {
+            data = result.unPaidItems.toMutableList()
+            parkingFeeUnPaidAdapter.updateDataSource(data)
+        }
     }
 
     private fun updateGarageListView(result: ParkingGarageFeeUnPaidResponse) {

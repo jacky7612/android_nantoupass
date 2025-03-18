@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantouparking.databinding.ItemUnPaidFeeBinding
 import com.jotangi.nantouparking.databinding.ItemUnPaidFeeRoadBinding
 import com.jotangi.nantouparking.model.ParkingRoadFeeUnPaidVO
+import com.jotangi.nantouparking.model.ParkingRoadFeeUnPaidVO2
 
 interface ParkingFeeUnPaidClickListener {
     fun onParkingFeeUnPaidItemClick(
@@ -51,7 +52,6 @@ class ParkingFeeUnPaidAdapter(
 
     fun updateDataSource(dataSource: List<ParkingRoadFeeUnPaidVO>) {
         this.data = dataSource
-
         this.notifyDataSetChanged()
     }
     fun selectAllItems(selectAll: Boolean) {

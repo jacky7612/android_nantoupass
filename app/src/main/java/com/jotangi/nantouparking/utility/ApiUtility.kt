@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit
 
 object ApiUtility {
     private var retrofit: Retrofit? = null
+    private var retrofitCanton: Retrofit? = null
     private var retrofitTest: Retrofit? = null
     private var retrofitChanghua: Retrofit? = null
 
@@ -56,6 +57,27 @@ object ApiUtility {
         }
 
     val service = client.create(ApiConfig::class.java)!!
+
+    private val clientCanton: Retrofit
+        get() {
+            val okHttpClient = OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build()
+
+            retrofitCanton = Retrofit.Builder()
+                .baseUrl(ApiConfig.URL_HOST_CANTON)
+//                .baseUrl(ApiConfig.TEST_URL_HOST)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build()
+
+            return retrofitCanton!!
+        }
+
+    val serviceCanton = clientCanton.create(ApiConfig::class.java)!!
 
     private val clientTest: Retrofit
         get() {

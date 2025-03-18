@@ -10,6 +10,7 @@ interface ApiConfig {
     companion object {
         // 正式
         val URL_HOST_Changhua = "https://shop.jotangi.net/beimen/"
+        var URL_HOST_CANTON = "https://hwparking.jotangi.net/parking_caotun/"
 
         var URL_HOST = "https://hcparking.jotangi.net/parking_nantou/"
 //            if (BuildConfig.DEBUG) {
@@ -162,8 +163,9 @@ interface ApiConfig {
 
     // 取得未繳費紀錄
 //    @GET("api/search_plateNo_E.php")
+    @GET("api/searchRoadPlateNo.php")
+    fun apiGetParkingRoadFeeUnPaidList2(@Query("plateNo") plateNo: String): Call<ParkingRoadFeeUnPaidResponse2>
 
-    // 取得路邊未繳費記錄
     @GET("api/searchRoadPlateNo.php")
     fun apiGetParkingRoadFeeUnPaidList(@Query("plateNo") plateNo: String): Call<ParkingRoadFeeUnPaidResponse>
 

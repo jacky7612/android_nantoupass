@@ -10,3 +10,12 @@ data class ParkingRoadFeeUnPaidResponse(
     val responseMessage: String
 
 )
+
+data class ParkingRoadFeeUnPaidResponse2(
+    @SerializedName("data")
+    val unPaidItems: List<ParkingRoadFeeUnPaidVO2>,
+
+    @SerializedName("responseMessage")
+    val responseMessage: String
+
+)

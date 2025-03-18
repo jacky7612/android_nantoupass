@@ -495,7 +495,7 @@ abstract class BaseFragment : Fragment() {
                 toolBackImageButton,
                 R.drawable.icon_back_36
             ) {
-                onBackPressed()
+//                onBackPressed()
             }
         }
     }
@@ -509,7 +509,7 @@ abstract class BaseFragment : Fragment() {
                 toolBackImageButton,
                 R.drawable.icon_back_36
             ) {
-                onBackPressed()
+//                findNavController().popBackStack()
 
             }
         }

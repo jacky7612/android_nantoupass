@@ -89,6 +89,11 @@ class MainViewModel : ViewModel() {
     }
     val parkingFeePaidDetailData: LiveData<List<ParkingFeePaidDetailVO>> get() = _parkingFeePaidDetailData
 
+    private val _plateNumberDataCanton: MutableLiveData<List<PlateNumberVO>> by lazy {
+        MutableLiveData<List<PlateNumberVO>>()
+    }
+    val plateNumberDataCanton: LiveData<List<PlateNumberVO>> get() = _plateNumberDataCanton
+
     private val _plateNumberData: MutableLiveData<List<PlateNumberVO>> by lazy {
         MutableLiveData<List<PlateNumberVO>>()
     }
@@ -98,6 +103,15 @@ class MainViewModel : ViewModel() {
         MutableLiveData<List<ParkingGarageVO>>()
     }
     val parkingGarageData: LiveData<List<ParkingGarageVO>> get() = _parkingGarageData
+    private val _parkingRoadFeeUnPaidDataCanton1: MutableLiveData<ParkingRoadFeeUnPaidResponse> by lazy {
+        MutableLiveData<ParkingRoadFeeUnPaidResponse>()
+    }
+    val parkingRoadFeeUnPaidDataCanton1: LiveData<ParkingRoadFeeUnPaidResponse> get() = _parkingRoadFeeUnPaidDataCanton1
+
+    private val _parkingRoadFeeUnPaidDataCanton: MutableLiveData<ParkingRoadFeeUnPaidResponse2> by lazy {
+        MutableLiveData<ParkingRoadFeeUnPaidResponse2>()
+    }
+    val parkingRoadFeeUnPaidDataCanton: LiveData<ParkingRoadFeeUnPaidResponse2> get() = _parkingRoadFeeUnPaidDataCanton
 
     private val _parkingRoadFeeUnPaidData: MutableLiveData<ParkingRoadFeeUnPaidResponse> by lazy {
         MutableLiveData<ParkingRoadFeeUnPaidResponse>()
@@ -919,6 +933,52 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    fun getPlateNumberCanton(
+        context: Context,
+        memberId: String,
+        memberPassword: String,
+        parkingType: String
+    ) {
+        val call: Call<List<PlateNumberVO>> = ApiUtility.serviceCanton.apiGetPlateNumber(
+            memberId,
+            memberPassword,
+            parkingType
+        )
+        call.enqueue(object : Callback<List<PlateNumberVO>> {
+            override fun onResponse(
+                call: Call<List<PlateNumberVO>>,
+                response: Response<List<PlateNumberVO>>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    _plateNumberDataCanton.value = response.body()
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        null
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<List<PlateNumberVO>>, t: Throwable) {
+                println("---------$call")
+                println("---------$call")
+                println("---------$call")
+
+                _plateNumberData.value = null
+//                AppUtility.showPopDialog(
+//                    context,
+//                    null,
+//                    ApiUtility.apiFailureMessage(call, t)
+//                )
+            }
+        })
+    }
+
     fun clearPlateNoList() {
         _plateNumberData.value = null
     }
@@ -1014,6 +1074,82 @@ class MainViewModel : ViewModel() {
 
             override fun onFailure(call: Call<ParkingRoadFeeUnPaidResponse>, t: Throwable) {
 //                _parkingRoadFeeUnPaidData.value = null
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    ApiUtility.apiFailureMessage(call, t)
+                )
+            }
+        })
+    }
+
+    fun getParkingRoadFeeUnPaidListCanton(
+        context: Context,
+        plateNo: String
+    ) {
+        val call: Call<ParkingRoadFeeUnPaidResponse2> =
+            ApiUtility.serviceCanton.apiGetParkingRoadFeeUnPaidList2(plateNo)
+        call.enqueue(object : Callback<ParkingRoadFeeUnPaidResponse2> {
+            override fun onResponse(
+                call: Call<ParkingRoadFeeUnPaidResponse2>,
+                response: Response<ParkingRoadFeeUnPaidResponse2>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    hasData = true
+                    _parkingRoadFeeUnPaidDataCanton.value = response.body()
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        null
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ParkingRoadFeeUnPaidResponse2>, t: Throwable) {
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    ApiUtility.apiFailureMessage(call, t)
+                )
+            }
+        })
+    }
+
+    fun getParkingRoadFeeUnPaidListCanton1(
+        context: Context,
+        plateNo: String
+    ) {
+        val call: Call<ParkingRoadFeeUnPaidResponse> =
+            ApiUtility.serviceCanton.apiGetParkingRoadFeeUnPaidList(plateNo)
+        call.enqueue(object : Callback<ParkingRoadFeeUnPaidResponse> {
+            override fun onResponse(
+                call: Call<ParkingRoadFeeUnPaidResponse>,
+                response: Response<ParkingRoadFeeUnPaidResponse>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    hasData = true
+                    _parkingRoadFeeUnPaidDataCanton1.value = response.body()
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        null
+                    )
+                }
+            }
+
+
+
+            override fun onFailure(call: Call<ParkingRoadFeeUnPaidResponse>, t: Throwable) {
                 AppUtility.showPopDialog(
                     context,
                     null,

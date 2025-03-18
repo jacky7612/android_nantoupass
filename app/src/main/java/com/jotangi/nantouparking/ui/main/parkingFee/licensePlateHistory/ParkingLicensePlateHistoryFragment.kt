@@ -25,6 +25,7 @@ import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentParkingLicensePlateHistoryBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.model.ParkingGarageVO
+import com.jotangi.nantouparking.model.ParkingRoadFeeUnPaidVO
 import com.jotangi.nantouparking.model.PlateNumberVO
 import com.jotangi.nantouparking.ui.BaseFragment
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment
@@ -53,6 +54,8 @@ class ParkingLicensePlateHistoryFragment :
     private val PARKING_TYPE_ROAD = "1"
     private val PARKING_TYPE_GARAGE = "2"
     private val PARKING_TYPE_GARAGE_LIST = "3"
+    var combineRoadUnPaidDataList:MutableList<ParkingRoadFeeUnPaidVO> = mutableListOf()
+    var combinePlateNumberDataList:MutableList<PlateNumberVO> = mutableListOf()
     companion object {
         var parkingCurPage = "1"
         var parkingName = ""
@@ -60,6 +63,8 @@ class ParkingLicensePlateHistoryFragment :
 var call = false
     var call2 = false
     var call3 = false
+    var call4 = false
+    var call5 = false
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 
     override fun onCreateView(
@@ -144,6 +149,9 @@ var call = false
 
     private fun init() {
         setupLicensePlateHistoryTitle()
+        binding?.toolbarInclude?.toolBackImageButton?.setOnClickListener {
+            findNavController().navigate(R.id.action_parking_license_plate_fragment_to_main_fragment)
+        }
         initBackListener()
         initObserver()
         initData()
@@ -190,11 +198,14 @@ var call = false
     }
 
     private fun initObserver() {
-        mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
-            if(call3) {
+
+        mainViewModel.plateNumberDataCanton.observe(viewLifecycleOwner) { result ->
+            if(call4) {
                 if (result != null) {
-                    Log.d("micCheckZ", result.toString())
-                    updateListView(result)
+                    combinePlateNumberDataList.addAll(result)
+                    combinePlateNumberDataList = combinePlateNumberDataList.distinctBy { it.plateNo }.toMutableList()
+                    Log.d("micCheckMB2", combinePlateNumberDataList.toString())
+                    updateListView(combinePlateNumberDataList)
 
                     if (mPlateNo.isNotEmpty()) {
                         if (call) {
@@ -202,6 +213,32 @@ var call = false
                         }
                     }
                 }
+            }
+            call4 = false
+        }
+        mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
+            if(call3) {
+//                if (result != null) {
+                    call4 = true
+                    combinePlateNumberDataList.clear()
+                if(!result.isNullOrEmpty()) {
+                    combinePlateNumberDataList.addAll(result)
+                }
+                Log.d("micCheckMB1", combinePlateNumberDataList.toString())
+                    mainViewModel.getPlateNumberCanton(
+                        requireContext(),
+                        AppUtility.getLoginId(requireContext())!!,
+                        AppUtility.getLoginPassword(requireContext())!!,
+                        parkingCurPage
+                    )
+//                    updateListView(result)
+//
+//                    if (mPlateNo.isNotEmpty()) {
+//                        if (call) {
+//                            getPlateUnPaidList()
+//                        }
+//                    }
+//                }
             }
             call3 = false
         }
@@ -222,8 +259,61 @@ var call = false
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
 
             if(call) {
-                if (result != null && mainViewModel.hasData) {
-                    if (result.unPaidItems.isNullOrEmpty()) {
+//                if (result != null && mainViewModel.hasData) {
+//                    if (result.unPaidItems.isNullOrEmpty()) {
+//                        Log.d("micCheckZ1", "1")
+//                        mPlateNo = ""
+//                        Toast.makeText(
+//                            requireActivity(),
+//                            "目前沒有符合的紀錄唷！",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        requireActivity().runOnUiThread {
+//                            binding?.progressBar?.visibility = View.GONE
+//                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+//                        }
+//                        binding?.plateTextEditText?.setText("")
+//                        binding?.plateNumberEditText?.setText("")
+                combineRoadUnPaidDataList.clear()
+                if(!result.unPaidItems.isNullOrEmpty()) {
+                    combineRoadUnPaidDataList.addAll(result.unPaidItems)
+                }
+                Log.d("micCheckMB3", combineRoadUnPaidDataList.toString())
+                if (!mPlateNo.isNullOrEmpty()) {
+                call5 = true
+                mainViewModel.getParkingRoadFeeUnPaidListCanton1(
+                    requireContext(),
+                    mPlateNo
+                )
+            }
+//                    } else if (result.unPaidItems.isNotEmpty()) {
+//                        requireActivity().runOnUiThread {
+//                            binding?.progressBar?.visibility = View.GONE
+//                            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+//                        }
+//                        Log.d("micCheckZ2", result.toString())
+//                        binding?.plateTextEditText?.setText("")
+//                        binding?.plateNumberEditText?.setText("")
+//                        Log.d("micCheckAAZ7", "7")
+//                        Log.d("micCheckHG", "1")
+//                        navigateToUnPaidHistory()
+//                    }
+//                }
+            }
+            isEditing = false
+            call = false
+        }
+
+        mainViewModel.parkingRoadFeeUnPaidDataCanton1.observe(viewLifecycleOwner) { result ->
+
+            if(call5) {
+//                if (result != null && mainViewModel.hasData) {
+                if(!result.unPaidItems.isNullOrEmpty()) {
+                    combineRoadUnPaidDataList.addAll(result.unPaidItems)
+                }
+                Log.d("micCheckMB4", combineRoadUnPaidDataList.toString())
+
+                if (combineRoadUnPaidDataList.isNullOrEmpty()) {
                         Log.d("micCheckZ1", "1")
                         mPlateNo = ""
                         Toast.makeText(
@@ -237,7 +327,7 @@ var call = false
                         }
                         binding?.plateTextEditText?.setText("")
                         binding?.plateNumberEditText?.setText("")
-                    } else if (result.unPaidItems.isNotEmpty()) {
+                    } else if (combineRoadUnPaidDataList.isNotEmpty()) {
                         requireActivity().runOnUiThread {
                             binding?.progressBar?.visibility = View.GONE
                             Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
@@ -249,10 +339,10 @@ var call = false
                         Log.d("micCheckHG", "1")
                         navigateToUnPaidHistory()
                     }
-                }
+//                }
             }
             isEditing = false
-            call = false
+            call5 = false
         }
 
         mainViewModel.parkingGarageFeeUnPaidData.observe(viewLifecycleOwner) { result ->

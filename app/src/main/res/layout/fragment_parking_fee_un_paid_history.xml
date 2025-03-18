@@ -37,12 +37,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/parking_history_unpaid_title_textView" />
-
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:tabTextColor="#FFFFFF"
+        app:tabSelectedTextColor="#FFFFFF"
+        android:background="@drawable/tab_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/parking_history_search_plate_no_title_textView"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabBackground="@drawable/tab_background"
+        app:tabTextAppearance="@style/TabTextAppearance" />
     <CheckBox
         android:buttonTint="@drawable/check_box_tint"
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/parking_history_search_plate_no_title_textView"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
         android:id="@+id/select_all"
         android:layout_width="70dp"
         android:layout_height="wrap_content"

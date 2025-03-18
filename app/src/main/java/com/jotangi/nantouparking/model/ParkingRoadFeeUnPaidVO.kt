@@ -51,3 +51,48 @@ data class ParkingRoadFeeUnPaidVO(
 
     var lockDueTime: Long = 0
 )
+
+data class ParkingRoadFeeUnPaidVO2(
+    @SerializedName("amount")
+    val amount: String,
+
+    @SerializedName("parkTime")
+    val parkTime: String,
+
+    @SerializedName("enterTime")
+    val enterTime: String,
+
+    @SerializedName("exitTime")
+    val exitTime: String,
+
+    @SerializedName("discount")
+    val discount: String,
+
+    @SerializedName("road")
+    val road: String,
+
+    @SerializedName("cell")
+    val cell: String,
+
+    @SerializedName("enteredImage")
+    val enteredImage: String,
+
+    @SerializedName("exitedImage")
+    val exitedImage: String,
+
+    @SerializedName("order_no")
+    val order_no: String,
+
+    @SerializedName("year")
+    val year: String,
+
+    @SerializedName("searchTime")
+    val searchTime: String,
+
+    var isSelected: Boolean = false,
+
+    var isLocked: Boolean = false,
+
+    var lockDueTime: Long = 0
+
+)
