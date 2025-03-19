@@ -98,16 +98,17 @@ class ChargeScanFragment : BaseFragment() {
                 result.text?.let { barcode ->
                     Log.i("BarcodeScannerFragment", "Scanned Barcode: $barcode")
                     // Handle the scanned barcode result here
-                    myQRcode =barcode
-                    Glob.curChargeInfo?.QRCode =myQRcode
-                    myGunNum ="1"
+                    myQRcode = barcode
+                    Glob.curChargeInfo?.QRCode = myQRcode
+                    myGunNum = "1"
+                    myQRcode = myQRcode.replace("ID=", "")
                     val fruits = myQRcode.split("&port=") // Split by comma
                     if (fruits.size >= 2) {
                         myQRcode = fruits[0]
                         myGunNum = fruits[1]
                     }
                     binding?.apply {
-                        Glob.curChargeInfo?.MaskQRCode =maskText(myQRcode)
+                        Glob.curChargeInfo?.MaskQRCode = maskText(myQRcode)
                         if (!Glob.QRcodeAutoNext) {
                             etDeviceId.setText(Glob.curChargeInfo?.MaskQRCode)
                         }
