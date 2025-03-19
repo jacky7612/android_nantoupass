@@ -200,9 +200,16 @@ var call = false
     private fun initObserver() {
 
         mainViewModel.plateNumberDataCanton.observe(viewLifecycleOwner) { result ->
+            Log.d("micCheckJJ", result.toString())
             if(call4) {
-                if (result != null) {
+                if(result == null) {
+                    combinePlateNumberDataList.addAll(emptyList())
+
+                } else {
                     combinePlateNumberDataList.addAll(result)
+                }
+                    Log.d("micCheckJJ2", combinePlateNumberDataList.toString())
+
                     combinePlateNumberDataList = combinePlateNumberDataList.distinctBy { it.plateNo }.toMutableList()
                     Log.d("micCheckMB2", combinePlateNumberDataList.toString())
                     updateListView(combinePlateNumberDataList)
@@ -212,11 +219,12 @@ var call = false
                             getPlateUnPaidList()
                         }
                     }
-                }
+
             }
             call4 = false
         }
         mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
+            Log.d("micCheckJJ4", result.toString())
             if(call3) {
 //                if (result != null) {
                     call4 = true
@@ -224,8 +232,10 @@ var call = false
                 if(!result.isNullOrEmpty()) {
                     combinePlateNumberDataList.addAll(result)
                 }
-                Log.d("micCheckMB1", combinePlateNumberDataList.toString())
-                    mainViewModel.getPlateNumberCanton(
+                Log.d("micCheckMB1", AppUtility.getLoginId(requireContext())!!.toString())
+                Log.d("micCheckMB2", AppUtility.getLoginPassword(requireContext())!!.toString())
+
+                mainViewModel.getPlateNumberCanton(
                         requireContext(),
                         AppUtility.getLoginId(requireContext())!!,
                         AppUtility.getLoginPassword(requireContext())!!,
