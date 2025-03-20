@@ -231,16 +231,28 @@ var call = false
                     combinePlateNumberDataList.clear()
                 if(!result.isNullOrEmpty()) {
                     combinePlateNumberDataList.addAll(result)
+                    updateListView(combinePlateNumberDataList)
+                    if (mPlateNo.isNotEmpty()) {
+                        if (call) {
+                            getPlateUnPaidList()
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        requireActivity(),
+                        "目前沒有查詢紀錄唷！",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 Log.d("micCheckMB1", AppUtility.getLoginId(requireContext())!!.toString())
                 Log.d("micCheckMB2", AppUtility.getLoginPassword(requireContext())!!.toString())
 
-                mainViewModel.getPlateNumberCanton(
-                        requireContext(),
-                        AppUtility.getLoginId(requireContext())!!,
-                        AppUtility.getLoginPassword(requireContext())!!,
-                        parkingCurPage
-                    )
+//                mainViewModel.getPlateNumberCanton(
+//                        requireContext(),
+//                        AppUtility.getLoginId(requireContext())!!,
+//                        AppUtility.getLoginPassword(requireContext())!!,
+//                        parkingCurPage
+//                    )
 //                    updateListView(result)
 //
 //                    if (mPlateNo.isNotEmpty()) {
