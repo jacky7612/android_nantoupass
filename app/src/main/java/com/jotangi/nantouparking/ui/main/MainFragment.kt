@@ -148,9 +148,9 @@ class MainFragment :
 //                        "",
 //                        "市集籌備中，敬請期待"
 //                    )
-                    openUrl("https://www.sunnygo.com.tw/web-front/#/testArea?")
+//                    openUrl("https://www.sunnygo.com.tw/web-front/#/testArea?")
 
-//                    findNavController().navigate(R.id.action_to_market_fragment2)
+                    findNavController().navigate(R.id.action_to_market_fragment2)
                 }
                 // line 1
                 mainSpaceConstraintLayout.setOnClickListener {

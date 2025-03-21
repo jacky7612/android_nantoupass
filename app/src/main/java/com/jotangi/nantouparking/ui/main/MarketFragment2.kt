@@ -51,6 +51,7 @@ class MarketFragment2 : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupMarket2Title()
+        binding?.location?.setImageResource(R.drawable.location)
         binding?.btnGetPoint?.setOnClickListener {
 openWeb("https://www.sunnygo.com.tw/web-front/#/testArea?")
         }
