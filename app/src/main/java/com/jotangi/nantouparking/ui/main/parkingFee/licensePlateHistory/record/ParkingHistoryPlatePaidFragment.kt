@@ -74,6 +74,8 @@ class ParkingHistoryPlatePaidFragment :
         super.onViewCreated(view, savedInstanceState)
 Log.d("micCheckCC", "CC")
         init()
+        initPaidListRecyclerView()
+
         initObserver()
         initRecyclerView()
         binding.parkingPlatePaidRecyclerView.visibility = View.GONE
@@ -148,7 +150,15 @@ Log.d("micCheckCC", "CC")
         setupParkingHistoryTitle()
 //        initObserver(
         initView()
-        initData()
+//        initData()
+        if (plateNo == "") {
+            plateNo = arguments?.getString("plateNo").toString() ?: ""
+        }
+        requireActivity().runOnUiThread {
+            binding?.progressBar?.visibility = View.VISIBLE
+            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+        }
+        mainViewModel.fetchPaidData(plateNo)
         initAction()
     }
 //
@@ -175,6 +185,28 @@ Log.d("micCheckCC", "CC")
             updateParkingGarageListView(result)
         }
     }
+    mainViewModel.navigateToPaidHistory2.observe(viewLifecycleOwner) { result ->
+        Log.d("micCheckMBM", result.toString())
+
+        if (result?.data.isNullOrEmpty()) {
+            binding.apply {
+                parkingPlatePaidRecyclerView.visibility = View.GONE
+                parkingPlatePaidDefaultTitleTextView.visibility = View.VISIBLE
+            }
+            return@observe
+        }
+
+        binding.apply {
+            parkingPlatePaidRecyclerView.visibility = View.VISIBLE
+            parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
+        }
+        requireActivity().runOnUiThread {
+            binding?.progressBar?.visibility = View.GONE
+            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+        }
+        updateGovListView(result!!.data!!)
+    }
+
     mainViewModel.parkingFeePaidResponse.observe(viewLifecycleOwner) { result ->
         if (!result.isNullOrEmpty()) {
 
@@ -211,6 +243,45 @@ Log.d("micCheckCC", "CC")
     }
 
 }
+
+    private fun updateGovListView(result: List<DataGovParkingFeePaidVO>) {
+        list = ArrayList()
+
+        // ✅ 移除第一筆資料，只加入第 1 筆（index 1）以後的資料
+        if (result.size > 1) {
+            for (i in 1 until result.size) {
+                val curData = result[i]
+                val item = DataGovParkingFeePaidVO(
+                    ticket = curData.ticket,
+                    area = curData.area,
+                    parkDate = curData.parkDate,
+                    payAmount = curData.payAmount,
+                    payDate = curData.payDate,
+                    paySource = curData.paySource
+                )
+                list.add(item)
+            }
+        }
+
+        govlistAdapter = GovpaidfeeAdapter(list)
+
+        binding.parkingPlatePaidRecyclerView.apply {
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                1,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            adapter = govlistAdapter
+            visibility = View.VISIBLE
+        }
+
+        govlistAdapter?.itemClick = {
+            // 點擊事件處理區
+        }
+    }
+
+
 
 
 
@@ -283,12 +354,8 @@ Log.d("micCheckCC", "CC")
             }
         }
 
-//        mainViewModel.getParkingFeePaidList(
-//            requireContext(),
-//            "",
-//            "",
-//            plateNo,
-//            parkingId
+//        mainViewModel.paid2(plateNo)
+
 //        )
     }
 
@@ -305,7 +372,7 @@ Log.d("micCheckCC", "CC")
                 binding.parkingGarageRecyclerView.visibility = View.GONE
                 updateTabView()
                 initData()
-                binding.parkingPlatePaidRecyclerView.visibility = View.GONE
+                binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
             }
 
             parkingGarageTextView.setOnClickListener {

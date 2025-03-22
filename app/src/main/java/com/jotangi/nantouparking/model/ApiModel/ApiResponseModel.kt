@@ -86,3 +86,6 @@ data class ApiRespErr(
         val payDate: String,
         val paySource: String
     )
+data class TicketResponse(
+    val data: List<DataGovParkingFeePaidVO>
+)

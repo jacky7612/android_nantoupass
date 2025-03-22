@@ -27,7 +27,7 @@ class GovpaidfeeAdapter(private val list: MutableList<DataGovParkingFeePaidVO>) 
                     parkType.text = ParkingHistoryPlatePaidFragment.parkingName2
                 }
                 tvTicket .text   = data.ticket ?: ""
-                tvArea.text      = data.area ?: ""
+                city.text      = data.area ?: ""
                 tvParkDate.text  = data.parkDate ?: ""
                 tvPayAmount.text = data.payAmount ?: ""
                 tvPayDate.text   = data.payDate ?: ""

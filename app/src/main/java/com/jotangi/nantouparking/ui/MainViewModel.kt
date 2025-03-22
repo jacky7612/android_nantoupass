@@ -15,6 +15,7 @@ import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
 import com.jotangi.nantouparking.utility.ApiUtility
 import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.payStation.Model.ApiModel.ApiEntry
+import com.jotangi.payStation.Model.ApiModel.TicketResponse
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -211,6 +212,9 @@ class MainViewModel : ViewModel() {
 
     private val _couponListData = MutableLiveData<List<CouponListResponse>>()
     val couponListData: LiveData<List<CouponListResponse>> get() = _couponListData
+
+    val _navigateToPaidHistory2 = MutableLiveData<TicketResponse>()
+    val navigateToPaidHistory2: MutableLiveData<TicketResponse> get() = _navigateToPaidHistory2
 
     private fun combineRecords() {
         val type0Records = pointRecordsType0.value ?: emptyList()
@@ -1901,6 +1905,23 @@ class MainViewModel : ViewModel() {
             override fun onFailure(call: Call<List<CouponListResponse>>, t: Throwable) {
                 Log.e("API_FAILURE", "Failure: ${t.localizedMessage}")
                 _couponListData.postValue(emptyList())
+            }
+        })
+    }
+
+    fun fetchPaidData(plateNo:String) {
+        val call = ApiUtility.service.apiLockBill2(plateNo)
+        call.enqueue(object : Callback<TicketResponse> {
+            override fun onResponse(call: Call<TicketResponse>, response: Response<TicketResponse>) {
+                if (response.isSuccessful) {
+                    _navigateToPaidHistory2.value = response.body()
+                } else {
+                    Log.e("API_ERROR", "Error fetching park status: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<TicketResponse>, t: Throwable) {
+                Log.e("API_ERROR", "API call failed: ${t.message}")
             }
         })
     }

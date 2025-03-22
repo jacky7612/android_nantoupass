@@ -3,6 +3,7 @@ package com.jotangi.nantouparking.config
 import CouponListResponse
 import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
+import com.jotangi.payStation.Model.ApiModel.TicketResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -199,6 +200,11 @@ interface ApiConfig {
         @Query("plate_number") plateNo: String,
         @Query("bill_no") billNo: String
     ): Call<LockBillResponse>
+
+    @GET("api/bills_paid_record.php")
+    fun apiLockBill2(
+        @Query("plateNo") plateNo: String
+    ): Call<TicketResponse>
 
     // 取得景點列表
     @POST("api/store_list1_E.php")

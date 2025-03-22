@@ -224,7 +224,6 @@ var call = false
             call4 = false
         }
         mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckJJ4", result.toString())
             if(call3) {
 //                if (result != null) {
                     call4 = true
@@ -452,6 +451,10 @@ var call = false
                     requireActivity().runOnUiThread {
                         if (findNavController().currentDestination?.id == R.id.parking_license_plate_fragment) {
                             Log.d("NavigationDebug", "1")
+                            requireActivity().runOnUiThread {
+                                binding?.progressBar?.visibility = View.GONE
+                                Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                            }
                             navigateToPaidHistory()
                         } else {
                             Log.d("NavigationDebug", "2")
@@ -676,6 +679,10 @@ var call = false
                             Log.d("micCheckJH", mPlateNo)
                             call2 = true
                         mainViewModel.paid(mPlateNo)
+                            requireActivity().runOnUiThread {
+                                binding?.progressBar?.visibility = View.VISIBLE
+                                Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                            }
                         }
 
                         else -> {
@@ -689,6 +696,10 @@ var call = false
 //                            navigateToPaidHistory()
                             call2 = true
                             mainViewModel.paid(mPlateNo)
+                            requireActivity().runOnUiThread {
+                                binding?.progressBar?.visibility = View.VISIBLE
+                                Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
+                            }
                         }
 
                         else -> {

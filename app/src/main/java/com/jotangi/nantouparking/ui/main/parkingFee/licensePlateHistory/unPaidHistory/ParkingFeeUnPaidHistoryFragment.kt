@@ -35,11 +35,13 @@ class ParkingFeeUnPaidHistoryFragment :
     BaseFragment(),
     ParkingFeeUnPaidClickListener,
     ParkingGarageFeeUnPaidClickListener {
+    private var currentPage = 0
+    private val pageSize = 10
+    private var currentList: List<ParkingRoadFeeUnPaidVO> = listOf()
     private var isAllSelected = false
     private val REQUEST_CODE_BROWSER = 1001
     private var _binding: FragmentParkingFeeUnPaidHistoryBinding? = null
     private val binding get() = _binding
-    private var selectPayData = mutableListOf<ParkingRoadFeeUnPaidVO>()
     private var selectGaragePayData = mutableListOf<ParkingGarageFeeUnPaidVO>()
     private var data = mutableListOf<ParkingRoadFeeUnPaidVO>()
     private var garageData = mutableListOf<ParkingGarageFeeUnPaidVO>()
@@ -57,6 +59,7 @@ class ParkingFeeUnPaidHistoryFragment :
     var call2 = false
     var call3 = false
     companion object {
+        private var selectPayData = mutableListOf<ParkingRoadFeeUnPaidVO>()
         var back = false
     }
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
@@ -83,6 +86,26 @@ class ParkingFeeUnPaidHistoryFragment :
         super.onViewCreated(view, savedInstanceState)
         initTab()
         init()
+        binding?.forwardActive?.setOnClickListener {
+            val totalItems = currentList.size
+            val totalPages = (totalItems + pageSize - 1) / pageSize
+            if (currentPage < totalPages - 1) {
+                currentPage++
+                selectPayData.clear()
+                binding?.selectAll?.isChecked = false
+                updatePagination()
+            }
+        }
+
+        binding?.backActive?.setOnClickListener {
+            if (currentPage > 0) {
+                currentPage--
+                selectPayData.clear()
+                binding?.selectAll?.isChecked = false
+                updatePagination()
+            }
+        }
+
         binding?.toolbarInclude?.toolBackImageButton?.setOnClickListener {
             Log.d("micCheckHG", "HG1")
             findNavController().navigate(R.id.action_to_parking_license_plate_fragment)
@@ -323,11 +346,14 @@ initListener()
                     when (tab?.position) {
                         0 -> {
                             updateRoadListView(nantou)
-
+selectPayData.clear()
+                            binding?.selectAll?.isChecked = false
                             Log.d("TabSelection", "Selected: 南投市")
                         }
                         1 -> {
                             updateRoadListView(canton)
+                            selectPayData.clear()
+                            binding?.selectAll?.isChecked = false
 
                             Log.d("TabSelection", "Selected: 草屯鎮")
                         }
@@ -485,23 +511,62 @@ initListener()
         }
     }
 
+    private fun updatePagination() {
+        val totalItems = currentList.size
+        val totalPages = (totalItems + pageSize - 1) / pageSize
+
+        val startIndex = currentPage * pageSize
+        val endIndex = minOf(startIndex + pageSize, totalItems)
+        val pageItems = currentList.subList(startIndex, endIndex)
+
+        binding?.pageNumber?.text = "${startIndex + 1}-$endIndex 筆(共 $totalItems 筆)"
+        parkingFeeUnPaidAdapter.updateDataSource(pageItems)
+
+        // Handle pagination button visibility
+        binding?.backActive?.visibility = if (currentPage > 0) View.VISIBLE else View.GONE
+        binding?.backInactive?.visibility = if (currentPage > 0) View.GONE else View.VISIBLE
+
+        binding?.forwardActive?.visibility = if (currentPage < totalPages - 1) View.VISIBLE else View.GONE
+        binding?.forwardInactive?.visibility = if (currentPage < totalPages - 1) View.GONE else View.VISIBLE
+        binding?.selectAll?.isChecked = false
+        isAllSelected = false
+    }
+
     private fun updateRoadListView(result: ParkingRoadFeeUnPaidResponse) {
         if (!::parkingFeeUnPaidAdapter.isInitialized) {
             initRecyclerView()
         }
-        if(result.unPaidItems.isNullOrEmpty()) {
-            Toast.makeText(
-                requireActivity(),
-                "目前沒有符合的紀錄唷！",
-                Toast.LENGTH_SHORT
-            ).show()
+
+        if (result.unPaidItems.isNullOrEmpty()) {
+            Toast.makeText(requireActivity(), "目前沒有符合的紀錄唷！", Toast.LENGTH_SHORT).show()
             parkingFeeUnPaidAdapter.updateDataSource(emptyList())
             return
-        } else {
-            data = result.unPaidItems.toMutableList()
-            parkingFeeUnPaidAdapter.updateDataSource(data)
         }
+
+        data = result.unPaidItems.toMutableList()
+        currentList = data
+        currentPage = 0
+        updatePagination()
     }
+
+
+//    private fun updateRoadListView(result: ParkingRoadFeeUnPaidResponse) {
+//        if (!::parkingFeeUnPaidAdapter.isInitialized) {
+//            initRecyclerView()
+//        }
+//        if(result.unPaidItems.isNullOrEmpty()) {
+//            Toast.makeText(
+//                requireActivity(),
+//                "目前沒有符合的紀錄唷！",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            parkingFeeUnPaidAdapter.updateDataSource(emptyList())
+//            return
+//        } else {
+//            data = result.unPaidItems.toMutableList()
+//            parkingFeeUnPaidAdapter.updateDataSource(data)
+//        }
+//    }
 
     private fun updateGarageListView(result: ParkingGarageFeeUnPaidResponse) {
         if (!::parkingGarageFeeUnPaidAdapter.isInitialized) {
@@ -604,32 +669,31 @@ initListener()
     fun initListener() {
 
         binding?.selectAll?.setOnCheckedChangeListener { _, isChecked ->
-            // Update the selection state
-            Log.d("micCheckUU", isChecked.toString())
             isAllSelected = isChecked
+            selectPayData.clear()
+            selectGaragePayData.clear()
 
-            // Add or clear data based on the selection state
-            if (isAllSelected) {
-                Log.d("micCheckUU", "1")
-                selectPayData.clear()
-                selectPayData.addAll(data)
-                Log.d("micCheckUU4",  (selectPayData == null).toString())
-                selectGaragePayData.clear()
-                selectGaragePayData.addAll(garageData)
-            } else {
-                Log.d("micCheckUU", "2")
-                selectPayData.clear()
-                selectGaragePayData.clear()
-            }
-
-            // Select or deselect all items based on the current state
             if (parkingId == "") {
-                parkingFeeUnPaidAdapter?.selectAllItems(isAllSelected)
+                // ROAD MODE
+                val totalItems = currentList.size
+                val startIndex = currentPage * pageSize
+                val endIndex = minOf(startIndex + pageSize, totalItems)
+                val currentPageList = currentList.subList(startIndex, endIndex)
+
+                currentPageList.forEach { it.isSelected = isChecked }
+                if (isChecked) {
+                    selectPayData.addAll(currentPageList)
+                }
+                parkingFeeUnPaidAdapter.updateDataSource(currentList.subList(startIndex, endIndex))
             } else {
-                parkingGarageFeeUnPaidAdapter?.selectAllItems(isAllSelected)
+                // GARAGE MODE (assumes no pagination here, but you can adapt similarly if needed)
+                garageData.forEach { it.isSelected = isChecked }
+                if (isChecked) {
+                    selectGaragePayData.addAll(garageData)
+                }
+                parkingGarageFeeUnPaidAdapter.updateDataSource(garageData)
             }
         }
-
     }
 
     private fun launchUri(uriString: String) {
