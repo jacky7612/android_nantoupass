@@ -224,11 +224,13 @@ var call = false
             call4 = false
         }
         mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
+            Log.d("micCheckNM", result.toString())
             if(call3) {
 //                if (result != null) {
                     call4 = true
                     combinePlateNumberDataList.clear()
                 if(!result.isNullOrEmpty()) {
+
                     combinePlateNumberDataList.addAll(result)
                     updateListView(combinePlateNumberDataList)
                     if (mPlateNo.isNotEmpty()) {
@@ -237,11 +239,11 @@ var call = false
                         }
                     }
                 } else {
-                    Toast.makeText(
-                        requireActivity(),
-                        "目前沒有查詢紀錄唷！",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        requireActivity(),
+//                        "目前沒有查詢紀錄唷！",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                 }
                 Log.d("micCheckMB1", AppUtility.getLoginId(requireContext())!!.toString())
                 Log.d("micCheckMB2", AppUtility.getLoginPassword(requireContext())!!.toString())
@@ -337,6 +339,7 @@ var call = false
                 if (combineRoadUnPaidDataList.isNullOrEmpty()) {
                         Log.d("micCheckZ1", "1")
                         mPlateNo = ""
+                    Log.d("micCheckJJJ", "1")
                         Toast.makeText(
                             requireActivity(),
                             "目前沒有符合的紀錄唷！",
@@ -461,6 +464,7 @@ var call = false
                         }
                     }
                 } else {
+                    Log.d("micCheckJJJ", "2")
                     Toast.makeText(
                         requireActivity(),
                         "目前沒有符合的紀錄唷！",

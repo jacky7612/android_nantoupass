@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/keyboard_double_arrow_right/baseline_keyboard_double_arrow_right_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/arrow_back_ios/baseline_arrow_back_ios_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="447c8c" />
-                            <entry key="outputName" value="baseline_keyboard_double_arrow_right_24" />
+                            <entry key="color" value="a1a0a0" />
+                            <entry key="outputName" value="baseline_arrow_back_ios_24_grey" />
                           </map>
                         </option>
                       </PersistentState>

@@ -86,8 +86,11 @@ class ParkingFeeUnPaidHistoryFragment :
         super.onViewCreated(view, savedInstanceState)
         initTab()
         init()
+        binding?.pageContainer?.visibility = View.GONE
         binding?.forwardActive?.setOnClickListener {
             val totalItems = currentList.size
+           currentList.forEach { it.isSelected = false }
+
             val totalPages = (totalItems + pageSize - 1) / pageSize
             if (currentPage < totalPages - 1) {
                 currentPage++
@@ -102,6 +105,7 @@ class ParkingFeeUnPaidHistoryFragment :
                 currentPage--
                 selectPayData.clear()
                 binding?.selectAll?.isChecked = false
+                currentList.forEach { it.isSelected = false }
                 updatePagination()
             }
         }
@@ -173,6 +177,7 @@ initListener()
                         binding?.progressBar?.visibility = View.GONE
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
+                    Log.d("micCheckPOP", "1")
                     Toast.makeText(
                         requireActivity(),
                         "目前沒有符合的紀錄唷！",
@@ -290,6 +295,8 @@ initListener()
                             binding?.progressBar?.visibility = View.GONE
                             Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                         }
+                        Log.d("micCheckPOP", "2")
+
                         Toast.makeText(
                             requireActivity(),
                             "目前沒有符合的紀錄唷！",
@@ -462,7 +469,8 @@ selectPayData.clear()
             }
         }
         payData = vo
-        parkingFeeUnPaidAdapter.updateDataSource(data)
+        updatePagination()
+//        parkingFeeUnPaidAdapter.updateDataSource(data)
     }
 
     override fun onParkingGarageFeeUnPaidItemClick(
@@ -533,6 +541,8 @@ selectPayData.clear()
     }
 
     private fun updateRoadListView(result: ParkingRoadFeeUnPaidResponse) {
+        binding?.pageContainer?.visibility = View.VISIBLE
+
         if (!::parkingFeeUnPaidAdapter.isInitialized) {
             initRecyclerView()
         }
