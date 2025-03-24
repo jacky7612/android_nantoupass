@@ -461,12 +461,12 @@ selectPayData.clear()
 //        }
         if (isChecked) {
             data[position].isSelected = true
-            selectPayData.add(data[position])
+            if (!selectPayData.any { it.billNo == vo.billNo }) {
+                selectPayData.add(vo)
+            }
         } else {
             data[position].isSelected = false
-            if (selectPayData.contains(data[position])) {
-                selectPayData.remove(data[position])
-            }
+            selectPayData.removeAll { it.billNo == vo.billNo }
         }
         payData = vo
         updatePagination()
