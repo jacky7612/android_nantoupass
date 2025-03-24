@@ -70,12 +70,12 @@ class ParkingHistoryPlatePaidFragment :
         return binding?.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 Log.d("micCheckCC", "CC")
         init()
         initPaidListRecyclerView()
-
         initObserver()
         initRecyclerView()
         binding.parkingPlatePaidRecyclerView.visibility = View.GONE
@@ -85,7 +85,8 @@ Log.d("micCheckCC", "CC")
 
     override fun onResume() {
         super.onResume()
-        binding.parkingPlatePaidRecyclerView.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+        binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
 
     }
 
@@ -151,13 +152,14 @@ Log.d("micCheckCC", "CC")
 //        initObserver(
         initView()
 //        initData()
-        if (plateNo == "") {
             plateNo = arguments?.getString("plateNo").toString() ?: ""
-        }
+
         requireActivity().runOnUiThread {
-            binding?.progressBar?.visibility = View.VISIBLE
+            binding.progressBar.bringToFront()
+            binding.progressBar.visibility = View.VISIBLE
             Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
         }
+
         mainViewModel.fetchPaidData(plateNo)
         initAction()
     }
@@ -186,7 +188,6 @@ Log.d("micCheckCC", "CC")
         }
     }
     mainViewModel.navigateToPaidHistory2.observe(viewLifecycleOwner) { result ->
-        Log.d("micCheckMBM", result.toString())
 
         if (result?.data.isNullOrEmpty()) {
             binding.apply {
@@ -245,41 +246,38 @@ Log.d("micCheckCC", "CC")
 }
 
     private fun updateGovListView(result: List<DataGovParkingFeePaidVO>) {
-        list = ArrayList()
+        val newList = if (result.size > 1) result.drop(1) else emptyList()
 
-        // ✅ 移除第一筆資料，只加入第 1 筆（index 1）以後的資料
-        if (result.size > 1) {
-            for (i in 1 until result.size) {
-                val curData = result[i]
-                val item = DataGovParkingFeePaidVO(
-                    ticket = curData.ticket,
-                    area = curData.area,
-                    parkDate = curData.parkDate,
-                    payAmount = curData.payAmount,
-                    payDate = curData.payDate,
-                    paySource = curData.paySource
-                )
-                list.add(item)
-            }
+        // ✅ Compare with previous list
+        if (ParkingLicensePlateHistoryFragment.previousList == newList) {
+            Log.d("micCheckGovList", "Gov list is same as previous — not updating UI")
+            binding.parkingPlatePaidRecyclerView.visibility = View.GONE
+            binding.parkingPlatePaidDefaultTitleTextView.visibility = View.VISIBLE
+            return
         }
 
-        govlistAdapter = GovpaidfeeAdapter(list)
+        // ✅ Save deep copy to prevent accidental mutation later
+        ParkingLicensePlateHistoryFragment.previousList = newList.map { it.copy() }
+        Log.d("micCheckGovList", "Gov list changed — updating UI")
 
-        binding.parkingPlatePaidRecyclerView.apply {
-            layoutManager = GridLayoutManager(
-                requireContext(),
-                1,
-                LinearLayoutManager.VERTICAL,
-                false
+        if (govlistAdapter == null) {
+            govlistAdapter = GovpaidfeeAdapter(newList.toMutableList())
+            binding.parkingPlatePaidRecyclerView.layoutManager = GridLayoutManager(
+                requireContext(), 1, LinearLayoutManager.VERTICAL, false
             )
-            adapter = govlistAdapter
-            visibility = View.VISIBLE
+            binding.parkingPlatePaidRecyclerView.adapter = govlistAdapter
+        } else {
+            govlistAdapter?.updateDataSource(newList)
         }
+
+        binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
+        binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
 
         govlistAdapter?.itemClick = {
-            // 點擊事件處理區
+            // Handle item click
         }
     }
+
 
 
 
@@ -359,6 +357,8 @@ Log.d("micCheckCC", "CC")
 //        )
     }
 
+
+
     @SuppressLint("ClickableViewAccessibility")
     private fun initAction() {
         binding.apply {
@@ -371,7 +371,7 @@ Log.d("micCheckCC", "CC")
                 parkingCurPage2 = PARKING_TYPE_ROAD
                 binding.parkingGarageRecyclerView.visibility = View.GONE
                 updateTabView()
-                initData()
+//                initData()
                 binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
             }
 
@@ -410,42 +410,55 @@ Log.d("micCheckCC", "CC")
     }
 
     private fun initGovListRecyclerView() {
-        list = ArrayList()
-        Log.d("micCheckJ", data.size.toString())
-        if (data.size > 0) {
+        val newList = mutableListOf<DataGovParkingFeePaidVO>()
+
+        if (data.size > 1) {
             for (i in 1 until data.size) {
-                var curData =data!![i]
-
-                var item = DataGovParkingFeePaidVO(
-                    curData.ticket,
-                    curData.area,
-                    curData.parkDate,
-                    curData.payAmount,
-                    curData.payDate,
-                    curData.paySource
+                val curData = data[i]
+                val item = DataGovParkingFeePaidVO(
+                    ticket = curData.ticket,
+                    area = curData.area,
+                    parkDate = curData.parkDate,
+                    payAmount = curData.payAmount,
+                    payDate = curData.payDate,
+                    paySource = curData.paySource
                 )
-                list.add(item)
+                newList.add(item)
             }
         }
-        govlistAdapter = GovpaidfeeAdapter(list)
 
-        binding.parkingPlatePaidRecyclerView.apply {
-            layoutManager = GridLayoutManager(
-                requireContext(),
-                1,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
-            adapter =govlistAdapter
+        // 🔁 Skip if data is same as previous (deep equals)
+        if (ParkingLicensePlateHistoryFragment.previousList == newList) {
+            Log.d("micCheckGovList", "Gov list is same as previous — skipping update")
+            binding.parkingPlatePaidRecyclerView.visibility = View.GONE
+            binding.parkingPlatePaidDefaultTitleTextView.visibility = View.VISIBLE
+            return
         }
 
-        if (govlistAdapter != null) {
-            binding.apply {
-                govlistAdapter!!.itemClick = {
-                }
+        // ✅ Update and save new list
+        ParkingLicensePlateHistoryFragment.previousList = newList.map { it.copy() } // deep copy to prevent future mutation
+        Log.d("micCheckGovList", "Gov list updated: $newList")
+
+        if (govlistAdapter == null) {
+            govlistAdapter = GovpaidfeeAdapter(newList.toMutableList())
+            binding.parkingPlatePaidRecyclerView.apply {
+                layoutManager = GridLayoutManager(
+                    requireContext(),
+                    1,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                adapter = govlistAdapter
             }
+        } else {
+            govlistAdapter?.updateDataSource(newList)
         }
+
+        binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
+        binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
     }
+
+
 
     override fun onParkingGarageItemClick(garageData: ParkingGarageVO) {
         var mPId = garageData.parkingGarageId

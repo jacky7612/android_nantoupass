@@ -50,5 +50,11 @@ class GovpaidfeeAdapter(private val list: MutableList<DataGovParkingFeePaidVO>) 
         }
     }
 
+    fun updateDataSource(newData: List<DataGovParkingFeePaidVO>) {
+        list.clear()
+        list.addAll(newData)
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount() = list.size
 }

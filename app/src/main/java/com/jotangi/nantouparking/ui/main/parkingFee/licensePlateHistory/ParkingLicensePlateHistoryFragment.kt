@@ -31,6 +31,7 @@ import com.jotangi.nantouparking.ui.BaseFragment
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment
 import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.payStation.Model.ApiModel.ApiEntry
+import com.jotangi.payStation.Model.ApiModel.DataGovParkingFeePaidVO
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -57,6 +58,7 @@ class ParkingLicensePlateHistoryFragment :
     var combineRoadUnPaidDataList:MutableList<ParkingRoadFeeUnPaidVO> = mutableListOf()
     var combinePlateNumberDataList:MutableList<PlateNumberVO> = mutableListOf()
     companion object {
+        var previousList: List<DataGovParkingFeePaidVO>? = null
         var parkingCurPage = "1"
         var parkingName = ""
     }
@@ -200,7 +202,6 @@ var call = false
     private fun initObserver() {
 
         mainViewModel.plateNumberDataCanton.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckJJ", result.toString())
             if(call4) {
                 if(result == null) {
                     combinePlateNumberDataList.addAll(emptyList())
@@ -208,10 +209,7 @@ var call = false
                 } else {
                     combinePlateNumberDataList.addAll(result)
                 }
-                    Log.d("micCheckJJ2", combinePlateNumberDataList.toString())
-
                     combinePlateNumberDataList = combinePlateNumberDataList.distinctBy { it.plateNo }.toMutableList()
-                    Log.d("micCheckMB2", combinePlateNumberDataList.toString())
                     updateListView(combinePlateNumberDataList)
 
                     if (mPlateNo.isNotEmpty()) {
@@ -224,7 +222,6 @@ var call = false
             call4 = false
         }
         mainViewModel.plateNumberData.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckNM", result.toString())
             if(call3) {
 //                if (result != null) {
                     call4 = true
@@ -245,8 +242,6 @@ var call = false
 //                        Toast.LENGTH_SHORT
 //                    ).show()
                 }
-                Log.d("micCheckMB1", AppUtility.getLoginId(requireContext())!!.toString())
-                Log.d("micCheckMB2", AppUtility.getLoginPassword(requireContext())!!.toString())
 
 //                mainViewModel.getPlateNumberCanton(
 //                        requireContext(),
@@ -267,7 +262,6 @@ var call = false
         }
 
         mainViewModel.addPlateNoData.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckZ", "2")
             mainViewModel.clearPlateNoList()
             call3 = true
             call = true
@@ -301,7 +295,6 @@ var call = false
                 if(!result.unPaidItems.isNullOrEmpty()) {
                     combineRoadUnPaidDataList.addAll(result.unPaidItems)
                 }
-                Log.d("micCheckMB3", combineRoadUnPaidDataList.toString())
                 if (!mPlateNo.isNullOrEmpty()) {
                 call5 = true
                 mainViewModel.getParkingRoadFeeUnPaidListCanton1(
@@ -334,7 +327,6 @@ var call = false
                 if(!result.unPaidItems.isNullOrEmpty()) {
                     combineRoadUnPaidDataList.addAll(result.unPaidItems)
                 }
-                Log.d("micCheckMB4", combineRoadUnPaidDataList.toString())
 
                 if (combineRoadUnPaidDataList.isNullOrEmpty()) {
                         Log.d("micCheckZ1", "1")
@@ -370,7 +362,6 @@ var call = false
         }
 
         mainViewModel.parkingGarageFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckZ", "4")
             if(call) {
                 if (result != null && mainViewModel.hasData) {
                     if (result.unPaidItems.isNullOrEmpty()) {

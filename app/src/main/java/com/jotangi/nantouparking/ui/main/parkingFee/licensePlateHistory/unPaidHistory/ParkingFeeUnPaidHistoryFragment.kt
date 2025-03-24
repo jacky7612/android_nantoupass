@@ -536,8 +536,8 @@ selectPayData.clear()
 
         binding?.forwardActive?.visibility = if (currentPage < totalPages - 1) View.VISIBLE else View.GONE
         binding?.forwardInactive?.visibility = if (currentPage < totalPages - 1) View.GONE else View.VISIBLE
-        binding?.selectAll?.isChecked = false
-        isAllSelected = false
+//        binding?.selectAll?.isChecked = false
+//        isAllSelected = false
     }
 
     private fun updateRoadListView(result: ParkingRoadFeeUnPaidResponse) {
