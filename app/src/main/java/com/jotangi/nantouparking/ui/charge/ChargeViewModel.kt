@@ -213,7 +213,7 @@ class ChargeViewModel: ViewModel() {
         skip_docs       : String ="0",
         longitude       : String ="120.820776399519",
         latitude        : String ="24.5639391939057",
-        query           : String ="新竹縣竹東鎮信義路189號"
+        query           : String =""
     ) {
         val call: Call<NearStationResponse> = ApiChargeUtility.service.apiGetNearStation(
             member_id,

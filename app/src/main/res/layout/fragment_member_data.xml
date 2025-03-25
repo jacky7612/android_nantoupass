@@ -221,7 +221,7 @@
             android:background="@drawable/round_gray_empty"
             android:focusableInTouchMode="true"
             android:hint="ex:1234"
-            android:inputType="textCapCharacters"
+            android:inputType="text"
             android:padding="5dp"
             android:singleLine="true"
             android:textAllCaps="true"

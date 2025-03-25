@@ -361,7 +361,7 @@ class SignupFragment : BaseFragment() {
             }
 
 // Apply the filter
-            signupVehicleContentEditText.filters = arrayOf(filter)
+            signupVehicleContentEditText.filters = arrayOf()
 
 // Automatically convert to uppercase
             signupVehicleContentEditText.addTextChangedListener(object : TextWatcher {
