@@ -38,7 +38,7 @@ class ChargingFragment : BaseWithBottomBarFragment() {
     override fun getToolBarFeet(): ToolbarFeetBinding = binding!!.toolbarFeet
 
     private var myThread: Thread?   =null
-    private val MAX_SEC             =30
+    private val MAX_SEC             =5
     private var iIdx                =0
     private var paused              =false
     private var running             =true
@@ -249,8 +249,8 @@ class ChargingFragment : BaseWithBottomBarFragment() {
                 if (result.status == "true") {
                     binding?.apply {
                         tvChargeTime.text   =result.data[0].charge_time
-                        tvDeviceId.text     ="充電設備序號 :${result.data[0].charge_point_id} kWh"
-                        tvKwh.text          =result.data[0].kwh_total
+                        tvDeviceId.text     ="充電設備序號 :${result.data[0].charge_point_id}"
+                        tvKwh.text          ="${result.data[0].kwh_total} kWh"
                         tvStationName.text  =result.data[0].station_name
                         tvStatus.text       ="充電中"
                         tvTime.text         =ConvertText.getFormattedDate("", "yyyy-MM-dd HH:mm:ss")

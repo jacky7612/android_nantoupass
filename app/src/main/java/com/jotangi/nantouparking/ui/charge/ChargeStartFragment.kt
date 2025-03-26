@@ -121,7 +121,7 @@ class ChargeStartFragment : BaseFragment() {
 //            }
             btStart.setOnClickListener {
                 btStart.isEnabled =false
-                showCustomYesNoDialog(requireContext(), "按下確認後，充電槍即開始通電，並開始計算", -1)
+                showCustomYesNoDialog(requireContext(), "請先插入充電槍\n按下確認後，充電槍即開始通電，並開始計算", -1)
             }
         }
     }

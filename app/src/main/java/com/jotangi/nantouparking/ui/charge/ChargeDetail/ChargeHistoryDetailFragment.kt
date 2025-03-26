@@ -117,7 +117,7 @@ class ChargeHistoryDetailFragment : BaseFragment() {
             tvTime.text                 =data.start_time
             tvAmount.text               =data.price
             if (data.pay_status != null) {
-                tvStatus.text = if (data.pay_status.contains("付款成功")) "已付款" else "待付款"
+                tvStatus.text = if (data.pay_status.contains("付款成功") || data.pay_status == "1") "已付款" else "待付款"
             }
             if (data.price.toFloat().toInt() == 0) {
                 tvStatus.text ="無需付款"
