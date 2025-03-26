@@ -99,8 +99,8 @@ class ChargeStartFragment : BaseFragment() {
                                 showCustomDialog(requireContext(), "操作逾時，請重新啟動")
                             } else {
                                 if (mMessageTextView != null) {
-//                                    mMessageTextView?.text = "充電啟動中 $s"
-                                    mMessageTextView?.text = "充電啟動中 [$status_code] $s"
+                                    mMessageTextView?.text = "充電啟動中 $s"
+//                                    mMessageTextView?.text = "充電啟動中 [$status_code] $s"
                                 }
                             }
                         }
