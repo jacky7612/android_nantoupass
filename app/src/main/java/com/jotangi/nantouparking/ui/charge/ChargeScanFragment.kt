@@ -97,7 +97,7 @@ class ChargeScanFragment : BaseFragment() {
             override fun barcodeResult(result: BarcodeResult) {
                 result.text?.let { barcode ->
                     Log.i("BarcodeScannerFragment", "Scanned Barcode: $barcode")
-                    // Handle the scanned barcode result here
+                    // Handle the scanned barcode result here ID=67c7fa76bbe467b2621bfabd&port=1
                     myQRcode = barcode
                     Glob.curChargeInfo?.QRCode = myQRcode
                     myGunNum = "1"

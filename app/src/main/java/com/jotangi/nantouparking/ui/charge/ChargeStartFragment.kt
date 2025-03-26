@@ -32,6 +32,7 @@ private const val ARG_PARAM2 = "param2"
 class ChargeStartFragment : BaseFragment() {
     private var _binding: FragmentChargeStartBinding? = null
     private val binding get() = _binding
+    private var status_code:String = ""
 
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
 //    override fun getToolBarFeet(): ToolbarFeetBinding = binding!!.toolbarFeet
@@ -98,7 +99,8 @@ class ChargeStartFragment : BaseFragment() {
                                 showCustomDialog(requireContext(), "操作逾時，請重新啟動")
                             } else {
                                 if (mMessageTextView != null) {
-                                    mMessageTextView?.text = "充電啟動中 $s"
+//                                    mMessageTextView?.text = "充電啟動中 $s"
+                                    mMessageTextView?.text = "充電啟動中 [$status_code] $s"
                                 }
                             }
                         }
@@ -194,6 +196,7 @@ class ChargeStartFragment : BaseFragment() {
 
         chargeViewModel.chargeCheck.observe(viewLifecycleOwner) { result ->
             if (result != null) {
+                if (!result.code.isNullOrEmpty()) this.status_code =result.code
                 if (result.status == "true") {
 
                 } else {
