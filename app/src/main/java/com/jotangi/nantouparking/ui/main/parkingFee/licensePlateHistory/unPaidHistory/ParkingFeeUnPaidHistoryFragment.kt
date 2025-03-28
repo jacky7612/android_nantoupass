@@ -53,8 +53,10 @@ class ParkingFeeUnPaidHistoryFragment :
     private var parkingId: String = ""
     private var parkingName: String = ""
     private var parkingAddress: String = ""
-    lateinit var nantou: ParkingRoadFeeUnPaidResponse
-    lateinit var canton: ParkingRoadFeeUnPaidResponse
+    private  var canton: ParkingRoadFeeUnPaidResponse? = null
+    private  var nantou: ParkingRoadFeeUnPaidResponse? = null
+
+
     var call = false
     var call2 = false
     var call3 = false
@@ -145,34 +147,34 @@ initListener()
     private fun initObserver() {
         mainViewModel.parkingRoadFeeUnPaidDataCanton.observe(viewLifecycleOwner) { result ->
             if (call3) {
-                var convert = ParkingRoadFeeUnPaidResponse(
-                    unPaidItems = result.unPaidItems.map { vo2 ->
+                val convert = ParkingRoadFeeUnPaidResponse(
+                    unPaidItems = result?.unPaidItems?.map { vo2 ->
                         ParkingRoadFeeUnPaidVO(
-                            billNo = vo2.order_no,  // Mapping order_no to billNo
-                            billPlateNo = "",  // No equivalent in VO2, setting as empty string
-                            billStartTime = vo2.enterTime,  // Mapping parkTime
-                            billLeaveTime = vo2.exitTime,  // Mapping exitTime
-                            billAmount = vo2.amount,  // Mapping amount
-                            billRoad = vo2.road,  // Mapping road
-                            billCell = vo2.cell,  // Mapping cell
-                            billImagePath = vo2.enteredImage,  // Mapping enteredImage
-                            billSearchTime = vo2.searchTime,  // Mapping searchTime
-                            isSelected = vo2.isSelected,  // Copy selection state
-                            isLocked = vo2.isLocked,  // Copy lock state
-                            lockDueTime = vo2.lockDueTime // Copy lock due time
+                            billNo = vo2.order_no,
+                            billPlateNo = "",
+                            billStartTime = vo2.enterTime,
+                            billLeaveTime = vo2.exitTime,
+                            billAmount = vo2.amount,
+                            billRoad = vo2.road,
+                            billCell = vo2.cell,
+                            billImagePath = vo2.enteredImage,
+                            billSearchTime = vo2.searchTime,
+                            isSelected = vo2.isSelected,
+                            isLocked = vo2.isLocked,
+                            lockDueTime = vo2.lockDueTime
                         )
-                    },
-                    responseMessage = result.responseMessage // Mapping responseMessage
+                    } ?: emptyList(), // <-- safe
+                    responseMessage = result?.responseMessage ?: "" // <-- safe
                 )
+
+
                 Log.d("micCheckLJL", result.toString())
-                if (::canton.isInitialized) {  // Check if nantou is initialized
-                    canton= convert // Assign the result
-                } else {
+
                     canton = convert // Initialize nantou for the first time
-                }
+
                 Log.d("micCheckYOU", canton.toString())
 
-                if(nantou.unPaidItems.isNullOrEmpty() && canton.unPaidItems.isNullOrEmpty()) {
+                if(nantou?.unPaidItems.isNullOrEmpty() && canton?.unPaidItems.isNullOrEmpty()) {
                     requireActivity().runOnUiThread {
                         binding?.progressBar?.visibility = View.GONE
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
@@ -187,8 +189,9 @@ initListener()
                         selectTab(getTabAt(0))
                     }
                     Log.d("micCheckMB", "1")
-                } else if (nantou.unPaidItems.isNullOrEmpty() && !canton.unPaidItems.isNullOrEmpty()) {
-                    updateRoadListView(canton)
+                } else if (nantou?.unPaidItems.isNullOrEmpty() && !canton?.unPaidItems.isNullOrEmpty()) {
+                    canton?.let { updateRoadListView(it) }
+
                     binding?.tabLayout?.apply {
                         selectTab(getTabAt(1))
                     }
@@ -197,8 +200,8 @@ initListener()
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
                     Log.d("micCheckMB", "2")
-                } else if (!nantou.unPaidItems.isNullOrEmpty() && canton.unPaidItems.isNullOrEmpty()) {
-                    updateRoadListView(nantou)
+                } else if (!nantou?.unPaidItems.isNullOrEmpty() && canton?.unPaidItems.isNullOrEmpty()) {
+                    nantou?.let { updateRoadListView(it) }
                     binding?.tabLayout?.apply {
                         selectTab(getTabAt(0))
                     }
@@ -207,8 +210,8 @@ initListener()
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
                     Log.d("micCheckMB", "3")
-                } else if (!nantou.unPaidItems.isNullOrEmpty() && !canton.unPaidItems.isNullOrEmpty()) {
-                    updateRoadListView(nantou)
+                } else if (!nantou?.unPaidItems.isNullOrEmpty() && !canton?.unPaidItems.isNullOrEmpty()) {
+                    nantou?.let { updateRoadListView(it) }
                     binding?.tabLayout?.apply {
                         selectTab(getTabAt(0))
                     }
@@ -246,11 +249,9 @@ initListener()
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
            if(call) {
                call3 = true
-               if (::nantou.isInitialized) {  // Check if nantou is initialized
-                   nantou = result // Assign the result
-               } else {
+
                    nantou = result // Initialize nantou for the first time
-               }
+
                mainViewModel.getParkingRoadFeeUnPaidListCanton(
                    requireContext(),
                    plateNo
@@ -331,7 +332,7 @@ initListener()
 
     private fun initBundle() {
         if (plateNo == "") {
-            plateNo = arguments?.getString("plateNo").toString()
+            plateNo = arguments?.getString("plateNo").toString() ?: ""
         }
 
         if (parkingId == "") {
@@ -345,36 +346,58 @@ initListener()
         val tabLayout = view?.findViewById<TabLayout>(R.id.tabLayout)
 
         tabLayout?.apply {
-            addTab(newTab().setText("南投市")) // Road
-            addTab(newTab().setText("草屯鎮")) // Parking
+            addTab(newTab().setText("南投市")) // Nantou City
+            addTab(newTab().setText("草屯鎮")) // Caotun Township
 
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     when (tab?.position) {
                         0 -> {
-                            updateRoadListView(nantou)
-selectPayData.clear()
+                            if (nantou != null) {
+                                nantou?.let { updateRoadListView(it) }
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "南投市資料尚未載入",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            selectPayData.clear()
                             binding?.selectAll?.isChecked = false
                             Log.d("TabSelection", "Selected: 南投市")
                         }
                         1 -> {
-                            updateRoadListView(canton)
+                            if (canton != null) {
+                                canton?.let { updateRoadListView(it) }
+
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "草屯鎮資料尚未載入",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                             selectPayData.clear()
                             binding?.selectAll?.isChecked = false
-
                             Log.d("TabSelection", "Selected: 草屯鎮")
                         }
                     }
                 }
 
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    // Optional: Handle tab unselected state if needed
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    // Optional: Handle tab reselected state if needed
+                }
             })
 
             // Set default selected tab
             getTabAt(0)?.select()
         }
     }
+
 
     private fun initData() {
         Log.d("micCheckHG", (parkingId.equals("")).toString())
