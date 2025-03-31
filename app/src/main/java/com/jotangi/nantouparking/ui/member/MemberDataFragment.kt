@@ -156,23 +156,28 @@ class MemberDataFragment : BaseFragment() {
     }
 
     private fun updateViewData(result: List<MemberInfoVO>) {
-        if (result.size == 0) {
-
+        val member = result.firstOrNull() ?: run {
+            Log.e("micCheckZ", "Result list is empty or null")
             return
         }
-        binding?.apply {
-            memberDataNameContentEditText.setText(result[0].memberName)
-//            memberDataEmailContentTextInputEditText.setText(result[0].memberEmail)
-            memberDataPhoneContentEditText.setText(result[0].memberId)
-            val parts = result[0].memberPlate!!.split("-")
 
-            if (parts.size > 1) {
-                plateTextEditText.setText(parts[0])
-                plateNumberEditText.setText(parts[1])
+        binding?.apply {
+            memberDataNameContentEditText.setText(member.memberName ?: "")
+            memberDataPhoneContentEditText.setText(member.memberId ?: "")
+
+            member.memberPlate?.let {
+                val parts = it.split("-")
+                if (parts.size == 2) {
+                    plateTextEditText.setText(parts[0])
+                    plateNumberEditText.setText(parts[1])
+                } else {
+                    Log.w("micCheckZ", "Invalid plate format: $it")
+                }
             }
-memberDataEmailContentEditText.setText(result[0].memberEmail)
-            Log.d("micCheckZ",result[0].memberCarrier )
-            vehicleEditText.setText(result[0].memberCarrier)
+
+            memberDataEmailContentEditText.setText(member.memberEmail ?: "")
+            Log.d("micCheckZ", member.memberCarrier ?: "carrier is null")
+            vehicleEditText.setText(member.memberCarrier ?: "")
         }
     }
 
