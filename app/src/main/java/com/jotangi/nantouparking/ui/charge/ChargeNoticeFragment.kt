@@ -77,7 +77,9 @@ var call = false
     private fun initObserver() {
         mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
             if(call) {
-                Log.d("micCheck11", result.toString())
+                Log.d("micCheck11", (result.firstOrNull()?.verifyStatus == null).toString())
+                Log.d("micCheck11", (result.firstOrNull()?.verifyStatus).toString())
+
                 if (result != null) {
                     if (result.firstOrNull()?.verifyStatus == null) {
                         Toast.makeText(requireContext(), "獲取會員資料失敗", Toast.LENGTH_SHORT)

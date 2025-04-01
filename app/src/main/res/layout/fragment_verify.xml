@@ -165,18 +165,36 @@
             android:padding="10dp"
             android:inputType="number"
             android:textSize="16sp" />
-
+    <LinearLayout
+        android:layout_gravity="end"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <TextView
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="5dp"
             android:layout_gravity="end"
             android:textStyle="bold"
             android:id="@+id/textResendOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="沒有收到驗證碼？重新傳送"
+            android:text="沒有收到驗證碼？"
             android:textSize="14sp"
             android:textColor="#507C9F" />
+        <TextView
+            android:layout_marginRight="20dp"
+            android:layout_gravity="end"
+            android:textStyle="bold"
+            android:id="@+id/textResendOption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="重新傳送"
+
+            android:textSize="14sp"
+            android:textColor="#507C9F" />
+    </LinearLayout>
 
         <!-- Buttons -->
         <LinearLayout

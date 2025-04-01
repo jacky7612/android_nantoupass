@@ -54,8 +54,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="12" />
+                            <option name="y" value="368" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -102,6 +102,11 @@
                               </value>
                             </entry>
                             <entry key="action_chargeNoticeFragment2_to_mapChargeParkingFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_chargeNoticeFragment2_to_verifyFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -744,18 +749,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="parkingAgreementFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="12" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="parking_history_paid_detail_fragment">
                     <value>
                       <LayoutPositions>
@@ -831,6 +824,20 @@
                             <option name="y" value="1728" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_to_main_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_to_parking_license_plate_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -857,6 +864,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_parking_license_plate_fragment_to_main_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_to_parking_history_plate_paid">
                               <value>
                                 <LayoutPositions />
@@ -1056,6 +1068,32 @@
                             <option name="x" value="988" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="verifyFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_chargeHistoryDetailFragment_to_chargeEntryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_chargeHistoryDetailFragment_to_main_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
