@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Title -->
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="初次使用充電服務請綁定會員車號及手機號碼"
+            android:textColor="#507C9F"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:paddingBottom="24dp" />
+
+        <!-- 車牌號碼 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="請輸入車牌號碼"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp">
+
+            <EditText
+                android:id="@+id/editTextPlateAlpha"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="0.8"
+                android:background="@drawable/bg_rounded_input"
+                android:hint="ABC"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_weight="0.2"
+                android:layout_width="25dp"
+                android:layout_height="58dp"
+                android:gravity="center"
+                android:text="—"
+                android:textSize="28sp"
+                android:textColor="@color/charge_blue_color" />
+
+            <EditText
+                android:id="@+id/editTextPlateNumber"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="0.8"
+                android:background="@drawable/bg_rounded_input"
+                android:hint="1234"
+                android:padding="10dp"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="會員手機號碼"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+           <TextView
+               android:layout_marginLeft="15dp"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="若欲使用新的手機號碼, 請重新註冊"
+               android:textStyle="bold"
+               android:textColor="@color/charge_blue_color" />
+       </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="18dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/textPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0912345678"
+                android:textSize="16sp"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/textResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="驗證碼已傳送"
+                android:textSize="14sp"
+                android:textColor="#507C9F" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 驗證碼 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="輸入驗證碼"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <EditText
+            android:id="@+id/editTextVerification"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_rounded_input"
+            android:hint="請輸入驗證碼"
+            android:padding="10dp"
+            android:inputType="number"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_gravity="end"
+            android:textStyle="bold"
+            android:id="@+id/textResendOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="沒有收到驗證碼？重新傳送"
+            android:textSize="14sp"
+            android:textColor="#507C9F" />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+            android:weightSum="2">
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="取消"
+                android:background="@drawable/bg_rounded_button_gray"
+                android:backgroundTint="#C0C0C0"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/btnVerify"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="驗證"
+                android:background="@drawable/bg_rounded_button_primary"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

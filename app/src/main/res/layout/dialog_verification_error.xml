@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_rounded"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/textDialogMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="驗證碼輸入錯誤\n請重新進行驗證"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="24dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/buttonDialogConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="確定"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#007BFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>
