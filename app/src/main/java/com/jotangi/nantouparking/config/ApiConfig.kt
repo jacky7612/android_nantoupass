@@ -30,7 +30,12 @@ interface ApiConfig {
         const val API_CODE_NOT_FOUND = "404"
         const val PAYMENT_URL = "pay_bill_E.php"
     }
-
+    @POST("api/sendsms.php")
+    @FormUrlEncoded
+    fun sendVerify(
+        @Field("member_id") memberId: String,
+        @Field("code") code: String,
+    ): Call<LoginResponse>
     // 登入
     @POST("api/user_login.php")
     @FormUrlEncoded
@@ -58,7 +63,8 @@ interface ApiConfig {
         @Field("member_id") memberId: String,
         @Field("member_plateNo") memberPlateNo: String,
         @Field("member_pwd") memberPwd: String,
-        @Field(" member_carrier")  memberCarrier: String
+        @Field(" member_carrier")  memberCarrier: String,
+        @Field("verify_status")  verifyStatus: String
 
     ): Call<MemberInfoEditResponse>
 

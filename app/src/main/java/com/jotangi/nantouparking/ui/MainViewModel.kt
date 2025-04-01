@@ -357,6 +357,47 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    fun sendVerify(
+        context: Context,
+        memberId: String,
+        code: String,
+
+    ) {
+        val call: Call<LoginResponse> = ApiUtility.service.sendVerify(
+            memberId,
+           code
+        )
+        call.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(
+                call: Call<LoginResponse>,
+                response: Response<LoginResponse>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                        _loginData.value = response.body()
+
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        "獲取驗證碼失敗"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    ApiUtility.apiFailureMessage(call, t)
+                )
+            }
+        })
+    }
+
     fun getMemberInfo(
         context: Context,
         memberId: String,
@@ -546,7 +587,8 @@ class MainViewModel : ViewModel() {
         memberId: String,
         memberPlateNo: String,
         memberPassword: String,
-        memberCarrier: String
+        memberCarrier: String,
+        verifyStatus: String
     ) {
         val call: Call<MemberInfoEditResponse> = ApiUtility.service.apiEditMemberInfo(
             memberName,
@@ -554,7 +596,8 @@ class MainViewModel : ViewModel() {
             memberId,
             memberPlateNo,
             memberPassword,
-            memberCarrier
+            memberCarrier,
+            verifyStatus
         )
         call.enqueue(object : Callback<MemberInfoEditResponse> {
             override fun onResponse(

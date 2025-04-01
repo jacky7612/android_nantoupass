@@ -276,6 +276,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupVerifyTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "手機驗證"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
     fun setupMemberTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = getString(R.string.member_title)

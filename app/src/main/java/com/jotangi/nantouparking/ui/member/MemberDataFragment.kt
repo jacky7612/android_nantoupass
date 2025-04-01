@@ -23,6 +23,7 @@ class MemberDataFragment : BaseFragment() {
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private var isEdit = false
     private var mPlateNo: String = ""
+    var verifyStatus = "0"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +57,7 @@ class MemberDataFragment : BaseFragment() {
     private fun initObserver() {
         mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
+                verifyStatus = result.firstOrNull()?.verifyStatus ?: "0"
                 Log.d("micCheckAQ", result.toString())
                 updateViewData(result)
             }
@@ -150,7 +152,8 @@ class MemberDataFragment : BaseFragment() {
                 memberDataPhoneContentEditText?.text.toString(),
                 mPlateNo,
                 AppUtility.getLoginPassword(requireContext())!!,
-                vehicleEditText.text.toString()
+                vehicleEditText.text.toString(),
+                verifyStatus
             )
         }
     }

@@ -55,7 +55,7 @@ class ParkingFeeUnPaidHistoryFragment :
     private var parkingAddress: String = ""
     private  var canton: ParkingRoadFeeUnPaidResponse? = null
     private  var nantou: ParkingRoadFeeUnPaidResponse? = null
-
+var current = ""
 
     var call = false
     var call2 = false
@@ -88,6 +88,7 @@ class ParkingFeeUnPaidHistoryFragment :
         super.onViewCreated(view, savedInstanceState)
         initTab()
         init()
+        current = "南投市"
         binding?.pageContainer?.visibility = View.GONE
         binding?.forwardActive?.setOnClickListener {
             val totalItems = currentList.size
@@ -353,6 +354,7 @@ initListener()
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     when (tab?.position) {
                         0 -> {
+                            current = "南投市"
                             if (nantou != null) {
                                 nantou?.let { updateRoadListView(it) }
                             } else {
@@ -367,6 +369,7 @@ initListener()
                             Log.d("TabSelection", "Selected: 南投市")
                         }
                         1 -> {
+                            current = "草屯鎮"
                             if (canton != null) {
                                 canton?.let { updateRoadListView(it) }
 
@@ -644,8 +647,13 @@ initListener()
             val amounts = uniqueGaragePayData.joinToString(",") { it?.billAmount.toString() }
             val billNos = uniqueGaragePayData.joinToString(",") { it?.billNo.toString() }
             val parkTimes = uniqueGaragePayData.joinToString(",") { it?.billStartTime.toString() }
-
-            ApiConfig.URL_HOST +
+var url = ""
+            if(current.equals("南投市")) {
+                url = ApiConfig.URL_HOST
+            } else {
+                url = ApiConfig.URL_HOST_CANTON
+            }
+            url +
                     ApiConfig.PAYMENT_URL +
                     "?" +
                     "member_id=${AppUtility.getLoginId(requireContext())}" +
@@ -678,8 +686,13 @@ initListener()
             val descriptions = uniquePayData.joinToString(",") { "${it.billRoad} ${it.billCell}" }
 
             Log.d("micCheckKK2", billNos)
-
-            ApiConfig.URL_HOST +
+            var url = ""
+            if(current.equals("南投市")) {
+                url = ApiConfig.URL_HOST
+            } else {
+                url = ApiConfig.URL_HOST_CANTON
+            }
+            url +
                     ApiConfig.PAYMENT_URL +
                     "?" +
                     "member_id=${AppUtility.getLoginId(requireContext())}" +

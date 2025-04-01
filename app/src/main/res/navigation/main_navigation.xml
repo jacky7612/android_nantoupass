@@ -706,11 +706,11 @@
             android:id="@+id/action_mapChargeParkingFragment_to_main_fragment"
             app:destination="@id/main_fragment" />
     </fragment>
-    <fragment
-        android:id="@+id/chargeHistoryDetailFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"
-        android:label="fragment_charge_history_detail"
-        tools:layout="@layout/fragment_charge_history_detail" />
+<!--    <fragment-->
+<!--        android:id="@+id/chargeHistoryDetailFragment"-->
+<!--        android:name="com.jotangi.nantouparking.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"-->
+<!--        android:label="fragment_charge_history_detail"-->
+<!--        tools:layout="@layout/fragment_charge_history_detail" />-->
 
     <fragment
         android:id="@+id/chargeEntryFragment"
@@ -793,16 +793,19 @@
             android:id="@+id/action_mapChargeParkingFragment_to_main_fragment"
             app:destination="@id/main_fragment" />
     </fragment>
-    <fragment
-        android:id="@+id/parkingAgreementFragment"
-        android:name="com.jotangi.nantouparking.ui.agreement.ParkingAgreementFragment"
-        android:label="fragment_parking_agreement"
-        tools:layout="@layout/fragment_parking_agreement" />
+<!--    <fragment-->
+<!--        android:id="@+id/parkingAgreementFragment"-->
+<!--        android:name="com.jotangi.nantouparking.ui.agreement.ParkingAgreementFragment"-->
+<!--        android:label="fragment_parking_agreement"-->
+<!--        tools:layout="@layout/fragment_parking_agreement" />-->
     <fragment
         android:id="@+id/chargeNoticeFragment2"
         android:name="com.jotangi.nantouparking.ui.charge.ChargeNoticeFragment"
         android:label="fragment_charge_notice"
         tools:layout="@layout/fragment_charge_notice" >
+        <action
+            android:id="@+id/action_chargeNoticeFragment2_to_verifyFragment"
+            app:destination="@id/verifyFragment" />
         <action
             android:id="@+id/action_chargeNoticeFragment2_to_mapChargeParkingFragment"
             app:destination="@id/mapChargeParkingFragment" />
@@ -815,6 +818,17 @@
         <action
             android:id="@+id/action_chargeNoticeFragment2_to_chargeHistoryDetailFragment"
             app:destination="@id/chargeHistoryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyFragment"
+        android:name="com.jotangi.nantouparking.ui.main.VerifyFragment"
+        android:label="fragment_verify"
+        tools:layout="@layout/fragment_verify" >
+
+        <action
+            android:id="@+id/action_verifyFragment_to_mapChargeParkingFragment"
+            app:destination="@id/mapChargeParkingFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/chargeHistoryDetailFragment"

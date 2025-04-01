@@ -2,9 +2,11 @@ package com.jotangi.nantouparking.ui.charge
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.R
@@ -19,7 +21,7 @@ class ChargeNoticeFragment : BaseFragment() {
     private val binding get() = _binding
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     private var isBottom: Boolean = false
-
+var call = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,7 +30,6 @@ class ChargeNoticeFragment : BaseFragment() {
         _binding = FragmentChargeNoticeBinding.inflate(inflater, container, false)
         return binding?.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -36,26 +37,25 @@ class ChargeNoticeFragment : BaseFragment() {
         Glob.clear()
         init()
     }
-
     private fun init() {
         setupChargeNoticeTitle()
-
         initObserver()
         triggerGetData()
         initAction()
     }
-
     private fun initAction() {
         binding?.apply {
             btAgree.setOnClickListener {
-                findNavController().navigate(
-                    R.id.action_chargeNoticeFragment2_to_mapChargeParkingFragment
+                call = true
+                mainViewModel.getMemberInfo(
+                    requireContext(),
+                    AppUtility.getLoginId(requireContext())!!,
+                    AppUtility.getLoginPassword(requireContext())!!,
+                    null
                 )
             }
         }
     }
-
-    // 檢查 ScrollView 是否已經滑到底部的方法
     private fun isScrollViewAtBottom(): Boolean {
         val scrollViewHeight = binding?.svCharge?.height
         val scrollContentHeight = binding?.svCharge?.getChildAt(0)?.height
@@ -63,47 +63,97 @@ class ChargeNoticeFragment : BaseFragment() {
         if (scrollY != null) {
             return scrollY + scrollViewHeight!! >= scrollContentHeight!!
         }
-
         return false
     }
     companion object {
-
+        var nameValue = ""
+        var emailValue = ""
+        var idValue = ""
+        var plateNoValue = ""
+        var pwdValue = ""
+        var carrierValue = ""
+        var verifyStatusValue = ""
     }
-    // ---------------------------------------------------------------------------------------------
     private fun initObserver() {
-        chargeViewModel.chargeCheck.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                if (result.status == "true") {
-                    // 已經滾動到最底部
-                    binding?.apply {
-                        btAgree.isEnabled = true
-                        btAgree.setBackgroundResource(R.drawable.round_primary)
-                        btAgree.setTextColor(Color.WHITE)
+        mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
+            if(call) {
+                Log.d("micCheck11", result.toString())
+                if (result != null) {
+                    if (result.firstOrNull()?.verifyStatus == null) {
+                        Toast.makeText(requireContext(), "獲取會員資料失敗", Toast.LENGTH_SHORT)
+                            .show()
+                        return@observe
                     }
-                    Glob.curChargeInfo!!.gunDeviceId =result.charge_id
-                    Glob.curChargeInfo!!.gunNumber   =result.gun_no
+                    if (result.firstOrNull()?.verifyStatus.equals("0")) {
+                        nameValue = result.firstOrNull()?.memberName ?: ""
+                        emailValue = result.firstOrNull()?.memberEmail ?: ""
+                        idValue = result.firstOrNull()?.memberId ?: ""
+                        plateNoValue = result.firstOrNull()?.memberPlate ?: ""
+                        Log.d("micCheckHJ", plateNoValue)
+                        pwdValue = result.firstOrNull()?.memberPassword ?: ""
+                        carrierValue = result.firstOrNull()?.memberCarrier ?: ""
+                        verifyStatusValue = result.firstOrNull()?.verifyStatus ?: "0"
+                        findNavController().navigate(
+                            R.id.action_chargeNoticeFragment2_to_verifyFragment
+                        )
+                    } else {
+                        Log.d("micCheckHJ", result.firstOrNull()?.memberId.toString())
+                        findNavController().navigate(
+                            R.id.action_chargeNoticeFragment2_to_mapChargeParkingFragment
+                        )
+                    }
                 } else {
-                    when (result.code) {
-                        "0x0201" -> { // 目前正在充電中
-                            Glob.curChargeInfo!!.gunDeviceId =result.charge_id
-                            Glob.curChargeInfo!!.gunNumber   =result.gun_no
-                            showCustomDialog(requireContext(), result.responseMessage, R.id.action_chargeNoticeFragment2_to_chargingFragment)
+                    Toast.makeText(requireContext(), "獲取會員資料失敗", Toast.LENGTH_SHORT).show()
+                }
+                call = false
+            }
+        }
+            chargeViewModel.chargeCheck.observe(viewLifecycleOwner) { result ->
+                if (result != null) {
+                    if (result.status == "true") {
+                        // 已經滾動到最底部
+                        binding?.apply {
+                            btAgree.isEnabled = true
+                            btAgree.setBackgroundResource(R.drawable.round_primary)
+                            btAgree.setTextColor(Color.WHITE)
                         }
-                        "0x0202" -> { // 有未繳費充電帳單
-                            Glob.curChargeInfo!!.gunDeviceId =result.charge_id
-                            Glob.curChargeInfo!!.gunNumber   =result.gun_no
-                            val msg ="尚有充電未繳款項目\n請先完成繳款\n方能使用充電服務"
-                            showCustomDialog(requireContext(), msg, R.id.action_chargeNoticeFragment2_to_chargeHistoryDetailFragment, "前往繳費")
-                        }
-                        else -> {
-                            Glob.curChargeInfo!!.gunDeviceId =result.charge_id
-                            Glob.curChargeInfo!!.gunNumber   =result.gun_no
-                            showCustomDialog(requireContext(), result.responseMessage, R.id.action_chargeNoticeFragment2_to_main_fragment)
+                        Glob.curChargeInfo!!.gunDeviceId = result.charge_id
+                        Glob.curChargeInfo!!.gunNumber = result.gun_no
+                    } else {
+                        when (result.code) {
+                            "0x0201" -> { // 目前正在充電中
+                                Glob.curChargeInfo!!.gunDeviceId = result.charge_id
+                                Glob.curChargeInfo!!.gunNumber = result.gun_no
+                                showCustomDialog(
+                                    requireContext(),
+                                    result.responseMessage,
+                                    R.id.action_chargeNoticeFragment2_to_chargingFragment
+                                )
+                            }
+                            "0x0202" -> { // 有未繳費充電帳單
+                                Glob.curChargeInfo!!.gunDeviceId = result.charge_id
+                                Glob.curChargeInfo!!.gunNumber = result.gun_no
+                                val msg = "尚有充電未繳款項目\n請先完成繳款\n方能使用充電服務"
+                                showCustomDialog(
+                                    requireContext(),
+                                    msg,
+                                    R.id.action_chargeNoticeFragment2_to_chargeHistoryDetailFragment,
+                                    "前往繳費"
+                                )
+                            }
+                            else -> {
+                                Glob.curChargeInfo!!.gunDeviceId = result.charge_id
+                                Glob.curChargeInfo!!.gunNumber = result.gun_no
+                                showCustomDialog(
+                                    requireContext(),
+                                    result.responseMessage,
+                                    R.id.action_chargeNoticeFragment2_to_main_fragment
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
     }
     private fun triggerGetData() {
         chargeViewModel.checkCharge(

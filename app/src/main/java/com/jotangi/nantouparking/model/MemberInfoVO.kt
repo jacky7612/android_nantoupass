@@ -49,11 +49,14 @@ data class MemberInfoVO(
 //    val code: String,
 //
     @SerializedName("member_status")
-    val memberStatus: String
+    val memberStatus: String,
 
 //    @SerializedName("recommend_code")
 //    val code: String,
 //
 //    @SerializedName("member_sid")
 //    val responseMessage: String
+    @SerializedName("verify_status")
+val verifyStatus: String
+
 )
