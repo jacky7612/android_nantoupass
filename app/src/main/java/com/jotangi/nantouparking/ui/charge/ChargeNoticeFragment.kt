@@ -32,7 +32,28 @@ var call = false
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding?.svCharge?.post {
+            if (!isScrollViewScrollable()) {
+                // Content doesn't need scrolling; enable the button
+                isBottom = true
+                binding?.btAgree?.apply {
+                    isEnabled = true
+                    setBackgroundResource(R.drawable.round_primary)
+                    setTextColor(Color.WHITE)
+                }
+            }
+        }
+        binding?.svCharge?.viewTreeObserver?.addOnScrollChangedListener {
+            // 判斷是否已經滑到底部
+            isBottom = isScrollViewAtBottom()
+//                agreeContractCheckBox.isEnabled = isBottom
+            if (isBottom) {
+                // 已經滾動到最底部
+                binding?.btAgree?.isEnabled = true
+                binding?.btAgree?.setBackgroundResource(R.drawable.round_primary)
+                binding?.btAgree?.setTextColor(Color.WHITE)
+            }
+        }
         chargeViewModel.clear()
         Glob.clear()
         init()
@@ -55,6 +76,11 @@ var call = false
                 )
             }
         }
+    }
+    private fun isScrollViewScrollable(): Boolean {
+        val scrollView = binding?.svCharge ?: return false
+        val child = scrollView.getChildAt(0) ?: return false
+        return child.height > scrollView.height
     }
     private fun isScrollViewAtBottom(): Boolean {
         val scrollViewHeight = binding?.svCharge?.height
@@ -111,14 +137,10 @@ var call = false
             }
         }
             chargeViewModel.chargeCheck.observe(viewLifecycleOwner) { result ->
+                Log.d("micCheckLKJ", "LKJ")
                 if (result != null) {
                     if (result.status == "true") {
                         // 已經滾動到最底部
-                        binding?.apply {
-                            btAgree.isEnabled = true
-                            btAgree.setBackgroundResource(R.drawable.round_primary)
-                            btAgree.setTextColor(Color.WHITE)
-                        }
                         Glob.curChargeInfo!!.gunDeviceId = result.charge_id
                         Glob.curChargeInfo!!.gunNumber = result.gun_no
                     } else {

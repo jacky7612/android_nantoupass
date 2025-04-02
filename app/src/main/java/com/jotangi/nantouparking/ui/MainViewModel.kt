@@ -609,27 +609,13 @@ class MainViewModel : ViewModel() {
                 Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
 
                 if (response.body() != null) {
-                    if (
-                        response.body()!!.code == ApiConfig.API_CODE_0x0201 ||
-                        response.body()!!.code == ApiConfig.API_CODE_0x0202 ||
-                        response.body()!!.code == ApiConfig.API_CODE_0x0203 ||
-                        response.body()!!.code == ApiConfig.API_CODE_0x0204 ||
-                        response.body()!!.code == ApiConfig.API_CODE_0x0206
-                    ) {
-                        AppUtility.showPopDialog(
-                            context,
-                            response.body()!!.code,
-                            "姓名為必填"
-                        )
-                    } else {
                         _memberInfoEditData.value = response.body()
-                    }
                 } else {
-//                    AppUtility.showPopDialog(
-//                        context,
-//                        statusCode.toString(),
-//                        null
-//                    )
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        "驗證失敗"
+                    )
                 }
             }
 

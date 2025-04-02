@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF"
->
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="afterDescendants"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,17 +46,23 @@
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp">
-
             <EditText
+                android:paddingLeft="10dp"
                 android:id="@+id/editTextPlateAlpha"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="0.8"
+                android:layout_height="50dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_rounded_input"
-                android:hint="ABC"
-                android:inputType="text"
-                android:padding="10dp"
-                android:textSize="16sp" />
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical|start"
+                android:inputType="textCapCharacters"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:textSize="16sp"
+                android:hint="ex:ABC"/>
 
             <TextView
                 android:layout_weight="0.2"
@@ -65,17 +72,24 @@
                 android:text="—"
                 android:textSize="28sp"
                 android:textColor="@color/charge_blue_color" />
-
             <EditText
+                android:paddingLeft="10dp"
                 android:id="@+id/editTextPlateNumber"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="0.8"
+                android:layout_height="50dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_rounded_input"
-                android:hint="1234"
-                android:padding="10dp"
-                android:inputType="number"
-                android:textSize="16sp" />
+                android:cursorVisible="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical|start"
+                android:inputType="textCapCharacters"
+                android:textColor="@android:color/black"
+                android:textColorHint="@color/grey"
+                android:textCursorDrawable="@drawable/edit_text_cursor_color"
+                android:textSize="16sp"
+                android:hint="ex:1234"/>
+
         </LinearLayout>
 
        <LinearLayout
@@ -152,20 +166,30 @@
             android:text="輸入驗證碼"
             android:textStyle="bold"
             android:textColor="#000000" />
-
         <EditText
+            android:paddingLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:id="@+id/editTextVerification"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_rounded_input"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical|start"
+            android:inputType="textCapCharacters"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/grey"
+            android:textCursorDrawable="@drawable/edit_text_cursor_color"
+            android:textSize="16sp"
             android:hint="請輸入驗證碼"
-            android:padding="10dp"
-            android:inputType="number"
-            android:textSize="16sp" />
+            />
+
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_gravity="end"
         android:layout_marginLeft="20dp"
         android:orientation="horizontal"
@@ -231,4 +255,4 @@
                 android:layout_marginStart="8dp" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

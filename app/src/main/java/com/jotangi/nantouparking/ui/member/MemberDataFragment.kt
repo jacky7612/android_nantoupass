@@ -24,6 +24,7 @@ class MemberDataFragment : BaseFragment() {
     private var isEdit = false
     private var mPlateNo: String = ""
     var verifyStatus = "0"
+    var call = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,9 +65,12 @@ class MemberDataFragment : BaseFragment() {
         }
 
         mainViewModel.memberInfoEditData.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                updateView()
-                updateViewEditData(result)
+            if(call) {
+                if (result != null) {
+                    updateView()
+                    updateViewEditData(result)
+                }
+                call = false
             }
         }
     }
@@ -145,6 +149,7 @@ class MemberDataFragment : BaseFragment() {
             mPlateNo =
                 "${plateTextEditText.text}-${plateNumberEditText.text}"
             Log.d("micCheckAQ3", mPlateNo)
+            call = true
             mainViewModel.editMemberInfo(
                 requireContext(),
                 memberDataNameContentEditText?.text.toString(),
