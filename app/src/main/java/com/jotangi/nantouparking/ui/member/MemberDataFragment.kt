@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.databinding.FragmentMemberDataBinding
@@ -69,6 +70,8 @@ class MemberDataFragment : BaseFragment() {
                 if (result != null) {
                     updateView()
                     updateViewEditData(result)
+                } else {
+                    Toast.makeText(requireContext(), "修改失敗", Toast.LENGTH_SHORT).show()
                 }
                 call = false
             }
@@ -149,12 +152,14 @@ class MemberDataFragment : BaseFragment() {
             mPlateNo =
                 "${plateTextEditText.text}-${plateNumberEditText.text}"
             Log.d("micCheckAQ3", mPlateNo)
+            val rawPhone = memberDataPhoneContentEditText?.text.toString().replace(" (已驗證)", "")
+
             call = true
             mainViewModel.editMemberInfo(
                 requireContext(),
                 memberDataNameContentEditText?.text.toString(),
                 memberDataEmailContentEditText?.text.toString(),
-                memberDataPhoneContentEditText?.text.toString(),
+               rawPhone,
                 mPlateNo,
                 AppUtility.getLoginPassword(requireContext())!!,
                 vehicleEditText.text.toString(),
@@ -171,8 +176,12 @@ class MemberDataFragment : BaseFragment() {
 
         binding?.apply {
             memberDataNameContentEditText.setText(member.memberName ?: "")
-            memberDataPhoneContentEditText.setText(member.memberId ?: "")
-
+            if(verifyStatus.equals("1")) {
+                memberDataPhoneContentEditText.setText((member.memberId?: "")+" (已驗證)")
+            }else {
+                memberDataPhoneContentEditText.setText(member.memberId ?: "")
+            }
+Log.d("micCheckOOP", member.memberPlate.toString())
             member.memberPlate?.let {
                 val parts = it.split("-")
                 if (parts.size == 2) {
@@ -195,18 +204,41 @@ class MemberDataFragment : BaseFragment() {
                 requireContext(),
                 binding?.memberDataNameContentEditText?.text.toString()
             )
-Log.d("micCheckZX", "1")
             showPrivateDialog(
 //                result.responseMessage,
                 "修改成功",
                 null
             )
         } else {
-            Log.d("micCheckZX", "2")
-            showPrivateDialog(
-//                result.responseMessage,
-                "姓名為必填",
-                "")
+            when (result.code) {
+                "0x0201" -> {
+                    Toast.makeText(requireContext(), "查無會員資料", Toast.LENGTH_SHORT).show()
+                }
+
+                "0x0202" -> {
+                    Toast.makeText(requireContext(), "系統異常", Toast.LENGTH_SHORT).show()
+                }
+
+                "0x0203" -> {
+                    Toast.makeText(requireContext(), "缺少必要參數", Toast.LENGTH_SHORT).show()
+                }
+
+                "0x0204" -> {
+                    Toast.makeText(requireContext(), "資料庫錯誤", Toast.LENGTH_SHORT).show()
+                }
+
+                "0x0205" -> {
+                    Toast.makeText(requireContext(), "帳號或密碼錯誤", Toast.LENGTH_SHORT).show()
+                }
+
+                else -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "未知錯誤代碼: ${result.code}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 

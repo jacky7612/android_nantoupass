@@ -824,7 +824,9 @@
         android:name="com.jotangi.nantouparking.ui.main.VerifyFragment"
         android:label="fragment_verify"
         tools:layout="@layout/fragment_verify" >
-
+        <action
+            android:id="@+id/action_verifyFragment_to_mainFragment"
+            app:destination="@id/main_fragment" />
         <action
             android:id="@+id/action_verifyFragment_to_mapChargeParkingFragment"
             app:destination="@id/mapChargeParkingFragment" />

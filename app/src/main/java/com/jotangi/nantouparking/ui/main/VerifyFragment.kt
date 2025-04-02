@@ -57,6 +57,11 @@ class VerifyFragment : BaseFragment() {
                 binding?.editTextPlateNumber?.setText(parts[1])
             }
         }
+        binding?.btnCancel?.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_verifyFragment_to_mainFragment
+            )
+        }
         binding?.editTextPlateAlpha?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence?,
@@ -167,7 +172,7 @@ call = true
                ChargeNoticeFragment.nameValue,
                 ChargeNoticeFragment.emailValue,
                 ChargeNoticeFragment.idValue,
-                binding?.editTextPlateAlpha?.text.toString() +"-" + binding?.editTextPlateNumber?.text.toString() +"-",
+                binding?.editTextPlateAlpha?.text.toString() +"-" + binding?.editTextPlateNumber?.text.toString(),
                 AppUtility.getLoginPassword(requireContext())!!,
                 ChargeNoticeFragment.carrierValue,
                 verifyStatus
