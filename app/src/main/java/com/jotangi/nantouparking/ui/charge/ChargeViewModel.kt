@@ -277,8 +277,10 @@ class ChargeViewModel: ViewModel() {
                        end_date        : String,
                        select_all      : String ="false",
                        count_one_time  : String ="50",
-                       skip_docs       : String ="0"
+                       skip_docs       : String ="1"
     ) {
+        Log.d("micCheckGF",    member_id + member_pwd )
+        Log.d("micCheckGF", start_date + end_date)
         val call: Call<ChargeHistoryResponse> = ApiChargeUtility.service.apiGetHistory4UserList(
             member_id,
             member_pwd,
