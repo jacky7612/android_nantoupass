@@ -66,7 +66,7 @@ open class MapFragment : BaseWithBottomBarFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+Glob.activity = requireActivity()
         // feet button
         initEvent()
 

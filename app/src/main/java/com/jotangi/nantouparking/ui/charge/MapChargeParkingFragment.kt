@@ -71,6 +71,7 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
                 findNavController().navigate(R.id.action_mapChargeParkingFragment_to_main_fragment)
             }
         })
+        Glob.activity = requireActivity()
 
         // feet button
         initEvent()

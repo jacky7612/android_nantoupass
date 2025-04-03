@@ -23,6 +23,7 @@
             android:textAppearance="?attr/textAppearanceHeadline6" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/marker_snippet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +71,7 @@
             android:id="@+id/iv_parking"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             android:adjustViewBounds="true"
             android:background="@drawable/ic_parking_flag"
             app:srcCompat="@drawable/ic_parking_flag"
@@ -85,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:adjustViewBounds="true"
-            android:visibility="visible"
+            android:visibility="gone"
             android:background="@drawable/ic_charge_flag"
             app:srcCompat="@drawable/ic_charge_flag"
             android:elevation="8dp"
@@ -112,6 +113,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="match_parent">
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_amount_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,6 +124,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_amount_rate_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,6 +144,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="match_parent">
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_remain_cell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,6 +155,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_remain_cell_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -171,6 +176,7 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_open_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,6 +187,7 @@
                 app:layout_constraintTop_toTopOf="@+id/sub_info_content03" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_open_time_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,6 +209,7 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

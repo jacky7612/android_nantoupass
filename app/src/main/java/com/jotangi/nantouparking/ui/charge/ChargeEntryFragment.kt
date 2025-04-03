@@ -141,7 +141,7 @@ class ChargeEntryFragment : BaseWithBottomBarFragment() {
             rvChargeHistory.visibility  =if (chargeHistoryData.size > 0) View.VISIBLE else View.GONE
             tvNoData.visibility         =if (chargeHistoryData.size == 0) View.VISIBLE else View.GONE
 
-            tvHint.visibility  =if (chargeHistoryData.size > 0) View.GONE else View.VISIBLE
+            tvHint.visibility  =View.GONE
         }
         binding?.rvChargeHistory?.apply {
 
