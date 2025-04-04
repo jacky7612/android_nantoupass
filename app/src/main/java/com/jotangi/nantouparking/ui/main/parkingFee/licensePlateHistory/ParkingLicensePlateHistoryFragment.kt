@@ -25,6 +25,7 @@ import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentParkingLicensePlateHistoryBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.model.ParkingGarageVO
+import com.jotangi.nantouparking.model.ParkingRoadFeeUnPaidResponse
 import com.jotangi.nantouparking.model.ParkingRoadFeeUnPaidVO
 import com.jotangi.nantouparking.model.PlateNumberVO
 import com.jotangi.nantouparking.ui.BaseFragment
@@ -63,6 +64,8 @@ class ParkingLicensePlateHistoryFragment :
         var parkingName = ""
     }
 var call = false
+    lateinit var resultNantou: ParkingRoadFeeUnPaidResponse
+    lateinit var resultCanton: ParkingRoadFeeUnPaidResponse
     var call2 = false
     var call3 = false
     var call4 = false
@@ -202,6 +205,7 @@ var call = false
     private fun initObserver() {
 
         mainViewModel.plateNumberDataCanton.observe(viewLifecycleOwner) { result ->
+            Log.d("micCheckUY", result.toString())
             if(call4) {
                 if(result == null) {
                     combinePlateNumberDataList.addAll(emptyList())
@@ -274,8 +278,11 @@ var call = false
         }
 
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-
+Log.d("micCheckGJ1", result.toString())
             if(call) {
+                if(result!= null) {
+                    resultNantou = result
+                }
 //                if (result != null && mainViewModel.hasData) {
 //                    if (result.unPaidItems.isNullOrEmpty()) {
 //                        Log.d("micCheckZ1", "1")
@@ -321,8 +328,11 @@ var call = false
         }
 
         mainViewModel.parkingRoadFeeUnPaidDataCanton1.observe(viewLifecycleOwner) { result ->
-
+            Log.d("micCheckGJ2", result.toString())
             if(call5) {
+                if(result!= null) {
+                    resultCanton = result
+                }
 //                if (result != null && mainViewModel.hasData) {
                 if(!result.unPaidItems.isNullOrEmpty()) {
                     combineRoadUnPaidDataList.addAll(result.unPaidItems)
@@ -331,12 +341,21 @@ var call = false
                 if (combineRoadUnPaidDataList.isNullOrEmpty()) {
                         Log.d("micCheckZ1", "1")
                         mPlateNo = ""
-                    Log.d("micCheckJJJ", "1")
+                    if(resultCanton.status.equals("false")||resultNantou.status.equals("false")) {
+                        Log.d("micCheckJJJ", "1")
+                        Toast.makeText(
+                            requireActivity(),
+                            "系統忙碌錯誤！",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Log.d("micCheckJJJ", "1")
                         Toast.makeText(
                             requireActivity(),
                             "目前沒有符合的紀錄唷！",
                             Toast.LENGTH_SHORT
                         ).show()
+                    }
                         requireActivity().runOnUiThread {
                             binding?.progressBar?.visibility = View.GONE
                             Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")

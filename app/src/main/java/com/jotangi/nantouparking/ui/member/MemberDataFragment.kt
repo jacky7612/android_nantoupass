@@ -228,7 +228,7 @@ Log.d("micCheckOOP", member.memberPlate.toString())
                 }
 
                 "0x0205" -> {
-                    Toast.makeText(requireContext(), "帳號或密碼錯誤", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "系統忙碌錯誤", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> {

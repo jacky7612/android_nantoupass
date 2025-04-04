@@ -223,7 +223,7 @@ call = true
                         }
 
                         "0x0205" -> {
-                            Toast.makeText(requireContext(), "帳號或密碼錯誤", Toast.LENGTH_SHORT)
+                            Toast.makeText(requireContext(), "系統忙碌錯誤", Toast.LENGTH_SHORT)
                                 .show()
                         }
 
@@ -261,7 +261,7 @@ call = true
                         Toast.makeText(requireContext(),"資料庫錯誤", Toast.LENGTH_SHORT ).show()
                     }
                     "0x0205" -> {
-                        Toast.makeText(requireContext(),"帳號或密碼錯誤", Toast.LENGTH_SHORT ).show()
+                        Toast.makeText(requireContext(),"系統忙碌錯誤", Toast.LENGTH_SHORT ).show()
                     }
                     else -> {
                         Toast.makeText(requireContext(),"未知錯誤代碼: ${result.code}", Toast.LENGTH_SHORT ).show()

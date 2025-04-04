@@ -165,6 +165,8 @@ initListener()
                             lockDueTime = vo2.lockDueTime
                         )
                     } ?: emptyList(), // <-- safe
+                    status = "",
+                    code = "",
                     responseMessage = result?.responseMessage ?: "" // <-- safe
                 )
 
@@ -180,12 +182,22 @@ initListener()
                         binding?.progressBar?.visibility = View.GONE
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
-                    Log.d("micCheckPOP", "1")
-                    Toast.makeText(
-                        requireActivity(),
-                        "目前沒有符合的紀錄唷！",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if(nantou?.status.equals("false") || canton?.status.equals("false")) {
+                        Log.d("micCheckPOP", "1")
+                        Toast.makeText(
+                            requireActivity(),
+                            "系統忙碌錯誤！",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Log.d("micCheckPOP", "1")
+                        Toast.makeText(
+                            requireActivity(),
+                            "目前沒有符合的紀錄唷！",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
                     binding?.tabLayout?.apply {
                         selectTab(getTabAt(0))
                     }
@@ -572,11 +584,15 @@ initListener()
         if (!::parkingFeeUnPaidAdapter.isInitialized) {
             initRecyclerView()
         }
-
-        if (result.unPaidItems.isNullOrEmpty()) {
-            Toast.makeText(requireActivity(), "目前沒有符合的紀錄唷！", Toast.LENGTH_SHORT).show()
-            parkingFeeUnPaidAdapter.updateDataSource(emptyList())
-            return
+        if(result.status.equals("false")) {
+            Toast.makeText(requireActivity(), "系統忙碌錯誤！", Toast.LENGTH_SHORT).show()
+        } else {
+            if (result.unPaidItems.isNullOrEmpty()) {
+                Toast.makeText(requireActivity(), "目前沒有符合的紀錄唷！", Toast.LENGTH_SHORT)
+                    .show()
+                parkingFeeUnPaidAdapter.updateDataSource(emptyList())
+                return
+            }
         }
 
         data = result.unPaidItems.toMutableList()
