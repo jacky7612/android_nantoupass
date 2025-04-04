@@ -64,8 +64,8 @@ class ParkingLicensePlateHistoryFragment :
         var parkingName = ""
     }
 var call = false
-    lateinit var resultNantou: ParkingRoadFeeUnPaidResponse
-    lateinit var resultCanton: ParkingRoadFeeUnPaidResponse
+   var resultNantou: ParkingRoadFeeUnPaidResponse? = null
+    var resultCanton: ParkingRoadFeeUnPaidResponse? = null
     var call2 = false
     var call3 = false
     var call4 = false
@@ -280,9 +280,18 @@ var call = false
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
 Log.d("micCheckGJ1", result.toString())
             if(call) {
+                combineRoadUnPaidDataList.clear()
                 if(result!= null) {
                     resultNantou = result
+                    if(!result.unPaidItems.isNullOrEmpty()) {
+                        combineRoadUnPaidDataList.addAll(result.unPaidItems)
+                    }else {
+                        combineRoadUnPaidDataList.addAll(emptyList())
+                    }
+                } else {
+                    combineRoadUnPaidDataList.addAll(emptyList())
                 }
+
 //                if (result != null && mainViewModel.hasData) {
 //                    if (result.unPaidItems.isNullOrEmpty()) {
 //                        Log.d("micCheckZ1", "1")
@@ -298,10 +307,7 @@ Log.d("micCheckGJ1", result.toString())
 //                        }
 //                        binding?.plateTextEditText?.setText("")
 //                        binding?.plateNumberEditText?.setText("")
-                combineRoadUnPaidDataList.clear()
-                if(!result.unPaidItems.isNullOrEmpty()) {
-                    combineRoadUnPaidDataList.addAll(result.unPaidItems)
-                }
+
                 if (!mPlateNo.isNullOrEmpty()) {
                 call5 = true
                 mainViewModel.getParkingRoadFeeUnPaidListCanton1(
@@ -332,16 +338,21 @@ Log.d("micCheckGJ1", result.toString())
             if(call5) {
                 if(result!= null) {
                     resultCanton = result
+                    if(!result.unPaidItems.isNullOrEmpty()) {
+                        combineRoadUnPaidDataList.addAll(result.unPaidItems)
+                    }else {
+                        combineRoadUnPaidDataList.addAll(emptyList())
+                    }
+                } else {
+                    combineRoadUnPaidDataList.addAll(emptyList())
                 }
 //                if (result != null && mainViewModel.hasData) {
-                if(!result.unPaidItems.isNullOrEmpty()) {
-                    combineRoadUnPaidDataList.addAll(result.unPaidItems)
-                }
+
 
                 if (combineRoadUnPaidDataList.isNullOrEmpty()) {
                         Log.d("micCheckZ1", "1")
                         mPlateNo = ""
-                    if(resultCanton.status.equals("false")||resultNantou.status.equals("false")) {
+                    if(resultCanton?.status.equals("false")||resultNantou?.status.equals("false")) {
                         Log.d("micCheckJJJ", "1")
                         Toast.makeText(
                             requireActivity(),

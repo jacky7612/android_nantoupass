@@ -367,7 +367,7 @@ initListener()
                     when (tab?.position) {
                         0 -> {
                             current = "南投市"
-                            if (nantou != null) {
+                            if (nantou!= null) {
                                 nantou?.let { updateRoadListView(it) }
                             } else {
                                 Toast.makeText(
