@@ -161,60 +161,41 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
     }
 
     private fun initMapRoad(view: View, savedInstanceState: Bundle?) {
-        // Get parking spot data from roadParkStatus
         val stationData = chargeViewModel.roadParkStatus.value?.data
-        // Initialize mutable list to hold mapped data
         val parkingSpots = mutableListOf<JChargeMapData>()
-        parkingSpots.clear()
-        // Map station data to JChargeMapData format
-        stationData?.forEach { station ->
-            val latitude = station.Latitude.replace(",", "").toDouble()
-            val longitude = station.Longitude.replace(",", "").toDouble()
 
-            val jMapData = JChargeMapData(
-                station.ParkingSpaceCode,    // station_id -> ParkingSpaceCode
-                station.BillSegmentName,     // station_name -> BillSegmentName
-                station.BillSegmentName, // address -> BillSegmentName
-                LatLng(latitude, longitude),
-                station.Status,// Cleaned LatLng
-                station.update_time
-            )
-            parkingSpots.add(jMapData)
+        stationData?.forEach { station ->
+            val latString = station.Latitude?.replace(",", "")?.trim()
+            val lngString = station.Longitude?.replace(",", "")?.trim()
+
+            val latitude = latString?.takeIf { it.isNotEmpty() }?.toDoubleOrNull()
+            val longitude = lngString?.takeIf { it.isNotEmpty() }?.toDoubleOrNull()
+
+            if (latitude != null && longitude != null) {
+                val jMapData = JChargeMapData(
+                    station.ParkingSpaceCode,
+                    station.BillSegmentName,
+                    station.BillSegmentName,
+                    LatLng(latitude, longitude),
+                    station.Status,
+                    station.update_time
+                )
+                parkingSpots.add(jMapData)
+            } else {
+                Log.w("MapParseWarning", "Skipping station with invalid lat/lng: lat='${station.Latitude}', lng='${station.Longitude}'")
+            }
         }
-        // Example static charge spots (unchanged)
-        val chargeSpots = listOf(
-            JChargeMapData(
-                "1",
-                "第一充電站",
-                "空位:80",
-                LatLng(23.4771319, 120.4120205),
-                "0",
-                "2024-1-12"
-            ),
-            JChargeMapData(
-                "2",
-                "第二充電站",
-                "空位:40",
-                LatLng(23.4791319, 120.4140205),
-                "0",
-                "2024-1-12"
-            ),
-            JChargeMapData(
-                "3",
-                "第三充電站",
-                "空位:10",
-                LatLng(23.4811319, 120.4160205),
-                "0",
-                "2024-1-12"
-            )
-        )
-        // Initialize map with the transformed parking spots
+
+        if (parkingSpots.isEmpty()) {
+            Log.e("MapInit", "No valid parking spots. Map not initialized.")
+            return
+        }
+
         jmap = JMapCharge2(
             view, resources, savedInstanceState,
             parkingSpots, 0, Glob.MapMode, true
         )
         jmap?.setMarkerDialogCallback(this)
-
     }
 
     private fun initMapPark(view: View, savedInstanceState: Bundle?) {
