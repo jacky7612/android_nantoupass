@@ -129,7 +129,7 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
             requireContext(),
             AppUtility.getLoginId(requireContext())!!,
             AppUtility.getLoginPassword(requireContext())!!,
-            "10", "0")
+            "0", "0")
     }
     private fun initMap(view :View, savedInstanceState :Bundle?) {
 
@@ -138,7 +138,14 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
         var stationsInfo = station
         var parkingSpots = mutableListOf<JChargeMapData>()
         parkingSpots.clear()
+        var idx = -1
+        var sel_idx = -1
         stationsInfo!!.forEach { station ->
+            idx++
+            if (sel_idx == -1 && station.station_name.contains("南投"))
+            {
+                sel_idx = idx
+            }
             val jMapData = JChargeMapData(station.station_id, station.station_name, station.address, LatLng(station.latLng[1], station.latLng[0]), "0", "2024-1-12")
             parkingSpots.add(jMapData)
         }
@@ -168,8 +175,9 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
                 "2024-1-12"
             )
         )
-if(parkingSpots.count() == 0) return
+        if (sel_idx == -1) sel_idx = 0
+        if(parkingSpots.count() == 0) return
         jmap = JMapCharge(view, resources, savedInstanceState,
-            parkingSpots, 0, Glob.MapMode, true )
+            parkingSpots, sel_idx, Glob.MapMode, true )
     }
 }

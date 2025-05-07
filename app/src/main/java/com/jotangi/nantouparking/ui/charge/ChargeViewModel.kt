@@ -209,10 +209,10 @@ class ChargeViewModel: ViewModel() {
     fun getNearStation(context: Context,
         member_id       : String,
         member_pwd      : String,
-        count_one_time  : String ="10",
+        count_one_time  : String ="0",
         skip_docs       : String ="0",
-        longitude       : String ="120.820776399519",
-        latitude        : String ="24.5639391939057",
+        longitude       : String ="",
+        latitude        : String ="",
         query           : String =""
     ) {
         val call: Call<NearStationResponse> = ApiChargeUtility.service.apiGetNearStation(
