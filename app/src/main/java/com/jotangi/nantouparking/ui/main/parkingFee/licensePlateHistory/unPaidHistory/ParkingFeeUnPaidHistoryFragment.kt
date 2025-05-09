@@ -186,7 +186,7 @@ initListener()
                         Log.d("micCheckPOP", "1")
                         Toast.makeText(
                             requireActivity(),
-                            "系統忙碌錯誤！",
+                            result.responseMessage,
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
@@ -585,7 +585,7 @@ initListener()
             initRecyclerView()
         }
         if(result.status.equals("false")) {
-            Toast.makeText(requireActivity(), "系統忙碌錯誤！", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(), result.responseMessage, Toast.LENGTH_SHORT).show()
         } else {
             if (result.unPaidItems.isNullOrEmpty()) {
                 Toast.makeText(requireActivity(), "目前沒有符合的紀錄唷！", Toast.LENGTH_SHORT)

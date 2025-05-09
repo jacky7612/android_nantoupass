@@ -356,7 +356,7 @@ Log.d("micCheckGJ1", result.toString())
                         Log.d("micCheckJJJ", "1")
                         Toast.makeText(
                             requireActivity(),
-                            "系統忙碌錯誤！",
+                            result.responseMessage,
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
