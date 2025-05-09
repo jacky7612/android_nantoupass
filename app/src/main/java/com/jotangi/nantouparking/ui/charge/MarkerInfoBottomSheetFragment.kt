@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jotangi.nantouparking.databinding.FragmentMarkerInfoBottomSheetBinding
+import com.jotangi.nantouparking.model.charge.DataChargeStatusInfo
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,11 +28,13 @@ class MarkerInfoBottomSheet : BottomSheetDialogFragment() {
     private var mytitle: String =""
     private var mysnippet: String =""
     private var myLatLng: LatLng? =null
+    private var charger_status_info: MutableList<DataChargeStatusInfo> = mutableListOf()
 
-    fun init(title: String, snippet: String, latlng: LatLng) {
+    fun init(title: String, snippet: String, latlng: LatLng,charge_info:List<DataChargeStatusInfo>) {
         mytitle   =title
         mysnippet =snippet
         myLatLng  =latlng
+        charger_status_info = charge_info.toMutableList()
     }
 
     override fun onCreateView(
@@ -46,8 +49,27 @@ class MarkerInfoBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             markerTitle.text = mytitle
-            markerSnippet.text = mysnippet
-            btNavigation.setOnClickListener{
+//            markerSnippet.text = mysnippet
+            for (i in 0 until charger_status_info.count()) {
+                val item = charger_status_info[i]
+                // 這裡可以使用 item
+                if (i == 0) {
+                    tvHead01.text = "${charger_status_info[i].type}樁 ${charger_status_info[i].detail.name} 共 ${charger_status_info[i].detail.gun_count} 槍" // AC樁 J1772  共 10 樁
+                    tvAvalible01.text = "${charger_status_info[i].detail.avalible_count} 可用"
+                    lay03.visibility = View.VISIBLE
+                }
+                if (i == 1) {
+                    tvHead02.text = "${charger_status_info[i].type}樁 ${charger_status_info[i].detail.name} 共 ${charger_status_info[i].detail.gun_count} 槍" // AC樁 J1772  共 10 樁
+                    tvAvalible02.text = "${charger_status_info[i].detail.avalible_count} 可用"
+                    lay04.visibility = View.VISIBLE
+                }
+                if (i == 2) {
+                    tvHead03.text = "${charger_status_info[i].type}樁 ${charger_status_info[i].detail.name} 共 ${charger_status_info[i].detail.gun_count} 槍" // AC樁 J1772  共 10 樁
+                    tvAvalible03.text = "${charger_status_info[i].detail.avalible_count} 可用"
+                    lay05.visibility = View.VISIBLE
+                }
+            }
+            tvGoToMap.setOnClickListener {
                 openGoogleMapsNavigation(myLatLng!!.latitude, myLatLng!!.longitude)
             }
         }

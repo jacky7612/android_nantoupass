@@ -98,7 +98,7 @@ Glob.activity = requireActivity()
             if (isAdded && !isStateSaved) { // 生命週期保護
                 Glob.CurChargeMarkerInfo?.let {
                     val bottomSheet = MarkerInfoBottomSheet()
-                    bottomSheet.init(it.title ?: "", it.descript ?: "", it.position ?: LatLng(-999.0, -999.0))
+                    bottomSheet.init(it.title ?: "", it.descript ?: "", it.position ?: LatLng(-999.0, -999.0), it.chargeDetail)
                     bottomSheet.show(
                         childFragmentManager,
                         MarkerInfoBottomSheet::class.java.simpleName
@@ -135,35 +135,35 @@ Glob.activity = requireActivity()
         var parkingSpots = mutableListOf<JChargeMapData>()
         parkingSpots.clear()
         stationsInfo!!.forEach { station ->
-            val jMapData = JChargeMapData(station.station_id, station.station_name, station.address, LatLng(station.latLng[1], station.latLng[0]), "0", "2024-1-12")
+            val jMapData = JChargeMapData(station.station_id, station.station_name, station.address, LatLng(station.latLng[1], station.latLng[0]), "0", "2024-1-12", station.charger_status_info)
             parkingSpots.add(jMapData)
         }
-        val chargeSpots = listOf(
-            JChargeMapData(
-                "1",
-                "第一充電站",
-                "空位:80",
-                LatLng(23.4771319, 120.4120205),
-                "0",
-                "2024-1-12"
-            ),
-            JChargeMapData(
-                "2",
-                "第二充電站",
-                "空位:40",
-                LatLng(23.4791319, 120.4140205),
-                "0",
-                "2024-1-12"
-            ),
-            JChargeMapData(
-                "3",
-                "第三充電站",
-                "空位:10",
-                LatLng(23.4811319, 120.4160205),
-                "0",
-                "2024-1-12"
-            )
-        )
+//        val chargeSpots = listOf(
+//            JChargeMapData(
+//                "1",
+//                "第一充電站",
+//                "空位:80",
+//                LatLng(23.4771319, 120.4120205),
+//                "0",
+//                "2024-1-12"
+//            ),
+//            JChargeMapData(
+//                "2",
+//                "第二充電站",
+//                "空位:40",
+//                LatLng(23.4791319, 120.4140205),
+//                "0",
+//                "2024-1-12"
+//            ),
+//            JChargeMapData(
+//                "3",
+//                "第三充電站",
+//                "空位:10",
+//                LatLng(23.4811319, 120.4160205),
+//                "0",
+//                "2024-1-12"
+//            )
+//        )
 
         jmap = JMapCharge(view, resources, savedInstanceState,
             parkingSpots, 0, Glob.MapMode, true )

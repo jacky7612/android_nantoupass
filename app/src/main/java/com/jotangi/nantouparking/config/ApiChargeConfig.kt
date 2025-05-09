@@ -41,7 +41,7 @@ interface ApiChargeConfig {
     ): Call<chkChargeResponse>
 
     // 搜尋附近充電站點
-    @POST("api/JTG_near_station.php")
+    @POST("api/JTG_near_station2.php")
     @FormUrlEncoded
     fun apiGetNearStation(
         @Field("member_id"      ) member_id: String,

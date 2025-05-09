@@ -648,7 +648,7 @@ class JMapCharge2(
                         it.StationUID, it.title ?: "", it.position ?: LatLng(
                             -999.0,
                             -999.0
-                        )
+                        ),it.chargeDetail
                     )
                     bottomSheet.show(
                         childFragmentManager,
@@ -944,6 +944,7 @@ class JMapCharge3(
                             -999.0,
                             -999.0
                         )
+                        ,it.chargeDetail
                     )
                     bottomSheet.show(
                         childFragmentManager,

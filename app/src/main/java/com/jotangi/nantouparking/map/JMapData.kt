@@ -1,6 +1,7 @@
 package com.jotangi.nantouparking.jackyModels.map
 
 import com.google.android.gms.maps.model.LatLng
+import com.jotangi.nantouparking.model.charge.DataChargeStatusInfo
 
 data class JMapData(
     var title : String="",
@@ -18,7 +19,8 @@ data class JChargeMapData(
     var descript: String="",
     var position: LatLng,
     var status:String,
-    var updateTime:String
+    var updateTime:String,
+    var chargeDetail: List<DataChargeStatusInfo>
 ) {
     fun clear() {
         StationUID = ""

@@ -88,6 +88,9 @@ data class DataStation(
     @SerializedName("distance")
     val distance: String,
 
+    @SerializedName("charger_status_info")
+    val charger_status_info: List<DataChargeStatusInfo>,
+
     @SerializedName("marker_id")
     val station_id: String, // Use camelCase for consistency
 
@@ -100,7 +103,33 @@ data class DataStation(
     @SerializedName("type")
     val AC_DC_type: String // Use camelCase for consistency
 )
+data class DataChargeStatusInfo(
+    @SerializedName("type")
+    val type: String, // Consider changing to latLng for readability
 
+    @SerializedName("detail")
+    val detail: DataChargeStatusInfo_Detail,
+)
+data class DataChgStatusArray(
+    @SerializedName("status")
+    val status: String, // "0":關機/新設定; "1":待機; "2":充電中; "3":預約中; "4":離線
+
+    @SerializedName("count")
+    val count: String // 數量
+)
+data class DataChargeStatusInfo_Detail(
+    @SerializedName("name")
+    val name: String, // Consider changing to latLng for readability
+
+    @SerializedName("status_array")
+    val status_array: List<DataChgStatusArray>, // "0":關機/新設定; "1":待機; "2":充電中; "3":預約中; "4":離線
+
+    @SerializedName("gun_count")
+    val gun_count: String, // 總槍數量
+
+    @SerializedName("avalible_count")
+    val avalible_count: String // 可用數量
+)
 // 取得使用者歷史充電資訊
 data class ChargeHistoryResponse(
     @SerializedName("status")

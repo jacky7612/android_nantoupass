@@ -114,7 +114,7 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
                     bottomSheet.init(
                         it.title ?: "",
                         it.descript ?: "",
-                        it.position ?: LatLng(-999.0, -999.0)
+                        it.position ?: LatLng(-999.0, -999.0),it.chargeDetail
                     )
                     bottomSheet.show(
                         childFragmentManager,
@@ -178,7 +178,8 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
                     station.BillSegmentName,
                     LatLng(latitude, longitude),
                     station.Status,
-                    station.update_time
+                    station.update_time,
+                   emptyList()
                 )
                 parkingSpots.add(jMapData)
             } else {

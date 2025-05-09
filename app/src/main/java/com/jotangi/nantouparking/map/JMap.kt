@@ -554,7 +554,7 @@ class JMapCharge(view :View, val resource: Resources,
                     bottomSheet.init(it.StationUID, it.title ?: "", it.position ?: LatLng(
                         -999.0,
                         -999.0
-                    )
+                    ), it.chargeDetail
                     )
                     bottomSheet.show(
                         childFragmentManager,
