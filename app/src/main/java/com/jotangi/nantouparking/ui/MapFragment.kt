@@ -13,13 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.model.LatLng
 import com.jotangi.nantouparking.JackyVariant.Glob
-import com.jotangi.nantouparking.JackyVariant.Glob.toLatLng
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentMapChargeParkingBinding
 import com.jotangi.nantouparking.databinding.ToolbarFeetBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.jackyModels.map.JChargeMapData
-import com.jotangi.nantouparking.jackyModels.map.JMap
 import com.jotangi.nantouparking.jackyModels.map.JMapCharge
 import com.jotangi.nantouparking.ui.BaseWithBottomBarFragment
 import com.jotangi.nantouparking.utility.AppUtility

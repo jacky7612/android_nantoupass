@@ -1,6 +1,9 @@
 package com.jotangi.nantouparking.ui.charge
 
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,18 +13,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
+import com.jotangi.nantouparking.JackyVariant.ConvertText
 import com.jotangi.nantouparking.JackyVariant.Glob
-import com.jotangi.nantouparking.JackyVariant.Glob.toLatLng
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentMapChargeParkingBinding
 import com.jotangi.nantouparking.databinding.ToolbarFeetBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.jackyModels.map.JChargeMapData
-import com.jotangi.nantouparking.jackyModels.map.JMap
 import com.jotangi.nantouparking.jackyModels.map.JMapCharge
+import com.jotangi.nantouparking.model.charge.DataStation
 import com.jotangi.nantouparking.ui.BaseWithBottomBarFragment
 import com.jotangi.nantouparking.utility.AppUtility
 
@@ -36,6 +42,9 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
     private var jmap: JMapCharge? =null
     private var myview: View? = null
     private var mysavedInstanceState: Bundle? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
+
     override fun getToolBar(): ToolbarIncludeBinding? {
         TODO("Not yet implemented")
     }
@@ -43,25 +52,30 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requireActivity().supportFragmentManager.setFragmentResultListener("station_selected", this) { _, bundle ->
+            Log.d("micCheckLLL", "LLL")
+            val selectedStation = bundle.getParcelable<JChargeMapData>("selected_station")
+            selectedStation?.let {
+                showSelectedStationOnMap(it)
+            }
+        }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentMapChargeParkingBinding.inflate(inflater, container, false)
-
-        val view: View = inflater.inflate(R.layout.fragment_map_charge_parking, container, false)
-        myview =view
-        mysavedInstanceState =savedInstanceState
+        myview = _binding!!.root
+        mysavedInstanceState = savedInstanceState
 
         initObserver()
         triggerGetData()
 
         // feet button
-        initEvent(view)
-        return view
+        initEvent(myview!!)
+        return myview
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,10 +86,14 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
             }
         })
         Glob.activity = requireActivity()
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         // feet button
         initEvent()
+        binding.btnNearby.setOnClickListener {
+            requestLocationPermissionIfNeeded()
 
+        }
 //        mapChargeParkingTitle()
 
         var btBack: ImageButton =view.findViewById<ImageButton>(R.id.bt_back)
@@ -96,6 +114,46 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
             }
         }.start()
 
+    }
+
+    private fun showSelectedStationOnMap(station: JChargeMapData) {
+        val singleList = listOf(station)
+        jmap = JMapCharge(myview!!, resources, mysavedInstanceState, singleList, 0, Glob.MapMode, true)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            station.position?.let { jmap?.moveCameraTo(it) } // If you implement this in JMapCharge
+        }, 300)
+    }
+    private fun requestLocationPermissionIfNeeded() {
+        if (
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            getCurrentLocationAndShowNearbyStations()
+        }
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE &&
+            grantResults.isNotEmpty() &&
+            grantResults[0] == PackageManager.PERMISSION_GRANTED
+        ) {
+            getCurrentLocationAndShowNearbyStations()
+        } else {
+            Log.e("MapCharge", "User denied location permission.")
+        }
     }
     private fun showBottomSheetSafely(title: String, description: String) {
         val handler = Handler(Looper.getMainLooper())
@@ -154,5 +212,87 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
         if(parkingSpots.count() == 0) return
         jmap = JMapCharge(view, resources, savedInstanceState,
             parkingSpots, sel_idx, Glob.MapMode, true )
+    }
+
+    private fun getCurrentLocationAndShowNearbyStations() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log.e("MapCharge", "Location permission not granted")
+            return
+        }
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            location?.let {
+//                val miaoliLatLng = LatLng(24.560159, 120.820198)
+                val currentLatLng = LatLng(it.latitude, it.longitude)
+                Glob.lastKnownLatLng = currentLatLng.toString()
+                showNearbyStations(currentLatLng)
+            } ?: run {
+                Log.e("MapCharge", "Location is null")
+            }
+        }.addOnFailureListener {
+            Log.e("MapCharge", "Failed to get location: ${it.message}")
+        }
+    }
+
+    private fun showNearbyStations(currentLocation: LatLng) {
+        val allStations = chargeViewModel.chargeStation.value?.data ?: return
+        Log.d("micCheckKKL1", allStations.toString())
+        Log.d("micCheckKKL3", currentLocation.toString())
+        val sortedStations = allStations.sortedBy { station ->
+            val stationLatLng = LatLng(station.latLng[1], station.latLng[0])
+            calculateDistance(currentLocation, stationLatLng)
+        }.take(3)
+
+        val nearbySpots = sortedStations.map { station ->
+            JChargeMapData(
+                station.station_id,
+                station.station_name,
+                "",
+                LatLng(station.latLng[1], station.latLng[0]),
+                "0",
+                ConvertText.getFormattedDate(""),
+                station.charger_status_info
+            )
+        }
+        initNearbyMap(myview!!, mysavedInstanceState, sortedStations)
+        Log.d("micCheckKKL2", nearbySpots.toString())
+
+        // ✅ Show the custom dialog with list
+        val bottomSheet = NearbyStationsBottomSheetFragment(nearbySpots, currentLocation)
+        bottomSheet.show(childFragmentManager, "NearbyStationsDialog")
+    }
+    private fun calculateDistance(start: LatLng, end: LatLng): Double {
+        val results = FloatArray(1)
+        android.location.Location.distanceBetween(
+            start.latitude, start.longitude,
+            end.latitude, end.longitude,
+            results
+        )
+        return results[0].toDouble() // in meters
+    }
+
+    private fun initNearbyMap(view :View, savedInstanceState :Bundle?, nearbyStation:List<DataStation>) {
+
+        // Example parking spots
+        var stationsInfo = nearbyStation
+        var parkingSpots = mutableListOf<JChargeMapData>()
+        parkingSpots.clear()
+        stationsInfo!!.forEach { station ->
+            val jMapData = JChargeMapData(station.station_id, station.station_name,
+                "", LatLng(station.latLng[1], station.latLng[0]), "0", ConvertText.getFormattedDate(""), station.charger_status_info)
+            parkingSpots.add(jMapData)
+        }
+
+        if(parkingSpots.count() == 0) return
+        jmap = JMapCharge(view, resources, savedInstanceState,
+            parkingSpots, 0, Glob.MapMode, true )
     }
 }

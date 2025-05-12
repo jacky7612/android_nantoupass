@@ -18,14 +18,11 @@ import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.ParkingInfoBottomSheet
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.databinding.FragmentMapChargeParking2Binding
-import com.jotangi.nantouparking.databinding.FragmentMapChargeParkingBinding
 import com.jotangi.nantouparking.databinding.ToolbarFeetBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.jackyModels.map.JChargeMapData
-import com.jotangi.nantouparking.jackyModels.map.JMapCharge
 import com.jotangi.nantouparking.ui.BaseWithBottomBarFragment
 import com.jotangi.nantouparking.ui.charge.MarkerInfoBottomSheet
-import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.zhudongparking.jackyModels.map.JMapCharge2
 import com.jotangi.zhudongparking.jackyModels.map.JMapCharge3
 import kotlinx.coroutines.launch
@@ -231,7 +228,11 @@ open class MapChargeParkingFragment2 : BaseWithBottomBarFragment(), JMapCharge2.
 
     override fun showMarkerDialog(data: JChargeMapData) {
         val dialog = ParkingInfoBottomSheet()
-        dialog.init(data.status, data.descript, data.StationUID, data.updateTime, data.position)
+        data.position?.let {
+            dialog.init(data.status, data.descript, data.StationUID, data.updateTime,
+                it
+            )
+        }
         dialog.show(childFragmentManager, ParkingInfoBottomSheet::class.java.simpleName)
     }
 

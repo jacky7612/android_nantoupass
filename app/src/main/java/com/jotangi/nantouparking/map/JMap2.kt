@@ -511,11 +511,14 @@ class JMapCharge2(
     }
 
     private fun addParkingSpots2() {
-        val cameraPosition = CameraPosition.Builder()
-            .target(jmap_cur[default_latlng_pos].position)
-            .zoom(17f)
-            .build()
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        val cameraPosition = jmap_cur[default_latlng_pos].position?.let {
+            CameraPosition.Builder()
+                .target(it)
+                .zoom(17f)
+                .build()
+        }
+        cameraPosition?.let { CameraUpdateFactory.newCameraPosition(it) }
+            ?.let { mMap.animateCamera(it) }
 
         jmap_cur.forEach { spot ->
             val iconRes = if (spot.status == "1") {
@@ -524,9 +527,9 @@ class JMapCharge2(
                 R.drawable.road_parking2  // Available
             }
 
-            val marker = mMap.addMarker(
+            val marker = spot.position?.let {
                 MarkerOptions()
-                    .position(spot.position)
+                    .position(it)
                     .title(spot.title)
                     .snippet(spot.descript)
                     .icon(
@@ -534,7 +537,11 @@ class JMapCharge2(
                             getBitmapFromVectorDrawable(iconRes)
                         )
                     )
-            )
+            }?.let {
+                mMap.addMarker(
+                    it
+                )
+            }
             marker?.tag = spot  // Store the entire JChargeMapData object in tag
         }
     }

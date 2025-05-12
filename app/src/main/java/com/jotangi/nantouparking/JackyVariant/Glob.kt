@@ -21,7 +21,7 @@ import com.jotangi.nantouparking.model.charge.DataChargeHistory
 object Glob {
     lateinit var activity     : Activity
     lateinit var apiGovPayList: ApiRespGovPlateListOK
-
+    var lastKnownLatLng = ""
     var SkipPowerOFFRealResponse        : Boolean            =false  // 假成功訊號，停止充電
     var ChargeStartSkipWait             : Boolean            =false  // 跳過等待 充電啟動中
     var PowerONSampleResponse           : Boolean            =false  // 啟動充電

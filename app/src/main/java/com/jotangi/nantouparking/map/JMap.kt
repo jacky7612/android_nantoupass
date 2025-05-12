@@ -329,6 +329,9 @@ class JMapCharge(view :View, val resource: Resources,
     var jmap_cur: List<JChargeMapData>
 
     private var fusedLocationClient: FusedLocationProviderClient
+    fun moveCameraTo(position: LatLng, zoomLevel: Float = 16f) {
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(position, zoomLevel))
+    }
     init {
         fShowCharge  =false
         fShowParking =false
@@ -436,11 +439,14 @@ class JMapCharge(view :View, val resource: Resources,
     }
 
     private fun addParkingSpots() {
-        val cameraPosition = CameraPosition.Builder()
-            .target(jmap_cur[default_latlng_pos].position)
-            .zoom(17f)
-            .build()
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+        val cameraPosition = jmap_cur[default_latlng_pos].position?.let {
+            CameraPosition.Builder()
+                .target(it)
+                .zoom(17f)
+                .build()
+        }
+        cameraPosition?.let { CameraUpdateFactory.newCameraPosition(it) }
+            ?.let { mMap.animateCamera(it) }
 
         var marker_id: Int =-1
         marker_id  =if (fShowCharge) R.drawable.ic_charge_placeholder48 // unselect :ic_mark_blue
@@ -448,13 +454,18 @@ class JMapCharge(view :View, val resource: Resources,
         var iIdx =0
         jmap_cur.forEach { spot ->
             iIdx++
-            val marker =mMap.addMarker(
+            val marker = spot.position?.let {
                 MarkerOptions()
-                    .position(spot.position)
+                    .position(it)
                     .title("${spot.title}\n${spot.descript}")
                     .title(spot.title)
                     .snippet(spot.descript)
-                    .icon(BitmapDescriptorFactory.fromBitmap(getBitmapFromVectorDrawable(marker_id))))
+                    .icon(BitmapDescriptorFactory.fromBitmap(getBitmapFromVectorDrawable(marker_id)))
+            }?.let {
+                mMap.addMarker(
+                    it
+                )
+            }
             marker?.let { markers.add(it)
                 myBuilder?.include(marker.position)}
 
