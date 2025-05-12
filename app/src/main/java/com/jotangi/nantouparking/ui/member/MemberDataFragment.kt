@@ -146,7 +146,22 @@ class MemberDataFragment : BaseFragment() {
         }
     }
 
+    private fun isValidMobileCarrier(carrierId: String): Boolean {
+        val regex = Regex("^/[A-Z0-9.+-]{7}$")
+        return regex.matches(carrierId)
+    }
+
     private fun editMemberData() {
+        if (!binding?.vehicleEditText?.text.isNullOrEmpty()) {
+            var carrier_num = binding?.vehicleEditText?.text.toString()
+            if (!isValidMobileCarrier(carrier_num)) {
+                showPrivateDialog(
+                    "請輸入合法的載具號碼！",
+                    binding?.vehicleEditText
+                )
+                return
+            }
+        }
         binding!!.apply {
 
             mPlateNo =
