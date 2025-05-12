@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
+import com.jotangi.nantouparking.ui.charge.ChargeInfoResponse
 import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
 import com.jotangi.nantouparking.utility.ApiUtility
 import com.jotangi.nantouparking.utility.AppUtility
@@ -215,6 +216,9 @@ class MainViewModel : ViewModel() {
 
     val _navigateToPaidHistory2 = MutableLiveData<TicketResponse>()
     val navigateToPaidHistory2: MutableLiveData<TicketResponse> get() = _navigateToPaidHistory2
+
+    private val _chargeInfoData = MutableLiveData<ChargeInfoResponse>()
+    val chargeInfoData: LiveData<ChargeInfoResponse> get() = _chargeInfoData
 
     private fun combineRecords() {
         val type0Records = pointRecordsType0.value ?: emptyList()
@@ -1951,6 +1955,38 @@ class MainViewModel : ViewModel() {
 
             override fun onFailure(call: Call<TicketResponse>, t: Throwable) {
                 Log.e("API_ERROR", "API call failed: ${t.message}")
+            }
+        })
+    }
+
+    fun getChargeInfo(context: Context) {
+        val call = ApiUtility.service.apiGetChargeInfo()
+        call.enqueue(object : Callback<ChargeInfoResponse> {
+            override fun onResponse(
+                call: Call<ChargeInfoResponse>,
+                response: Response<ChargeInfoResponse>
+            ) {
+                val url = response.raw().request.url.toString()
+                val statusCode = response.code()
+                Log.d("API_RESPONSE", "$statusCode - $url")
+
+                if (response.isSuccessful && response.body() != null) {
+                    _chargeInfoData.value = response.body()
+                } else {
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        "無法取得充電須知"
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ChargeInfoResponse>, t: Throwable) {
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    t.localizedMessage ?: "連線錯誤"
+                )
             }
         })
     }

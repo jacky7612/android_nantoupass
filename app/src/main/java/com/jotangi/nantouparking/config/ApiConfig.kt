@@ -2,6 +2,7 @@ package com.jotangi.nantouparking.config
 
 import CouponListResponse
 import com.jotangi.nantouparking.model.*
+import com.jotangi.nantouparking.ui.charge.ChargeInfoResponse
 import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
 import com.jotangi.payStation.Model.ApiModel.TicketResponse
 import retrofit2.Call
@@ -297,4 +298,7 @@ interface ApiConfig {
         @Field("cid") cid: String,
         @Field("using_flag") usingFlag: String
     ): Call<List<CouponListResponse>>
+
+    @GET("api/charge_info_text.php")
+    fun apiGetChargeInfo(): Call<ChargeInfoResponse>
 }

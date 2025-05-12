@@ -32,6 +32,7 @@ var call = false
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainViewModel.getChargeInfo(requireContext())
         binding?.svCharge?.post {
             if (!isScrollViewScrollable()) {
                 // Content doesn't need scrolling; enable the button
@@ -101,6 +102,15 @@ var call = false
         var verifyStatusValue = ""
     }
     private fun initObserver() {
+
+        mainViewModel.chargeInfoData.observe(viewLifecycleOwner) { response ->
+            if (response.status == "true") {
+                Log.d("micCheckKKK", response.toString())
+                binding?.tvContent?.text = response.responseMessage
+            } else {
+                binding?.tvContent?.text = "無法取得充電須知"
+            }
+        }
         mainViewModel.memberInfoData.observe(viewLifecycleOwner) { result ->
             if(call) {
                 Log.d("micCheck11", (result.firstOrNull()?.verifyStatus == null).toString())
