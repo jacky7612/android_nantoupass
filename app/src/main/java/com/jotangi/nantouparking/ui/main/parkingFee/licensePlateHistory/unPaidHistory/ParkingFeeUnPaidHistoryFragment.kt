@@ -85,6 +85,15 @@ var current = ""
         _binding = null
     }
 
+    private fun setTabEnabled(enabled: Boolean) {
+        val tabLayout = binding?.tabLayout
+        for (i in 0 until (tabLayout?.tabCount ?: 0)) {
+            val tab = tabLayout?.getTabAt(i)
+            val tabView = (tabLayout?.getChildAt(0) as? ViewGroup)?.getChildAt(i)
+            tabView?.isEnabled = enabled
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initTab()
@@ -175,12 +184,17 @@ initListener()
                 Log.d("micCheckLJL", result.toString())
 
                     canton = convert // Initialize nantou for the first time
+                cantonList = convert.unPaidItems.toMutableList()
 
+                if (current == "草屯鎮") {
+                    updateRoadListView(convert)
+                }
                 Log.d("micCheckYOU", canton.toString())
 
                 if(nantou?.unPaidItems.isNullOrEmpty() && canton?.unPaidItems.isNullOrEmpty()) {
                     requireActivity().runOnUiThread {
                         binding?.progressBar?.visibility = View.GONE
+                        setTabEnabled(true)
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
                     if(nantou?.status.equals("false") || canton?.status.equals("false")) {
@@ -194,7 +208,7 @@ initListener()
                         Log.d("micCheckPOP", "1")
                         Toast.makeText(
                             requireActivity(),
-                            "目前沒有符合的紀錄唷！",
+                            result.responseMessage,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -211,6 +225,7 @@ initListener()
                     }
                     requireActivity().runOnUiThread {
                         binding?.progressBar?.visibility = View.GONE
+                        setTabEnabled(true)
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
                     Log.d("micCheckMB", "2")
@@ -221,6 +236,7 @@ initListener()
                     }
                     requireActivity().runOnUiThread {
                         binding?.progressBar?.visibility = View.GONE
+                        setTabEnabled(true)
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
                     Log.d("micCheckMB", "3")
@@ -231,6 +247,7 @@ initListener()
                     }
                     requireActivity().runOnUiThread {
                         binding?.progressBar?.visibility = View.GONE
+                        setTabEnabled(true)
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
                     Log.d("micCheckMB", "4")
@@ -265,7 +282,11 @@ initListener()
                call3 = true
 
                    nantou = result // Initialize nantou for the first time
+               nantouList = result.unPaidItems.toMutableList()
 
+               if (current == "南投市") {
+                   updateRoadListView(result)
+               }
                mainViewModel.getParkingRoadFeeUnPaidListCanton(
                    requireContext(),
                    plateNo
@@ -303,18 +324,20 @@ initListener()
                         updateGarageListView(result)
                         requireActivity().runOnUiThread {
                             binding?.progressBar?.visibility = View.GONE
+                            setTabEnabled(true)
                             Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                         }
                     } else {
                         requireActivity().runOnUiThread {
                             binding?.progressBar?.visibility = View.GONE
+                            setTabEnabled(true)
                             Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                         }
                         Log.d("micCheckPOP", "2")
 
                         Toast.makeText(
                             requireActivity(),
-                            "目前沒有符合的紀錄唷！",
+                            result.responseMessage,
                             Toast.LENGTH_SHORT
                         ).show()
                         Log.d("micCheckZZ", "ZZ2")
@@ -323,11 +346,12 @@ initListener()
                 } else {
                     requireActivity().runOnUiThread {
                         binding?.progressBar?.visibility = View.GONE
+                        setTabEnabled(true)
                         Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
                     }
                     Toast.makeText(
                         requireActivity(),
-                        "目前沒有符合的紀錄唷！",
+                        result.responseMessage,
                         Toast.LENGTH_SHORT
                     ).show()
                     Log.d("micCheckZZ", "ZZ3")
@@ -368,14 +392,12 @@ initListener()
                     when (tab?.position) {
                         0 -> { // 南投市
                             current = "南投市"
-                            selectPayData.clear() // Clear selection list
+                            selectPayData.clear()
                             isAllSelected = false
                             binding?.selectAll?.isChecked = false
 
-                            // ✅ Reset checkbox in data
                             nantouList.forEach { it.isSelected = false }
 
-                            // ✅ Show updated list
                             currentList = nantouList
                             currentPage = 0
                             updatePagination()
@@ -393,13 +415,12 @@ initListener()
                             isAllSelected = false
                             binding?.selectAll?.isChecked = false
 
-                            // ✅ Reset checkbox in data
                             cantonList.forEach { it.isSelected = false }
 
-                            // ✅ Show updated list
                             currentList = cantonList
                             currentPage = 0
                             updatePagination()
+
                             if (canton?.unPaidItems.isNullOrEmpty()) {
                                 val message = canton?.responseMessage ?: "目前沒有符合的紀錄唷！"
                                 Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -407,8 +428,7 @@ initListener()
                             Log.d("TabSelection", "Selected: 草屯鎮")
                         }
                     }
-
-            }
+                }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
                     // Optional: Handle tab unselected state if needed
@@ -420,9 +440,10 @@ initListener()
             })
 
             // Set default selected tab
-            getTabAt(0)?.select()
+//            getTabAt(0)?.select()
         }
     }
+
 
 
     private fun initData() {
@@ -434,6 +455,7 @@ initListener()
             Log.d("micCheckZ5", plateNo)
             requireActivity().runOnUiThread {
                 binding?.progressBar?.visibility = View.VISIBLE
+                setTabEnabled(false)
                 Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
             }
             lifecycleScope.launch {
@@ -480,7 +502,7 @@ initListener()
         binding?.parkingHistoryUnPaidRecyclerView?.apply {
             layoutManager = LinearLayoutManager(requireContext())
             parkingFeeUnPaidAdapter = ParkingFeeUnPaidAdapter(
-                data,
+                currentList, // ✅ use currentList instead of stale data
                 requireContext(),
                 this@ParkingFeeUnPaidHistoryFragment
             )
@@ -581,19 +603,26 @@ initListener()
         val startIndex = currentPage * pageSize
         val endIndex = minOf(startIndex + pageSize, totalItems)
         val pageItems = currentList.subList(startIndex, endIndex)
+        Log.d("PaginationDebug", "Updating page: $currentPage")
+        Log.d("PaginationDebug", "Page item count: ${pageItems.size}")
+        pageItems.forEach {
+            Log.d("PaginationDebug", "Item: ${it.billNo}, ${it.billRoad}, ${it.billCell}")
+        }
 
         binding?.pageNumber?.text = "${startIndex + 1}-$endIndex 筆(共 $totalItems 筆)"
-        parkingFeeUnPaidAdapter.updateDataSource(pageItems)
 
-        // Handle pagination button visibility
+        // ✅ Add this line to always update RecyclerView data
+        if (::parkingFeeUnPaidAdapter.isInitialized) {
+            parkingFeeUnPaidAdapter.updateDataSource(pageItems)
+        }
+
         binding?.backActive?.visibility = if (currentPage > 0) View.VISIBLE else View.GONE
         binding?.backInactive?.visibility = if (currentPage > 0) View.GONE else View.VISIBLE
 
         binding?.forwardActive?.visibility = if (currentPage < totalPages - 1) View.VISIBLE else View.GONE
         binding?.forwardInactive?.visibility = if (currentPage < totalPages - 1) View.GONE else View.VISIBLE
-//        binding?.selectAll?.isChecked = false
-//        isAllSelected = false
     }
+
 
     private fun updateRoadListView(result: ParkingRoadFeeUnPaidResponse) {
         binding?.pageContainer?.visibility = View.VISIBLE
@@ -601,17 +630,16 @@ initListener()
         if (!::parkingFeeUnPaidAdapter.isInitialized) {
             initRecyclerView()
         }
-        if(result.status.equals("false")) {
+
+        if (result.status.equals("false")) {
             Toast.makeText(requireActivity(), result.responseMessage, Toast.LENGTH_SHORT).show()
-        } else {
-            if (result.unPaidItems.isNullOrEmpty()) {
-                Toast.makeText(requireActivity(), "目前沒有符合的紀錄唷！", Toast.LENGTH_SHORT)
-                    .show()
-                parkingFeeUnPaidAdapter.updateDataSource(emptyList())
-                return
-            }
+        } else if (result.unPaidItems.isNullOrEmpty()) {
+            Toast.makeText(requireActivity(), result.responseMessage, Toast.LENGTH_SHORT).show()
+            parkingFeeUnPaidAdapter.updateDataSource(emptyList())
+            return
         }
 
+        // ✅ Directly update both the current and full list
         if (current == "南投市") {
             nantouList = result.unPaidItems.toMutableList()
             currentList = nantouList
@@ -619,6 +647,8 @@ initListener()
             cantonList = result.unPaidItems.toMutableList()
             currentList = cantonList
         }
+
+        Log.d("updateRoadListView", "currentList updated, size = ${currentList.size}")
         currentPage = 0
         updatePagination()
     }
