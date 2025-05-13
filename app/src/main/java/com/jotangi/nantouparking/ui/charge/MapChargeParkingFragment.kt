@@ -117,13 +117,41 @@ open class MapChargeParkingFragment : BaseWithBottomBarFragment() {
     }
 
     private fun showSelectedStationOnMap(station: JChargeMapData) {
-        val singleList = listOf(station)
-        jmap = JMapCharge(myview!!, resources, mysavedInstanceState, singleList, 0, Glob.MapMode, true)
+        val allStations = chargeViewModel.chargeStation.value?.data ?: return
 
+        // Convert all stations to JChargeMapData
+        val parkingSpots = allStations.map {
+            JChargeMapData(
+                it.station_id,
+                it.station_name,
+                it.address,
+                LatLng(it.latLng[1], it.latLng[0]),
+                "0",
+                "2024-1-12",
+                it.charger_status_info ?: emptyList()
+            )
+        }
+
+        // Find the index of the selected station in the full list
+        val selIdx = parkingSpots.indexOfFirst { it.StationUID == station.StationUID }
+
+        // Pass full list with selected index
+        jmap = JMapCharge(
+            myview!!,
+            resources,
+            mysavedInstanceState,
+            parkingSpots,
+            if (selIdx != -1) selIdx else 0,
+            Glob.MapMode,
+            true
+        )
+
+        // Optionally move camera to selected station
         Handler(Looper.getMainLooper()).postDelayed({
-            station.position?.let { jmap?.moveCameraTo(it) } // If you implement this in JMapCharge
+            station.position?.let { jmap?.moveCameraTo(it) }
         }, 300)
     }
+
     private fun requestLocationPermissionIfNeeded() {
         if (
             ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

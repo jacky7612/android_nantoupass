@@ -47,7 +47,6 @@ class ParkingLicensePlateHistoryFragment :
     private var parkingGarageData = mutableListOf<ParkingGarageVO>()
     private lateinit var plateNumberAdapter: PlateNumberAdapter
     private lateinit var parkingGarageAdapter: ParkingGarageAdapter
-    private var mPlateNo: String = ""
     private var mPId: String = ""
     private var mPName: String = ""
     private var mPAddress: String = ""
@@ -62,6 +61,7 @@ class ParkingLicensePlateHistoryFragment :
         var previousList: List<DataGovParkingFeePaidVO>? = null
         var parkingCurPage = "1"
         var parkingName = ""
+         var mPlateNo: String = ""
     }
 var call = false
    var resultNantou: ParkingRoadFeeUnPaidResponse? = null

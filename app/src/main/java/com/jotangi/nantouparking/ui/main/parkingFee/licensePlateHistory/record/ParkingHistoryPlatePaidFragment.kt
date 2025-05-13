@@ -29,6 +29,7 @@ import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingG
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingGarageClickListener
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment.Companion
+import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment.Companion.mPlateNo
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment.Companion.parkingCurPage
 import com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment.Companion.parkingName
 import com.jotangi.nantouparking.ui.member.parkingHistory.ParkingHistoryPaidFragmentDirections
@@ -78,14 +79,26 @@ Log.d("micCheckCC", "CC")
         initPaidListRecyclerView()
         initObserver()
         initRecyclerView()
+//        mainViewModel.paid(mPlateNo)
         binding.parkingPlatePaidRecyclerView.visibility = View.GONE
-
+        mainViewModel.govPlateList.value?.let { list ->
+            Log.d("micCheckNNN", list.toString())
+            if (list.isEmpty()) {
+                binding.parkingPlatePaidRecyclerView.visibility = View.GONE
+                binding.parkingPlatePaidDefaultTitleTextView.visibility = View.VISIBLE
+            } else {
+                binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
+                binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
+                binding.progressBar.visibility = View.GONE
+                updateGovListView(list)
+            }
+        }
         binding.parkingGarageRecyclerView.visibility = View.GONE
     }
 
     override fun onResume() {
         super.onResume()
-        binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.GONE
         binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
 
     }
@@ -156,7 +169,7 @@ Log.d("micCheckCC", "CC")
 
         requireActivity().runOnUiThread {
             binding.progressBar.bringToFront()
-            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
             Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
         }
 
@@ -187,61 +200,55 @@ Log.d("micCheckCC", "CC")
             updateParkingGarageListView(result)
         }
     }
-    mainViewModel.navigateToPaidHistory2.observe(viewLifecycleOwner) { result ->
+//    mainViewModel.govPlateList.observe(viewLifecycleOwner) { list ->
+//        Log.d("micCheckNNN", list.toString())
+//        binding.progressBar.visibility = View.GONE
+//        if (list.isNullOrEmpty()) {
+//            binding.parkingPlatePaidRecyclerView.visibility = View.GONE
+//            binding.parkingPlatePaidDefaultTitleTextView.visibility = View.VISIBLE
+//        } else {
+//            binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
+//            binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
+//            binding.progressBar.visibility = View.GONE
+//            updateGovListView(list)
+//        }
+//    }
 
-        if (result?.data.isNullOrEmpty()) {
-            binding.apply {
-                parkingPlatePaidRecyclerView.visibility = View.GONE
-                parkingPlatePaidDefaultTitleTextView.visibility = View.VISIBLE
-            }
-            return@observe
-        }
 
-        binding.apply {
-            parkingPlatePaidRecyclerView.visibility = View.VISIBLE
-            parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
-        }
-        requireActivity().runOnUiThread {
-            binding?.progressBar?.visibility = View.GONE
-            Log.d("ProgressBarDebug", "ProgressBar set to VISIBLE")
-        }
-        updateGovListView(result!!.data!!)
-    }
-
-    mainViewModel.parkingFeePaidResponse.observe(viewLifecycleOwner) { result ->
-        if (!result.isNullOrEmpty()) {
-
-            Log.d("micCheckQA3", result.toString())
-            try {
-                // Directly map the list of ParkingFeePaidVO to DataGovParkingFeePaidVO
-                val convertedData = result.map { item ->
-                    DataGovParkingFeePaidVO(
-                        ticket = item.orderNo ?: "單號",
-                        area = item.plateNo ?: "開單公所",
-                        parkDate = item.orderPayDate?.substringBefore(" ") ?: "停車日期",
-                        payAmount = item.orderPayAmount ?: "繳費金額",
-                        payDate = item.orderPayDate?.substringBefore(" ") ?: "繳費日期",
-                        paySource = "統一 代收繳費" // Default value
-                    )
-                }
-
-                data = convertedData.toMutableList()
-                initGovListRecyclerView()
-                binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
-                // Log the converted data
-                Log.d("micCheckQA2", convertedData.toString())
-            } catch (e: Exception) {
-                Log.e("micCheckUI2", "Error processing result: ${e.localizedMessage}", e)
-            }
-        } else {
-            Toast.makeText(
-                requireActivity(),
-                "目前沒有符合的紀錄唷！",
-                Toast.LENGTH_SHORT
-            ).show()
-            Log.d("micCheckUI2", "Result is null")
-        }
-    }
+//    mainViewModel.parkingFeePaidResponse.observe(viewLifecycleOwner) { result ->
+//        if (!result.isNullOrEmpty()) {
+//
+//            Log.d("micCheckQA3", result.toString())
+//            try {
+//                // Directly map the list of ParkingFeePaidVO to DataGovParkingFeePaidVO
+//                val convertedData = result.map { item ->
+//                    DataGovParkingFeePaidVO(
+//                        ticket = item.orderNo ?: "單號",
+//                        area = item.plateNo ?: "開單公所",
+//                        parkDate = item.orderPayDate?.substringBefore(" ") ?: "停車日期",
+//                        payAmount = item.orderPayAmount ?: "繳費金額",
+//                        payDate = item.orderPayDate?.substringBefore(" ") ?: "繳費日期",
+//                        paySource = "統一 代收繳費" // Default value
+//                    )
+//                }
+//
+//                data = convertedData.toMutableList()
+//                initGovListRecyclerView()
+//                binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
+//                // Log the converted data
+//                Log.d("micCheckQA2", convertedData.toString())
+//            } catch (e: Exception) {
+//                Log.e("micCheckUI2", "Error processing result: ${e.localizedMessage}", e)
+//            }
+//        } else {
+//            Toast.makeText(
+//                requireActivity(),
+//                "目前沒有符合的紀錄唷！",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            Log.d("micCheckUI2", "Result is null")
+//        }
+//    }
 
 }
 
@@ -249,8 +256,9 @@ Log.d("micCheckCC", "CC")
         val newList = if (result.size > 1) result.drop(1) else emptyList()
 
         // ✅ Compare with previous list
-        if (ParkingLicensePlateHistoryFragment.previousList == newList) {
-            Log.d("micCheckGovList", "Gov list is same as previous — not updating UI")
+        if (newList.isEmpty()) {
+            binding.progressBar.visibility = View.GONE
+            Log.d("micCheckGovList", "Gov list is empty — skipping UI update")
             binding.parkingPlatePaidRecyclerView.visibility = View.GONE
             binding.parkingPlatePaidDefaultTitleTextView.visibility = View.VISIBLE
             return
@@ -270,9 +278,10 @@ Log.d("micCheckCC", "CC")
             govlistAdapter?.updateDataSource(newList)
         }
 
+
         binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
         binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
-
+        binding.progressBar.visibility = View.GONE
         govlistAdapter?.itemClick = {
             // Handle item click
         }
@@ -456,6 +465,8 @@ Log.d("micCheckCC", "CC")
 
         binding.parkingPlatePaidRecyclerView.visibility = View.VISIBLE
         binding.parkingPlatePaidDefaultTitleTextView.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+
     }
 
 

@@ -56,7 +56,8 @@ class ParkingFeeUnPaidHistoryFragment :
     private  var canton: ParkingRoadFeeUnPaidResponse? = null
     private  var nantou: ParkingRoadFeeUnPaidResponse? = null
 var current = ""
-
+    private var nantouList = mutableListOf<ParkingRoadFeeUnPaidVO>()
+    private var cantonList = mutableListOf<ParkingRoadFeeUnPaidVO>()
     var call = false
     var call2 = false
     var call3 = false
@@ -595,8 +596,13 @@ initListener()
             }
         }
 
-        data = result.unPaidItems.toMutableList()
-        currentList = data
+        if (current == "南投市") {
+            nantouList = result.unPaidItems.toMutableList()
+            currentList = nantouList
+        } else {
+            cantonList = result.unPaidItems.toMutableList()
+            currentList = cantonList
+        }
         currentPage = 0
         updatePagination()
     }
@@ -737,16 +743,19 @@ var url = ""
 
             if (parkingId == "") {
                 // ROAD MODE
-                val totalItems = currentList.size
+                val targetList = if (current == "南投市") nantouList else cantonList
+                val totalItems = targetList.size
                 val startIndex = currentPage * pageSize
                 val endIndex = minOf(startIndex + pageSize, totalItems)
-                val currentPageList = currentList.subList(startIndex, endIndex)
+                val currentPageList = targetList.subList(startIndex, endIndex)
 
                 currentPageList.forEach { it.isSelected = isChecked }
                 if (isChecked) {
                     selectPayData.addAll(currentPageList)
+                } else {
+                    selectPayData.removeAll { it in currentPageList }
                 }
-                parkingFeeUnPaidAdapter.updateDataSource(currentList.subList(startIndex, endIndex))
+                parkingFeeUnPaidAdapter.updateDataSource(currentPageList)
             } else {
                 // GARAGE MODE (assumes no pagination here, but you can adapt similarly if needed)
                 garageData.forEach { it.isSelected = isChecked }

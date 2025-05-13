@@ -12,10 +12,12 @@ import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.ui.charge.ChargeInfoResponse
+import com.jotangi.nantouparking.ui.charge.GovPlateData
 import com.jotangi.nantouparking.ui.main.ParkingFeePaidResponse
 import com.jotangi.nantouparking.utility.ApiUtility
 import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.payStation.Model.ApiModel.ApiEntry
+import com.jotangi.payStation.Model.ApiModel.DataGovParkingFeePaidVO
 import com.jotangi.payStation.Model.ApiModel.TicketResponse
 import org.json.JSONException
 import org.json.JSONObject
@@ -28,7 +30,8 @@ import java.util.*
 
 class MainViewModel : ViewModel() {
 
-    // region member
+    private val _govPlateList = MutableLiveData<List<DataGovParkingFeePaidVO>>()
+    val govPlateList: LiveData<List<DataGovParkingFeePaidVO>> get() = _govPlateList
     private val _signupData: MutableLiveData<SignupResponse> by lazy {
         MutableLiveData<SignupResponse>()
     }
@@ -1844,29 +1847,41 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    fun paid(mPlateNo:String) {
+    fun paid(mPlateNo: String) {
         val apiEntry = ApiEntry()
         _navigateToPaidHistory.postValue(null)
         apiEntry.getGovPlateList(mPlateNo) { responseBody, exception ->
+            Log.d("micCheckNNNU", responseBody.toString())
             if (responseBody != null) {
                 try {
                     val jsonObject = JSONObject(responseBody)
                     val dataArray = jsonObject.getJSONArray("data")
-                    val dataSize = dataArray.length()
 
-                    if (dataSize > 1) {
-                        Log.d("micCheckAAZ1", dataArray.toString())
-                        _navigateToPaidHistory.postValue(true)
-                    } else {
-                        Log.d("micCheckAAZ2", dataArray.toString())
-                        _navigateToPaidHistory.postValue(false)
+                    val dataList = mutableListOf<DataGovParkingFeePaidVO>()
+                    for (i in 1 until dataArray.length()) { // skip title row
+                        val item = dataArray.getJSONObject(i)
+                        dataList.add(
+                            DataGovParkingFeePaidVO(
+                                item.getString("ticket"),
+                                item.getString("area"),
+                                item.getString("parkDate"),
+                                item.getString("payAmount"),
+                                item.getString("payDate"),
+                                item.getString("paySource")
+                            )
+                        )
                     }
+
+                    _govPlateList.postValue(dataList)
+
+                    _navigateToPaidHistory.postValue(dataList.isNotEmpty())
                 } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
-            } else {
             }
         }
     }
+
     fun fetchParkingGarageFeePaidList(plateNo: String, plateId: String) {
         if (plateNo.isEmpty() || plateId.isEmpty()) {
             Log.w("API_REQUEST", "PlateNo or PlateId is empty. Skipping API call.")
