@@ -366,39 +366,49 @@ initListener()
             addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     when (tab?.position) {
-                        0 -> {
+                        0 -> { // 南投市
                             current = "南投市"
-                            if (nantou!= null) {
-                                nantou?.let { updateRoadListView(it) }
-                            } else {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "南投市資料尚未載入",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            selectPayData.clear()
+                            selectPayData.clear() // Clear selection list
+                            isAllSelected = false
                             binding?.selectAll?.isChecked = false
+
+                            // ✅ Reset checkbox in data
+                            nantouList.forEach { it.isSelected = false }
+
+                            // ✅ Show updated list
+                            currentList = nantouList
+                            currentPage = 0
+                            updatePagination()
+
+                            if (nantou?.unPaidItems.isNullOrEmpty()) {
+                                val message = nantou?.responseMessage ?: "目前沒有符合的紀錄唷！"
+                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                            }
                             Log.d("TabSelection", "Selected: 南投市")
                         }
-                        1 -> {
-                            current = "草屯鎮"
-                            if (canton != null) {
-                                canton?.let { updateRoadListView(it) }
 
-                            } else {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "草屯鎮資料尚未載入",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                        1 -> { // 草屯鎮
+                            current = "草屯鎮"
                             selectPayData.clear()
+                            isAllSelected = false
                             binding?.selectAll?.isChecked = false
+
+                            // ✅ Reset checkbox in data
+                            cantonList.forEach { it.isSelected = false }
+
+                            // ✅ Show updated list
+                            currentList = cantonList
+                            currentPage = 0
+                            updatePagination()
+                            if (canton?.unPaidItems.isNullOrEmpty()) {
+                                val message = canton?.responseMessage ?: "目前沒有符合的紀錄唷！"
+                                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                            }
                             Log.d("TabSelection", "Selected: 草屯鎮")
                         }
                     }
-                }
+
+            }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
                     // Optional: Handle tab unselected state if needed
@@ -495,22 +505,28 @@ initListener()
         vo: ParkingRoadFeeUnPaidVO,
         isChecked: Boolean
     ) {
-//        data.forEach {
-//            it.isSelected = false
-//        }
-        if (isChecked) {
-            data[position].isSelected = true
-            if (!selectPayData.any { it.billNo == vo.billNo }) {
-                selectPayData.add(vo)
+        if (parkingId == "") {
+            // Use current page's data from currentList instead of `data`
+            val totalItems = currentList.size
+            val startIndex = currentPage * pageSize
+            val endIndex = minOf(startIndex + pageSize, totalItems)
+            val currentPageList = currentList.subList(startIndex, endIndex)
+
+            if (position < currentPageList.size) {
+                currentPageList[position].isSelected = isChecked
+                if (isChecked) {
+                    if (!selectPayData.any { it.billNo == vo.billNo }) {
+                        selectPayData.add(vo)
+                    }
+                } else {
+                    selectPayData.removeAll { it.billNo == vo.billNo }
+                }
+                payData = vo
+                parkingFeeUnPaidAdapter.updateDataSource(currentPageList)
             }
-        } else {
-            data[position].isSelected = false
-            selectPayData.removeAll { it.billNo == vo.billNo }
         }
-        payData = vo
-        updatePagination()
-//        parkingFeeUnPaidAdapter.updateDataSource(data)
     }
+
 
     override fun onParkingGarageFeeUnPaidItemClick(
         position: Int,

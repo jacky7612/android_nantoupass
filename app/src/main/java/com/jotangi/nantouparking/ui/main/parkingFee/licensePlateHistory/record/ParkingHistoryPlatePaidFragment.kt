@@ -253,7 +253,8 @@ Log.d("micCheckCC", "CC")
 }
 
     private fun updateGovListView(result: List<DataGovParkingFeePaidVO>) {
-        val newList = if (result.size > 1) result.drop(1) else emptyList()
+        val newList = if (result.size > 1) result.drop(0) else emptyList()
+        Log.d("micCheckGovList", "newList size = ${newList.size}")
 
         // ✅ Compare with previous list
         if (newList.isEmpty()) {
