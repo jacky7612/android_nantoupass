@@ -246,6 +246,7 @@
     <string name="parking_history_paid_default_title">目前無繳費紀錄</string>
     <string name="map_tour_default_title">在地好康</string>
     <string name="store_introduce_title">店家介紹</string>
+    <string name="activity_area_title">活動專區</string>
     <string name="select_all_title">全選</string>
 
     <!--    停車資訊-->

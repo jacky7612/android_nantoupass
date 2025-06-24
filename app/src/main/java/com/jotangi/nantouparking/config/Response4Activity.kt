@@ -9,6 +9,9 @@ data class Response4Activity (
     @SerializedName("activity_picture1")
     val activity_picture1: String,
 
+    @SerializedName("title")
+    val title: String,
+
     @SerializedName("body")
     val body: String,
 

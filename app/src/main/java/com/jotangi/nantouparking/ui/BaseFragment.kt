@@ -618,6 +618,20 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupActivityTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = getString(R.string.activity_area_title)
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
+
 
     fun showCustomDialog(context: Context, message: String, targetFragmentID: Int = -1, buttonText: String ="確定") {
         if (message.isNullOrEmpty()) return

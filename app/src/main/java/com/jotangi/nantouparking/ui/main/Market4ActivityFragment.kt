@@ -50,6 +50,9 @@ class Market4ActivityFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupActivityTitle()
+
         // 模擬從 API 回傳的資料
         val activityItem = Glob.lstActivity.getOrNull(0)
         if (activityItem == null) {
@@ -58,9 +61,34 @@ class Market4ActivityFragment : BaseFragment() {
         }
         val linkUrl = activityItem.link_url
 
-        addImageView(ApiConfig.URL_HOST + activityItem.body_picture1, linkUrl)
-        addImageView(ApiConfig.URL_HOST + activityItem.body_picture2, linkUrl)
-        addImageView(ApiConfig.URL_HOST + activityItem.body_picture3, linkUrl)
+        binding?.apply {
+            Glide.with(root.context) // `this` 會是 binding，但 Glide 需要 context
+                .load(ApiConfig.URL_HOST + activityItem.activity_picture1) // 加入要載入的圖片網址
+                .into(ivActivityPicture1) // 指定目標 ImageView
+
+            tvTitle.text = activityItem.title
+            tvBody.text = activityItem.body
+            tvLink.text = activityItem.link_text
+
+            Glide.with(root.context) // `this` 會是 binding，但 Glide 需要 context
+                .load(ApiConfig.URL_HOST + activityItem.body_picture1) // 加入要載入的圖片網址
+                .into(ivBodyPicture1) // 指定目標 ImageView
+
+            Glide.with(root.context) // `this` 會是 binding，但 Glide 需要 context
+                .load(ApiConfig.URL_HOST + activityItem.body_picture2) // 加入要載入的圖片網址
+                .into(ivBodyPicture2) // 指定目標 ImageView
+
+            Glide.with(root.context) // `this` 會是 binding，但 Glide 需要 context
+                .load(ApiConfig.URL_HOST + activityItem.body_picture3) // 加入要載入的圖片網址
+                .into(ivBodyPicture3) // 指定目標 ImageView
+
+            tvLink.setOnClickListener {
+                openWeb(linkUrl)
+            }
+        }
+//        addImageView(ApiConfig.URL_HOST + activityItem.body_picture1, linkUrl)
+//        addImageView(ApiConfig.URL_HOST + activityItem.body_picture2, linkUrl)
+//        addImageView(ApiConfig.URL_HOST + activityItem.body_picture3, linkUrl)
     }
 
     private fun addImageView(imageUrl: String, linkUrl: String) {
