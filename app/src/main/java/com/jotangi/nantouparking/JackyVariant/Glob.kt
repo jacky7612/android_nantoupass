@@ -20,6 +20,7 @@ import com.jotangi.nantouparking.model.charge.DataChargeHistory
 
 @SuppressLint("StaticFieldLeak")
 object Glob {
+    var curposActivity = ""
     lateinit var lstActivity: List<Response4Activity>
     lateinit var activity     : Activity
     lateinit var apiGovPayList: ApiRespGovPlateListOK

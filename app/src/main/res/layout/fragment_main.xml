@@ -414,21 +414,31 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                    <ImageView
-                        app:layout_constraintTop_toBottomOf="@id/main_function_constraintLayout"
-                        android:layout_marginTop="5dp"
-                        android:id="@+id/market"
-                        android:layout_width="0dp"
-                        android:layout_height="200dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                    />
+
+                <ScrollView
+                    android:id="@+id/sv_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/main_function_constraintLayout">
+
+                    <LinearLayout
+                        android:id="@+id/imageContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                    </LinearLayout>
+                </ScrollView>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/market"
+                    app:layout_constraintTop_toBottomOf="@id/sv_main"
                     android:id="@+id/main_store_constraintLayout"
                     android:layout_width="330dp"
                     android:layout_height="wrap_content"

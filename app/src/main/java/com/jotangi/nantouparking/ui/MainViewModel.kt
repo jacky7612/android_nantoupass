@@ -227,6 +227,9 @@ class MainViewModel : ViewModel() {
     private val _activityData = MutableLiveData<List<Response4Activity>?>()
     val activityData: LiveData<List<Response4Activity>?> get() = _activityData
 
+    fun clearActivityData() {
+        _activityData.value = emptyList()
+    }
     private fun combineRecords() {
         val type0Records = pointRecordsType0.value ?: emptyList()
         val type1Records = pointRecordsType1.value ?: emptyList()
@@ -2011,6 +2014,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun fetchActivity() {
+        clearActivityData()
+
         val call = ApiUtility.service.apiActivity()
         call.enqueue(object : Callback<List<Response4Activity>?> {
             override fun onResponse(call: Call<List<Response4Activity>?>, response: Response<List<Response4Activity>?>) {

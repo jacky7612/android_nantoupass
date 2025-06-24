@@ -54,7 +54,25 @@ class Market4ActivityFragment : BaseFragment() {
         setupActivityTitle()
 
         // 模擬從 API 回傳的資料
-        val activityItem = Glob.lstActivity.getOrNull(0)
+        if (Glob.lstActivity.size == 0) {
+            // 沒有資料，處理錯誤
+            return
+        }
+
+        var pos = -1
+        Glob.lstActivity.forEachIndexed { index, activity ->
+            if (activity.activity_picture1 == Glob.curposActivity) {
+                pos = index
+                return@forEachIndexed  // 找到就退出
+            }
+        }
+        if (pos == -1) {
+            // 沒有資料，處理錯誤
+            return
+        }
+
+        val activityItem = Glob.lstActivity.getOrNull(pos)
+
         if (activityItem == null) {
             // 沒有資料，處理錯誤
             return

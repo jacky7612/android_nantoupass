@@ -5,9 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +31,9 @@ import com.jotangi.nantouparking.utility.AppUtility
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainFragment :
     BaseFragment(),
@@ -152,17 +158,17 @@ class MainFragment :
                     findNavController().navigate(R.id.action_to_guideline)
                 }
 
-                market.setOnClickListener {
-//                    AppUtility.showPopDialog(
-//                        requireContext(),
-//                        "",
-//                        "市集籌備中，敬請期待"
-//                    )
-//                    openUrl("https://www.sunnygo.com.tw/web-front/#/testArea?")
-
-//                    findNavController().navigate(R.id.action_to_market_fragment2)
-                    findNavController().navigate(R.id.market4ActivityFragment)
-                }
+//                market.setOnClickListener {
+////                    AppUtility.showPopDialog(
+////                        requireContext(),
+////                        "",
+////                        "市集籌備中，敬請期待"
+////                    )
+////                    openUrl("https://www.sunnygo.com.tw/web-front/#/testArea?")
+//
+////                    findNavController().navigate(R.id.action_to_market_fragment2)
+//                    findNavController().navigate(R.id.market4ActivityFragment)
+//                }
                 // line 1
                 mainSpaceConstraintLayout.setOnClickListener {
                     findNavController().navigate(R.id.action_to_mapChargeFragment2)
@@ -225,12 +231,47 @@ class MainFragment :
 //    }
 
     private fun updateActivity(resp : List<Response4Activity>) {
-        binding?.market?.let {
-            Glide.with(this)
-                .load(ApiConfig.URL_HOST + resp[0].activity_picture1)
-                .into(it)
+        resp.forEach { activity ->
+            val start = activity.activity_start_date
+            val end = activity.activity_end_date
+
+            if (isNowInActivityRange(start, end)) {
+                Log.d("updateActivity", "✅ 現在在活動期間內: $start ~ $end")
+
+                // 顯示活動圖片
+                addImageView(activity.activity_picture1)
+
+                // ✅ 如果只要顯示第一筆符合條件的活動圖片，可以 return@forEach 來跳出
+            } else {
+                Log.d("updateActivity", "❌ 不在活動期間: $start ~ $end")
+            }
         }
     }
+
+    private fun addImageView(imageUrl: String) {
+        val imageView = ImageView(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                bottomMargin = 16
+            }
+            scaleType = ImageView.ScaleType.FIT_CENTER
+            adjustViewBounds = true
+        }
+
+        Glide.with(this)
+            .load(ApiConfig.URL_HOST + imageUrl)
+            .into(imageView)
+
+        imageView.setOnClickListener {
+            Glob.curposActivity = imageUrl
+            findNavController().navigate(R.id.market4ActivityFragment)
+        }
+
+        binding?.imageContainer?.addView(imageView)
+    }
+
     private fun updateView() {
         binding?.mainBannerDefaultImageView?.visibility = View.GONE
     }
@@ -324,6 +365,14 @@ class MainFragment :
             bundle
         )
     }
+    private fun isNowInActivityRange(activityStart: String, activityEnd: String): Boolean {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
+        val now = Date()
+        val startDate = sdf.parse(activityStart)
+        val endDate = sdf.parse(activityEnd)
+
+        return now >= startDate && now <= endDate
+    }
 
 }
