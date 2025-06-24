@@ -14,8 +14,8 @@ android {
         applicationId "com.jotangi.nantouparking"
         minSdk 28
         targetSdk 34
-        versionCode 45
-        versionName "1.0.45"
+        versionCode 49
+        versionName "1.0.49"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

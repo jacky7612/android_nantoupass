@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.config.ApiConfig
+import com.jotangi.nantouparking.config.Response4Activity
 import com.jotangi.nantouparking.model.*
 import com.jotangi.nantouparking.ui.charge.ChargeInfoResponse
 import com.jotangi.nantouparking.ui.charge.GovPlateData
@@ -222,6 +223,9 @@ class MainViewModel : ViewModel() {
 
     private val _chargeInfoData = MutableLiveData<ChargeInfoResponse>()
     val chargeInfoData: LiveData<ChargeInfoResponse> get() = _chargeInfoData
+
+    private val _activityData = MutableLiveData<List<Response4Activity>?>()
+    val activityData: LiveData<List<Response4Activity>?> get() = _activityData
 
     private fun combineRecords() {
         val type0Records = pointRecordsType0.value ?: emptyList()
@@ -2006,4 +2010,20 @@ class MainViewModel : ViewModel() {
         })
     }
 
+    fun fetchActivity() {
+        val call = ApiUtility.service.apiActivity()
+        call.enqueue(object : Callback<List<Response4Activity>?> {
+            override fun onResponse(call: Call<List<Response4Activity>?>, response: Response<List<Response4Activity>?>) {
+                if (response.isSuccessful) {
+                    _activityData.value = response.body()
+                } else {
+                    Log.e("API_ERROR", "Error fetching park status: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Response4Activity>?>, t: Throwable) {
+                Log.e("API_ERROR", "API call failed: ${t.message}")
+            }
+        })
+    }
 }

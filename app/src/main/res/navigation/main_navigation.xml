@@ -844,4 +844,9 @@
             android:id="@+id/action_chargeHistoryDetailFragment_to_main_fragment"
             app:destination="@id/main_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/market4ActivityFragment"
+        android:name="com.jotangi.nantouparking.ui.main.Market4ActivityFragment"
+        android:label="fragment_market4_activity"
+        tools:layout="@layout/fragment_market4_activity" />
 </navigation>

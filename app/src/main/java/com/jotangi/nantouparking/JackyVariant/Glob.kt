@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.model.LatLng
+import com.jotangi.nantouparking.config.Response4Activity
 import com.jotangi.nantouparking.utility.AppUtility
 import com.jotangi.payStation.Model.ApiModel.ApiRespGovPlateListOK
 import com.jotangi.nantouparking.jackyModels.map.JChargeMapData
@@ -19,6 +20,7 @@ import com.jotangi.nantouparking.model.charge.DataChargeHistory
 
 @SuppressLint("StaticFieldLeak")
 object Glob {
+    lateinit var lstActivity: List<Response4Activity>
     lateinit var activity     : Activity
     lateinit var apiGovPayList: ApiRespGovPlateListOK
     var lastKnownLatLng = ""

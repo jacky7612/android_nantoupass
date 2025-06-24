@@ -414,16 +414,16 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-<ImageView
-    app:layout_constraintTop_toBottomOf="@id/main_function_constraintLayout"
-    android:layout_marginTop="5dp"
-    android:id="@+id/market"
-    android:layout_width="0dp"
-    android:layout_height="200dp"
-    android:background="@drawable/banner_5"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-/>
+                    <ImageView
+                        app:layout_constraintTop_toBottomOf="@id/main_function_constraintLayout"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/market"
+                        android:layout_width="0dp"
+                        android:layout_height="200dp"
+                        android:background="@drawable/banner_5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                    />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:visibility="gone"

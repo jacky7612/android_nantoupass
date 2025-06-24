@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.jotangi.nantouparking.JackyVariant.Glob
 import com.jotangi.nantouparking.R
 import com.jotangi.nantouparking.config.ApiConfig
 import com.jotangi.nantouparking.config.AppConfig
+import com.jotangi.nantouparking.config.Response4Activity
 import com.jotangi.nantouparking.databinding.FragmentMainBinding
 import com.jotangi.nantouparking.databinding.ToolbarIncludeBinding
 import com.jotangi.nantouparking.model.BannerVO
@@ -97,6 +99,13 @@ class MainFragment :
 //                storeAdapter.updateDataSource(result)
             }
         }
+        mainViewModel.activityData.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                Glob.lstActivity = result
+                updateActivity(result)
+            } else {
+            }
+        }
     }
 
     private fun initView() {
@@ -109,6 +118,8 @@ class MainFragment :
             requireContext(),
             ""
         )
+
+        mainViewModel.fetchActivity()
     }
 
     private fun initAction() {
@@ -134,7 +145,6 @@ class MainFragment :
                     }
                 }
 
-
                 mainLineConstraintLayout.setOnClickListener {
                     openUrl("https://line.me/R/ti/p/@sbo5307t")
                 }
@@ -150,7 +160,8 @@ class MainFragment :
 //                    )
 //                    openUrl("https://www.sunnygo.com.tw/web-front/#/testArea?")
 
-                    findNavController().navigate(R.id.action_to_market_fragment2)
+//                    findNavController().navigate(R.id.action_to_market_fragment2)
+                    findNavController().navigate(R.id.market4ActivityFragment)
                 }
                 // line 1
                 mainSpaceConstraintLayout.setOnClickListener {
@@ -213,6 +224,13 @@ class MainFragment :
 //        }
 //    }
 
+    private fun updateActivity(resp : List<Response4Activity>) {
+        binding?.market?.let {
+            Glide.with(this)
+                .load(ApiConfig.URL_HOST + resp[0].activity_picture1)
+                .into(it)
+        }
+    }
     private fun updateView() {
         binding?.mainBannerDefaultImageView?.visibility = View.GONE
     }

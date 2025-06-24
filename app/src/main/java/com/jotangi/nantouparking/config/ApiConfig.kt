@@ -301,4 +301,7 @@ interface ApiConfig {
 
     @GET("api/charge_info_text.php")
     fun apiGetChargeInfo(): Call<ChargeInfoResponse>
+
+    @GET("api/activity.php")
+    fun apiActivity(): Call<List<Response4Activity>?>
 }
