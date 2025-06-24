@@ -420,7 +420,6 @@
                         android:id="@+id/market"
                         android:layout_width="0dp"
                         android:layout_height="200dp"
-                        android:background="@drawable/banner_5"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                     />
