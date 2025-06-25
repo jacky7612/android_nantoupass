@@ -232,8 +232,8 @@ class MainFragment :
 
     private fun updateActivity(resp : List<Response4Activity>) {
         resp.forEach { activity ->
-            val start = activity.activity_start_date
-            val end = activity.activity_end_date
+            val start = activity.activity_start_date.trim()
+            val end = activity.activity_end_date.trim()
 
             if (isNowInActivityRange(start, end)) {
                 Log.d("updateActivity", "✅ 現在在活動期間內: $start ~ $end")
@@ -366,13 +366,17 @@ class MainFragment :
         )
     }
     private fun isNowInActivityRange(activityStart: String, activityEnd: String): Boolean {
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        try {
+            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-        val now = Date()
-        val startDate = sdf.parse(activityStart)
-        val endDate = sdf.parse(activityEnd)
+            val now = Date()
+            val startDate = sdf.parse(activityStart)
+            val endDate = sdf.parse(activityEnd)
 
-        return now >= startDate && now <= endDate
+            return now >= startDate && now <= endDate
+        } catch (e:Exception) {
+            return false
+        }
     }
 
 }
