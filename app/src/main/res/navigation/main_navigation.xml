@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/couponDetailFragment"
-        android:name="com.jotangi.nantouparking.ui.CouponDetailFragment"
+        android:name="com.jotangi.nantoupass.ui.CouponDetailFragment"
         android:label="Coupon Detail">
     </fragment>
 
     <fragment
         android:id="@+id/login_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.LoginFragment"
+        android:name="com.jotangi.nantoupass.ui.member.LoginFragment"
         android:label="navigation login fragment"
         tools:layout="@layout/fragment_login">
 
@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/signup_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.SignupFragment"
+        android:name="com.jotangi.nantoupass.ui.member.SignupFragment"
         android:label="navigation signup fragment"
         tools:layout="@layout/fragment_signup">
         <action
@@ -94,7 +94,7 @@
 
     <fragment
         android:id="@+id/forget_password_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.ForgetPasswordFragment"
+        android:name="com.jotangi.nantoupass.ui.member.ForgetPasswordFragment"
         android:label="navigation forget password fragment"
         tools:layout="@layout/fragment_forget_password">
         <action
@@ -110,7 +110,7 @@
 
     <fragment
         android:id="@+id/coupon_list_fragment"
-        android:name="com.jotangi.nantouparking.ui.CouponListFragment"
+        android:name="com.jotangi.nantoupass.ui.CouponListFragment"
         android:label="navigation coupon list fragment"
         tools:layout="@layout/fragment_coupon_list">
         <action
@@ -124,7 +124,7 @@
 
     <fragment
         android:id="@+id/member_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.MemberFragment"
+        android:name="com.jotangi.nantoupass.ui.member.MemberFragment"
         android:label="member fragment"
         tools:layout="@layout/fragment_member">
 
@@ -211,13 +211,13 @@
 
     <fragment
         android:id="@+id/member_data_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.MemberDataFragment"
+        android:name="com.jotangi.nantoupass.ui.member.MemberDataFragment"
         android:label="navigation member data fragment"
         tools:layout="@layout/fragment_member_data" />
 
     <fragment
         android:id="@+id/password_update_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.PasswordUpdateFragment"
+        android:name="com.jotangi.nantoupass.ui.member.PasswordUpdateFragment"
         android:label="password update fragment"
         tools:layout="@layout/fragment_password_update">
         <action
@@ -231,7 +231,7 @@
 
     <fragment
         android:id="@+id/coupon_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.coupon.CouponFragment"
+        android:name="com.jotangi.nantoupass.ui.member.coupon.CouponFragment"
         android:label="navigation coupon fragment"
         tools:layout="@layout/fragment_coupon">
         <action
@@ -245,7 +245,7 @@
 
     <fragment
         android:id="@+id/parking_history_paid_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.parkingHistory.ParkingHistoryPaidFragment"
+        android:name="com.jotangi.nantoupass.ui.member.parkingHistory.ParkingHistoryPaidFragment"
         android:label="navigation parking history fragment"
         tools:layout="@layout/fragment_parking_history_paid">
         <action
@@ -259,7 +259,7 @@
 
     <fragment
         android:id="@+id/parking_history_plate_paid_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.record.ParkingHistoryPlatePaidFragment"
+        android:name="com.jotangi.nantoupass.ui.main.parkingFee.licensePlateHistory.record.ParkingHistoryPlatePaidFragment"
         android:label="navigation parking history plate paid fragment"
         tools:layout="@layout/fragment_parking_history_plate_paid">
         <action
@@ -273,32 +273,32 @@
 
     <fragment
         android:id="@+id/parking_history_plate_paid_detail_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.record.ParkingHistoryPlatePaidDetailFragment"
+        android:name="com.jotangi.nantoupass.ui.main.parkingFee.licensePlateHistory.record.ParkingHistoryPlatePaidDetailFragment"
         android:label="navigation parking history plate paid detail fragment"
         tools:layout="@layout/fragment_parking_history_plate_paid_detail">
     </fragment>
 
     <fragment
         android:id="@+id/parking_history_paid_detail_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.parkingHistory.ParkingHistoryPaidDetailFragment"
+        android:name="com.jotangi.nantoupass.ui.member.parkingHistory.ParkingHistoryPaidDetailFragment"
         android:label="navigation parking notice fragment"
         tools:layout="@layout/fragment_parking_history_paid_detail" />
 
     <fragment
         android:id="@+id/parking_notice_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.ParkingNoticeFragment"
+        android:name="com.jotangi.nantoupass.ui.member.ParkingNoticeFragment"
         android:label="navigation parking notice fragment"
         tools:layout="@layout/fragment_parking_notice" />
 
     <fragment
         android:id="@+id/q_n_a_fragment"
-        android:name="com.jotangi.nantouparking.ui.member.QNAFragment"
+        android:name="com.jotangi.nantoupass.ui.member.QNAFragment"
         android:label="navigation Q n A fragment"
         tools:layout="@layout/fragment_q_n_a" />
 
     <fragment
         android:id="@+id/guideline_fragment"
-        android:name="com.jotangi.nantouparking.ui.GuideLinesFragment"
+        android:name="com.jotangi.nantoupass.ui.GuideLinesFragment"
         android:label="navigation guideline fragment"
         tools:layout="@layout/fragment_guide_lines">
         <action
@@ -313,13 +313,13 @@
 
     <fragment
         android:id="@+id/market_fragment2"
-        android:name="com.jotangi.nantouparking.ui.main.MarketFragment2"
+        android:name="com.jotangi.nantoupass.ui.main.MarketFragment2"
         android:label="market fragment2"
         tools:layout="@layout/fragment_market2"/>
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.MainFragment"
+        android:name="com.jotangi.nantoupass.ui.main.MainFragment"
         android:label="main fragment"
         tools:layout="@layout/fragment_main">
         <action
@@ -430,7 +430,7 @@
 
     <fragment
         android:id="@+id/parking_license_plate_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment"
+        android:name="com.jotangi.nantoupass.ui.main.parkingFee.licensePlateHistory.ParkingLicensePlateHistoryFragment"
         android:label="navigation parking license plate fragment"
         tools:layout="@layout/fragment_parking_license_plate_history">
         <action
@@ -458,13 +458,13 @@
 
     <fragment
         android:id="@+id/lottory_webview_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.LottoryWebViewFragment"
+        android:name="com.jotangi.nantoupass.ui.main.LottoryWebViewFragment"
         android:label="navigation lottory webview fragment"
         tools:layout="@layout/fragment_lottory_web_view" />
 
     <fragment
         android:id="@+id/parking_history_unpaid_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment"
+        android:name="com.jotangi.nantoupass.ui.main.parkingFee.licensePlateHistory.unPaidHistory.ParkingFeeUnPaidHistoryFragment"
         android:label="navigation parking history unpaid fragment"
         tools:layout="@layout/fragment_parking_fee_un_paid_history" >
         <action
@@ -490,19 +490,19 @@
 
     <fragment
         android:id="@+id/store_detail_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.StoreDetailFragment"
+        android:name="com.jotangi.nantoupass.ui.main.StoreDetailFragment"
         android:label="navigation store detail fragment"
         tools:layout="@layout/fragment_store_detail" />
 
     <fragment
         android:id="@+id/parking_info_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.parkingInfo.ParkingInfoFragment"
+        android:name="com.jotangi.nantoupass.ui.main.parkingInfo.ParkingInfoFragment"
         android:label="navigation parking info fragment"
         tools:layout="@layout/fragment_parking_info" />
 
     <fragment
         android:id="@+id/storeManagerFragment"
-        android:name="com.jotangi.nantouparking.ui.manager.StoreManagerFragment"
+        android:name="com.jotangi.nantoupass.ui.manager.StoreManagerFragment"
         android:label="fragment_store_manager"
         tools:layout="@layout/fragment_store_manager">
 
@@ -536,14 +536,14 @@
 
     <fragment
         android:id="@+id/store_manager3_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.StoreManager3Fragment"
+        android:name="com.jotangi.nantoupass.ui.main.StoreManager3Fragment"
         android:label="fragment_store_manager3"
         tools:layout="@layout/fragment_store_manager3" >
     </fragment>
 
     <fragment
         android:id="@+id/store_manager2_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.StoreManagerFragment2"
+        android:name="com.jotangi.nantoupass.ui.main.StoreManagerFragment2"
         android:label="fragment_store_manager2"
         tools:layout="@layout/fragment_store_manager2" >
         <action
@@ -567,13 +567,13 @@
     </fragment>
     <fragment
         android:id="@+id/scan_coupon_fragment"
-        android:name="com.jotangi.nantouparking.ui.manager.ScanCouponFragment"
+        android:name="com.jotangi.nantoupass.ui.manager.ScanCouponFragment"
         android:label="fragment_scan_coupon"
         tools:layout="@layout/fragment_scan_coupon" />
 
     <fragment
         android:id="@+id/map_tour_fragment"
-        android:name="com.jotangi.nantouparking.ui.mapTour.MapTourFragment"
+        android:name="com.jotangi.nantoupass.ui.mapTour.MapTourFragment"
         android:label="fragment_map_tour_coupon"
         tools:layout="@layout/fragment_map_tour" >
         <action
@@ -587,7 +587,7 @@
 
     <fragment
         android:id="@+id/market_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.MarketFragment"
+        android:name="com.jotangi.nantoupass.ui.main.MarketFragment"
         android:label="navigation market fragment"
         tools:layout="@layout/fragment_market" >
         <action
@@ -621,7 +621,7 @@
     </fragment>
     <fragment
         android:id="@+id/point_amount_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.PointAmountFragment"
+        android:name="com.jotangi.nantoupass.ui.main.PointAmountFragment"
         android:label="navigation point amount fragment"
         tools:layout="@layout/fragment_point_amount" >
 
@@ -629,7 +629,7 @@
 
     <fragment
         android:id="@+id/market_lottory_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.MarketLottoryFragment"
+        android:name="com.jotangi.nantoupass.ui.main.MarketLottoryFragment"
         android:label="navigation markey lottory fragment"
         tools:layout="@layout/fragment_market_lottory" >
         <action
@@ -643,7 +643,7 @@
 
     <fragment
         android:id="@+id/market_change_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.MarketChangeFragment"
+        android:name="com.jotangi.nantoupass.ui.main.MarketChangeFragment"
         android:label="navigation market change point fragment"
         tools:layout="@layout/fragment_market_change" >
 
@@ -659,13 +659,13 @@
 
     <fragment
         android:id="@+id/current_point_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.CurrentPointFragment"
+        android:name="com.jotangi.nantoupass.ui.main.CurrentPointFragment"
         android:label="navigation current point fragment"
         tools:layout="@layout/fragment_current_point" />
 
     <fragment
         android:id="@+id/market_get_point_fragment"
-        android:name="com.jotangi.nantouparking.ui.main.MarketGetPointFragment"
+        android:name="com.jotangi.nantoupass.ui.main.MarketGetPointFragment"
         android:label="navigation market get point fragment"
         tools:layout="@layout/fragment_market_get_point" >
         <action
@@ -680,7 +680,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapChargeFragment2"
-        android:name="com.jotangi.nantouparking.map.MapChargeParkingFragment2"
+        android:name="com.jotangi.nantoupass.map.MapChargeParkingFragment2"
         android:label="map charge"
         tools:layout="@layout/fragment_map_charge_parking2" >
         <action
@@ -695,12 +695,12 @@
     </fragment>
     <fragment
         android:id="@+id/storeIntroduceFragment"
-        android:name="com.jotangi.nantouparking.ui.mapTour.StoreIntroduceFragment"
+        android:name="com.jotangi.nantoupass.ui.mapTour.StoreIntroduceFragment"
         android:label="fragment_store_introduce"
         tools:layout="@layout/fragment_store_introduce" />
     <fragment
         android:id="@+id/mapChargeParkingFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.MapChargeParkingFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.MapChargeParkingFragment"
         android:label="MapChargeParkingFragment" >
         <action
             android:id="@+id/action_mapChargeParkingFragment_to_main_fragment"
@@ -720,7 +720,7 @@
 
     <fragment
         android:id="@+id/chargeEntryFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargeEntryFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.ChargeEntryFragment"
         android:label="fragment_charge_entry"
         tools:layout="@layout/fragment_charge_entry" >
         <action
@@ -741,7 +741,7 @@
     </fragment>
     <fragment
         android:id="@+id/chargeScanFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargeScanFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.ChargeScanFragment"
         android:label="fragment_charge_scan"
         tools:layout="@layout/fragment_charge_scan" >
         <action
@@ -756,7 +756,7 @@
     </fragment>
     <fragment
         android:id="@+id/chargeStartFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargeStartFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.ChargeStartFragment"
         android:label="fragment_charge_start"
         tools:layout="@layout/fragment_charge_start" >
         <action
@@ -768,7 +768,7 @@
     </fragment>
     <fragment
         android:id="@+id/chargingFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargingFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.ChargingFragment"
         android:label="fragment_charging"
         tools:layout="@layout/fragment_charging" >
         <action
@@ -780,7 +780,7 @@
     </fragment>
     <fragment
         android:id="@+id/chargePayFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargePayFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.ChargePayFragment"
         android:label="fragment_charge_pay"
         tools:layout="@layout/fragment_charge_pay" >
         <action
@@ -794,7 +794,7 @@
 <!--        tools:layout="@layout/fragment_parking_agreement" />-->
     <fragment
         android:id="@+id/chargeNoticeFragment2"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargeNoticeFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.ChargeNoticeFragment"
         android:label="fragment_charge_notice"
         tools:layout="@layout/fragment_charge_notice" >
         <action
@@ -815,7 +815,7 @@
     </fragment>
     <fragment
         android:id="@+id/verifyFragment"
-        android:name="com.jotangi.nantouparking.ui.main.VerifyFragment"
+        android:name="com.jotangi.nantoupass.ui.main.VerifyFragment"
         android:label="fragment_verify"
         tools:layout="@layout/fragment_verify" >
         <action
@@ -828,7 +828,7 @@
     </fragment>
     <fragment
         android:id="@+id/chargeHistoryDetailFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"
+        android:name="com.jotangi.nantoupass.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"
         android:label="fragment_charge_history_detail"
         tools:layout="@layout/fragment_charge_history_detail" >
         <action
@@ -840,7 +840,7 @@
     </fragment>
     <fragment
         android:id="@+id/market4ActivityFragment"
-        android:name="com.jotangi.nantouparking.ui.main.Market4ActivityFragment"
+        android:name="com.jotangi.nantoupass.ui.main.Market4ActivityFragment"
         android:label="fragment_market4_activity"
         tools:layout="@layout/fragment_market4_activity" />
 </navigation>

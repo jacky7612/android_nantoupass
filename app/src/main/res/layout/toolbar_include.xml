@@ -4,7 +4,7 @@
     android:id="@+id/toolbar_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/c_1f538c">
+    android:background="@color/white">
 
     <ImageButton
         android:id="@+id/tool_back_imageButton"

@@ -39,7 +39,7 @@ android {
 
         jvmTarget = '1.8'
     }
-    namespace 'com.jotangi.nantouparking'
+    namespace 'com.jotangi.nantoupass'
     applicationVariants.all { variant ->
         variant.outputs.all {
             def date = new Date().format("MMdd", TimeZone.getTimeZone("GMT+08"))

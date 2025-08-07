@@ -14,11 +14,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/indicator1"
+        android:layout_width="30dp"
+        android:layout_height="4dp"
+        android:background="#FF000000"
+        app:layout_constraintBottom_toTopOf="@id/toolbar_feet"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <include
+        android:id="@+id/toolbar_feet"
+        layout="@layout/toolbar_feet"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
     <ScrollView
         android:id="@+id/main_scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/toolbar_feet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_include">
@@ -66,11 +81,10 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/parking_payment_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/round_dark_blue"
                         android:elevation="8dp"
                         app:layout_constraintEnd_toStartOf="@id/main_space_constraintLayout"
                         app:layout_constraintStart_toStartOf="parent"
@@ -78,339 +92,96 @@
 
                         <TextView
                             android:id="@+id/parking_payment_textView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:gravity="center"
                             android:text="停車繳費"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/parking_payment_imageView" />
-
-                        <ImageView
-                            android:id="@+id/parking_payment_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/payment"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/white" />
+                            android:textSize="12sp"
+                            android:textColor="@android:color/black"
+                            android:background="@drawable/circle_background"
+                            android:padding="8dp"
+                            android:layout_margin="6dp"
+                            tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/main_space_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
                         android:layout_marginStart="10dp"
-                        android:background="@drawable/round_dark_blue"
                         android:elevation="8dp"
                         app:layout_constraintBottom_toBottomOf="@+id/parking_payment_constraintLayout"
                         app:layout_constraintEnd_toStartOf="@id/main_charge_constraintLayout"
                         app:layout_constraintStart_toEndOf="@+id/parking_payment_constraintLayout"
                         app:layout_constraintTop_toTopOf="@+id/parking_payment_constraintLayout">
 
+                        <!-- Button 2 -->
                         <TextView
                             android:id="@+id/main_customer_service_phone_textView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:gravity="center"
-                            android:text="剩餘數量"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/main_customer_service_phone_imageView" />
-
-                        <ImageView
-                            android:id="@+id/main_customer_service_phone_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            app:tint="@color/white"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/rest_count"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:text="停車資訊"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/black"
+                            android:background="@drawable/circle_background"
+                            android:padding="8dp"
+                            android:layout_margin="6dp"
+                            tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/main_charge_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/round_dark_blue"
                         android:elevation="8dp"
                         app:layout_constraintBottom_toBottomOf="@+id/parking_payment_constraintLayout"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/parking_info_constraintLayout"
                         app:layout_constraintStart_toEndOf="@+id/main_space_constraintLayout"
                         app:layout_constraintTop_toTopOf="@+id/parking_payment_constraintLayout">
 
+                        <!-- Button 3 -->
                         <TextView
                             android:id="@+id/main_city_page_textView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:gravity="center"
-                            android:text="充電服務"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/main_city_page_imageView" />
-
-                        <ImageView
-                            android:id="@+id/main_city_page_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            app:tint="@color/white"
-                            android:layout_marginTop="10dp"
-                            android:src="@drawable/charge"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:text="市民服務"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/black"
+                            android:background="@drawable/circle_background"
+                            android:padding="8dp"
+                            android:layout_margin="6dp"
+                            tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/parking_info_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/round_dark_blue"
-                        android:elevation="8dp"
-                        app:layout_constraintStart_toStartOf="@id/parking_payment_constraintLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/parking_payment_constraintLayout">
-
-                        <TextView
-                            android:id="@+id/parking_info_textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="停車資訊"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/parking_info_imageView" />
-
-                        <ImageView
-                            android:id="@+id/parking_info_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="10dp"
-                            app:tint="@color/white"
-                            android:src="@drawable/parking_info"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/main_service_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:background="@drawable/round_dark_blue"
-                        android:elevation="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/parking_info_constraintLayout"
-                        app:layout_constraintStart_toStartOf="@id/main_space_constraintLayout"
-                        app:layout_constraintTop_toTopOf="@+id/parking_info_constraintLayout">
-
-                        <ImageView
-                            android:id="@+id/parking_info_icon_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="10dp"
-                            app:tint="@color/white"
-                            android:src="@drawable/service"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.2" />
-
-                        <TextView
-                            android:id="@+id/parking_info_icon_textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:text="客服專線"
-                            android:textColor="@color/white"
-                            android:textSize="14dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/parking_info_icon_imageView" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/main_official_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/round_dark_blue"
                         android:elevation="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/parking_info_constraintLayout"
+                        app:layout_constraintBottom_toBottomOf="@+id/parking_payment_constraintLayout"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/main_service_constraintLayout"
-                        app:layout_constraintTop_toTopOf="@+id/parking_info_constraintLayout">
+                        app:layout_constraintStart_toEndOf="@+id/main_charge_constraintLayout"
+                        app:layout_constraintTop_toTopOf="@+id/parking_payment_constraintLayout">
 
+                        <!-- Button 4 -->
                         <TextView
-                            android:id="@+id/main_mayor_page_textView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_application_services"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:gravity="center"
-                            android:text="官網連結"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/main_mayor_page_imageView" />
-
-                        <ImageView
-                            android:id="@+id/main_mayor_page_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/official"
-                            android:layout_marginTop="10dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/white" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/parking_fb_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/round_dark_blue"
-                        android:elevation="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/main_service_constraintLayout"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parking_info_constraintLayout">
-
-                        <TextView
-                            android:id="@+id/parking_fb_textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="市長 FB"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/parking_fb_imageView" />
-
-                        <ImageView
-                            android:id="@+id/parking_fb_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="10dp"
-                            app:tint="@color/white"
-                            android:src="@drawable/fb"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/main_line_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:background="@drawable/round_dark_blue"
-                        android:elevation="8dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/main_service_constraintLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/main_service_constraintLayout">
-
-                        <ImageView
-                            android:id="@+id/parking_line_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="10dp"
-                            app:tint="@color/white"
-                            android:src="@drawable/line"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.2" />
-
-                        <TextView
-                            android:id="@+id/parking_line_textView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:text="市長 LINE"
-                            android:textColor="@color/white"
-                            android:textSize="14dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/parking_line_imageView" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/main_attractions_constraintLayout"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/round_dark_blue"
-                        android:elevation="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/main_service_constraintLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/main_official_constraintLayout">
-
-                        <TextView
-                            android:id="@+id/main_attractions_textView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="漫步踩點"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/main_attractions_imageView" />
-
-                        <ImageView
-                            android:id="@+id/main_attractions_imageView"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/guidelines"
-                            android:layout_marginTop="10dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/white" />
+                            android:text="申辦服務"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/black"
+                            android:background="@drawable/circle_background"
+                            android:padding="8dp"
+                            android:layout_margin="6dp"
+                            tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -431,6 +202,45 @@
                         android:orientation="vertical"
                         android:padding="16dp">
 
+
+                        <!-- Latest News Title -->
+                        <TextView
+                            android:id="@+id/latestNewsTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="最新消息"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"
+                            app:layout_constraintTop_toBottomOf="@id/main_main_constraintLayout"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginLeft="20dp"
+                            />
+
+                        <!-- Divider Line -->
+                        <View
+                            android:id="@+id/view"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@android:color/darker_gray"
+                            app:layout_constraintTop_toBottomOf="@id/latestNewsTitle"
+                            android:layout_marginTop="10dp"/>
+
+                        <!-- News RecyclerView -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/view"
+                            />
                     </LinearLayout>
                 </ScrollView>
 
