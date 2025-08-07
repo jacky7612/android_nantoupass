@@ -503,8 +503,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
+                            <option name="x" value="-468" />
+                            <option name="y" value="-107" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -541,6 +541,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="market4ActivityFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-340" />
+                            <option name="y" value="852" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -1083,12 +1095,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_chargeHistoryDetailFragment_to_chargeEntryFragment">
+                            <entry key="action_verifyFragment_to_mainFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_chargeHistoryDetailFragment_to_main_fragment">
+                            <entry key="action_verifyFragment_to_mapChargeParkingFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

@@ -160,7 +160,7 @@ class ChargeScanFragment : BaseFragment() {
                 if (result.status == "true") {
                     Glob.curChargeGunData =result.data
                     Glob.curChargeInfo!!.gunDeviceId =result.data!!.ID
-                    Glob.curChargeInfo!!.gunNumber="1"
+                    Glob.curChargeInfo!!.gunNumber   =result.data!!.gun_number.toString()
                     if (!isToNext) {
                         isToNext =true
                         findNavController().navigate(R.id.action_chargeScanFragment_to_chargeStartFragment) // action_chargeScanFragment_to_chargePayFragment

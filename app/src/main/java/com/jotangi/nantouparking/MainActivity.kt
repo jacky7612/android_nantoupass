@@ -8,6 +8,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsetsController
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.tasks.Task
@@ -36,6 +38,18 @@ class MainActivity : AppCompatActivity() {
         Log.d("RemoteConfig","Remote1" )
         Glob.curChargeInfo = ChargeInfo()
         remoteConfig()
+
+        // api 35 需做的調整 - 系統字色不被app影響
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            var insetsController: WindowInsetsController? = null
+            insetsController = window.insetsController
+            insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
     }
 
     override fun onStart() {

@@ -705,6 +705,12 @@
         <action
             android:id="@+id/action_mapChargeParkingFragment_to_main_fragment"
             app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_mapChargeParkingFragment_to_main_fragment2"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_mapChargeParkingFragment_to_chargeEntryFragment"
+            app:destination="@id/chargeEntryFragment" />
     </fragment>
 <!--    <fragment-->
 <!--        android:id="@+id/chargeHistoryDetailFragment"-->
@@ -781,19 +787,7 @@
             android:id="@+id/action_chargePayFragment_to_chargeStartFragment"
             app:destination="@id/chargeStartFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/mapChargeParkingFragment"
-        android:name="com.jotangi.nantouparking.ui.charge.MapChargeParkingFragment"
-        android:label="fragment_map_charge_parking"
-        tools:layout="@layout/fragment_map_charge_parking" >
-        <action
-            android:id="@+id/action_mapChargeParkingFragment_to_chargeEntryFragment"
-            app:destination="@id/chargeEntryFragment" />
-        <action
-            android:id="@+id/action_mapChargeParkingFragment_to_main_fragment"
-            app:destination="@id/main_fragment" />
-    </fragment>
-<!--    <fragment-->
+    <!--    <fragment-->
 <!--        android:id="@+id/parkingAgreementFragment"-->
 <!--        android:name="com.jotangi.nantouparking.ui.agreement.ParkingAgreementFragment"-->
 <!--        android:label="fragment_parking_agreement"-->

@@ -205,12 +205,12 @@ var call = false
     private fun initObserver() {
 
         mainViewModel.plateNumberDataCanton.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckUY", result.toString())
             if(call4) {
                 if(result == null) {
                     combinePlateNumberDataList.addAll(emptyList())
 
                 } else {
+                    Log.d("micCheckUY", result.toString())
                     combinePlateNumberDataList.addAll(result)
                 }
                     combinePlateNumberDataList = combinePlateNumberDataList.distinctBy { it.plateNo }.toMutableList()
@@ -278,10 +278,10 @@ var call = false
         }
 
         mainViewModel.parkingRoadFeeUnPaidData.observe(viewLifecycleOwner) { result ->
-Log.d("micCheckGJ1", result.toString())
             if(call) {
                 combineRoadUnPaidDataList.clear()
                 if(result!= null) {
+                    Log.d("micCheckGJ1", result.toString())
                     resultNantou = result
                     if(!result.unPaidItems.isNullOrEmpty()) {
                         combineRoadUnPaidDataList.addAll(result.unPaidItems)
@@ -334,9 +334,9 @@ Log.d("micCheckGJ1", result.toString())
         }
 
         mainViewModel.parkingRoadFeeUnPaidDataCanton1.observe(viewLifecycleOwner) { result ->
-            Log.d("micCheckGJ2", result.toString())
             if(call5) {
                 if(result!= null) {
+                    Log.d("micCheckGJ2", result.toString())
                     resultCanton = result
                     if(!result.unPaidItems.isNullOrEmpty()) {
                         combineRoadUnPaidDataList.addAll(result.unPaidItems)
@@ -462,12 +462,13 @@ Log.d("micCheckGJ1", result.toString())
 
 
         mainViewModel.navigateToPaidHistory.observe(viewLifecycleOwner) { shouldNavigate ->
-            Log.d("micCheckAAZ3", shouldNavigate.toString())
             if (shouldNavigate == null) {
                 // Handle the case where the value is null
                 Log.d("NavigationDebug", "Value is null, resetting or ignoring navigation")
                 return@observe
             }
+            Log.d("micCheckAAZ3", shouldNavigate.toString())
+
             if (call2) {
                 Log.d("micCheckAAZ4", "AD1")
                 if (shouldNavigate == true ) {

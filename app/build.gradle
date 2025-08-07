@@ -8,14 +8,14 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.jotangi.nantouparking"
         minSdk 26
-        targetSdk 34
-        versionCode 50
-        versionName "1.0.50"
+        targetSdk 35
+        versionCode 52
+        versionName "1.0.52"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
