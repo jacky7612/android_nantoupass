@@ -132,22 +132,38 @@ class MainFragment :
 
             binding?.apply {
 
+                // line 2 停車繳費
+                parkingPaymentConstraintLayout.setOnClickListener {
+                    findNavController().navigate(R.id.action_to_parking_license_plate_history)
+                }
+
+                // line 1 停車資訊
+                mainSpaceConstraintLayout.setOnClickListener {
+                    findNavController().navigate(R.id.action_to_mapChargeFragment2)
+                }
+
+                // 市民服務
                 mainChargeConstraintLayout.setOnClickListener {
 //                    AppUtility.showPopDialog(
 //                        requireContext(),
 //                        "",
 //                        "\n充電服務即將上線\n\n敬請期待!"
 //                    )
-                    if (!AppUtility.getLoginStatus(requireContext())) {
-                        AppUtility.showPopDialog(
-                            requireContext(),
-                            "請先登入會員",
-                            "\n請先登入會員\n\n未登入會員無法使用此功能"
-                        )
-                    } else {
-                        chargeViewModel.clear()
-                        findNavController().navigate(R.id.action_main_fragment_to_chargeNoticeFragment2)
-                    }
+//                    if (!AppUtility.getLoginStatus(requireContext())) {
+//                        AppUtility.showPopDialog(
+//                            requireContext(),
+//                            "請先登入會員",
+//                            "\n請先登入會員\n\n未登入會員無法使用此功能"
+//                        )
+//                    } else {
+//                        chargeViewModel.clear()
+//                        findNavController().navigate(R.id.action_main_fragment_to_chargeNoticeFragment2)
+//                    }
+                }
+
+                // 申辦服務
+                parkingInfoConstraintLayout.setOnClickListener {
+                    openWeb("https://parking.nantou.gov.tw/")
                 }
 
 //                mainLineConstraintLayout.setOnClickListener {
@@ -168,10 +184,6 @@ class MainFragment :
 ////                    findNavController().navigate(R.id.action_to_market_fragment2)
 //                    findNavController().navigate(R.id.market4ActivityFragment)
 //                }
-                // line 1
-                mainSpaceConstraintLayout.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_mapChargeFragment2)
-                }
 
 
 //                mainServiceConstraintLayout.setOnClickListener {
@@ -193,15 +205,6 @@ class MainFragment :
 //                parkingFbConstraintLayout.setOnClickListener {
 //                    openWeb(AppConfig.MAYOR_FB)
 //                }
-
-                // line 2
-                parkingPaymentConstraintLayout.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_parking_license_plate_history)
-                }
-
-                parkingInfoConstraintLayout.setOnClickListener {
-                    openWeb("https://parking.nantou.gov.tw/")
-                }
             }
         }
 
