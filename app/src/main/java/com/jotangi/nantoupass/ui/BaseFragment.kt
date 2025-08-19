@@ -219,7 +219,7 @@ abstract class BaseFragment : Fragment() {
 
             setupToolBarBtn(
                 toolAdditionalImageButton,
-                R.drawable.icon_account_2
+                R.drawable.ic_user
             ) {
                 when (AppUtility.getLoginStatus(requireContext())) {
                     true -> {
@@ -502,7 +502,7 @@ abstract class BaseFragment : Fragment() {
 
     fun setupLicensePlateHistoryTitle() {
         getToolBar()?.apply {
-            toolTitleTextView.text = getString(R.string.main_fragment_title)
+            toolTitleTextView.text = getString(R.string.parking_license_plate)
             toolBackImageButton.visibility = View.VISIBLE
 
             setupToolBarBtn(
@@ -547,7 +547,7 @@ abstract class BaseFragment : Fragment() {
 
             setupToolBarBtn(
                 toolAdditionalImageButton,
-                R.drawable.icon_account_2
+                R.drawable.ic_user
             ) {
                 when (AppUtility.getLoginStatus(requireContext())) {
                     true -> {

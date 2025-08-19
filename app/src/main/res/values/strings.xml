@@ -224,6 +224,8 @@
     <string name="license_plate_hint_title">請輸入您的車牌</string>
 
     <!--    繳費紀錄-->
+    <string name="parking_license_plate">停車繳費</string>
+    <string name="parking_map_info">停車資訊</string>
     <string name="parking_history_title">繳費紀錄</string>
     <string name="paid_plate_title">繳費車牌：</string>
     <string name="paid_no_title">繳費編號：</string>

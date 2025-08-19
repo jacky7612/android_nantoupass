@@ -144,6 +144,7 @@ class MainFragment :
 
                 // 市民服務
                 mainChargeConstraintLayout.setOnClickListener {
+                    findNavController().navigate(R.id.action_main_fragment_to_citizenServiceFragment)
 //                    AppUtility.showPopDialog(
 //                        requireContext(),
 //                        "",
@@ -163,7 +164,8 @@ class MainFragment :
 
                 // 申辦服務
                 parkingInfoConstraintLayout.setOnClickListener {
-                    openWeb("https://parking.nantou.gov.tw/")
+                    findNavController().navigate(R.id.action_main_fragment_to_applicationServicesFragment)
+//                    openWeb("https://parking.nantou.gov.tw/")
                 }
 
 //                mainLineConstraintLayout.setOnClickListener {

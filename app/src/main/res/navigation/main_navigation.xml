@@ -426,6 +426,12 @@
         <action
             android:id="@+id/action_main_fragment_to_chargeNoticeFragment2"
             app:destination="@id/chargeNoticeFragment2" />
+        <action
+            android:id="@+id/action_main_fragment_to_applicationServicesFragment"
+            app:destination="@id/applicationServicesFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_citizenServiceFragment"
+            app:destination="@id/citizenServiceFragment" />
     </fragment>
 
     <fragment
@@ -843,4 +849,34 @@
         android:name="com.jotangi.nantoupass.ui.main.Market4ActivityFragment"
         android:label="fragment_market4_activity"
         tools:layout="@layout/fragment_market4_activity" />
+    <fragment
+        android:id="@+id/applicationServicesFragment"
+        android:name="com.jotangi.nantoupass.ui.gov.ApplicationServicesFragment"
+        android:label="ApplicationServicesFragment" >
+        <action
+            android:id="@+id/action_application_services_fragment_to_application_status_fragment"
+            app:destination="@id/applicationStatusFragment" />
+        <action
+            android:id="@+id/action_application_services_fragment_to_low_income_fragment"
+            app:destination="@id/lowIncomeFragment" />
+        <action
+            android:id="@+id/action_applicationServicesFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/applicationStatusFragment"
+        android:name="com.jotangi.nantoupass.ui.gov.ApplicationStatusFragment"
+        android:label="ApplicationStatusFragment" />
+    <fragment
+        android:id="@+id/lowIncomeFragment"
+        android:name="com.jotangi.nantoupass.ui.gov.LowIncomeFragment"
+        android:label="LowIncomeFragment" />
+    <fragment
+        android:id="@+id/citizenServiceFragment"
+        android:name="com.jotangi.nantoupass.ui.gov.CitizenServiceFragment"
+        android:label="CitizenServiceFragment" >
+        <action
+            android:id="@+id/action_citizenServiceFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
 </navigation>
