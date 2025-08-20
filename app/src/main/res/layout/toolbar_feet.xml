@@ -64,16 +64,16 @@
                 android:background="@android:color/transparent"
                 android:paddingTop="0dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_charge_storevalue48"
+                app:srcCompat="@drawable/ic_project_0"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/toolbar_tv_store_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="儲值"
+                android:text="工程"
                 android:textSize="14dp"
-                android:textColor="@color/white"
+                android:textColor="@color/nantou_pass"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAppearance="?attr/textAppearanceBody1" />
@@ -82,7 +82,7 @@
         <LinearLayout
             android:id="@+id/layout_feet_charge"
             android:orientation="vertical"
-            android:padding="5dp"
+            android:padding="2dp"
             android:layout_width="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/guideline_p50"
             app:layout_constraintEnd_toEndOf="@+id/guideline_p50"
@@ -97,16 +97,17 @@
                 android:background="@android:color/transparent"
                 android:paddingTop="0dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_charge_electric_24"
+                app:srcCompat="@drawable/ic_home_0"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/toolbar_tv_charge"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="充電"
+                android:text="首頁"
                 android:textSize="14dp"
-                android:textColor="@color/white"
+                android:gravity="center"
+                android:textColor="@color/nantou_pass"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAppearance="?attr/textAppearanceBody1" />
@@ -130,16 +131,16 @@
                 android:background="@android:color/transparent"
                 android:paddingTop="0dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_charge_map_24"
+                app:srcCompat="@drawable/ic_business_group_0"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/tv_charge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="地圖"
+                android:text="商圈"
                 android:textSize="14dp"
-                android:textColor="@color/white"
+                android:textColor="@color/nantou_pass"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:textAppearance="?attr/textAppearanceBody1" />

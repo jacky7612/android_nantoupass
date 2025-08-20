@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.gov.MapProjectFragment">
+
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/bt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:minWidth="48dp"
+            android:src="@drawable/icon_back_36"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工程"
+            android:textColor="@color/nantou_pass"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/mv_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSeparator"
+            app:layout_constraintBottom_toTopOf="@+id/mv_main" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/link_Local"-->
+        <!--            android:layout_width="48dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:layout_marginBottom="16dp"-->
+        <!--            android:adjustViewBounds="true"-->
+        <!--            android:elevation="8dp"-->
+        <!--            android:scaleType="fitCenter"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/previewLayout"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:srcCompat="@drawable/ic_local" />-->
+
+        <!--
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="gone"
+                    android:id="@+id/SearchBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title">
+
+                    <SearchView
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/shape_capsule_fine"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+        -->
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mv_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="45dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="12dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/store_RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/previewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageButton
+                android:id="@+id/beforeBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorWhite"
+                android:src="@drawable/ic_navigate_before_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/viewPager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/nextBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorWhite"
+                android:src="@drawable/ic_navigate_next_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/viewPager"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/bt_Local"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/shape_charge_circle"
+            android:elevation="8dp"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/toolbar_feet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_charge_near_me_24" />
+
+        <ImageView
+            android:id="@+id/bt_parking"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="40dp"
+            android:adjustViewBounds="true"
+            android:elevation="8dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/toolbar_feet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_p_gray" />
+
+        <ImageView
+            android:id="@+id/bt_charge"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="20dp"
+            android:adjustViewBounds="true"
+            android:elevation="8dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/bt_parking"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_l_gray" />
+
+        <include
+            android:visibility="gone"
+            android:id="@+id/toolbar_feet"
+            layout="@layout/toolbar_feet"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="360dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="60dp"
+            app:tabTextColor="#FFFFFF"
+            app:tabSelectedTextColor="#FFFFFF"
+            android:background="@drawable/tab_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabBackground="@drawable/tab_background"
+            app:tabTextAppearance="@style/TabTextAppearance" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+
+
+</FrameLayout>

@@ -48,6 +48,7 @@ abstract class BaseFragment : Fragment() {
 //            R.id.parking_license_plate_fragment -> action_id =
 //                R.id.action_parking_license_plate_fragment_to_main_fragment
 
+            R.id.mapProjectFragment -> action_id = R.id.action_mapChargeParkingFragment_to_main_fragment
             R.id.chargeEntryFragment -> action_id = R.id.action_chargeEntryFragment_to_main_fragment
             R.id.mapChargeParkingFragment -> action_id =
                 R.id.action_mapChargeParkingFragment_to_main_fragment
@@ -169,6 +170,19 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    fun setupMapProjectTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "工程"
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
     fun setupLottoryWebViewTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "抽獎活動"
@@ -219,18 +233,66 @@ abstract class BaseFragment : Fragment() {
 
             setupToolBarBtn(
                 toolAdditionalImageButton,
-                R.drawable.ic_user
+                R.drawable.ic_user_0
             ) {
                 when (AppUtility.getLoginStatus(requireContext())) {
                     true -> {
-                        findNavController().navigate(R.id.action_to_member_main)
+                        toMemberFragment(R.id.action_to_member_main)
                     }
 
                     false -> {
-                        findNavController().navigate(R.id.action_to_login)
+                        toMemberFragment(R.id.action_to_login)
                     }
                 }
             }
+        }
+    }
+    fun setupMarketTitle() {
+        getToolBar()?.apply {
+            toolTitleTextView.text = "商圈"
+            toolAdditionalImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolAdditionalImageButton,
+                R.drawable.ic_user_0
+            ) {
+                when (AppUtility.getLoginStatus(requireContext())) {
+                    true -> {
+                        toMemberFragment(R.id.action_to_member_main)
+                    }
+
+                    false -> {
+                        toMemberFragment(R.id.action_to_login)
+                    }
+                }
+            }
+        }
+    }
+    private fun toMemberFragment(id: Int)
+    {
+        val currentFragmentId = findNavController().currentDestination?.id
+        if (currentFragmentId != id) {
+            var action_id: Int =-1
+            when (currentFragmentId){
+//                R.id.parking_info_fragment -> action_id =R.id.action_parking_info_fragment_to_mapChargeParkingFragment
+//                R.id.parking_license_plate_fragment -> action_id =R.id.action_parking_license_plate_fragment_to_mapChargeParkingFragment
+//                R.id.main_fragment -> action_id =R.id.action_main_fragment_to_mapChargeParkingFragment
+                R.id.marketFragment ->
+                    if(AppUtility.getLoginStatus(requireContext())) {
+                        action_id = R.id.action_marketFragment_to_member_fragment
+                    } else {
+                        action_id = R.id.action_marketFragment_to_login_fragment
+                    }
+//                R.id.parking_history_paid_fragment -> action_id =R.id.action_parking_history_paid_fragment_to_mapChargeParkingFragment
+//                R.id.chargeScanFragment -> action_id =R.id.action_chargeScanFragment_to_mapChargeParkingFragment
+//                R.id.chargingFragment -> action_id =R.id.action_chargingFragment_to_mapChargeParkingFragment
+            }
+            if (action_id != -1)
+                findNavController().navigate(action_id)
+            else
+                findNavController().navigate(id)
+        } else {
+//            findNavController().navigate(R.id.action_mapChargeParkingFragment_self)
         }
     }
 
@@ -318,19 +380,19 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    fun setupMarketTitle() {
-        getToolBar()?.apply {
-            toolTitleTextView.text = "活動專區"
-            toolBackImageButton.visibility = View.VISIBLE
-
-            setupToolBarBtn(
-                toolBackImageButton,
-                R.drawable.icon_back_36
-            ) {
-                onBackPressed()
-            }
-        }
-    }
+//    fun setupMarketTitle() {
+//        getToolBar()?.apply {
+//            toolTitleTextView.text = "活動專區"
+//            toolBackImageButton.visibility = View.VISIBLE
+//
+//            setupToolBarBtn(
+//                toolBackImageButton,
+//                R.drawable.icon_back_36
+//            ) {
+//                onBackPressed()
+//            }
+//        }
+//    }
 
     fun setupMarketGetPointTitle() {
         getToolBar()?.apply {
@@ -547,7 +609,7 @@ abstract class BaseFragment : Fragment() {
 
             setupToolBarBtn(
                 toolAdditionalImageButton,
-                R.drawable.ic_user
+                R.drawable.ic_user_0
             ) {
                 when (AppUtility.getLoginStatus(requireContext())) {
                     true -> {

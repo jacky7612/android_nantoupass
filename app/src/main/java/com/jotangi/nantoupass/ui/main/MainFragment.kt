@@ -22,10 +22,12 @@ import com.jotangi.nantoupass.config.ApiConfig
 import com.jotangi.nantoupass.config.AppConfig
 import com.jotangi.nantoupass.config.Response4Activity
 import com.jotangi.nantoupass.databinding.FragmentMainBinding
+import com.jotangi.nantoupass.databinding.ToolbarFeetBinding
 import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.model.BannerVO
 import com.jotangi.nantoupass.model.StoreVO
 import com.jotangi.nantoupass.ui.BaseFragment
+import com.jotangi.nantoupass.ui.BaseWithBottomBarFragment
 import com.jotangi.nantoupass.utility.AppUtility
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
@@ -35,7 +37,7 @@ import java.util.Date
 import java.util.Locale
 
 class MainFragment :
-    BaseFragment(),
+    BaseWithBottomBarFragment(),
     StoreClickListener {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding
@@ -43,6 +45,7 @@ class MainFragment :
     private var data = mutableListOf<StoreVO>()
 
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
+    override fun getToolBarFeet(): ToolbarFeetBinding = binding!!.toolbarFeet
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,11 +58,12 @@ class MainFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      if(getStorePreference().equals("Store") && AppUtility.getLoginStatus(requireContext())) {
-          findNavController().navigate(R.id.action_to_store_manager2_fragment)
-      }
+        if(getStorePreference().equals("Store") && AppUtility.getLoginStatus(requireContext())) {
+            findNavController().navigate(R.id.action_to_store_manager2_fragment)
+        }
 
         init()
+        initEvent()
     }
 
     private fun getStorePreference(): String? {

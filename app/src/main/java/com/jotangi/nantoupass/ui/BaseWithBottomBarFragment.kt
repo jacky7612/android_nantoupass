@@ -30,21 +30,25 @@ abstract class BaseWithBottomBarFragment : BaseFragment() {
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
     }
     fun initEvent() {
+        // 商圈
         getToolBarFeet()?.toolbarBtnMap?.setOnClickListener {
-            toMapChargeParkingFragment(R.id.mapChargeParkingFragment)
+            toMarketFragment(R.id.action_main_fragment_to_marketFragment)
         }
 
+        // 首頁
         getToolBarFeet()?.toolbarBtnCharge?.setOnClickListener {
-            toChargeFagment(R.id.chargeEntryFragment)
+            toHomeFagment(R.id.main_fragment)
         }
 
+        // 工程
         getToolBarFeet()?.toolbarBtnStoreValue?.setOnClickListener {
-            AppUtility.showPopDialog(
-                requireContext(),
-                "",
-                msgStoreValue
-            )
+//            AppUtility.showPopDialog(
+//                requireContext(),
+//                "",
+//                msgStoreValue
+//            )
 //            toChargeFagment(R.id.chargeEntryFragment)
+            toProjectFagment(R.id.action_main_fragment_to_mapProjectFragment)
         }
     }
 
@@ -56,48 +60,48 @@ abstract class BaseWithBottomBarFragment : BaseFragment() {
     private var ToolBarLayoutStorevalue : LinearLayout? =null
     fun initEvent(view: View) {
 
-        // 地圖
+        // 商圈
         if (ToolBarLayoutMap == null) ToolBarLayoutMap =view.findViewById(R.id.layout_feet_map)
         ToolBarLayoutMap!!.setOnClickListener {
             chargeViewModel.clearPowerON()
             chargeViewModel.clearPowerOFF()
             chargeViewModel.clearCheckData()
             chargeViewModel.clearQRcode()
-            toMapChargeParkingFragment(R.id.mapChargeParkingFragment)
+            toMarketFragment(R.id.mapChargeParkingFragment)
         }
         if (ToolBarBtMap == null) ToolBarBtMap =view.findViewById(R.id.toolbar_btn_map)
         ToolBarBtMap!!.setOnClickListener {
-            toMapChargeParkingFragment(R.id.mapChargeParkingFragment)
+            toMarketFragment(R.id.mapChargeParkingFragment)
         }
 
-        // 充電
+        // 首頁
         if (ToolBarLayoutCharge == null) ToolBarLayoutCharge =view.findViewById(R.id.layout_feet_charge)
         ToolBarLayoutCharge!!.setOnClickListener {
-            toChargeFagment(R.id.chargeEntryFragment)
+            toHomeFagment(R.id.main_fragment)
         }
         if (ToolBarBtCharge == null) ToolBarBtCharge =view.findViewById(R.id.toolbar_btn_charge)
         ToolBarBtCharge!!.setOnClickListener {
-            toChargeFagment(R.id.chargeEntryFragment)
+            toHomeFagment(R.id.main_fragment)
         }
 
-        // 儲值
+        // 工程
         if (ToolBarLayoutStorevalue == null) ToolBarLayoutStorevalue =view.findViewById(R.id.layout_feet_store_value)
         ToolBarLayoutStorevalue!!.setOnClickListener {
-                AppUtility.showPopDialog(
-                    requireContext(),
-                    "",
-                    msgStoreValue
-                )
-//            toChargeFagment(R.id.chargeEntryFragment)
+//            AppUtility.showPopDialog(
+//                requireContext(),
+//                "",
+//                msgStoreValue
+//            )
+            toProjectFagment(R.id.action_main_fragment_to_mapProjectFragment)
         }
         if (ToolBarBtStorevalue == null) ToolBarBtStorevalue =view.findViewById(R.id.toolbar_btn_store_value)
         ToolBarBtStorevalue!!.setOnClickListener {
-                AppUtility.showPopDialog(
-                    requireContext(),
-                    "",
-                    msgStoreValue
-                )
-//            toChargeFagment(R.id.chargeEntryFragment)
+//            AppUtility.showPopDialog(
+//                requireContext(),
+//                "",
+//                msgStoreValue
+//            )
+            toProjectFagment(R.id.action_main_fragment_to_mapProjectFragment)
         }
 
     }
@@ -120,12 +124,13 @@ abstract class BaseWithBottomBarFragment : BaseFragment() {
             if (action_id != -1) findNavController().navigate(action_id)
         }
     }
-    private fun toMapChargeParkingFragment(id: Int)
+    private fun toMarketFragment(id: Int)
     {
         val currentFragmentId = findNavController().currentDestination?.id
         if (currentFragmentId != id) {
             var action_id: Int =-1
-            when (currentFragmentId){
+            when (currentFragmentId) {
+                R.id.marketFragment-> return
 //                R.id.parking_info_fragment -> action_id =R.id.action_parking_info_fragment_to_mapChargeParkingFragment
 //                R.id.parking_license_plate_fragment -> action_id =R.id.action_parking_license_plate_fragment_to_mapChargeParkingFragment
 //                R.id.main_fragment -> action_id =R.id.action_main_fragment_to_mapChargeParkingFragment
@@ -134,7 +139,10 @@ abstract class BaseWithBottomBarFragment : BaseFragment() {
 //                R.id.chargeScanFragment -> action_id =R.id.action_chargeScanFragment_to_mapChargeParkingFragment
                 R.id.chargingFragment -> action_id =R.id.action_chargingFragment_to_mapChargeParkingFragment
             }
-            if (action_id != -1) findNavController().navigate(action_id)
+            if (action_id != -1)
+                findNavController().navigate(action_id)
+            else
+                findNavController().navigate(id)
         } else {
 //            findNavController().navigate(R.id.action_mapChargeParkingFragment_self)
         }
@@ -145,6 +153,7 @@ abstract class BaseWithBottomBarFragment : BaseFragment() {
         if (currentFragmentId != id) {
             var action_id: Int =-1
             when (currentFragmentId) {
+                R.id.marketFragment -> action_id =R.id.action_marketFragment_to_main_fragment
                 R.id.mapChargeParkingFragment -> action_id =R.id.action_mapChargeParkingFragment_to_main_fragment
                 R.id.chargingFragment -> action_id =R.id.action_chargingFragment_to_main_fragment2
 //                R.id.parking_license_plate_fragment -> action_id =R.id.action_parking_license_plate_fragment_to_main_fragment
@@ -156,7 +165,34 @@ abstract class BaseWithBottomBarFragment : BaseFragment() {
 //                R.id.parking_history_paid_fragment -> action_id =R.id.action_parking_history_paid_fragment_to_main_fragment
 //                R.id.chargingFragment -> action_id =R.id.action_chargingFragment_to_main_fragment
             }
-            if (action_id != -1) findNavController().navigate(action_id)
+            if (action_id != -1)
+                findNavController().navigate(action_id)
+            else
+                findNavController().navigate(id)
+        }
+    }
+    private fun toProjectFagment(id: Int)
+    {
+        val currentFragmentId = findNavController().currentDestination?.id
+        if (currentFragmentId != id) {
+            var action_id: Int =-1
+            when (currentFragmentId) {
+                R.id.marketFragment -> action_id =R.id.action_marketFragment_to_main_fragment
+                R.id.mapChargeParkingFragment -> action_id =R.id.action_mapChargeParkingFragment_to_main_fragment
+                R.id.chargingFragment -> action_id =R.id.action_chargingFragment_to_main_fragment2
+//                R.id.parking_license_plate_fragment -> action_id =R.id.action_parking_license_plate_fragment_to_main_fragment
+//                R.id.parking_info_fragment -> action_id =R.id.action_parking_info_fragment_to_main_fragment
+//                R.id.parking_license_plate_fragment -> action_id =R.id.action_parking_license_plate_fragment_to_mapChargeParkingFragment
+//                R.id.main_fragment -> action_id =R.id.action_main_fragment_to_mapChargeParkingFragment
+//                R.id.chargeEntryFragment -> action_id =R.id.action_chargeEntryFragment_to_main_fragment
+//                R.id.chargeScanFragment -> action_id =R.id.action_chargeScanFragment_to_main_fragment
+//                R.id.parking_history_paid_fragment -> action_id =R.id.action_parking_history_paid_fragment_to_main_fragment
+//                R.id.chargingFragment -> action_id =R.id.action_chargingFragment_to_main_fragment
+            }
+            if (action_id != -1)
+                findNavController().navigate(action_id)
+            else
+                findNavController().navigate(id)
         }
     }
 }

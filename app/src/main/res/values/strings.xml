@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">南投停車幫幫忙</string>
+    <string name="app_name">南投通</string>
 
-    <string name="main_fragment_title">南投停車幫幫忙</string>
+    <string name="main_fragment_title">首頁</string>
     <string name="main_parking_history_title">查詢繳費紀錄</string>
 
     <!--    登入-->

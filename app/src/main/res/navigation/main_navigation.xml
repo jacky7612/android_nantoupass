@@ -207,6 +207,9 @@
         <action
             android:id="@+id/action_member_fragment_to_parking_notice_fragment"
             app:destination="@id/parking_notice_fragment" />
+        <action
+            android:id="@+id/action_member_fragment_to_market_fragment"
+            app:destination="@id/market_fragment" />
     </fragment>
 
     <fragment
@@ -432,6 +435,12 @@
         <action
             android:id="@+id/action_main_fragment_to_citizenServiceFragment"
             app:destination="@id/citizenServiceFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_marketFragment"
+            app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_mapProjectFragment"
+            app:destination="@id/mapProjectFragment" />
     </fragment>
 
     <fragment
@@ -624,6 +633,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_market_fragment_to_member_fragment"
+            app:destination="@id/member_fragment" />
     </fragment>
     <fragment
         android:id="@+id/point_amount_fragment"
@@ -877,6 +889,29 @@
         android:label="CitizenServiceFragment" >
         <action
             android:id="@+id/action_citizenServiceFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/marketFragment"
+        android:name="com.jotangi.nantoupass.ui.gov.MarketFragment"
+        android:label="MarketFragment" >
+        <action
+            android:id="@+id/action_marketFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_member_fragment"
+            app:destination="@id/member_fragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_login_fragment"
+            app:destination="@id/login_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapProjectFragment"
+        android:name="com.jotangi.nantoupass.ui.gov.MapProjectFragment"
+        android:label="fragment_map_project"
+        tools:layout="@layout/fragment_map_project" >
+        <action
+            android:id="@+id/action_mapProjectFragment_to_main_fragment"
             app:destination="@id/main_fragment" />
     </fragment>
 </navigation>
