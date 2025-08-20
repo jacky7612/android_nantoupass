@@ -15,6 +15,7 @@ import com.jotangi.nantoupass.MainActivity
 import com.jotangi.nantoupass.R
 import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.ui.charge.ChargeViewModel
+import com.jotangi.nantoupass.ui.gov.PassViewModel
 import com.jotangi.nantoupass.utility.AppUtility
 
 abstract class BaseFragment : Fragment() {
@@ -22,6 +23,7 @@ abstract class BaseFragment : Fragment() {
     var mActivity: MainActivity? = null
     lateinit var mainViewModel: MainViewModel
     lateinit var chargeViewModel: ChargeViewModel
+    lateinit var passViewModel: PassViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +38,9 @@ abstract class BaseFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        mainViewModel   = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         chargeViewModel = ViewModelProvider(requireActivity())[ChargeViewModel::class.java]
+        passViewModel   = ViewModelProvider(requireActivity())[PassViewModel::class.java]
     }
 
     open fun onBackPressed() {

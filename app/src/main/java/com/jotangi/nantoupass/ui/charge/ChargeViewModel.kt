@@ -634,7 +634,8 @@ class ChargeViewModel: ViewModel() {
         _charge_check.value!!.status          =resp.status
         _charge_check.value!!.responseMessage =resp.responseMessage
         _std_check.clear()
-    }private fun assignStationRespMessage(code :String, status :String, msg :String) {
+    }
+    private fun assignStationRespMessage(code :String, status :String, msg :String) {
         val resp =setResponseMessage(code, status, msg)
         if (_charge_station.value == null)
             _charge_station.value =NearStationResponse("", null, "", "")

@@ -1,6 +1,5 @@
 package com.jotangi.nantoupass.ui.main
 
-import CustomerServiceBottomSheet
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,21 +12,24 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.jotangi.nantoupass.JackyVariant.Glob
 import com.jotangi.nantoupass.R
 import com.jotangi.nantoupass.config.ApiConfig
-import com.jotangi.nantoupass.config.AppConfig
+import com.jotangi.nantoupass.config.ApiPassConfig
 import com.jotangi.nantoupass.config.Response4Activity
+import com.jotangi.nantoupass.config.Response4PassBannerContent
+import com.jotangi.nantoupass.config.Response4PassNewsContent
 import com.jotangi.nantoupass.databinding.FragmentMainBinding
 import com.jotangi.nantoupass.databinding.ToolbarFeetBinding
 import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.model.BannerVO
 import com.jotangi.nantoupass.model.StoreVO
-import com.jotangi.nantoupass.ui.BaseFragment
 import com.jotangi.nantoupass.ui.BaseWithBottomBarFragment
+import com.jotangi.nantoupass.ui.gov.mNewsAdapter
 import com.jotangi.nantoupass.utility.AppUtility
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
@@ -41,8 +43,11 @@ class MainFragment :
     StoreClickListener {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding
-//    private lateinit var storeAdapter: StoreAdapter
-    private var data = mutableListOf<StoreVO>()
+    private lateinit var storeAdapter: StoreAdapter
+
+//    private var data = mutableListOf<StoreVO>()
+    private lateinit var newsAdapter: mNewsAdapter
+    private var data_news = mutableListOf<Response4PassNewsContent>()
 
     override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
     override fun getToolBarFeet(): ToolbarFeetBinding = binding!!.toolbarFeet
@@ -94,20 +99,42 @@ class MainFragment :
     }
 
     private fun initObserver() {
-        mainViewModel.bannerData.observe(viewLifecycleOwner) { result ->
+        passViewModel.banner.observe(viewLifecycleOwner) { result ->
             if (result != null) {
-                binding?.mainBannerDefaultImageView?.visibility = View.GONE
-                updateBanner(result)
+                if (result.status == "true" && result.code == "0x0200") {
+                    binding?.mainBannerDefaultImageView?.visibility = View.GONE
+                    updateBanner4Pass(result.data?.data)
+                }
+            } else {
+                binding?.mainBannerDefaultImageView?.visibility = View.VISIBLE
+            }
+        }
+        passViewModel.news.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                if (result.status == "true" && result.code == "0x0200") {
+                    binding?.mainBannerDefaultImageView?.visibility = View.GONE
+                    newsAdapter.updateDataSource(result.data?.data)
+                }
             } else {
                 binding?.mainBannerDefaultImageView?.visibility = View.VISIBLE
             }
         }
 
+//        mainViewModel.bannerData.observe(viewLifecycleOwner) { result ->
+//            if (result != null) {
+//                binding?.mainBannerDefaultImageView?.visibility = View.GONE
+//                updateBanner(result)
+//            } else {
+//                binding?.mainBannerDefaultImageView?.visibility = View.VISIBLE
+//            }
+//        }
+
         mainViewModel.storeData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
-//                storeAdapter.updateDataSource(result)
+                storeAdapter.updateDataSource(result)
             }
         }
+
         mainViewModel.activityData.observe(viewLifecycleOwner) { result ->
             if (result != null) {
                 Glob.lstActivity = result
@@ -118,17 +145,21 @@ class MainFragment :
     }
 
     private fun initView() {
+        initNewsRecyclerView()
 //        initStoreRecyclerView()
     }
 
     private fun initData() {
-        mainViewModel.getMainBannerData(requireContext())
-        mainViewModel.getStoreData(
-            requireContext(),
-            ""
-        )
+//        mainViewModel.getMainBannerData(requireContext())
+//        mainViewModel.getStoreData(
+//            requireContext(),
+//            ""
+//        )
 
         mainViewModel.fetchActivity()
+
+        passViewModel.getBanner(requireContext())
+        passViewModel.getNews(requireContext())
     }
 
     private fun initAction() {
@@ -223,7 +254,7 @@ class MainFragment :
     }
 
 //    private fun initStoreRecyclerView() {
-//        binding?.mainStoreRecyclerView?.apply {
+//        binding?.rvNews?.apply {
 //            layoutManager = LinearLayoutManager(
 //                requireContext(),
 //                LinearLayoutManager.HORIZONTAL,
@@ -237,6 +268,19 @@ class MainFragment :
 //            this.adapter = storeAdapter
 //        }
 //    }
+    private fun initNewsRecyclerView() {
+        binding?.rvNews?.apply {
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            newsAdapter = mNewsAdapter(
+                data_news
+            )
+            this.adapter = newsAdapter
+        }
+    }
 
     private fun updateActivity(resp : List<Response4Activity>) {
         resp.forEach { activity ->
@@ -282,6 +326,37 @@ class MainFragment :
 
     private fun updateView() {
         binding?.mainBannerDefaultImageView?.visibility = View.GONE
+    }
+
+    private fun updateBanner4Pass(result: List<Response4PassBannerContent>?) {
+        binding?.apply {
+            mainBannerLoginBanner.setAdapter(object : BannerImageAdapter<Response4PassBannerContent?>(result) {
+                override fun onBindView(
+                    holder: BannerImageHolder?,
+                    data: Response4PassBannerContent?,
+                    position: Int,
+                    size: Int
+                ) {
+                    if (holder != null) {
+                        Log.d("CheckPass", ApiPassConfig.URL_HOST + data?.head_img)
+                        Glide.with(holder.itemView)
+                            .load(ApiPassConfig.URL_HOST + data?.head_img)
+//                            .load(ApiConfig.TEST_URL_HOST + data?.bannerPic)
+                            .fitCenter()        // 或 .centerCrop()
+                            .apply(RequestOptions.bitmapTransform(RoundedCorners(30)))
+                            .into(holder.imageView)
+
+//                        holder.imageView.setOnClickListener {
+//                            if (!data?.isNullOrEmpty()) {
+//                                openBannerLink(data!!.bannerLink)
+//                            }
+//                        }
+                    }
+                }
+            })
+                .addBannerLifecycleObserver(this@MainFragment) //添加生命周期观察者
+                .setIndicator(CircleIndicator(requireContext()))
+        }
     }
 
     private fun updateBanner(result: List<BannerVO>) {
