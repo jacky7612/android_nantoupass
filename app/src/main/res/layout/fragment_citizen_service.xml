@@ -1,243 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-<ImageView
-    android:id="@+id/back"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:background="@drawable/baseline_keyboard_arrow_left_24"/>
-        <!-- Centered Title -->
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="市民服務"
-            android:textSize="18sp"
-            android:textColor="#4E788A"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.appcompat.widget.Toolbar>
-
+    <!-- Subtitle -->
     <TextView
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:text="專線查詢"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#757575"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_include"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Spinner Institution -->
     <Spinner
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/rounded_background"
         android:id="@+id/spinnerInstitution"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp" />
-
-    <Spinner
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_background"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Spinner Unit -->
+    <Spinner
         android:id="@+id/spinnerUnit"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginTop="15dp" />
-
-    <EditText
-        android:textSize="15sp"
-        android:paddingLeft="20dp"
-        android:textColorHint="#D3D3D3"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="15dp"
-        android:hint="輸入業務及其他關鍵字"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/palin_rounded_background"/>
+        android:background="@drawable/rounded_background"
+        app:layout_constraintTop_toBottomOf="@id/spinnerInstitution"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Keyword Input -->
+    <EditText
+        android:id="@+id/etKeyword"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/palin_rounded_background"
+        android:hint="輸入業務及其他關鍵字"
+        android:paddingLeft="15dp"
+        android:textColorHint="#D3D3D3"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/spinnerUnit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Search Button -->
     <TextView
-        android:layout_marginRight="20dp"
-        android:textColor="@color/white"
-        android:layout_gravity="right"
-        android:gravity="center"
-        android:background="@drawable/darker_more_rounded_background"
         android:id="@+id/btnSearch"
         android:layout_width="120dp"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/darker_more_rounded_background"
+        android:gravity="center"
         android:text="查詢"
-        android:layout_marginTop="20dp" />
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/etKeyword"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Result Title -->
     <TextView
         android:id="@+id/tvResultTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text=""
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@id/btnSearch"
+        app:layout_constraintStart_toStartOf="parent" />
 
-
+    <!-- Result Container -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:id="@+id/resultContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/tvResultTitle">
 
-        <TextView
-            android:textColor="#4E788A"
-            android:id="@+id/tvInstitution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="南投市公所"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:textColor="#4E788A"
-            android:id="@+id/tvUnit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="農經課"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp" />
-    </LinearLayout>
-        <View
-            android:layout_marginRight="20dp"
+        <!-- Header -->
+        <LinearLayout
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:textColor="#4E788A"
+                android:id="@+id/tvInstitution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="南投市公所"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:textColor="#4E788A"
+                android:id="@+id/tvUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="農經課"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_marginHorizontal="0dp"
             android:background="#4E788A"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
-
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="業務"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/more_rounded_background"
-        android:padding="4dp"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF" />
-
-    <TextView
-        android:textColor="#4E788A"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/tvBusinessDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="農林漁牧生產、農牧業推廣、糧食、農產運銷、農情調查、休閒農牧業、生態保育、水土保持、簡易工商登記、公平交易、消費者保護"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:layout_marginLeft="20dp"
-        android:gravity="center"
-        android:text="專線"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/more_rounded_background"
-        android:padding="4dp"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="20dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:textColor="#4E788A"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/tvPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="049-2222110"
-            android:textSize="16sp"
-            />
-
-        <TextView
-            android:textColor="#4E788A"
-            android:id="@+id/tvExtension"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分機 201、206"
-            android:textSize="16sp"
-            android:layout_marginStart="16dp" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="12dp">
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_marginRight="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_home"/>
-        <TextView
-            android:textColor="#4E788A"
-            android:textSize="17sp"
-            android:id="@+id/website"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="網站連結" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:layout_marginRight="5dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_home"/>
-            <TextView
-                android:textColor="#4E788A"
-                android:textSize="17sp"
-                android:id="@+id/btnWebsite"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="前往撥打專線" />
-        </LinearLayout>
-    </LinearLayout>
-
-</LinearLayout>
-
-
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_result"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@id/resultContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

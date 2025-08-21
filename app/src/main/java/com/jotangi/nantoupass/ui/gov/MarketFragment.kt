@@ -1,24 +1,18 @@
 package com.jotangi.nantoupass.ui.gov
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jotangi.nantoupass.MainActivity
 import com.jotangi.nantoupass.R
-import com.jotangi.nantoupass.databinding.FragmentMainBinding
 import com.jotangi.nantoupass.databinding.FragmentMarketBinding
 import com.jotangi.nantoupass.databinding.ToolbarFeetBinding
 import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.model.StoreVO
 import com.jotangi.nantoupass.ui.BaseWithBottomBarFragment
-import com.jotangi.nantoupass.ui.gov.NewsAdapter
-import com.jotangi.nantoupass.ui.gov.NewsItem
-import com.jotangi.nantoupass.utility.AppUtility
+import com.jotangi.nantoupass.ui.gov.adapter.NewsAdapter
 
 
 class MarketFragment : BaseWithBottomBarFragment() {

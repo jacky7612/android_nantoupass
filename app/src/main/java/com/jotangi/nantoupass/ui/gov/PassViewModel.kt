@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.jotangi.nantoupass.config.ApiPassResp4Agency
+import com.jotangi.nantoupass.config.ApiPassResp4AgencyUnit
 import com.jotangi.nantoupass.config.ApiPassResp4Banner
 import com.jotangi.nantoupass.config.ApiPassResp4News
 import com.jotangi.nantoupass.model.charge.StandardResponse
@@ -103,7 +105,7 @@ class PassViewModel: ViewModel() {
     // Banner - end
 
 
-    // Banner - start
+    // News - start
     private val _news: MutableLiveData<ApiPassResp4News> by lazy {
         MutableLiveData<ApiPassResp4News>()
     }
@@ -168,5 +170,142 @@ class PassViewModel: ViewModel() {
             }
         })
     }
-    // Banner - end
+    // News - end
+
+
+    // Agency - start
+    private val _agency: MutableLiveData<ApiPassResp4Agency> by lazy {
+        MutableLiveData<ApiPassResp4Agency>()
+    }
+    val agency: LiveData<ApiPassResp4Agency> get() = _agency
+
+    fun clearAgency() {
+        if (_agency.value != null) {
+            _agency.value!!.data = null
+            _agency.postValue(null)
+        }
+    }
+    private fun assignAgencyRespMessage(code :String, status :String, msg :String) {
+        val resp =setResponseMessage(code, status, msg)
+        if (_agency.value == null)
+            _agency.value =ApiPassResp4Agency("", "", "", null)
+        _agency.value!!.code            =resp.code
+        _agency.value!!.status          =resp.status
+        _agency.value!!.responseMessage =resp.responseMessage
+        _std_check.clear()
+    }
+
+    fun getAgency(context: Context) {
+        val call: Call<ApiPassResp4Agency> = ApiPassUtility.service.apiGetAgency(
+        )
+        call.enqueue(object : Callback<ApiPassResp4Agency> {
+            override fun onResponse(
+                call: Call<ApiPassResp4Agency>,
+                response: Response<ApiPassResp4Agency>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    var resp = response.body()
+                    Log.d("CheckPass", resp.toString())
+                    if (resp != null) {
+                        if (resp.status == "true" && resp.code == "0x0200") {
+                            _agency.value = resp
+                        }
+                    }
+                } else {
+                    Log.d("CheckPass", "3")
+                    val msg ="搜尋機構發生異常，請回首頁再次進行操作"
+                    assignAgencyRespMessage("0x020F", "false", msg)
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        msg
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ApiPassResp4Agency>, t: Throwable) {
+                val msg ="搜尋機構，請回首頁再次進行操作"
+                assignAgencyRespMessage("0x020E", "false", msg)
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    msg
+                )
+            }
+        })
+    }
+    // Agency - end
+
+
+    // Agency Unit - start
+    private val _agencyunit: MutableLiveData<ApiPassResp4AgencyUnit> by lazy {
+        MutableLiveData<ApiPassResp4AgencyUnit>()
+    }
+    val agencyunit: LiveData<ApiPassResp4AgencyUnit> get() = _agencyunit
+
+    fun clearAgencyUnit() {
+        if (_agencyunit.value != null) {
+            _agencyunit.value!!.data = null
+            _agencyunit.postValue(null)
+        }
+    }
+    private fun assignAgencyUnitRespMessage(code :String, status :String, msg :String) {
+        val resp =setResponseMessage(code, status, msg)
+        if (_agencyunit.value == null)
+            _agencyunit.value =ApiPassResp4AgencyUnit("", "", "", null)
+        _agencyunit.value!!.code            =resp.code
+        _agencyunit.value!!.status          =resp.status
+        _agencyunit.value!!.responseMessage =resp.responseMessage
+        _std_check.clear()
+    }
+
+    fun getAgencyunit(context: Context, agency_sid: String) {
+        val call: Call<ApiPassResp4AgencyUnit> = ApiPassUtility.service.apiGetAgencyUnit(
+            agency_sid
+        )
+        call.enqueue(object : Callback<ApiPassResp4AgencyUnit> {
+            override fun onResponse(
+                call: Call<ApiPassResp4AgencyUnit>,
+                response: Response<ApiPassResp4AgencyUnit>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    var resp = response.body()
+                    Log.d("CheckPass", resp.toString())
+                    if (resp != null) {
+                        if (resp.status == "true" && resp.code == "0x0200") {
+                            _agencyunit.value = resp
+                        }
+                    }
+                } else {
+                    Log.d("CheckPass", "3")
+                    val msg ="搜尋各科室單位發生異常，請回首頁再次進行操作"
+                    assignAgencyUnitRespMessage("0x020F", "false", msg)
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        msg
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ApiPassResp4AgencyUnit>, t: Throwable) {
+                val msg ="搜尋各科室單位，請回首頁再次進行操作"
+                assignAgencyRespMessage("0x020E", "false", msg)
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    msg
+                )
+            }
+        })
+    }
+    // Agency - end
 }

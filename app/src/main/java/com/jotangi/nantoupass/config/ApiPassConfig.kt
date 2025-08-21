@@ -34,4 +34,14 @@ interface ApiPassConfig {
     // 取得Banner
     @GET("api/JTG_news.php")
     fun apiGetNews(): Call<ApiPassResp4News>
+
+    // 取得機構
+    @GET("api/JTG_agency.php")
+    fun apiGetAgency(): Call<ApiPassResp4Agency>
+
+    // 取得機構各科室單位
+    @GET("api/JTG_agencyunit.php")
+    fun apiGetAgencyUnit(
+        @Query("agency_sid") agency_sid: String
+    ): Call<ApiPassResp4AgencyUnit>
 }

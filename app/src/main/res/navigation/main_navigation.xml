@@ -890,6 +890,12 @@
         <action
             android:id="@+id/action_citizenServiceFragment_to_main_fragment"
             app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_citizenServiceFragment_to_member_fragment"
+            app:destination="@id/member_fragment" />
+        <action
+            android:id="@+id/action_citizenServiceFragment_to_login_fragment"
+            app:destination="@id/login_fragment" />
     </fragment>
     <fragment
         android:id="@+id/marketFragment"

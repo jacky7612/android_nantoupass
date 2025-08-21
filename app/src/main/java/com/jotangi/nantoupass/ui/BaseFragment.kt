@@ -250,6 +250,34 @@ abstract class BaseFragment : Fragment() {
             }
         }
     }
+    fun setupCitizenTitle(title:String) {
+        getToolBar()?.apply {
+            toolTitleTextView.text = title
+            toolAdditionalImageButton.visibility = View.VISIBLE
+            toolBackImageButton.visibility = View.VISIBLE
+
+            setupToolBarBtn(
+                toolAdditionalImageButton,
+                R.drawable.ic_user_0
+            ) {
+                when (AppUtility.getLoginStatus(requireContext())) {
+                    true -> {
+                        toMemberFragment(R.id.action_citizenServiceFragment_to_member_fragment)
+                    }
+
+                    false -> {
+                        toMemberFragment(R.id.action_citizenServiceFragment_to_login_fragment)
+                    }
+                }
+            }
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
     fun setupMarketTitle() {
         getToolBar()?.apply {
             toolTitleTextView.text = "商圈"

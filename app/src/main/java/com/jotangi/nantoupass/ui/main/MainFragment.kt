@@ -29,7 +29,7 @@ import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.model.BannerVO
 import com.jotangi.nantoupass.model.StoreVO
 import com.jotangi.nantoupass.ui.BaseWithBottomBarFragment
-import com.jotangi.nantoupass.ui.gov.mNewsAdapter
+import com.jotangi.nantoupass.ui.gov.adapter.mNewsAdapter
 import com.jotangi.nantoupass.utility.AppUtility
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
