@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jotangi.nantoupass.R
-import com.jotangi.nantoupass.ui.gov.NewsItem
+import com.jotangi.nantoupass.ui.gov.models.NewsItem
 
 class NewsAdapter(private val newsList: List<NewsItem>) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 

@@ -159,7 +159,7 @@ class MainFragment :
         mainViewModel.fetchActivity()
 
         passViewModel.getBanner(requireContext())
-        passViewModel.getNews(requireContext())
+        passViewModel.getNews(requireContext(), "0")
     }
 
     private fun initAction() {

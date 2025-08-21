@@ -910,6 +910,12 @@
         <action
             android:id="@+id/action_marketFragment_to_login_fragment"
             app:destination="@id/login_fragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_main_fragment2"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_marketFragment_to_mapProjectFragment"
+            app:destination="@id/mapProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapProjectFragment"

@@ -31,9 +31,11 @@ interface ApiPassConfig {
     @GET("api/JTG_banner.php")
     fun apiGetBanner(): Call<ApiPassResp4Banner>
 
-    // 取得Banner
+    // 取得最新消息
     @GET("api/JTG_news.php")
-    fun apiGetNews(): Call<ApiPassResp4News>
+    fun apiGetNews(
+        @Query("new_kind") new_kind: String // 不填:全取;0:一般訊息;1:商家訊息
+    ): Call<ApiPassResp4News>
 
     // 取得機構
     @GET("api/JTG_agency.php")
@@ -44,4 +46,9 @@ interface ApiPassConfig {
     fun apiGetAgencyUnit(
         @Query("agency_sid") agency_sid: String
     ): Call<ApiPassResp4AgencyUnit>
+
+    // 取得景點
+    @GET("api/JTG_sightseeing.php")
+    fun apiGetSightseeing(
+    ): Call<ApiPassResp4Sightseeing>
 }

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import com.jotangi.nantoupass.databinding.FragmentApplicationStatusBinding
 import com.jotangi.nantoupass.databinding.ItemApplicationBinding
-import com.jotangi.nantoupass.ui.gov.ApplicationItem
+import com.jotangi.nantoupass.ui.gov.models.ApplicationItem
 import com.google.android.material.tabs.TabLayout
 
 class ApplicationStatusFragment : Fragment() {

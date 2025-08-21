@@ -193,3 +193,59 @@ data class Response4PassAgencyUnitServices (
     @SerializedName("contact")
     var contact: String?
 )
+
+
+data class ApiPassResp4Sightseeing(
+    var status : String="",
+    var code   : String="",
+    var responseMessage: String="",
+    var data   : Response4PassSightseeing? = null
+) {
+    fun clear() {
+        status = ""
+        code = ""
+        responseMessage = ""
+    }
+}
+data class Response4PassSightseeing (
+    @SerializedName("data")
+    var data: List<Response4PassSightseeingContent>? = null
+)
+data class Response4PassSightseeingContent (
+    @SerializedName("nid")
+    var nid: String?,
+    @SerializedName("sid")
+    var sid: String?,
+    @SerializedName("create_date")
+    var create_date: String?,
+    @SerializedName("modify_date")
+    var modify_date: String?,
+    @SerializedName("start_date")
+    var start_date: String?,
+    @SerializedName("end_date")
+    var end_date: String?,
+    @SerializedName("title")
+    var title: String?,
+    @SerializedName("shop_open")
+    var shop_open: String?,
+    @SerializedName("head_img")
+    var head_img: String?,
+    @SerializedName("summary")
+    var summary: String?,
+    @SerializedName("web_url")
+    var web_url: String?,
+    @SerializedName("ar_url")
+    var ar_url: String?,
+    @SerializedName("address")
+    var address: String?,
+    @SerializedName("tel")
+    var tel: String?,
+    @SerializedName("avalible")
+    var avalible: String?,
+    @SerializedName("edit_sid")
+    var edit_sid: String?,
+    @SerializedName("script")
+    var script: String?,
+    @SerializedName("remark")
+    var remark: String?
+)

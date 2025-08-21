@@ -274,7 +274,17 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_citizenServiceFragment_to_login_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_citizenServiceFragment_to_main_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_citizenServiceFragment_to_member_fragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -684,11 +694,16 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="-802" />
-                            <option name="y" value="-408" />
+                            <option name="y" value="-410" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_marketFragment_to_login_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_marketFragment_to_main_fragment">
                               <value>
                                 <LayoutPositions />

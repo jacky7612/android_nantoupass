@@ -9,6 +9,7 @@ import com.jotangi.nantoupass.config.ApiPassResp4Agency
 import com.jotangi.nantoupass.config.ApiPassResp4AgencyUnit
 import com.jotangi.nantoupass.config.ApiPassResp4Banner
 import com.jotangi.nantoupass.config.ApiPassResp4News
+import com.jotangi.nantoupass.config.ApiPassResp4Sightseeing
 import com.jotangi.nantoupass.model.charge.StandardResponse
 import com.jotangi.nantoupass.utility.ApiPassUtility
 import com.jotangi.nantoupass.utility.AppUtility
@@ -127,8 +128,9 @@ class PassViewModel: ViewModel() {
         _std_check.clear()
     }
 
-    fun getNews(context: Context) {
+    fun getNews(context: Context, new_kind: String) {
         val call: Call<ApiPassResp4News> = ApiPassUtility.service.apiGetNews(
+            new_kind
         )
         call.enqueue(object : Callback<ApiPassResp4News> {
             override fun onResponse(
@@ -299,6 +301,74 @@ class PassViewModel: ViewModel() {
             override fun onFailure(call: Call<ApiPassResp4AgencyUnit>, t: Throwable) {
                 val msg ="搜尋各科室單位，請回首頁再次進行操作"
                 assignAgencyRespMessage("0x020E", "false", msg)
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    msg
+                )
+            }
+        })
+    }
+    // Agency - end
+
+
+    // Sightseeing Unit - start
+    private val _sightseeing: MutableLiveData<ApiPassResp4Sightseeing> by lazy {
+        MutableLiveData<ApiPassResp4Sightseeing>()
+    }
+    val sightseeing: LiveData<ApiPassResp4Sightseeing> get() = _sightseeing
+
+    fun clearSightseeing() {
+        if (_sightseeing.value != null) {
+            _sightseeing.value!!.data = null
+            _sightseeing.postValue(null)
+        }
+    }
+    private fun assignSightseeingRespMessage(code :String, status :String, msg :String) {
+        val resp =setResponseMessage(code, status, msg)
+        if (_sightseeing.value == null)
+            _sightseeing.value =ApiPassResp4Sightseeing("", "", "", null)
+        _sightseeing.value!!.code            =resp.code
+        _sightseeing.value!!.status          =resp.status
+        _sightseeing.value!!.responseMessage =resp.responseMessage
+        _std_check.clear()
+    }
+
+    fun getSightseeing(context: Context) {
+        val call: Call<ApiPassResp4Sightseeing> = ApiPassUtility.service.apiGetSightseeing(
+        )
+        call.enqueue(object : Callback<ApiPassResp4Sightseeing> {
+            override fun onResponse(
+                call: Call<ApiPassResp4Sightseeing>,
+                response: Response<ApiPassResp4Sightseeing>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    var resp = response.body()
+                    Log.d("CheckPass", resp.toString())
+                    if (resp != null) {
+                        if (resp.status == "true" && resp.code == "0x0200") {
+                            _sightseeing.value = resp
+                        }
+                    }
+                } else {
+                    Log.d("CheckPass", "3")
+                    val msg ="搜尋景點發生異常，請回首頁再次進行操作"
+                    assignSightseeingRespMessage("0x020F", "false", msg)
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        msg
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ApiPassResp4Sightseeing>, t: Throwable) {
+                val msg ="搜尋景點，請回首頁再次進行操作"
+                assignSightseeingRespMessage("0x020E", "false", msg)
                 AppUtility.showPopDialog(
                     context,
                     null,
