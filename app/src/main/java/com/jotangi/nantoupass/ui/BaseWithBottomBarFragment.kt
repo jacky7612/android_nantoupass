@@ -51,6 +51,22 @@ abstract class BaseWithBottomBarFragment : BaseFragment() {
             toProjectFagment(R.id.action_main_fragment_to_mapProjectFragment)
         }
     }
+    fun initEvent4apply() {
+        // 商圈
+        getToolBarFeet()?.toolbarBtnMap?.setOnClickListener {
+            toMarketFragment(R.id.action_applicationFragment_to_marketFragment)
+        }
+
+        // 首頁
+        getToolBarFeet()?.toolbarBtnCharge?.setOnClickListener {
+            toHomeFagment(R.id.main_fragment)
+        }
+
+        // 工程
+        getToolBarFeet()?.toolbarBtnStoreValue?.setOnClickListener {
+            toProjectFagment(R.id.action_applicationFragment_to_mapProjectFragment)
+        }
+    }
 
     private var ToolBarBtMap : ImageButton? =null
     private var ToolBarLayoutMap : LinearLayout? =null

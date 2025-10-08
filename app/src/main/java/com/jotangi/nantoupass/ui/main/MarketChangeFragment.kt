@@ -9,22 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ExperimentalGetImage
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.google.mlkit.vision.barcode.BarcodeScanner
-import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.common.InputImage
 import com.jotangi.nantoupass.R
 import com.jotangi.nantoupass.databinding.FragmentMarketChangeBinding
 import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.ui.BaseFragment
-import java.util.concurrent.Executors
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,8 +32,7 @@ private const val ARG_PARAM2 = "param2"
 
 class MarketChangeFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
-    private lateinit var previewView: PreviewView
-    private lateinit var barcodeScanner: BarcodeScanner
+    private lateinit var previewView: DecoratedBarcodeView
     private var param1: String? = null
     private var param2: String? = null
     private var _binding: FragmentMarketChangeBinding? = null
@@ -69,7 +61,6 @@ class MarketChangeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupMarketChangePointTitle()
         previewView = view.findViewById(R.id.previewView)
-        barcodeScanner = BarcodeScanning.getClient()
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -86,11 +77,6 @@ class MarketChangeFragment : BaseFragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
-            cameraProvider.unbindAll()
-        }, ContextCompat.getMainExecutor(requireContext()))
     }
 
     override fun onRequestPermissionsResult(
@@ -109,76 +95,23 @@ class MarketChangeFragment : BaseFragment() {
         }
     }
 
-
     private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
-
-            // Set up Preview
-            val preview = androidx.camera.core.Preview.Builder().build().also {
-                it.setSurfaceProvider(previewView.surfaceProvider)
-            }
-
-            // Set up Image Analysis
-            val imageAnalysis = ImageAnalysis.Builder()
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888)
-                .build()
-
-            // Analyzer
-            imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor()) { imageProxy ->
-                try {
-                    processImageProxy(imageProxy)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-
-            // Camera selector
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            // Bind camera lifecycle
-            cameraProvider.bindToLifecycle(
-                this,
-                cameraSelector,
-                preview,
-                imageAnalysis
-            )
-        }, ContextCompat.getMainExecutor(requireContext()))
-    }
-
-
-    @androidx.annotation.OptIn(ExperimentalGetImage::class)
-    private fun processImageProxy(imageProxy: ImageProxy) {
-        Log.d("QRCodeScanner", "Analyzing frame...")
-
-        val mediaImage = imageProxy.image
-        if (mediaImage != null) {
-            val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-            barcodeScanner.process(image)
-                .addOnSuccessListener { barcodes ->
-                    Log.d("QRCodeScanner", "Frames analyzed: ${barcodes.size}")
-                    for (barcode in barcodes) {
-                        val rawValue = barcode.rawValue
-                        Log.d("QRCodeScanner", "Detected QR Code: $rawValue")
-                        rawValue?.let {
-                            requireActivity().runOnUiThread {
-                                showQRCodeContent(it)
-                            }
+        previewView.decodeContinuous(object : BarcodeCallback {
+            override fun barcodeResult(result: BarcodeResult) {
+                result.text?.let { barcode ->
+                    Log.i("BarcodeScannerFragment", "Scanned Barcode: $barcode")
+                    barcode?.let {
+                        requireActivity().runOnUiThread {
+                            showQRCodeContent(it)
                         }
                     }
                 }
-                .addOnFailureListener { e ->
-                    Log.e("QRCodeScanner", "Error processing frame", e)
-                }
-                .addOnCompleteListener {
-                    imageProxy.close()
-                }
-        } else {
-            imageProxy.close()
-        }
+            }
+
+            override fun possibleResultPoints(resultPoints: List<com.google.zxing.ResultPoint>) {
+                // Handle possible result points if needed
+            }
+        })
     }
 
     private fun showQRCodeContent(content: String?) {
@@ -205,7 +138,7 @@ class MarketChangeFragment : BaseFragment() {
     }
 
     companion object {
-var storeName = ""
+        var storeName = ""
         var storeNumber = ""
         var storeId = "0"
 

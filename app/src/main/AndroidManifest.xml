@@ -47,6 +47,7 @@
         </service>
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:exported="true"
             android:theme="@style/Theme.NanTouParking.NoActionBar">
             <intent-filter>
@@ -61,7 +62,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="nantouparking" />
+                <data android:scheme="nantoupass" />
             </intent-filter>
         </activity>
         <meta-data

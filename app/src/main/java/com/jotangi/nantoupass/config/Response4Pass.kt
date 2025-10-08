@@ -249,3 +249,96 @@ data class Response4PassSightseeingContent (
     @SerializedName("remark")
     var remark: String?
 )
+
+// 申辦服務項目
+data class ApiPassResp4Applyitem(
+    var status : String="",
+    var code   : String="",
+    var responseMessage: String="",
+    var data   : Response4PassApplyitem? = null
+) {
+    fun clear() {
+        status = ""
+        code = ""
+        responseMessage = ""
+    }
+}
+data class Response4PassApplyitem (
+    @SerializedName("data")
+    var data: List<Response4PassApplyitemContent>? = null
+)
+data class Response4PassApplyitemContent (
+    @SerializedName("nid")
+    var nid: String?,
+    @SerializedName("sid")
+    var sid: String?,
+    @SerializedName("create_date")
+    var create_date: String?,
+    @SerializedName("modify_date")
+    var modify_date: String?,
+    @SerializedName("name")
+    var name: String?,
+    @SerializedName("avalible")
+    var avalible: String?,
+    @SerializedName("edit_sid")
+    var edit_sid: String?,
+    @SerializedName("script")
+    var script: String?,
+    @SerializedName("remark")
+    var remark: String?
+)
+
+data class ApiPassResp4ApplyDetail(
+    var status : String="",
+    var code   : String="",
+    var responseMessage: String="",
+    var data   : Response4PassApplySubdetail? = null
+) {
+    fun clear() {
+        status = ""
+        code = ""
+        responseMessage = ""
+    }
+}
+data class Response4PassApplySubdetail (
+    @SerializedName("data")
+    var data: List<Response4PassApplyDetailContent>? = null
+)
+data class Response4PassApplyDetailContent (
+    @SerializedName("nid")
+    var nid: String?,
+    @SerializedName("sid")
+    var sid: String?,
+    @SerializedName("create_date")
+    var create_date: String?,
+    @SerializedName("modify_date")
+    var modify_date: String?,
+    @SerializedName("countycityunit_sid")
+    var countycityunit_sid: String?,
+    @SerializedName("mainitem_sid")
+    var mainitem_sid: String?,
+    @SerializedName("title")
+    var title: String?,
+    @SerializedName("conditions")
+    var conditions: String?,
+    @SerializedName("required_documents")
+    var required_documents: String?,
+    @SerializedName("subsidy_amount")
+    var subsidy_amount: String?,
+    @SerializedName("processing_deadline")
+    var processing_deadline: String?,
+    @SerializedName("processing_method")
+    var processing_method: String?,
+    @SerializedName("online_url")
+    var online_url: String?,
+    @SerializedName("pdf_url")
+    var pdf_url: String?,
+    @SerializedName("avalible")
+    var avalible: String?,
+    @SerializedName("edit_sid")
+    var edit_sid: String?,
+    @SerializedName("script")
+    var script: String?,
+    @SerializedName("remark")
+    var remark: String?
+)

@@ -2,7 +2,7 @@ package com.jotangi.nantoupass.config
 
 class AppConfig {
     companion object {
-        const val spref = "com.jotangi.nantouparking"
+        const val spref = "com.jotangi.nantoupass"
 
         const val IS_LOGIN = "is_login"
         const val LOGIN_ID = "login_id"

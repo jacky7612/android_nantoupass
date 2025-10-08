@@ -15,50 +15,89 @@ import android.widget.Toast
 import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.navigation.fragment.findNavController
+import com.jotangi.nantoupass.JackyVariant.Glob
 import com.jotangi.nantoupass.MainActivity
 import com.jotangi.nantoupass.R
+import com.jotangi.nantoupass.config.Response4PassApplyitem
+import com.jotangi.nantoupass.config.Response4PassApplyitemContent
+import com.jotangi.nantoupass.config.Response4PassSightseeingContent
+import com.jotangi.nantoupass.databinding.FragmentApplicationServicesBinding
+import com.jotangi.nantoupass.databinding.FragmentMarketBinding
+import com.jotangi.nantoupass.databinding.ToolbarFeetBinding
+import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
+import com.jotangi.nantoupass.model.StoreVO
+import com.jotangi.nantoupass.ui.BaseWithBottomBarFragment
 
-class ApplicationServicesFragment : Fragment() {
+class ApplicationServicesFragment : BaseWithBottomBarFragment() {
+
+    private var _binding: FragmentApplicationServicesBinding? = null
+    private val binding get() = _binding
+    //    private lateinit var storeAdapter: StoreAdapter
+    private var data = mutableListOf<StoreVO>()
+
+    override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
+    override fun getToolBarFeet(): ToolbarFeetBinding = binding!!.toolbarFeet
+    private var data_applyitem : List<Response4PassApplyitemContent>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_application_services, container, false)
+        _binding = FragmentApplicationServicesBinding.inflate(inflater, container, false)
+
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val back: ImageView = view.findViewById(R.id.back)
-        val textViewRecordStatus: TextView = view.findViewById(R.id.textViewRecordStatus)
-        textViewRecordStatus.paintFlags = textViewRecordStatus.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
-        textViewRecordStatus.setOnClickListener {
+        setupApplyTitle()
+        initObserver()
+        initEvent()
+        getData()
+
+        binding?.textViewRecordStatus?.setOnClickListener {
             findNavController().navigate(R.id.action_application_services_fragment_to_application_status_fragment)
 
         }
-
-      back.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+    }
+    /****************
+     * api response *
+     ****************/
+    private fun initObserver() {
+        passViewModel.ApplyItem.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                if (result.status == "true" && result.code == "0x0200") {
+                    data_applyitem = result.data?.data
+                    val lstApplyitem = data_applyitem?.map { it.name?: "" }  // 取 head_img
+                    if (lstApplyitem != null) updateRecycleView(lstApplyitem)
+                }
+            } else {
+            }
         }
-        val categoryList = listOf(
-            "低收入戶", "中低收入戶",
-            "老人福利", "求職就業",
-            "求學進修", "生育補助"
-        )
+    }
 
+    private fun getData() {
+        passViewModel.clearApply()
+        passViewModel.getApplyItems(requireContext())
+    }
+    private fun updateRecycleView(input:List<String>) {
+        binding?.apply {
+            rvApply.layoutManager = GridLayoutManager(requireContext(), 2)
+            rvApply.addItemDecoration(SpaceItemDecoration(2)) // Reduce spacing to match the provided image
+            rvApply.adapter = CategoryAdapter(input) { category, position ->
+                if (data_applyitem != null) {
+                    Glob.ItemApply.sid = data_applyitem!!.get(position).sid.toString()
+                }
+                findNavController().navigate(R.id.action_application_services_fragment_to_low_income_fragment)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        recyclerView.addItemDecoration(SpaceItemDecoration(2)) // Reduce spacing to match the provided image
-        recyclerView.adapter = CategoryAdapter(categoryList) { category ->
-            findNavController().navigate(R.id.action_application_services_fragment_to_low_income_fragment)
-
-            Toast.makeText(requireContext(), "Clicked: $category", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Clicked: $category", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
 
-class CategoryAdapter(private val categories: List<String>, private val onItemClick: (String) -> Unit) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(private val categories: List<String>, private val onItemClick: (String, Int) -> Unit) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.textViewCategory)
         val cardView: CardView = view.findViewById(R.id.cardViewCategory)
@@ -73,7 +112,7 @@ class CategoryAdapter(private val categories: List<String>, private val onItemCl
         val category = categories[position]
         holder.textView.text = category
         holder.cardView.setOnClickListener {
-            onItemClick(category)
+            onItemClick(category, position)
         }
     }
 

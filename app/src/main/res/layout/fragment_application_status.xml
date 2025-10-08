@@ -3,40 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
+
+    <!-- 上方 Toolbar -->
+    <include
+        android:id="@+id/toolbar_include"
+        layout="@layout/toolbar_include"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/toolbar"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 底部 Toolbar -->
+    <include
+        android:id="@+id/toolbar_feet"
+        layout="@layout/toolbar_feet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/baseline_keyboard_arrow_left_24"/>
-        <!-- Centered Title -->
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="申辦紀錄/狀態"
-            android:textSize="18sp"
-            android:textColor="#4E788A"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
-
-        <ImageView
-            android:visibility="gone"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="right"
-            android:id="@+id/setting"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/baseline_settings_24"/>
-
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="64dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:layout_marginLeft="20dp"
@@ -50,20 +32,20 @@
         app:tabIndicatorColor="#40798C"
         app:tabTextColor="#40798C"
         app:tabSelectedTextColor="#40798C"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_include"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/rv_data"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/toolbar_feet"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

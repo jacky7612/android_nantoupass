@@ -8,6 +8,32 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="applicationFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-149" />
+                            <option name="y" value="1619" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_applicationFragment_to_login_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_applicationFragment_to_main_fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="applicationServicesFragment">
                     <value>
                       <LayoutPositions>
@@ -364,8 +390,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="603" />
-                            <option name="y" value="-36" />
+                            <option name="x" value="600" />
+                            <option name="y" value="79" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -482,6 +508,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_main_fragment_to_applicationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_main_fragment_to_applicationServicesFragment">
                               <value>
                                 <LayoutPositions />
@@ -709,6 +740,16 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_marketFragment_to_main_fragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_marketFragment_to_mapProjectFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_marketFragment_to_member_fragment">
                               <value>
                                 <LayoutPositions />
@@ -724,8 +765,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="483" />
-                            <option name="y" value="-403" />
+                            <option name="x" value="498" />
+                            <option name="y" value="-646" />
                           </Point>
                         </option>
                         <option name="myPositions">

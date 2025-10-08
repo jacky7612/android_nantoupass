@@ -299,6 +299,34 @@ abstract class BaseFragment : Fragment() {
             }
         }
     }
+    fun setupApplyTitle(title: String = "申辦服務") {
+        getToolBar()?.apply {
+            toolTitleTextView.text = title
+            toolAdditionalImageButton.visibility = View.VISIBLE
+            setupToolBarBtn(
+                toolAdditionalImageButton,
+                R.drawable.ic_user_0
+            ) {
+                when (AppUtility.getLoginStatus(requireContext())) {
+                    true -> {
+                        toMemberFragment(R.id.action_applicationFragment_to_member_fragment)
+                    }
+
+                    false -> {
+                        toMemberFragment(R.id.action_applicationFragment_to_login_fragment)
+                    }
+                }
+            }
+
+            toolBackImageButton.visibility = View.VISIBLE
+            setupToolBarBtn(
+                toolBackImageButton,
+                R.drawable.icon_back_36
+            ) {
+                onBackPressed()
+            }
+        }
+    }
     private fun toMemberFragment(id: Int)
     {
         val currentFragmentId = findNavController().currentDestination?.id

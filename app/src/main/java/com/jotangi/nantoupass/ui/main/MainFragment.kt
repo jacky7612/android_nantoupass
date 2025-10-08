@@ -156,6 +156,7 @@ class MainFragment :
 //            ""
 //        )
 
+        mainViewModel.clearStoreData()
         mainViewModel.fetchActivity()
 
         passViewModel.getBanner(requireContext())
@@ -199,7 +200,11 @@ class MainFragment :
 
                 // 申辦服務
                 parkingInfoConstraintLayout.setOnClickListener {
-                    findNavController().navigate(R.id.action_main_fragment_to_applicationServicesFragment)
+                    if (Glob.ItemApply.web_mode) {
+                        findNavController().navigate(R.id.action_main_fragment_to_applicationFragment)
+                    } else {
+                        findNavController().navigate(R.id.action_main_fragment_to_applicationServicesFragment)
+                    }
 //                    openWeb("https://parking.nantou.gov.tw/")
                 }
 

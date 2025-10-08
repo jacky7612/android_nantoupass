@@ -151,6 +151,7 @@ class MarketFragment : BaseWithBottomBarFragment() {
         }
     }
     private fun getData() {
+        passViewModel.clearSightseeing()
         passViewModel.getSightseeing(requireContext())
         passViewModel.clearNews()
         passViewModel.getNews(requireContext(), "0")

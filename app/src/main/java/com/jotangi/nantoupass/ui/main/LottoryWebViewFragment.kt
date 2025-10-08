@@ -48,7 +48,7 @@ class LottoryWebViewFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-setupLottoryWebViewTitle()
+        setupLottoryWebViewTitle()
         val webView: WebView = view.findViewById(R.id.webView)
 
         // Enable JavaScript

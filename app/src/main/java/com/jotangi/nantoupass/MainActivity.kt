@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Log.d("RemoteConfig","Remote1" )
         Glob.curChargeInfo = ChargeInfo()
-        remoteConfig()
+//        remoteConfig()
 
         // api 35 需做的調整 - 系統字色不被app影響
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        Log.d("RemoteConfig", "Remote2")
+//        Log.d("RemoteConfig", "Remote2")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ActivityCompat.requestPermissions(
                 this,
@@ -62,8 +62,8 @@ class MainActivity : AppCompatActivity() {
                 101
             )
         }
-        remoteConfig()
-        checkUpdate()
+//        remoteConfig()
+//        checkUpdate()
     }
 
     private fun checkUpdate() {

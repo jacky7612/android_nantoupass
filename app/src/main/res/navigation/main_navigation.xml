@@ -441,6 +441,9 @@
         <action
             android:id="@+id/action_main_fragment_to_mapProjectFragment"
             app:destination="@id/mapProjectFragment" />
+        <action
+            android:id="@+id/action_main_fragment_to_applicationFragment"
+            app:destination="@id/applicationFragment" />
     </fragment>
 
     <fragment
@@ -732,7 +735,7 @@
     </fragment>
 <!--    <fragment-->
 <!--        android:id="@+id/chargeHistoryDetailFragment"-->
-<!--        android:name="com.jotangi.nantouparking.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"-->
+<!--        android:name="com.jotangi.nantoupass.ui.charge.ChargeDetail.ChargeHistoryDetailFragment"-->
 <!--        android:label="fragment_charge_history_detail"-->
 <!--        tools:layout="@layout/fragment_charge_history_detail" />-->
 
@@ -807,7 +810,7 @@
     </fragment>
     <!--    <fragment-->
 <!--        android:id="@+id/parkingAgreementFragment"-->
-<!--        android:name="com.jotangi.nantouparking.ui.agreement.ParkingAgreementFragment"-->
+<!--        android:name="com.jotangi.nantoupass.ui.agreement.ParkingAgreementFragment"-->
 <!--        android:label="fragment_parking_agreement"-->
 <!--        tools:layout="@layout/fragment_parking_agreement" />-->
     <fragment
@@ -925,5 +928,25 @@
         <action
             android:id="@+id/action_mapProjectFragment_to_main_fragment"
             app:destination="@id/main_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/applicationFragment"
+        android:name="com.jotangi.nantoupass.ui.gov.ApplicationFragment"
+        android:label="ApplicationFragment" >
+        <action
+            android:id="@+id/action_applicationFragment_to_main_fragment"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_applicationFragment_to_login_fragment"
+            app:destination="@id/login_fragment" />
+        <action
+            android:id="@+id/action_applicationFragment_to_member_fragment"
+            app:destination="@id/member_fragment" />
+        <action
+            android:id="@+id/action_applicationFragment_to_marketFragment"
+            app:destination="@id/marketFragment" />
+        <action
+            android:id="@+id/action_applicationFragment_to_mapProjectFragment"
+            app:destination="@id/mapProjectFragment" />
     </fragment>
 </navigation>

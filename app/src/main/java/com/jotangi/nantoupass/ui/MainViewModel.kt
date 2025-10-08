@@ -253,6 +253,12 @@ class MainViewModel : ViewModel() {
         _signupData.value = null
         hasData = false
     }
+    fun clearStoreData() {
+        if (_storeData.value != null) {
+//            _storeData.value = emptyList()
+            _storeData.value = null
+        }
+    }
     fun clearForgetPwdData() {
         if (_forgetPasswordData.value != null) {
             _forgetPasswordData.value?.code = ""

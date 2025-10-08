@@ -3,172 +3,100 @@ package com.jotangi.nantoupass.ui.manager
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.vision.CameraSource
-import com.google.android.gms.vision.Detector
-import com.google.android.gms.vision.barcode.Barcode
-import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.jotangi.nantoupass.databinding.FragmentScanCouponBinding
 import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.ui.BaseFragment
 import com.jotangi.nantoupass.utility.AppUtility
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
 
 class ScanCouponFragment : BaseFragment() {
     private var _binding: FragmentScanCouponBinding? = null
     private val binding get() = _binding!!
-    override fun getToolBar(): ToolbarIncludeBinding = binding!!.toolbarInclude
+    override fun getToolBar(): ToolbarIncludeBinding = binding.toolbarInclude
 
-    private val REQUEST_CAMERA: Int = 22
-    private lateinit var cameraSource: CameraSource
-    private lateinit var barcodeDetector: BarcodeDetector
-    private var path: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var barcodeScannerView: DecoratedBarcodeView
+    private var scannedValue: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         _binding = FragmentScanCouponBinding.inflate(inflater, container, false)
-
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        init()
-    }
-
-    private fun init() {
         setupScanCouponTitle()
-        checkPermission()
+
+        barcodeScannerView = binding.barcodeScanner
+        checkCameraPermission()
     }
 
-    private fun checkPermission() {
-        //先獲取相機權限
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.CAMERA
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.CAMERA
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.CAMERA),
-                REQUEST_CAMERA
-            )
+            requestCameraPermission.launch(Manifest.permission.CAMERA)
         } else {
-            //初始化掃描器
-            initScanner()
-            //偵測後回傳
-            resultCallback()
+            startScanning()
         }
     }
 
-    private fun initScanner() {
-        binding.scannerSurfaceView.apply {
-            //創建Barcode偵測
-            barcodeDetector = BarcodeDetector.Builder(requireContext())
-                .setBarcodeFormats(Barcode.ALL_FORMATS)
-                .build()
+    private fun startScanning() {
+        barcodeScannerView.decodeContinuous(object : BarcodeCallback {
+            override fun barcodeResult(result: BarcodeResult) {
+                result.text?.let { barcode ->
+                    if (scannedValue == null) { // 鎖定只處理一次
+                        scannedValue = barcode
+                        Log.d("ScanCouponFragment", "Scanned coupon: $barcode")
 
-            //獲取寬高後創建Camera
-            viewTreeObserver.addOnGlobalLayoutListener(object :
-                ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    cameraSource = CameraSource.Builder(
-                        requireContext(),
-                        barcodeDetector
-                    )
-                        .setAutoFocusEnabled(true)
-                        .setRequestedPreviewSize(
-                            measuredWidth,
-                            measuredHeight
-                        )
-                        .build()
-                }
-            })
+                        // 呼叫 API
+                        AppUtility.updateWriteOffCouponNo(requireContext(), barcode)
 
-            //camera綁定surfaceView
-            holder.addCallback(object : SurfaceHolder.Callback {
-                override fun surfaceCreated(holder: SurfaceHolder) {
-                    if (ActivityCompat.checkSelfPermission(
-                            requireContext(),
-                            Manifest.permission.CAMERA
-                        ) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        return
+                        // 回上一頁
+                        findNavController().navigateUp()
                     }
-                    cameraSource.start(holder)
-                }
-
-                override fun surfaceChanged(
-                    holder: SurfaceHolder,
-                    format: Int,
-                    width: Int,
-                    height: Int
-                ) {
-
-                }
-
-                override fun surfaceDestroyed(holder: SurfaceHolder) {
-                    cameraSource.stop()
-                }
-            })
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (REQUEST_CAMERA == requestCode && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-            //初始化掃描器
-            initScanner()
-            //偵測後回傳
-            resultCallback()
-        }
-    }
-
-    private fun resultCallback() {
-        barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
-            override fun release() {}
-
-            override fun receiveDetections(detections: Detector.Detections<Barcode>) {
-                //或取資料
-                val barcode = detections.detectedItems
-                if (barcode.size() > 0) {
-                    path = barcode.valueAt(0).displayValue
-//                    if (path != null && path!!.contains("coupon_no=")) {
-//                        //可能會多次連線會有多次要規避多次拿取api
-//                        val arrays = path!!.split("=|&".toRegex()).toTypedArray()
-//                        val coupon = arrays[1]
-                        AppUtility.updateWriteOffCouponNo(
-                            requireContext(),
-                            path.toString()
-//                            coupon
-                        )
-//                        Log.d("TAG", "coupon: $coupon")
-//                    }
-
-                    findNavController().navigateUp()
                 }
             }
+
+            override fun possibleResultPoints(resultPoints: List<com.google.zxing.ResultPoint>) {}
         })
     }
 
-    companion object {
-
+    override fun onResume() {
+        super.onResume()
+        if (this::barcodeScannerView.isInitialized) {
+            barcodeScannerView.resume()
+        }
     }
+
+    override fun onPause() {
+        super.onPause()
+        if (this::barcodeScannerView.isInitialized) {
+            barcodeScannerView.pause()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private val requestCameraPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                startScanning()
+            } else {
+                Log.e("ScanCouponFragment", "Camera permission denied")
+            }
+        }
 }

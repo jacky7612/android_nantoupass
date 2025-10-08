@@ -20,6 +20,7 @@ import com.jotangi.nantoupass.model.charge.DataChargeHistory
 
 @SuppressLint("StaticFieldLeak")
 object Glob {
+    var ItemApply: ApplyItemInfo = ApplyItemInfo("", true)
     var curposActivity = ""
     lateinit var lstActivity: List<Response4Activity>
     lateinit var activity     : Activity
@@ -149,5 +150,12 @@ class ChargeInfo {
         start_time = ""
         stop_time = ""
         charge_time = ""
+    }
+}
+
+
+class ApplyItemInfo(var sid: String, var web_mode: Boolean = false) {
+    fun clear() {
+        sid = ""
     }
 }

@@ -54,6 +54,7 @@
 
     <!-- Keyword Input -->
     <EditText
+        android:visibility="gone"
         android:id="@+id/etKeyword"
         android:layout_width="0dp"
         android:layout_height="45dp"
@@ -71,6 +72,7 @@
 
     <!-- Search Button -->
     <TextView
+        android:visibility="gone"
         android:id="@+id/btnSearch"
         android:layout_width="120dp"
         android:layout_height="40dp"

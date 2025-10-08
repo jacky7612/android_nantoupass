@@ -51,4 +51,15 @@ interface ApiPassConfig {
     @GET("api/JTG_sightseeing.php")
     fun apiGetSightseeing(
     ): Call<ApiPassResp4Sightseeing>
+
+    // 取得申辦服務-主項目
+    @GET("api/JTG_applyitem.php")
+    fun apiGetApplyitems(
+    ): Call<ApiPassResp4Applyitem>
+
+    // 取得申辦服務-子項目
+    @GET("api/JTG_apply.php")
+    fun apiGetApplydetail(
+        @Query("sid") sid: String
+    ): Call<ApiPassResp4ApplyDetail>
 }

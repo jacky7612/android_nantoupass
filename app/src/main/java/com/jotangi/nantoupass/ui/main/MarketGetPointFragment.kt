@@ -11,22 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ExperimentalGetImage
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.google.mlkit.vision.barcode.BarcodeScanner
-import com.google.mlkit.vision.barcode.BarcodeScanning
-import com.google.mlkit.vision.common.InputImage
 import com.jotangi.nantoupass.R
 import com.jotangi.nantoupass.databinding.FragmentMarketGetPointBinding
 import com.jotangi.nantoupass.databinding.ToolbarIncludeBinding
 import com.jotangi.nantoupass.ui.BaseFragment
 import com.jotangi.nantoupass.utility.AppUtility
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import java.util.concurrent.Executors
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,8 +37,7 @@ private const val ARG_PARAM2 = "param2"
 class MarketGetPointFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var hasScanned = false
-    private lateinit var previewView: PreviewView
-    private lateinit var barcodeScanner: BarcodeScanner
+    private lateinit var previewView: DecoratedBarcodeView
     private var param1: String? = null
     private var param2: String? = null
     private var _binding: FragmentMarketGetPointBinding? = null
@@ -73,7 +66,6 @@ class MarketGetPointFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupMarketGetPointTitle()
         previewView = view.findViewById(R.id.previewView)
-        barcodeScanner = BarcodeScanning.getClient()
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -113,50 +105,25 @@ class MarketGetPointFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
-            cameraProvider.unbindAll()
-        }, ContextCompat.getMainExecutor(requireContext()))
     }
 
     private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
-
-        cameraProviderFuture.addListener({
-            val cameraProvider = cameraProviderFuture.get()
-
-            // Set up Preview
-            val preview = androidx.camera.core.Preview.Builder().build().also {
-                it.setSurfaceProvider(previewView.surfaceProvider)
-            }
-
-            // Set up Image Analysis
-            val imageAnalysis = ImageAnalysis.Builder()
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                .setOutputImageFormat(ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888)
-                .build()
-
-            // Analyzer
-            imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor()) { imageProxy ->
-                try {
-                    processImageProxy(imageProxy)
-                } catch (e: Exception) {
-                    e.printStackTrace()
+        previewView.decodeContinuous(object : BarcodeCallback {
+            override fun barcodeResult(result: BarcodeResult) {
+                result.text?.let { barcode ->
+                    Log.i("BarcodeScannerFragment", "Scanned Barcode: $barcode")
+                    barcode?.let {
+                        requireActivity().runOnUiThread {
+                            showQRCodeContent(it)
+                        }
+                    }
                 }
             }
 
-            // Camera selector
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-            // Bind camera lifecycle
-            cameraProvider.bindToLifecycle(
-                this,
-                cameraSelector,
-                preview,
-                imageAnalysis
-            )
-        }, ContextCompat.getMainExecutor(requireContext()))
+            override fun possibleResultPoints(resultPoints: List<com.google.zxing.ResultPoint>) {
+                // Handle possible result points if needed
+            }
+        })
     }
 
     override fun onRequestPermissionsResult(
@@ -175,39 +142,6 @@ class MarketGetPointFragment : BaseFragment() {
         }
     }
 
-
-    @androidx.annotation.OptIn(ExperimentalGetImage::class)
-    private fun processImageProxy(imageProxy: ImageProxy) {
-        Log.d("QRCodeScanner", "Analyzing frame...")
-
-        val mediaImage = imageProxy.image
-        if (mediaImage != null) {
-            val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
-            barcodeScanner.process(image)
-                .addOnSuccessListener { barcodes ->
-                    Log.d("QRCodeScanner", "Frames analyzed: ${barcodes.size}")
-                    for (barcode in barcodes) {
-                        val rawValue = barcode.rawValue
-                        Log.d("QRCodeScanner", "Detected QR Code: $rawValue")
-                        rawValue?.let {
-                            requireActivity().runOnUiThread {
-                                showQRCodeContent(it)
-                            }
-                        }
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Log.e("QRCodeScanner", "Error processing frame", e)
-                }
-                .addOnCompleteListener {
-                    imageProxy.close()
-                }
-        } else {
-            imageProxy.close()
-        }
-    }
-
-
     private fun showQRCodeContent(content: String?) {
         // Handle or display QR code content here
         if (!hasScanned) {
@@ -222,7 +156,7 @@ class MarketGetPointFragment : BaseFragment() {
                         pointType = "1"
                     )
                 } else {
-Toast.makeText(requireContext(), "QRCode 不正確", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "QRCode 不正確", Toast.LENGTH_LONG).show()
                 }
                 Log.d("micCheckQRCode", "QR Code Content: $it")
                 println("QR Code Content: $it")
@@ -247,7 +181,7 @@ Toast.makeText(requireContext(), "QRCode 不正確", Toast.LENGTH_LONG).show()
         btnConfirm.setOnClickListener {
             dialog.dismiss()
             hasScanned = false
-             // Close the dialog
+            // Close the dialog
         }
 
         // Show the dialog

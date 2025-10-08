@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jotangi.nantoupass.config.ApiPassResp4Agency
 import com.jotangi.nantoupass.config.ApiPassResp4AgencyUnit
+import com.jotangi.nantoupass.config.ApiPassResp4ApplyDetail
+import com.jotangi.nantoupass.config.ApiPassResp4Applyitem
 import com.jotangi.nantoupass.config.ApiPassResp4Banner
 import com.jotangi.nantoupass.config.ApiPassResp4News
 import com.jotangi.nantoupass.config.ApiPassResp4Sightseeing
@@ -378,4 +380,141 @@ class PassViewModel: ViewModel() {
         })
     }
     // Agency - end
+
+
+    // Apply items - start
+    private val _applyitem: MutableLiveData<ApiPassResp4Applyitem> by lazy {
+        MutableLiveData<ApiPassResp4Applyitem>()
+    }
+    val ApplyItem: LiveData<ApiPassResp4Applyitem> get() = _applyitem
+
+    fun clearApply() {
+        if (_applyitem.value != null) {
+            _applyitem.value!!.data = null
+            _applyitem.postValue(null)
+        }
+    }
+    private fun assignApplyRespMessage(code :String, status :String, msg :String) {
+        val resp =setResponseMessage(code, status, msg)
+        if (_applyitem.value == null)
+            _applyitem.value =ApiPassResp4Applyitem("", "", "", null)
+        _applyitem.value!!.code            =resp.code
+        _applyitem.value!!.status          =resp.status
+        _applyitem.value!!.responseMessage =resp.responseMessage
+        _std_check.clear()
+    }
+
+    fun getApplyItems(context: Context) {
+        val call: Call<ApiPassResp4Applyitem> = ApiPassUtility.service.apiGetApplyitems(
+        )
+        call.enqueue(object : Callback<ApiPassResp4Applyitem> {
+            override fun onResponse(
+                call: Call<ApiPassResp4Applyitem>,
+                response: Response<ApiPassResp4Applyitem>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    var resp = response.body()
+                    Log.d("CheckPass", resp.toString())
+                    if (resp != null) {
+                        if (resp.status == "true" && resp.code == "0x0200") {
+                            _applyitem.value = resp
+                        }
+                    }
+                } else {
+                    Log.d("CheckPass", "3")
+                    val msg ="搜尋申辦服務發生異常，請回首頁再次進行操作"
+                    assignApplyRespMessage("0x020F", "false", msg)
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        msg
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ApiPassResp4Applyitem>, t: Throwable) {
+                val msg ="搜尋申辦服務，請回首頁再次進行操作"
+                assignApplyRespMessage("0x020E", "false", msg)
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    msg
+                )
+            }
+        })
+    }
+    // Apply items - end
+
+
+    // Apply detail - start
+    private val _applydetail: MutableLiveData<ApiPassResp4ApplyDetail> by lazy {
+        MutableLiveData<ApiPassResp4ApplyDetail>()
+    }
+    val ApplyDetail: LiveData<ApiPassResp4ApplyDetail> get() = _applydetail
+
+    fun clearApplyDetail() {
+        if (_applydetail.value != null) {
+            _applydetail.value!!.data = null
+            _applydetail.postValue(null)
+        }
+    }
+    private fun assignApplyDetailRespMessage(code :String, status :String, msg :String) {
+        val resp =setResponseMessage(code, status, msg)
+        if (_applydetail.value == null)
+            _applydetail.value =ApiPassResp4ApplyDetail("", "", "", null)
+        _applydetail.value!!.code            =resp.code
+        _applydetail.value!!.status          =resp.status
+        _applydetail.value!!.responseMessage =resp.responseMessage
+        _std_check.clear()
+    }
+
+    fun getApplyDetail(context: Context, sid: String) {
+        val call: Call<ApiPassResp4ApplyDetail> = ApiPassUtility.service.apiGetApplydetail(
+            sid = sid
+        )
+        call.enqueue(object : Callback<ApiPassResp4ApplyDetail> {
+            override fun onResponse(
+                call: Call<ApiPassResp4ApplyDetail>,
+                response: Response<ApiPassResp4ApplyDetail>
+            ) {
+                val statusCode = response.code()
+                val url = response.raw().request.url.toString()
+                Log.d("目前 status code & URL 是", "\n" + statusCode + "\n" + url)
+
+                if (response.body() != null) {
+                    var resp = response.body()
+                    Log.d("CheckPass", resp.toString())
+                    if (resp != null) {
+                        if (resp.status == "true" && resp.code == "0x0200") {
+                            _applydetail.value = resp
+                        }
+                    }
+                } else {
+                    Log.d("CheckPass", "3")
+                    val msg ="搜尋申辦服務發生異常，請回首頁再次進行操作"
+                    assignApplyRespMessage("0x020F", "false", msg)
+                    AppUtility.showPopDialog(
+                        context,
+                        statusCode.toString(),
+                        msg
+                    )
+                }
+            }
+
+            override fun onFailure(call: Call<ApiPassResp4ApplyDetail>, t: Throwable) {
+                val msg ="搜尋申辦服務，請回首頁再次進行操作"
+                assignApplyRespMessage("0x020E", "false", msg)
+                AppUtility.showPopDialog(
+                    context,
+                    null,
+                    msg
+                )
+            }
+        })
+    }
+    // Apply items - end
 }
